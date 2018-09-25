@@ -6,6 +6,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     data-username: root
     data-password: yujianni1230
+  mvc:
+    view:
+      prefix:
+      suffix: .html
 
 server:
   port: 8000

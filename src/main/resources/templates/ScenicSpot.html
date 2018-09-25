@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>北京景点介绍,北京旅游景点,北京景点推荐 - 嗡嗡嗡</title>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <script th:src="@{/js/jquery-1.11.0.min.js}" type="text/javascript"></script>
+    <script type="text/javascript">window.Env = {"isCnmain":true,"country_mddid":21536,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":53274674,"CSTK":"e387a3c127f529d97869b87cb48300d3_c8de6197262fc27135e43efc4ce101c1","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};</script>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-v2:css+mdd+map-mark.v2:css+mdd+scenic-list^ZlM^1522007090.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/mdd/place-crumb.css?1519936459" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+
+
+    <style type="text/css">
+        #header{
+            margin-bottom: 0;
+        }
+        .crumb {
+            width: 1000px;
+            font:12px Arial,"Microsoft Yahei","\5FAE\8F6F\96C5\9ED1",Tahoma,Helvetica,STHeiti,"Hiragino Sans GB";
+            height: 20px;
+            padding: 15px 0;
+            color: #666;
+            line-height: 20px;
+            margin: 0 auto;
+        }
+        .crumb .item a{
+            color:#666;
+            font-size:12px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">目的地</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">旅游攻略</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div id="container" data-cs-t="景点列表页">
+    <div class="row row-placeTop" data-cs-p="面包屑">
+        <div class="wrapper">
+
+            <!-- 目的地 > 中国 > 北京 > 北京景点 -->
+            <div class="crumb">
+                <div class="item">目的地<em>&gt;</em></div>
+                <div class="item">中国<em>&gt;</em></div>
+                <div class="item">北京<em>&gt;</em></div>
+                <div class="item">北京景点<em>&gt;</em></div>
+            </div>
+
+            <!-- 玩法路线 景点 攻略 游记 问答 地图 -->
+            <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
+                <div class="navbar-con">
+                    <ul class="navbar clearfix">
+                        <li class="navbar-line">
+                            <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
+                                <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-scenic">
+                            <a class="navbar-btn" href="#"  data-cs-p="景点">
+                                <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-overview">
+                            <a class="navbar-btn" href="#"  data-cs-p="首页">
+                                <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-sales navbar-dropdown">
+                            <a class="navbar-btn " href="#" target="_blank" data-cs-p="特价机票">
+                                <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-community navbar-dropdown">
+                            <a class="navbar-btn ">
+                                <i class="navbar-icon"></i><span>问答</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-maps navbar-last">
+                            <a class="navbar-btn" href="#" target="_blank" data-cs-p="地图">
+                                <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 景点概括 -->
+<div class="row row-summary row-bg">
+    <div class="wrapper">
+        <h2 class="title">景点概况</h2>
+        <div>
+            <p style="display: none;">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门...</p>
+            <span id="mdd_poi_desc">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门、故宫、长城莫属，除此以外，可根据各人的兴趣爱好进行多样化的选择。不论是情侣出行还是亲子旅游，向往皇家古迹还是时尚街区，都能在北京找到最适合的去处。</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            function getRownum(obj) {
+                try {
+                    var lines = obj.getClientRects(), i = lines.length, map ={}, num = 0;
+                    while (i--) {
+                        if (!map[lines[i].top]) {
+                            num++;
+                            map[lines[i].top] = 1;
+                        }
+                    }
+                    return num;
+                } catch (e) {
+                    return 1;
+                }
+            }
+            var $con = $("#mdd_poi_desc"), rownum = getRownum($con[0]);
+            if (rownum > 2) {
+                $('<a style="color:#ff9d00;">展开全部</a>').appendTo($con.hide().prev().show()).click(function (e) {
+                    e.preventDefault();
+                    $(this).parent().hide().next().show();
+                });
+            }
+        }());
+    </script>
+</div>
+
+<!-- 全部景点 -->
+    <div class="row row-top5"  data-cs-p="全部景点">
+        <div class="wrapper">
+            <h2 class="title">全部景点</h2>
+            <div class="item clearfix">
+                <div class="info">
+                    <div class="middle">
+                        <h3>
+                            <span class="num">1</span>
+                            <a href="#" target="_blank" title="故宫">故宫
+                                <a href="#" target="_blank" title="故宫">
+                                    <span class="rev-total"><em>12109</em> 条点评</span>
+                                </a>
+                            </a>
+                        </h3>
+                        <p>中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
+                    </div>
+                </div>
+                <div class="pic">
+                    <a href="#" target="_blank" title="故宫">
+                        <div class="large">
+                            <img src="http://b3-q.mafengwo.net/s9/M00/2F/9E/wKgBs1cWRpCACWlSAAdObOdTPvo56.jpeg?imageMogr2%2Fthumbnail%2F%21380x270r%2Fgravity%2FCenter%2Fcrop%2F%21380x270%2Fquality%2F100" width="380" height="270"/>
+                        </div>
+                        <div>
+                            <img src="http://p1-q.mafengwo.net/s10/M00/B4/32/wKgBZ1nA0aqABQ6GACT5xoJv-Y4957.png?imageMogr2%2Fthumbnail%2F%21185x130r%2Fgravity%2FCenter%2Fcrop%2F%21185x130%2Fquality%2F100" width="185" height="130"/>
+                        </div>
+                        <div>
+                            <img src="http://n1-q.mafengwo.net/s6/M00/BE/FC/wKgB4lL98ASAb6FVAAK-4Mct1zU26.jpeg?imageMogr2%2Fthumbnail%2F%21185x130r%2Fgravity%2FCenter%2Fcrop%2F%21185x130%2Fquality%2F100" width="185" height="130"/>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看城市全部景点地图 -->
+    <div class="row row-allPlace row-bg" data-cs-p="地图">
+        <div class="wrapper">
+            <a class="maps" href="#" target="_blank" title="查看景点地图">
+                <div id="_staticHotMap" style="height: 246px;"></div>
+                <div class="mask"></div>
+                <div class="trigger">
+                    <span class="btn">查看北京景点地图</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <script>
+        // 百度地图API功能
+        var map = new BMap.Map("_staticHotMap");    // 创建Map实例
+        map.centerAndZoom("北京", 9);  // 初始化地图,设置中心点坐标和地图级别
+    </script>
+
+</div>
+
+<!-- 页脚（关于我们） -->
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!-- 返回顶部 -->
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+</div>
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+hotel+mfwmap+mfwmap-overlays:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^a1dT^1532697023.js");
+    }
+</script>
+
+</body>
+</html>
