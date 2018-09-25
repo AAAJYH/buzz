@@ -8,4 +8,4 @@ spring:
     data-password: yujianni1230
 
 server:
-  port: 8080
+  port: 8000
