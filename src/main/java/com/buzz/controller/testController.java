@@ -1,9 +1,8 @@
 package com.buzz.controller;
 
-public class testController {
-    public String test()
-    {
-        System.out.println("测试");
-        return  null;
-    }
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class TestController {
+
 }
