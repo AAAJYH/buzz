@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>北京景点介绍,北京旅游景点,北京景点推荐 - 嗡嗡嗡</title>
+    <title>酒店 - 嗡嗡嗡</title>
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
     <script th:src="@{/js/jquery-1.11.0.min.js}" type="text/javascript"></script>
     <script type="text/javascript">window.Env = {"isCnmain":true,"country_mddid":21536,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":53274674,"CSTK":"e387a3c127f529d97869b87cb48300d3_c8de6197262fc27135e43efc4ce101c1","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};</script>
-    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
-    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-v2:css+mdd+map-mark.v2:css+mdd+scenic-list^ZlM^1522007090.css" rel="stylesheet" type="text/css"/>
-    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
-    <link href="http://css.mafengwo.net/css/mdd/place-crumb.css?1519936459" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
-
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
 
     <style type="text/css">
         #header{
@@ -33,8 +33,161 @@
             color:#666;
             font-size:12px;
         }
-
+        .scenic_spot,#map{
+            width:350px;
+            height:220px;
+            margin-top:40px;
+            margin-left:265px;
+            margin-bottom:40px;
+        }
+        #map{
+            width:500px;
+            margin-left:640px;
+            margin-top:-263px;
+        }
+        .scenic_spot span{
+            font-family:"微软雅黑";
+            font-size:120%;
+            color:black;
+            padding:5px;
+            border-radius:5px
+        }
+        .scenic_spot span:hover{
+            cursor:pointer;
+            color:#FFB200;
+        }
+        #HotelContent{
+            width:880px;
+            height:auto;
+            margin-left:265px;
+        }
+        .hotel{
+            width:880px;
+            height:200px;
+            padding:20px 0px;
+            border-bottom:1px solid #EAEAEA;
+        }
+        .hotel .title,.service,.address,.marker,.minPrice,.star{
+            position:relative;
+            top:-195px;
+            left:320px;
+            font-size:150%;
+        }
+        .hotel .star{
+            top:-185px;
+            width:116px;
+            height:24px;
+        }
+        .hotel .service{
+            top:-155px;
+            width:553px;
+            height:70px;
+            font-size:105%;
+        }
+        .hotel .address{
+            left:345px;
+            top:-198px;
+            font-size:105%;
+        }
+        .hotel .marker{
+            top:-175px;
+            left:315px;
+        }
+        .hotel .minPrice{
+            width:120px;
+            height:25px;
+            top:-255px;
+            color:#FF8A00;
+        }
+        .hotel .minPrice span{
+            color:#666666;
+            font-size:70%;
+        }
     </style>
+
+    <script>
+
+        $(function(){
+
+            //景点点击事件
+            $(".scenic_spot span").click(function(){
+                //全部默认样式
+                $(".scenic_spot span").css("background","#fff");
+                $(".scenic_spot span").css("color","black");
+                //改变点击span样式
+                $(this).css("background","#FFB200");
+                $(this).css("color","white");
+
+                //获取景点经纬度
+                var lng=$(this).next().val();
+                var lat=$(this).next().next().val();
+
+                //设置当前地图的中心店
+                var map=new BMap.Map("map");
+                var point=new BMap.Point(lng,lat);
+                map.centerAndZoom(point,14);
+                map.enableScrollWheelZoom();
+
+                //中心点添加闪烁标注点
+                var centerMarker=new BMap.Marker(point);
+                centerMarker.setZIndex(10);
+                centerMarker.setTitle($(this).text());
+                centerMarker.addEventListener("click",function(){
+                    alert("跳转景点详情");
+                    window.open("/ScenicSpot");
+                });
+                map.addOverlay(centerMarker);
+                centerMarker.setAnimation(BMAP_ANIMATION_BOUNCE); //设置标注点动画效果  Animation:活泼 bounce:跳
+
+                //根据景点坐标获取周围酒店
+                $.ajax({
+                    url:'http://apitest.99263.com/Hotel/SearchHotelList',
+                    type:'post',
+                    data:{
+                        "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                        "Timestamp": "2017/10/01 00:00:00",
+                        "Data": {
+                            "PageSize": 10,
+                            "PageIndex": 1,
+                            "CLng":lng,
+                            "CLat":lat,
+                        }
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        $("#HotelContent").empty();
+
+                        //酒店以标注点形式在地图上显示
+                        var hotelData=data.Data.DataHotel;
+                        for(var i=0;i<hotelData.length;i++){
+                            var point=new BMap.Point(hotelData[i].Lng,hotelData[i].Lat); //创建坐标点
+                            var marker=new BMap.Marker(point); //创建一个标注点
+                            centerMarker.setZIndex(10); //设置覆盖物的Zindex
+                            marker.setTitle(hotelData[i].HotelName); //鼠标移至标注点显示的标题
+                            marker.addEventListener("click",function(){ //添加标注点击事件
+                                alert("打开酒店详情页面");
+                                window.open("/ScenicSpot");
+                            });
+                            map.addOverlay(marker);// 将标注添加到地图中
+
+                            //显示周围酒店内容
+                            $("#HotelContent").append("<div class=\"hotel\">\n" +
+                                "        <img src='"+hotelData[i].DefaultPicture+"' width=\"300px\" height=\"200px\"/>\n" +
+                                "        <div class=\"title\">"+hotelData[i].HotelName+"</div>\n" +
+                                "        <div class=\"star\">"+hotelData[i].Star+"</div>\n" +
+                                "        <div class=\"service\"><b>服务：</b>"+hotelData[i].Service+"</div>\n" +
+                                "        <div class=\"minPrice\"><span>最低价格：</span>￥"+hotelData[i].MinPrice+"&nbsp;</div>\n" +
+                                "        <img src='images/marker.png' class=\"marker\"/>\n" +
+                                "        <div class=\"address\">"+hotelData[i].Address+"</div>\n" +
+                                "    </div>");
+                        }
+                    }
+                });
+
+            });
+        });
+
+    </script>
 
 </head>
 <body>
@@ -68,7 +221,7 @@
                 <div class="item">目的地<em>&gt;</em></div>
                 <div class="item">中国<em>&gt;</em></div>
                 <div class="item">北京<em>&gt;</em></div>
-                <div class="item cur">北京景点</div>
+                <div class="item cur">北京酒店</div>
             </div>
 
             <!-- 玩法路线 景点 攻略 游记 问答 地图 -->
@@ -124,94 +277,24 @@
     </div>
 </div>
 
-<!-- 景点概括 -->
-<div class="row row-summary row-bg">
-    <div class="wrapper">
-        <h2 class="title">景点概况</h2>
-        <div>
-            <p style="display: none;">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门...</p>
-            <span id="mdd_poi_desc">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门、故宫、长城莫属，除此以外，可根据各人的兴趣爱好进行多样化的选择。不论是情侣出行还是亲子旅游，向往皇家古迹还是时尚街区，都能在北京找到最适合的去处。</span>
-        </div>
-    </div>
-    <script type="text/javascript">
-        (function () {
-            function getRownum(obj) {
-                try {
-                    var lines = obj.getClientRects(), i = lines.length, map ={}, num = 0;
-                    while (i--) {
-                        if (!map[lines[i].top]) {
-                            num++;
-                            map[lines[i].top] = 1;
-                        }
-                    }
-                    return num;
-                } catch (e) {
-                    return 1;
-                }
-            }
-            var $con = $("#mdd_poi_desc"), rownum = getRownum($con[0]);
-            if (rownum > 2) {
-                $('<a style="color:#ff9d00;">展开全部</a>').appendTo($con.hide().prev().show()).click(function (e) {
-                    e.preventDefault();
-                    $(this).parent().hide().next().show();
-                });
-            }
-        }());
-    </script>
+<!-- 当前城市的景点 -->
+<div class="scenic_spot">
+    <span style="background:#FFB200;color:white;">全部</span>&nbsp;
+    <span>天安门</span><input type="hidden" value="116.403847"><input type="hidden" value="39.915526">&nbsp;
+    <span>颐和园</span><input type="hidden" value="116.278749"><input type="hidden" value="40.004869">&nbsp;
+    <span>鸟巢</span><input type="hidden" value="116.402359"><input type="hidden" value="39.999763">&nbsp;
+    <span>天坛</span><input type="hidden" value="116.417246"><input type="hidden" value="39.888243">&nbsp;
 </div>
 
-<!-- 全部景点 -->
-    <div class="row row-top5"  data-cs-p="全部景点">
-        <div class="wrapper">
-            <h2 class="title">全部景点</h2>
-            <div class="item clearfix">
-                <div class="info">
-                    <div class="middle">
-                        <h3>
-                            <span class="num">1</span>
-                            <a href="#" target="_blank" title="故宫">故宫
-                                <a href="#" target="_blank" title="故宫">
-                                    <span class="rev-total"><em>12109</em> 条点评</span>
-                                </a>
-                            </a>
-                        </h3>
-                        <p>中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
-                    </div>
-                </div>
-                <div class="pic">
-                    <a href="#" target="_blank" title="故宫">
-                        <div class="large">
-                            <img src="http://b3-q.mafengwo.net/s9/M00/2F/9E/wKgBs1cWRpCACWlSAAdObOdTPvo56.jpeg?imageMogr2%2Fthumbnail%2F%21380x270r%2Fgravity%2FCenter%2Fcrop%2F%21380x270%2Fquality%2F100" width="380" height="270"/>
-                        </div>
-                        <div>
-                            <img src="http://p1-q.mafengwo.net/s10/M00/B4/32/wKgBZ1nA0aqABQ6GACT5xoJv-Y4957.png?imageMogr2%2Fthumbnail%2F%21185x130r%2Fgravity%2FCenter%2Fcrop%2F%21185x130%2Fquality%2F100" width="185" height="130"/>
-                        </div>
-                        <div>
-                            <img src="http://n1-q.mafengwo.net/s6/M00/BE/FC/wKgB4lL98ASAb6FVAAK-4Mct1zU26.jpeg?imageMogr2%2Fthumbnail%2F%21185x130r%2Fgravity%2FCenter%2Fcrop%2F%21185x130%2Fquality%2F100" width="185" height="130"/>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- 地图显示当前景点周围酒店的坐标 -->
+<div id="map"></div>
+<script>
+    var map = new BMap.Map("map");    // 创建Map实例
+    map.centerAndZoom("北京", 12);
+    map.enableScrollWheelZoom();
+</script>
 
-    <!-- 查看城市全部景点地图 -->
-    <div class="row row-allPlace row-bg" data-cs-p="地图">
-        <div class="wrapper">
-            <a class="maps" href="#" target="_blank" title="查看景点地图">
-                <div id="_staticHotMap" style="height: 246px;"></div>
-                <div class="mask"></div>
-                <div class="trigger">
-                    <span class="btn">查看北京景点地图</span>
-                </div>
-            </a>
-        </div>
-    </div>
-    <script>
-        // 百度地图API功能
-        var map = new BMap.Map("_staticHotMap");    // 创建Map实例
-        map.centerAndZoom("北京", 9);  // 初始化地图,设置中心点坐标和地图级别
-    </script>
+<div id="HotelContent">
 
 </div>
 
@@ -280,21 +363,6 @@
         </div>
     </div>
 </div>
-
-<!-- 返回顶部 -->
-<div class="mfw-toolbar" id="_j_mfwtoolbar">
-    <div class="toolbar-item-top">
-        <a role="button" class="btn _j_gotop">
-            <i class="icon_top"></i>
-            <em>返回顶部</em>
-        </a>
-    </div>
-</div>
-<script language="javascript" type="text/javascript">
-    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
-        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+hotel+mfwmap+mfwmap-overlays:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^a1dT^1532697023.js");
-    }
-</script>
 
 </body>
 </html>

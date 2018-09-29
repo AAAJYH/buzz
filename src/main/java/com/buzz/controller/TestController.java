@@ -17,4 +17,28 @@ public class TestController {
         return "ScenicSpot";
     }
 
+    //游记页面
+    @RequestMapping("/TravelNotes")
+    public String TravelNotesIndex(){
+        return "TravelNotes";
+    }
+
+       //攻略页面
+    @RequestMapping("/Strategy")
+    public String StrategyIndex(){
+        return "Strategy";
+    }
+
+    //酒店页面
+    @RequestMapping("/Hotel")
+    public String HotelIndex(){
+        return "Hotel";
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
+    }
+
+
 }

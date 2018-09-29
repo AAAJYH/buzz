@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{js/jquery-1.11.0.min.js}" type="text/javascript"></script>
+<script>
+
+    <!-- 酒店接口 -->
+    $(function(){
+        $.ajax({
+            url:'http://apitest.99263.com/Hotel/SearchHotelList',
+            type:'post',
+            data:{
+                "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                "Timestamp": "2017/10/01 00:00:00",
+                "Data": {
+                    "PageSize": 10,
+                    "PageIndex": 1,
+                    "CLng":116.403414,
+                    "CLat":39.924091,
+                }
+            },
+            dataType:'json',
+            success:function(data){
+                alert(data.Data.DataHotel.length);
+                alert(JSON.stringify(data));
+            }
+        });
+    });
+
+
+
+
+</script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            color: #222222;
+        }
+        #box{
+            width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        #content{
+            background-color: #b3dae9;
+            border-radius: 8px;
+            box-shadow: 1px 1px 1px #ccc;
+            border:1px solid #EEEEEE;
+        }
+        h4{
+            font-size: 16px;
+        }
+        h4,p{
+            padding: 10px 0;
+        }
+        #btn{
+            width: 80px;
+        }
+        #spread{
+            height: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="content">
+        <h4>皮质腕表 水晶刻度大气表盘</h4>
+        <p>瑞典 | Daniel Wellington | 价格:￥1233.24</p>
+        <div id="spread">
+            <img src="http://tp1.znimg.com/hotel_images/14380/160x120_40101025_0_8_0009_3.jpg">
+            <img src="images/pic.jpg" alt="">
+            <p>税费：进口税 预计146.76元</p>
+            <p>物流：香港仓发货 至中国海关 至杭州市</p>
+            <p>运费：0.00 24：00前付款,预计15日内送达</p>
+        </div>
+    </div>
+    <button id="btn">展开</button>
+</div>
+
+</body>
+</html>
+<script>
+    /*获得btn*/
+    var btn = document.getElementById('btn')
+    var spread = document.getElementById('spread')
+    var iSpread = false
+    /*高度*/
+    var height = spread.scrollHeight
+    /*总时间*/
+    var time = 420;
+    /*间隔*/
+    var interval = 8.4
+    /*速度*/
+    var speed = height/(time/interval)
+    /*点击事件*/
+    btn.onclick = function (e) {
+        btn.disabled = 'disabled'
+        if(!iSpread){
+            var speeds = 0
+            var timer = setInterval(function () {
+                speeds += speed
+                spread.style.height = speeds + 'px'
+
+                if(parseInt(spread.style.height) >=height){
+                    clearTimeout(timer)
+                    btn.disabled = ''
+                }
+            },interval)
+            this.innerHTML = '收起'
+        }else {
+            var speeds = height
+            this.innerHTML = '展开'
+            var timer = setInterval(function () {
+                speeds -= speed
+                spread.style.height = speeds + 'px'
+                if(speeds <= 0){
+                    clearTimeout(timer)
+                    btn.disabled = ''
+                }
+            },interval)
+        }
+        iSpread = !iSpread
+    }
+
+</script>
+
