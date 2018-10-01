@@ -48,4 +48,32 @@ public class usersService
         else
             return 3;
     }
+    public int update_userPassword_By_bindPhone(String userPassword,String bindPhone)
+    {
+        return userdao.update_userPassword_By_bindPhone(userPassword,bindPhone);
+    }
+    public int update_userPassword_By_bindEmail(String userPassword,String bindEmail)
+    {
+        return userdao.update_userPassword_By_bindEmail(userPassword,bindEmail);
+    }
+    /**
+     *  通过手机号和密码登录
+     * @param bindPhone 手机号
+     * @param userPassword   密码
+     * @return
+     */
+    public users login_user(String bindPhone,String userPassword)
+    {
+        return userdao.login_user(bindPhone,userPassword);
+    }
+    /**
+     * 通过邮箱和密码查询用户
+     * @param bindEmail 邮箱
+     * @param userPassword  密码
+     * @return
+     */
+    public users find_userByuserPasswordAndbindEmail(String bindEmail,String userPassword)
+    {
+        return userdao.find_userByuserPasswordAndbindEmail(bindEmail,userPassword);
+    }
 }

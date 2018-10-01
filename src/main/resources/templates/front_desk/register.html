@@ -18,6 +18,7 @@
             <div class="signup-box">
                 <div class="add-info">
                     <div class="hd">账号注册</div>
+                    <div class="alert alert-danger" th:if="${null != danger_message}" th:text="${danger_message}"></div>
                     <form action="usersController/register_user"  method="post" id="_j_signup_mobile_form">
                         <input type="hidden" name="challenge">
                         <div class="form-field m-t-10">
@@ -52,15 +53,5 @@
 <script language="javascript" src="js/js+jquery-1.8.1.min_js+plugins+jquery.placeholder_passport+js+app^ZVA^1493174420.js" type="text/javascript" crossorigin="anonymous"></script>
 <script language="javascript" src="js/register.js" type="text/javascript" crossorigin="anonymous"></script>
 <div class="fullscreen-bg" style="background-image: url(images/32.jpg);"><img src="images/32.jpg&#10;" style="width: auto; height: 969px;"></div>
-<script th:inline="javascript" type="text/javascript">
-    $().ready(
-        function()
-        {
-            var register_user_Result=[[${register_user_Result}]];//使用Springboot的thymeleaf获取存储在request的值
-            if(register_user_Result!=null&&register_user_Result.length>0&&register_user_Result==false)
-                alert("抱歉,注册失败请重试!");
-        }
-    );
-</script>
 </body>
 </html>

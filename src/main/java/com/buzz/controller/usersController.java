@@ -3,6 +3,7 @@ package com.buzz.controller;
 import com.alibaba.fastjson.JSON;
 import com.buzz.entity.smsCode;
 import com.buzz.entity.users;
+import com.buzz.service.emailService;
 import com.buzz.service.usersService;
 import com.buzz.utils.Encryption;
 import com.buzz.utils.verifyCodeUtils;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -23,10 +25,12 @@ import java.io.OutputStream;
 
 @Controller
 @RequestMapping("usersController")
+@SessionAttributes("user")
 public class usersController {
     @Resource
     private usersService usersservice;
-
+    @Resource
+    private emailService emailservice;
     /**
      * 显示登录页面
      *
@@ -69,11 +73,27 @@ public class usersController {
     {
         return "front_desk/forgetuserPassword";
     }
+
+    /**
+     * 显示修改用户密码页面,根据temp变量指定显示根据手机号修改用户密码页面或根据邮箱修改用户密码页面
+     * @param temp email/phone
+     * @param passport 手机号或邮箱账号
+     * @param model
+     * @param response
+     * @return
+     */
     @RequestMapping("showUpdateuserPassword_html")
     public String showUpdateuserPassword_html(String temp,String passport,Model model,HttpServletResponse response)
     {
         if(null!=temp&&temp.equals("email"))
         {
+            String code=Encryption.getUUID();
+            Cookie cookie=new Cookie(code,passport);
+            cookie.setMaxAge(60*60*24);//设置为一天时间
+            response.addCookie(cookie);
+            String url="http://localhost:8000/usersController/show_updateuserPasswordBybindEmail_html?code="+code;
+            String content="<div style='width:500px;margin:auto;border:1px solid #DEDEDE;padding:50px;'><p style='border-bottom:1px solid #CCCCCC;padding:10px 0px;'><span style='font-family:Montserrat;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:25px;color: #7B7B7B;'>buzz Travel network</span></p><p style='font-size:18px;font-family: 黑体;font-weight: bold;color:#7B7B7B;'>亲爱的用户，你好!</p><p style='color: #7B7B7B;'>我们已经收到了你的密码重置请求，请 24 小时内点击下面的按钮重置密码。</p><p style='text-align:center;'><a style='display: inline-block;width:120px;height:50px;background-color:#FFA800;color:white;line-height: 50px;border-radius: 3px;text-decoration: none;' href='"+url+"'>重置密码</a></p><p style='margin-top:50px;border-top:1px solid #CCCCCC;padding:10px 0px;color:#7B7B7B;'>如果以上按钮无法打开，请把下面的链接复制到浏览器地址栏中打开：</p><a href='"+url+"' style='color:#7B7B7B;'>"+url+"</a></div>";
+            emailservice.sendHtmlEmail(passport,"设置新密码",content);
             model.addAttribute("bindEmail",passport);
             return "front_desk/updateBybindEmailuserPassword";
         }
@@ -94,7 +114,16 @@ public class usersController {
             return "front_desk/updateBybindPhoneuserPassword";
         }
         else
+        {
+            model.addAttribute("danger_message","啊哦,出错了,请不要随意更改浏览器地址栏地址!");
             return "front_desk/forgetuserPassword";
+        }
+    }
+    @RequestMapping("show_updateuserPasswordBybindEmail_html")
+    public String show_updateuserPasswordBybindEmail_html(String code,Model model)
+    {
+        model.addAttribute("code",code);
+        return "front_desk/updateuserPasswordBybindEmail";
     }
     /**
      * 验证注册用户
@@ -141,7 +170,6 @@ public class usersController {
                         str = str.replace('#', '"');
                         str = str.replace('@', ',');
                         smsCode smscode = JSON.parseObject(str, smsCode.class);
-                        System.out.println(smscode.getBindPhone());
                         if (smscode.getBindPhone().equals(bindPhone) && smscode.getVerificationCode().equals(verificationCode))
                             flag = true;
                         else
@@ -154,6 +182,14 @@ public class usersController {
         } else
             return false;
     }
+
+    /**
+     * 检测图片验证码是否正确
+     * @param code
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
     @RequestMapping("checkCode")
     public boolean checkCode(String code, HttpServletRequest request, HttpServletResponse response)
@@ -194,10 +230,13 @@ public class usersController {
         user.setStateId("0ee26211-3ae8-48b7-973f-8488bfe837d6");
         user.setBindPhone(mobile);
         if (0 < usersservice.register_user(user))
+        {
+            model.addAttribute("warning_message","注册用户成功,请登录。");
             return "front_desk/login";
+        }
         else {
             model.addAttribute("bindPhone", user.getPhoto());
-            model.addAttribute("register_user_Result", false);
+            model.addAttribute("danger_message", "抱歉,注册用户失败,请重试。");
             return "front_desk/register";
         }
     }
@@ -213,12 +252,25 @@ public class usersController {
     {
         return usersservice.checkbindPhone(bindPhone);
     }
+
+    /**
+     *  检测邮箱是否已经存在
+     * @param bindEmail
+     * @return
+     */
     @ResponseBody
     @RequestMapping("checkbindEmail")
     public Integer checkbindEmail(String bindEmail)
     {
         return usersservice.checkbindEmail(bindEmail);
     }
+
+    /**
+     * 生成图片验证码并返回给前台
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @ResponseBody
     @RequestMapping("generate_verifyCode")
     public void generate_verifyCode(HttpServletRequest request,HttpServletResponse response) throws IOException
@@ -257,7 +309,7 @@ public class usersController {
         {
             try
             {
-                fis.close();//必须在上面,之后要进行删除图片操作,删除之前关闭,不让图片被其他进程所使用
+                fis.close();//必须在上面,之后要进行删除图片操作,删除之前关闭,删除图片不能被其他进程所使用
                 os.close();
                 if(file.exists())
                 {
@@ -267,6 +319,93 @@ public class usersController {
             {
                 e.printStackTrace();
             }
+        }
+    }
+    @RequestMapping("update_userPassword_By_bindPhone")
+    public String update_userPassword_By_bindPhone(String password,String mobile,Model model)
+    {
+        users user=usersservice.login_user(mobile,Encryption.encryption_md5(password));
+        if(null!=user&&user.getBindPhone().equals(mobile))
+        {
+            model.addAttribute("bindPhone",mobile);
+            model.addAttribute("danger_message","新密码不能与旧密码一致,请重新设置。");
+            return "front_desk/updateBybindPhoneuserPassword";
+        }
+        else
+        {
+            Integer result=usersservice.update_userPassword_By_bindPhone(Encryption.encryption_md5(password),mobile);
+            if(null!=result&&0<result)
+            {
+                model.addAttribute("warning_message","密码设置成功,请重新登录。");
+                return "front_desk/login";
+            }
+            else
+            {
+                model.addAttribute("bindPhone",mobile);
+                model.addAttribute("danger_message","密码设置失败,请重新设置。");
+                return "front_desk/updateBybindPhoneuserPassword";
+            }
+        }
+    }
+    @RequestMapping("update_userPassword_By_bindEmail")
+    public String update_userPassword_By_bindEmail(String code,String password,HttpServletRequest request,Model model)
+    {
+        Cookie [] cookies=request.getCookies();
+        String bindEmail=null;
+        if(null!=cookies&&0<cookies.length)
+        {
+            for(Cookie c:cookies)
+            {
+                if(c.getName().equals(code))
+                {
+                    bindEmail=c.getValue();
+                }
+            }
+        }
+        if(null!=bindEmail)
+        {
+            users user=usersservice.find_userByuserPasswordAndbindEmail(bindEmail,Encryption.encryption_md5(password));
+            if(null!=user&&bindEmail.equals(user.getBindEmail()))
+            {
+                model.addAttribute("danger_message","新密码不能与旧密码一致,请重新设置。");
+                model.addAttribute("code",code);
+                return "front_desk/updateuserPasswordBybindEmail";
+            }
+            else
+            {
+                int result=usersservice.update_userPassword_By_bindEmail(Encryption.encryption_md5(password),bindEmail);
+                if(0<result)
+                {
+                    model.addAttribute("warning_message","密码设置成功,请重新登录。");
+                    return "front_desk/login";
+                }
+                else
+                {
+                    model.addAttribute("danger_message","抱歉,修改密码失败,请重新设置。");
+                    model.addAttribute("code",code);
+                    return "front_desk/updateuserPasswordBybindEmail";
+                }
+            }
+        }
+        else
+        {
+            model.addAttribute("danger_message","验证数据已过期,请重试!");
+            return "front_desk/forgetuserPassword";
+        }
+    }
+    @RequestMapping("login_user")
+    public String login_user(String passport,String password,Model model)
+    {
+        users user=usersservice.login_user(passport,Encryption.encryption_md5(password));
+        if(null!=user&&user.getBindPhone().equals(passport))
+        {
+            model.addAttribute("user",user);
+            return "front_desk/personalCenter";
+        }
+        else
+        {
+            model.addAttribute("danger_message","账号或密码错误,请重试!");
+            return "front_desk/login";
         }
     }
 }

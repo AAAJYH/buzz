@@ -1,10 +1,7 @@
 package com.buzz.dao;
 
 import com.buzz.entity.users;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface usersDao
@@ -39,7 +36,7 @@ public interface usersDao
      * @param bindPhone 手机号
      * @return
      */
-    @Select("update users set userPassword=#{userPassword} where bindPhone=#{bindPhone}")
+    @Update("update users set userPassword=#{userPassword} where bindPhone=#{bindPhone}")
     public int update_userPassword_By_bindPhone(@Param("userPassword")String userPassword,@Param("bindPhone")String bindPhone);
 
     /**
@@ -48,6 +45,24 @@ public interface usersDao
      * @param bindEmail 邮箱
      * @return
      */
-    @Select("update users set userPassword=#{userPassword} where bindEmail=#{bindEmail}")
+    @Update("update users set userPassword=#{userPassword} where bindEmail=#{bindEmail}")
     public int update_userPassword_By_bindEmail(@Param("userPassword")String userPassword,@Param("bindEmail")String bindEmail);
+
+    /**
+     *  通过手机号和密码登录
+     * @param bindPhone 手机号
+     * @param userPassword   密码
+     * @return
+     */
+    @Select("select * from users where bindPhone=#{bindPhone} and userPassword=#{userPassword}")
+    public users login_user(@Param("bindPhone")String bindPhone,@Param("userPassword")String userPassword);
+
+    /**
+     * 通过邮箱和密码查询用户
+     * @param bindEmail 邮箱
+     * @param userPassword  密码
+     * @return
+     */
+    @Select("select * from users where bindEmail=#{bindEmail} and userPassword=#{userPassword}")
+    public users find_userByuserPasswordAndbindEmail(@Param("bindEmail")String bindEmail,@Param("userPassword")String userPassword);
 }
