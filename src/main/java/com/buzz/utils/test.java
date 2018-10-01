@@ -1,4 +1,4 @@
-package com.buzz.util;
+package com.buzz.utils;
 
 /**
  * @Author: aaaJYH
