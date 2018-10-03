@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>北京景点介绍,北京旅游景点,北京景点推荐 - 嗡嗡嗡</title>
+    <title>城市景点 - 嗡嗡嗡</title>
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
     <script th:src="@{/js/jquery-1.11.0.min.js}" type="text/javascript"></script>
@@ -14,7 +14,6 @@
     <link href="http://css.mafengwo.net/css/mdd/place-crumb.css?1519936459" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
-
 
     <style type="text/css">
         #header{
@@ -66,8 +65,7 @@
             <!-- 目的地 > 中国 > 北京 > 北京景点 -->
             <div class="crumb">
                 <div class="item">目的地<em>&gt;</em></div>
-                <div class="item">中国<em>&gt;</em></div>
-                <div class="item" th:text="${city.cityName+'&nbsp;&gt;&nbsp;'}">北京</div>
+                <div class="item" th:text="${city.cityName+'&nbsp&nbsp;&gt;&nbsp&nbsp;'}">北京</div>
                 <div class="item cur" th:text="${city.cityName+'景点'}">北京景点</div>
             </div>
 
@@ -168,29 +166,29 @@
             <h2 class="title">全部景点</h2>
             <span th:if="${scenicspotList}!=null">
                 <div th:each="obj,status:${scenicspotList}" class="item clearfix">
-                <div class="info">
-                    <div class="middle">
-                        <h3>
-                            <span class="num">1</span>
-                            <a href="#" target="_blank" title="" th:text="${obj.chineseName}">故宫</a>
-                        </h3>
-                        <p th:text="${obj.synopsis+'...'}">中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
+                    <div class="info">
+                        <div class="middle">
+                            <h3>
+                                <span class="num">1</span>
+                                <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" th:title="${obj.chineseName}" th:text="${obj.chineseName}">故宫</a>
+                            </h3>
+                            <p th:text="${obj.synopsis+'...'}">中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
+                        </div>
+                    </div>
+                    <div class="pic">
+                        <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" th:title="${obj.chineseName}">
+                            <div class="large">
+                                <img th:src="@{'/images/'+${obj.photo.split(',')[0]}+''}" width="380" height="270"/>
+                            </div>
+                            <div>
+                                <img th:src="@{'/images/'+${obj.photo.split(',')[1]}+''}" width="185" height="130"/>
+                            </div>
+                            <div>
+                                <img th:src="@{'/images/'+${obj.photo.split(',')[2]}+''}" width="185" height="130"/>
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <div class="pic">
-                    <a href="#" target="_blank" title="${obj.chineseName}">
-                        <div class="large">
-                            <img src="http://b3-q.mafengwo.net/s9/M00/2F/9E/wKgBs1cWRpCACWlSAAdObOdTPvo56.jpeg?imageMogr2%2Fthumbnail%2F%21380x270r%2Fgravity%2FCenter%2Fcrop%2F%21380x270%2Fquality%2F100" width="380" height="270"/>
-                        </div>
-                        <div>
-                            <img src="http://p1-q.mafengwo.net/s10/M00/B4/32/wKgBZ1nA0aqABQ6GACT5xoJv-Y4957.png?imageMogr2%2Fthumbnail%2F%21185x130r%2Fgravity%2FCenter%2Fcrop%2F%21185x130%2Fquality%2F100" width="185" height="130"/>
-                        </div>
-                        <div>
-                            <img src="http://n1-q.mafengwo.net/s6/M00/BE/FC/wKgB4lL98ASAb6FVAAK-4Mct1zU26.jpeg?imageMogr2%2Fthumbnail%2F%21185x130r%2Fgravity%2FCenter%2Fcrop%2F%21185x130%2Fquality%2F100" width="185" height="130"/>
-                        </div>
-                    </a>
-                </div>
-            </div>
             </span>
         </div>
     </div>
@@ -280,21 +278,6 @@
         </div>
     </div>
 </div>
-
-<!-- 返回顶部 -->
-<div class="mfw-toolbar" id="_j_mfwtoolbar">
-    <div class="toolbar-item-top">
-        <a role="button" class="btn _j_gotop">
-            <i class="icon_top"></i>
-            <em>返回顶部</em>
-        </a>
-    </div>
-</div>
-<script language="javascript" type="text/javascript">
-    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
-        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+hotel+mfwmap+mfwmap-overlays:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^a1dT^1532697023.js");
-    }
-</script>
 
 </body>
 </html>

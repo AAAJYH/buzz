@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>景点详情 - 嗡嗡嗡</title>
+    <link rel="canonical" href="http://www.mafengwo.cn/poi/3474.html"/>
+    <script type="text/javascript">
+        window.Env = {"mddid":10065,"mddname":"\u5317\u4eac","poiid":3474,"poiname":"\u6545\u5bab","uname":"aaajyh","ulogo":"http:\/\/n1-q.mafengwo.net\/s12\/M00\/C8\/AB\/wKgED1uq3jGANT9PAAFt6zG5laY13.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90","WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":53274674,"CSTK":"d42d24be38c906f9498c7042f2540fe2_0ff5552186744a332bc6364008bb2433","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
+    </script>
+    <link th:href="@{'http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'http://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1519936459.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'http://css.mafengwo.net/css/mdd/mfw-reviews.css?1519936459'}" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script language="javascript" src="http://js.mafengwo.net/js/jquery.upnum.js?1493174420" type="text/javascript" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" th:href="@{'/css/jquery.galpop.css'}" media="screen" />
+    <style type="text/css">
+        label{
+
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">旅游攻略</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+
+
+<div class="container" data-cs-t="景点详情页">
+    <style type="text/css">
+        /*分享*/
+        .share{
+            position:fixed;right:0;top:40%;margin-top:80px;color:#fff;line-height:20px;z-index: 101;
+        }
+        .share span{
+            display: block;;
+        }
+        .share a{
+            display:block;
+            border-radius: 5px;
+            margin:5px 0;
+            width:30px;
+            height:30px;
+            overflow:hidden;
+        }
+        .share .s-weixin {
+            background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v31.png) -367px -569px no-repeat #73a64f;
+            background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v31.png) -306px -474px/416.6px 600px no-repeat #73a64f;
+        }
+        .share .s-weibo{
+            background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v31.png) -295px -569px no-repeat #73a64f;
+            background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v31.png) -246px -474px/416.6px 600px no-repeat #d84c4c;
+        }
+        .share .s-qzone{
+            background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v31.png) -331px -569px no-repeat #3f8bc0;
+            background: url(https://css.mafengwo.net/images/post/new_notes/sprite_v31.png) -276px -474px/416.6px 600px no-repeat #3f8bc0;
+        }
+        /**浮动导航 防止被高德和openstreetMap地图遮住*/
+        .r-nav.fixed{
+            z-index: 1001;
+        }
+        body{
+            background:white;
+        }
+    </style>
+
+    <!-- 分享 S-->
+    <div class="share" id="_j_sharecnt" data-title="故宫" data-content="" data-pic="http://b3-q.mafengwo.net/s9/M00/2F/9E/wKgBs1cWRpCACWlSAAdObOdTPvo56.jpeg?imageMogr2%2Fthumbnail%2F%21480x320r%2Fgravity%2FCenter%2Fcrop%2F%21480x320%2Fquality%2F100" data-url="http://www.mafengwo.cn/poi/3474.html">
+        <div data-cs-p="分享">
+            <a class="s-weixin" data-japp="weixin_dialog_share" data-jappfedata="" data-key="wx" data-data_dom_id="_j_sharecnt" title="分享到微信"
+               data-wx_qr="http://p4-q.mafengwo.net/s10/M00/D2/53/wKgBZ1i-Z3OACSY6AAACsnkD24A683.png?imageMogr2%2Fthumbnail%2F%21150x150r%2Fquality%2F90" data-openwindow="0"></a>
+            <a class="s-weibo" data-japp="sns_share" data-jappfedata="" data-key="wb" data-data_dom_id="_j_sharecnt" title="分享到微博"
+               href="#"></a>
+            <a class="s-qzone" data-japp="sns_share" data-jappfedata="" data-key="qz" data-data_dom_id="_j_sharecnt" title="分享到QQ空间"
+               href="#"></a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $("#_j_sharecnt").attr('data-content', '故宫，中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆');
+    </script>
+    <!-- 分享 E-->
+
+    <div class="row row-top">
+        <div class="wrapper">
+            <div class="extra">
+                <!-- 收藏去过 S-->
+                <div class="action _j_rside want-been" style="margin-top:50px;">
+                    <a class="_j_favpoi btn-collect " href="javascript:" target="_blank"
+                       title="添加收藏"  data-cs-p="收藏">
+                        <i class="icon"></i>
+                        <span class="txt">收藏</span>
+                    </a>
+                </div>
+                <!-- 收藏去过 E-->
+            </div>
+
+            <!-- 目的地>北京>北京>北京景点>故宫 S-->
+            <div class="crumb" data-cs-p="面包屑">
+                <div class="item">目的地<em>&gt;</em></div>
+                <div class="item"><div class="drop" th:text="${city.cityName}">北京</div><em>&gt;</em></div>
+                <div class="item cur" th:text="${city.cityName}+'景点&nbsp&nbsp;>&nbsp;&nbsp'">北京景点<em>&gt;</em></div>
+                <div class="item cur" style="color:#FF7000;" th:text="${scenicspot.chineseName}">故宫</div>
+            </div>
+
+            <!-- 景点名称 S-->
+            <div class="title" style="margin-top:30px;">
+                <h1 th:text="${scenicspot.chineseName}">故宫</h1>
+                <div class="en" th:text="${scenicspot.englishName}">The Palace Museum</div>
+            </div>
+
+            <!-- 快捷导航 S-->
+            <div class="r-nav" id="poi-navbar"  data-cs-p="快捷导航">
+                <ul class="clearfix">
+                    <li data-scroll="overview" class="on">
+                        <a title="概况">概况</a>
+                    </li>
+                    <li data-scroll="commentlist">
+                        <a title="蜂蜂点评">蜂蜂点评<span>（12133条）</span></a>
+                    </li>
+                    <li data-scroll="comment" class="nav-right">
+                        <a class="btn-reviews" title="我要点评">我要点评</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function(){
+            //面包屑
+            $('.drop').hover(function(){
+                var target = $(this);
+                clearTimeout(target.data('hideTimer'));
+                target.addClass('open');
+                target.children('bd').fadeIn(200);
+            },function(){
+                var target = $(this);
+                target.data("hideTimer", setTimeout(function() {
+                    target.removeClass('open');
+                    target.children('bd').fadeOut(200);
+                }, 100));
+            });
+            //导航
+            var $navbar = $('#poi-navbar'),
+                offset_top,
+                $lis = $navbar.find("li").not('.nav-right');
+            $('<div/>').insertBefore($navbar).append($navbar).height($navbar.outerHeight(true));
+            $(function(){
+                offset_top = $navbar.offset().top;
+                $(window).bind('scroll.poinav',setFixed).trigger("scroll.poinav");
+            });
+            $(document).delegate("[data-scroll]","click",function(){
+                scrollTo($(this));
+            });
+            function setFixed(){
+                var $rows = $('body >.container >[data-anchor]'),
+                    scrolltop = $(document).scrollTop(),
+                    h,
+                    _lis=$lis.filter(":visible"),
+                    currIndex;
+                if(scrolltop  > offset_top){
+                    if(!$navbar.hasClass('fixed')){
+                        $navbar.addClass('fixed');
+                    }
+                    h = $navbar.outerHeight(true);
+                    for (var $li, $row,top, i = 0, j = _lis.length; i < j; i++) {
+                        $row = $rows.filter("[data-anchor=" + ($li = _lis.eq(i)).attr("data-scroll")+"]");
+                        if ($row[0] && (top = $row.offset().top) && ( /*i == (j - 1) ||*/
+                                ((top - h <= scrolltop) && (top + $row.outerHeight() - h > scrolltop)))) {
+                            currIndex = i;
+                            break;
+                        }
+                    }
+                    if(i==j){
+                        _lis.removeClass("on");
+                    }else{
+                        _lis.eq(currIndex || 0).addClass("on").siblings().removeClass("on");
+                    }
+                }else{
+                    if($navbar.hasClass('fixed')){
+                        $navbar.removeClass('fixed');
+                    }
+                    _lis.eq(0).addClass("on").siblings().removeClass("on");
+                }
+            }
+
+            function scrollTo(target, pos) {
+                pos = target ? target.data('scroll') : pos;
+                var $target = $('[data-anchor=' + pos + ']'), top;
+                if ($target[0]) {
+                    top = $target.offset().top;
+                    if (top > offset_top) {
+                        top -= $navbar.outerHeight();
+                    }
+                    $('html,body').animate({
+                        scrollTop: Math.ceil(top)
+                    }, 500);
+                }
+            }
+
+            $(function () {
+                if (location.hash) {
+                    scrollTo(null, location.hash.replace(/^#/, ''));
+                }
+            });
+
+
+
+
+            //收藏
+            $('._j_favpoi').click(function (e) {
+                var $this = $(this);
+                if (!$this.hasClass('on')) {
+                    e.preventDefault();
+                    if (!$this.data('loading')) {
+                        $this.data('loading', true);
+                        $.post('/plan/ajax.php?s=addFav', {
+                            id: '3474',
+                            type: 0,
+                            subtype: '3',
+                            content: ''
+                        }, function (ret) {
+                            if (ret.ret == -1) {
+                                M.Event.fire('login:required');
+                            } else if (ret.ret) {
+                                $this.addClass('on').attr({
+                                    'title': '查看我的收藏'
+                                }).find('.txt').text('已收藏');
+                            }
+                            $this.data('loading', false);
+                        }, 'json');
+                    }
+                }
+            });
+        })();
+    </script>
+
+    <div data-anchor="overview">
+        <!--图片-->
+        <div class="row row-picture row-bg">
+            <div class="wrapper">
+                <a class="photo" data-cs-p="相册" href="javascript:" target="_blank">
+                    <div class="bd">
+                    <div class="pic-big">
+                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${scenicspot.photo.split(',')[0]}}">
+                            <img th:src="@{'/images/'+${scenicspot.photo.split(',')[0]}}" width="690" height="370" class="img-thumbnail"/>
+                        </a>
+                    </div>
+                    <div class="pic-small">
+                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${scenicspot.photo.split(',')[1]}}">
+                            <img th:src="@{'/images/'+${scenicspot.photo.split(',')[1]}}" width="305" height="183" class="img-thumbnail"/>
+                        </a>
+                    </div>
+                    <div class="pic-small">
+                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${scenicspot.photo.split(',')[2]}}">
+                            <img th:src="@{'/images/'+${scenicspot.photo.split(',')[2]}}" width="305" height="183" class="img-thumbnail"/>
+                        </a>
+                    </div>
+                    <div class="pic-small" th:each="str,status:${scenicspot.photo.split(',')}">
+                        <a th:if="${status.index>2}" class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${str}}">
+                            <img th:src="@{'/images/'+${str}}" width="305" height="183" class="img-thumbnail"/>
+                        </a>
+                    </div>
+                    <span th:text="${'共'+scenicspot.photo.split(',').length+'张图片'}">43197张图片</span>
+                </div>
+                </a>
+            </div>
+        </div>
+        <!--图片js-->
+        <script th:src="@{'http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js'}" type="text/javascript"></script>
+        <script type="text/javascript" th:src="@{'/js/jquery.galpop.min.js'}"></script>
+        <script type="text/javascript" th:inline="javascript">
+            $(document).ready(function() {
+                $('.galpop-single').galpop();
+                $('.galpop-multiple').galpop();
+                $('.galpop-info').galpop();
+                var callback = function() {
+                    var wrapper = $('#galpop-wrapper');
+                    var info    = $('#galpop-info');
+                    var count   = 5;
+                    var index   = 0;
+                    var current = index + 1;
+                    var string  = 'Image '+ current +' of '+ count;
+                    info.append('<p>'+ string +'</p>').fadeIn();
+                };
+                $('.galpop-callback').galpop({
+                    callback: callback
+                });
+                $('.manual-open').change(function(e) {
+                    var image = $(this).val();
+                    if (image) {
+                        var settings = {};
+                        $.fn.galpop('openBox',settings,image);
+                    }
+                });
+                $('.manual-open-group').change(function(e) {
+                    var v = $(this).val();
+                    var images = [
+                        '/images/gugong1.jpg',
+                        '/images/gugong2.jpg',
+                        '/images/gugong3.jpg',
+                        '/images/gugong4.jpg',
+                        '/images/gugong5.jpg',
+                    ];
+                    var settings = {};
+                    $.fn.galpop('openBox',settings,images,v);
+                });
+                $('.click-open-iframe').galpop({
+                    contentType: 'iframe',
+                });
+
+                $('.click-open-ajax').galpop({
+                    contentType: 'AJAX',
+                });
+            });
+        </script>
+
+        <!-- 简介 S -->
+        <div class="mod mod-detail" data-cs-p="概况">
+            <div class="summary" th:text="${scenicspot.getSynopsis()}">
+                又名紫禁城，是中国乃至世界上保存最完整，规模最大的木质结构古建筑群，被誉为“世界五大宫之首”。<br />
+            </div>
+
+            <ul class="baseinfo clearfix">
+                <li class="tel">
+                    <div class="label">电话</div>
+                    <div class="content" th:text="${scenicspot.getPhone()}">010-85007421</div>
+                </li>
+                <li class="item-site">
+                    <div class="label">网址</div>
+                    <div class="content"><a th:href="${scenicspot.url}" target="_blank" rel="nofollow">http://www.dpm.org.cn</a></div>
+                </li>
+            </ul>
+
+            <dl>
+                <dt>交通</dt>
+                <dd th:text="${scenicspot.traffic}">乘坐1路、2路、52路、59路、82路、99路、120路、126路、观光1线、专2路在“天安门东”站下车然后步行约900米到达午门。<br />
+                    乘坐地铁1号线在“天安门东”站下车，步行约900米，即可从午门进入故宫。（故宫博物院的南门）<br />
+                    故宫不设停车场，周边的公共停车场也较远，故不建议驾车前来。
+                </dd>
+            </dl>
+            <dl>
+                <dt>门票</dt>
+                <dd>
+                    <div th:text="${scenicspot.tickets}"> 门票:成人票60人民币/学生票20人民币；内部景点:珍宝馆10人民币/钟表馆10人民币 (4月1日-10月31日 周二-周日)<br />
+                        门票:成人票40人民币/学生票20人民币；内部景点:珍宝馆10人民币/钟表馆10人民币 (11月1日-次年3月31日 周二-周日)<br />
+                        半票:60岁及以上老年人、低保户，凭有效证件入园。<br />
+                        免票:离休干部凭离休证、1.2米以下儿童、残疾人、随团导游，凭有效证件入园。<br />
+                        提示：学生票包含，大中小学生，除去成人教育、研究生、故宫所有人需凭身份证入园。、故宫门票全部在官网提前十天预售，现场已不设购票窗口，但可微信支付入馆，每天入馆人数与网络售票共享。 、“三八”妇女节，女性观众享受门票半价优惠；“六一”儿童节，14周岁以下儿童（含14周岁），免费参观。随同家长一人，享受半价优惠；“八一”建军节，现役军人凭有效证件，免费参观。
+                    </div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>开放时间</dt>
+                <dd th:text="${scenicspot.openingHours}">08:30-17:00；停止售票时间:16:00；停止入场时间:16:10 (4月1日-10月31日 周二-周日)<br />
+                    08:30-16:30；停止售票时间:15:30；停止入场时间:15:40 (11月1日-次年3月31日 周二-周日)<br />
+                    提示：除法定节假日外，全年实行周一全天闭馆。
+                </dd>
+            </dl>
+
+            <div style="color:#999;font-size:12px;" data-cs-p="概况-感谢蜂蜂">
+                *信息更新时间：<span th:text="${scenicspot.uptime}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+
+
+        <!-- 位置 S -->
+        <div class="mod mod-location">
+            <div class="mhd" style="overflow: hidden;">景点位置<span style="font-size:80%;"></span><p class="sub" th:text="${scenicspot.address}">北京市东城区景山前街4号</p></div>
+            <div style="width:950px;height:260px;" id="map"></div>
+        </div>
+
+        <!--百度地图DrivingRoute-->
+        <script th:inline="javascript">
+            // 初始化地图
+            var map = new BMap.Map("map"); // 创建Map实例
+            map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT})); // 左上角，添加比例尺
+            map.addControl(new BMap.NavigationControl()); //左上角，添加默认缩放平移控件
+            var target_point=new BMap.Point([[${scenicspot.longitude}]],[[${scenicspot.latitude}]]);
+            map.centerAndZoom(target_point, 9);  // 初始化地图,设置中心点坐标和地图级别
+            map.enableScrollWheelZoom(); //启动滚动轮缩放
+
+            //定位当前城市
+            var myCity = new BMap.LocalCity(); //创建一个获取本地城市位置的实例
+            //当获取城市信息后，回调函数会被调用，其参数类型为LocalCityResult对象
+            // LocalCityResult对象  属性1.center:城市所在的中心点  属性2.name:城市名称  属性3.level:展示当前城市的最佳地图级别
+            myCity.get(function myFun(result){
+                //创建行车路线实例  map:检索区域(Map,Point,String)   renderOptions:结果呈现设置  {map:map}：展现结果的地图示例
+                var drivingRoute=new BMap.DrivingRoute(map,{renderOptions:{map:map}});
+                drivingRoute.search(result.center,target_point);
+                //设置检索后的回调函数 参数：results
+                drivingRoute.setSearchCompleteCallback(function(results){
+                    var plan=results.getPlan(0); //获取第一个方案
+                    var duration=plan.getDuration(true); //获取时间  duration:持续，期间
+                    var distance=plan.getDistance(true); //获取距离  distance:距离
+                    $(".mhd").children("span").text("（路程大约"+distance+",驾车时间大约"+duration+"）");
+                });
+                drivingRoute.setMarkersSetCallback(function(pois){
+                    var geocoder=new BMap.Geocoder();
+                    pois[0].marker.setTitle(result.name);
+                    pois[1].marker.setTitle([[${scenicspot.chineseName}]]);
+                })
+            });
+        </script>
+
+    </div>
+
+    <!-- 点评 S -->
+    <div data-anchor="comment">
+        <div class="row row-reviewForm" id="comment_20181001203333" data-cs-p="点评">
+            <div class="wrapper">
+                <div class="mfw-reviews">
+                    <div id="_j_commentform_cnt">
+                        <h2>
+                            <strong th:text="${scenicspot.chineseName}">故宫</strong>
+                            <em>*</em>为必填选项
+                        </h2>
+                        <form action="javascript:" method="post" class="_j_commentdialogform" data-typeid="3">
+                            <div class="review-item item-star">
+                                <div class="label" style=" color:#444444;"><em>*</em>总体评价</div>
+                                <div class="review-star _j_rankblock" data-star="" name="rank">
+                                    <input type="hidden" name="rank" value="" essential="1" data-inputname="总体评价" />
+                                    <span class="star _j_starcount"></span>
+                                    <div class="click-star _j_starlist">
+                                        <a role="button" title="千万别去" rel="nofollow"></a>
+                                        <a role="button" title="不推荐" rel="nofollow"></a>
+                                        <a role="button" title="一般般" rel="nofollow"></a>
+                                        <a role="button" title="值得一去" rel="nofollow"></a>
+                                        <a role="button" title="必须推荐" rel="nofollow"></a>
+                                    </div>
+                                </div>
+                                <span class="txt-tips _j_startip">点击星星打分</span>
+                            </div>
+                            <div class="review-item item-comment">
+                                <div class="label" style=" color:#444444;"><em>*</em>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</div>
+                                <div class="content">
+                                    <textarea class="_j_commentarea" name="comment" essential="1" data-inputname="点评内容" placeholder="详细、客观、真实，130字以上为佳！上传图片会加分哦！" data-minlen="15" data-maxlen="1000"></textarea>
+                                    <p class="_j_commentcounttip">15-1000个字</p>
+                                </div>
+                            </div>
+
+                            <div class="review-item item-photo">
+                                <div class="label" style=" color:#444444;">上传照片</div>
+                                <div class="content">
+                                    <dl class="upload-box _j_piclist">
+                                        <dd data-commentid="" id="_j_addpicbtns" ids=0>
+                                            <a class="add-place"><i></i></a>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="review-item item-action">
+                                <a class="btn-large _j_submit" role="button" title="提交点评">提交点评</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                    M.closure(function(require) {
+                        var Comment = require('/js/common/Comment');
+                        M.Event.once('comment prepared', function(args) {
+                            var commentIns = new Comment({
+                                container: '#_j_commentform_cnt'
+                            });
+                        });
+                        // 是否直接初始化
+                        M.Event.fire('comment prepared');
+                    });
+                </script>
+
+                <div class="mfw-reviews have-reviews" style="display: none;">
+                    <h2>
+                        <strong>故宫</strong>
+                    </h2>
+                    <div class="review-item item-star">
+                        <div class="label">你已评价为</div>
+                        <div class="review-star">
+                            <span class="star0"></span>
+                        </div>
+                        <a class="edit-reviews" data-commentid="" title="修改评论"><i></i>我要修改</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--页脚-->
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!--返回顶部-->
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+</div>
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+jquery.lazyload:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+poi+ADetail_v2:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+hotel+mfwmap+mfwmap-overlays:js+hotel+mfwmap+mfwmap-widgets:js+poi+ControllerPoiLocation:js+jquery.mfwUseful:js+jquery.mfwCommentReply:js+poi+ControllerPoiComment:js+poi+ControllerPoiSales:js+hotel+mfwmap+mfwmap-overlays-v2:js+poi+ControllerPoiAround:js+M+module+StarRating:js+M+module+KeyListener:js+M+module+Toggle:js+M+module+Select:js+M+module+dialog+confirm:js+plupload:js+module+uploader+Pluploader:js+common+CommentPicDialog:js+common+CommentPicUploader:js+common+Comment:js+M+module+TopTip:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^YlZWQw^1538219551.js");
+    }
+</script>
+
+</body>
+</html>
