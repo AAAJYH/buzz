@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -65,11 +66,11 @@
             <!-- 目的地 > 中国 > 北京 > 北京景点 -->
             <div class="crumb">
                 <div class="item">目的地<em>&gt;</em></div>
-                <div class="item" th:text="${city.cityName+'&nbsp&nbsp;&gt;&nbsp&nbsp;'}">北京</div>
-                <div class="item cur" th:text="${city.cityName+'景点'}">北京景点</div>
+                <div class="item" th:text="${application.city.cityName+'&nbsp&nbsp;&gt;&nbsp&nbsp;'}">北京</div>
+                <div class="item cur" th:text="${application.city.cityName+'景点'}">北京景点</div>
             </div>
 
-            <!-- 玩法路线 景点 攻略 游记 问答 地图 -->
+            <!-- 玩法路线 景点 酒店 攻略 游记 问答 地图 -->
             <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
                 <div class="navbar-con">
                     <ul class="navbar clearfix">
@@ -80,7 +81,7 @@
                         </li>
 
                         <li class="navbar-scenic">
-                            <a class="navbar-btn" href="#"  data-cs-p="景点">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
                                 <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -92,7 +93,7 @@
                         </li>
 
                         <li class="navbar-overview">
-                            <a class="navbar-btn" href="#"  data-cs-p="攻略">
+                            <a class="navbar-btn" href="/strategyController/queryCityStrategy"  data-cs-p="攻略">
                                 <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -110,7 +111,7 @@
                         </li>
 
                         <li class="navbar-maps navbar-last">
-                            <a class="navbar-btn" href="#" target="_blank" data-cs-p="地图">
+                            <a class="navbar-btn" href="/mapController/mapIndex" target="_blank" data-cs-p="地图">
                                 <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
                             </a>
                         </li>
@@ -127,9 +128,9 @@
     <div class="wrapper">
         <h2 class="title">景点概况</h2>
         <div>
-            <span th:if="${city.citySituation!=''}">
-                <p style="display: none;" th:text="${city.citySituation.substring(0,100)+'...'}">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门...</p>
-                <span id="mdd_poi_desc" th:text="${city.citySituation}">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门、故宫、长城莫属，除此以外，可根据各人的兴趣爱好进行多样化的选择。不论是情侣出行还是亲子旅游，向往皇家古迹还是时尚街区，都能在北京找到最适合的去处。</span>
+            <span th:if="${application.city.citySituation!=''}">
+                <p style="display: none;" th:text="${application.city.citySituation.substring(0,100)+'...'}">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门...</p>
+                <span id="mdd_poi_desc" th:text="${application.city.citySituation}">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门、故宫、长城莫属，除此以外，可根据各人的兴趣爱好进行多样化的选择。不论是情侣出行还是亲子旅游，向往皇家古迹还是时尚街区，都能在北京找到最适合的去处。</span>
             </span>
         </div>
     </div>
@@ -200,7 +201,7 @@
                 <div id="_staticHotMap" style="height: 246px;"></div>
                 <div class="mask"></div>
                 <div class="trigger">
-                    <span class="btn">查看<span th:text="${city.cityName}"></span>景点地图</span>
+                    <span class="btn">查看<span th:text="${application.city.cityName}"></span>景点地图</span>
                 </div>
             </a>
         </div>
@@ -208,7 +209,7 @@
     <script th:inline="javascript">
         // 百度地图API功能
         var map = new BMap.Map("_staticHotMap");    // 创建Map实例
-        map.centerAndZoom([[${city.cityName}]], 9);  // 初始化地图,设置中心点坐标和地图级别
+        map.centerAndZoom([[${application.city.cityName}]], 9);  // 初始化地图,设置中心点坐标和地图级别
     </script>
 
 </div>

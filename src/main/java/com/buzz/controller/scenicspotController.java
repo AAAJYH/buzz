@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,52 +29,38 @@ public class scenicspotController {
     @Resource
     cityService cityService;
 
-    //全部景点页面
-    @RequestMapping("/ScenicSpotIndex")
-    public String ScenicSpotIndex(){
-        return "front_desk/ScenicSpot";
-    }
-
-    //景点详情页面
-    @RequestMapping("/ScenicSpotDetailsIndex")
-    public String ScenicSpotDetailsIndex(){
-        return "front_desk/ScenicSpotDetails";
-    }
-
     /**
      * 查询城市的全部景点
      * @param cityId
      * @return 景点列表html
+     * ServletContext 保存城市对象
      */
     @RequestMapping("/byCityIdQueryScenicspot")
-    public String byCityIdQueryScenicspot(String cityId, Model model){
+    public String byCityIdQueryScenicspot(String cityId, Model model, HttpServletRequest request){
         //景点集合
         List<scenicspot> scenicspotsList=scenicspotService.byCityIdQueryScenicspot(cityId);
         for (scenicspot s:scenicspotsList) {
             s.setSynopsis(s.getSynopsis().substring(0,60));
         }
         model.addAttribute("scenicspotList",scenicspotsList);
-        //城市景点信息
+        //保存session级别的城市景点信息
         city city=cityService.byCityIdQuery(cityId);
-        model.addAttribute("city",city);
+        request.getServletContext().setAttribute("city",city);
         return "front_desk/ScenicSpot";
     }
 
     /**
      * 查询景点详情
      * @param scenicSpotId
-     * @param model 景点对象 城市对象
+     * @param model 景点对象
      * @return 详情页面
      */
     @RequestMapping("/byScenicSpotIdQueryScenicSpot")
-    public String byScenicSpotIdQueryScenicSpot(String scenicSpotId,Model model){
+    public String byScenicSpotIdQueryScenicSpot(String scenicSpotId,Model model,HttpServletRequest request){
         //景点对象
         scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicSpotId);
         model.addAttribute("scenicspot",scenicspot);
-        System.out.println(scenicspot);
-        //城市对象
-        city city=cityService.byCityIdQuery(scenicspot.getCityId());
-        model.addAttribute("city",city);
+        System.out.println(request.getServletContext().getAttribute("city"));
         return "front_desk/ScenicSpotDetails";
     }
 

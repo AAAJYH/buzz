@@ -13,8 +13,8 @@ public class test {
         for(int i=0;i<20;i++){
             System.out.println(UUID.randomUUID());
         }
-        int w=1250;
-        int h=300;
+        int w=113;
+        int h=114;
         System.out.println(w/1.252+"  "+h/1.25);
     }
 

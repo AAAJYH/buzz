@@ -15,10 +15,9 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
     <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" th:href="@{'/css/jquery.galpop.css'}" media="screen" />
+    <script type="text/javascript" th:src="@{'/js/jquery-1.11.0.min.js'}"></script>
     <style type="text/css">
-        label{
 
-        }
     </style>
 </head>
 <body>
@@ -115,8 +114,8 @@
             <!-- 目的地>北京>北京>北京景点>故宫 S-->
             <div class="crumb" data-cs-p="面包屑">
                 <div class="item">目的地<em>&gt;</em></div>
-                <div class="item"><div class="drop" th:text="${city.cityName}">北京</div><em>&gt;</em></div>
-                <div class="item cur" th:text="${city.cityName}+'景点&nbsp&nbsp;>&nbsp;&nbsp'">北京景点<em>&gt;</em></div>
+                <div class="item"><div class="drop" th:text="${application.city.cityName}">北京</div><em>&gt;</em></div>
+                <div class="item cur" th:text="${application.city.cityName}+'景点&nbsp&nbsp;>&nbsp;&nbsp'">北京景点<em>&gt;</em></div>
                 <div class="item cur" style="color:#FF7000;" th:text="${scenicspot.chineseName}">故宫</div>
             </div>
 
@@ -222,34 +221,11 @@
                 }
             });
 
-
-
-
             //收藏
             $('._j_favpoi').click(function (e) {
-                var $this = $(this);
-                if (!$this.hasClass('on')) {
-                    e.preventDefault();
-                    if (!$this.data('loading')) {
-                        $this.data('loading', true);
-                        $.post('/plan/ajax.php?s=addFav', {
-                            id: '3474',
-                            type: 0,
-                            subtype: '3',
-                            content: ''
-                        }, function (ret) {
-                            if (ret.ret == -1) {
-                                M.Event.fire('login:required');
-                            } else if (ret.ret) {
-                                $this.addClass('on').attr({
-                                    'title': '查看我的收藏'
-                                }).find('.txt').text('已收藏');
-                            }
-                            $this.data('loading', false);
-                        }, 'json');
-                    }
-                }
+                alert("判断有没有登录，再收藏");
             });
+
         })();
     </script>
 
@@ -310,18 +286,6 @@
                         var settings = {};
                         $.fn.galpop('openBox',settings,image);
                     }
-                });
-                $('.manual-open-group').change(function(e) {
-                    var v = $(this).val();
-                    var images = [
-                        '/images/gugong1.jpg',
-                        '/images/gugong2.jpg',
-                        '/images/gugong3.jpg',
-                        '/images/gugong4.jpg',
-                        '/images/gugong5.jpg',
-                    ];
-                    var settings = {};
-                    $.fn.galpop('openBox',settings,images,v);
                 });
                 $('.click-open-iframe').galpop({
                     contentType: 'iframe',
@@ -420,22 +384,54 @@
                 })
             });
         </script>
-
     </div>
 
-    <!-- 点评 S -->
+    <!-- 评论内容 -->
+    <div data-anchor="commentlist">
+        <div style="font-size:140%;margin:30px 70px;color:#5E5E5E;">蜂蜂点评（公有<span>1230</span>条真实评价）</div>
+        <div style="width:950px;height:auto;border:1px solid black;margin-left:70px;">
+            <!-- 头像 -->
+            <img th:src="@{'/images/gugong3.jpg'}" style="width:50px;height:50px;border-radius:100px;">
+            <!-- 用户名称 -->
+            <div style="width:200px;height:20px;border: 1px solid blue;color:#FFAC26;position:relative;top:-50px;left:70px;">Kasumi</div>
+            <!-- 评论内容 -->
+            <div style="width:850px;height:auto;border:1px solid black;position:relative;top:-40px;left:70px;color:#666666;">
+                颐和园和我最初想象的不一样，意外的是颐和园需要爬，而且还要爬很高，万寿山最顶还有棵传说中的不老树。这一趟路程，我也算是三山五园都给踏遍了，腿都不是自己的了。<br/>
+                颐和园很大，非常的大，虽然昆明湖这个湖占据了四分之三，剩下的地方还是很大。景区里面的景点超级多，很容易迷路，真的皇家园林就是不一样，小女子拜服。里面很多野导黑导有点烦人。不过景色真的超美，感谢慈禧，在几度被烧毁又花费了巨资重建，让我们后人能够观赏。<br/>
+                门票也很便宜，不过里面几个点需要单独买门票，我们怕麻烦就买了联票了，其实不太有必要买，倒不是说单独买的点景不好，而是压根走不完，我们走了全算是有五分之四吧，已经尽力了，另一部分在湖的另一端太远了我们就没去了，我们也没有选择坐船（坐船了不能轻易下船），全程步行。在山顶景色很棒，其次是十七孔桥，南湖岛，西堤，都非常非常美～这才是秋天该有的样子。<br/><br/>
+                <img th:src="@{'/images/gugong1.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;
+                <img th:src="@{'/images/gugong2.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;
+                <img th:src="@{'/images/gugong3.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;
+                <img th:src="@{'/images/gugong4.jpg'}" width="200px" height="120px"/> <br/><br/>
+                <div style="width: 850px;height:auto;border:1px solid black;font-size:90%;color:#FFAC26;overflow: auto;">
+                    <span style="float:left;">2018-07-31 14:19:48</span>
+                    <span style="float:right;">评论</span>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 发表评论 -->
     <div data-anchor="comment">
-        <div class="row row-reviewForm" id="comment_20181001203333" data-cs-p="点评">
+        <div class="row row-reviewForm" id="comment_20181004083747" data-cs-p="点评">
             <div class="wrapper">
+
                 <div class="mfw-reviews">
                     <div id="_j_commentform_cnt">
                         <h2>
-                            <strong th:text="${scenicspot.chineseName}">故宫</strong>
+                            <strong th:text="${scenicspot.chineseName}">颐和园</strong>
                             <em>*</em>为必填选项
                         </h2>
                         <form action="javascript:" method="post" class="_j_commentdialogform" data-typeid="3">
+                            <input type="hidden" name="act" value="updateComment" />
+                            <input type="hidden" name="commentid" value="" />
+                            <input type="hidden" name="poiid" value="3557" />
+                            <input type="hidden" name="source" value="2" />
                             <div class="review-item item-star">
-                                <div class="label" style=" color:#444444;"><em>*</em>总体评价</div>
+                                <div class="label" style="color:black;"><em>*</em>总体评价</div>
                                 <div class="review-star _j_rankblock" data-star="" name="rank">
                                     <input type="hidden" name="rank" value="" essential="1" data-inputname="总体评价" />
                                     <span class="star _j_starcount"></span>
@@ -446,19 +442,19 @@
                                         <a role="button" title="值得一去" rel="nofollow"></a>
                                         <a role="button" title="必须推荐" rel="nofollow"></a>
                                     </div>
+
                                 </div>
                                 <span class="txt-tips _j_startip">点击星星打分</span>
                             </div>
                             <div class="review-item item-comment">
-                                <div class="label" style=" color:#444444;"><em>*</em>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</div>
+                                <div class="label" style="color:black;"><em>*</em>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</div>
                                 <div class="content">
                                     <textarea class="_j_commentarea" name="comment" essential="1" data-inputname="点评内容" placeholder="详细、客观、真实，130字以上为佳！上传图片会加分哦！" data-minlen="15" data-maxlen="1000"></textarea>
                                     <p class="_j_commentcounttip">15-1000个字</p>
                                 </div>
                             </div>
-
                             <div class="review-item item-photo">
-                                <div class="label" style=" color:#444444;">上传照片</div>
+                                <div class="label" style="color:black;">上传照片</div>
                                 <div class="content">
                                     <dl class="upload-box _j_piclist">
                                         <dd data-commentid="" id="_j_addpicbtns" ids=0>
@@ -473,7 +469,6 @@
                         </form>
                     </div>
                 </div>
-
                 <script>
                     M.closure(function(require) {
                         var Comment = require('/js/common/Comment');
@@ -482,25 +477,14 @@
                                 container: '#_j_commentform_cnt'
                             });
                         });
+
                         // 是否直接初始化
                         M.Event.fire('comment prepared');
                     });
                 </script>
-
-                <div class="mfw-reviews have-reviews" style="display: none;">
-                    <h2>
-                        <strong>故宫</strong>
-                    </h2>
-                    <div class="review-item item-star">
-                        <div class="label">你已评价为</div>
-                        <div class="review-star">
-                            <span class="star0"></span>
-                        </div>
-                        <a class="edit-reviews" data-commentid="" title="修改评论"><i></i>我要修改</a>
-                    </div>
-                </div>
             </div>
         </div>
+
     </div>
 </div>
 
