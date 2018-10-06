@@ -87,13 +87,13 @@
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " href="#" target="_blank" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" target="_blank" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
 
                         <li class="navbar-overview">
-                            <a class="navbar-btn" href="/strategyController/queryCityStrategy"  data-cs-p="攻略">
+                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy'}"  data-cs-p="攻略">
                                 <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>

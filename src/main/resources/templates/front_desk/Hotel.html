@@ -46,14 +46,14 @@
             margin-left:640px;
             margin-top:-263px;
         }
-        .scenic_spot span{
+        .info span{
             font-family:"微软雅黑";
             font-size:120%;
             color:black;
             padding:5px;
             border-radius:5px
         }
-        .scenic_spot span:hover{
+        .info span:hover{
             cursor:pointer;
             color:#FFB200;
         }
@@ -111,10 +111,10 @@
         $(function(){
 
             //景点点击事件
-            $(".scenic_spot span").click(function(){
+            $(".info span").click(function(){
                 //全部默认样式
-                $(".scenic_spot span").css("background","#fff");
-                $(".scenic_spot span").css("color","black");
+                $(".info span").css("background","#fff");
+                $(".info span").css("color","black");
                 //改变点击span样式
                 $(this).css("background","#FFB200");
                 $(this).css("color","white");
@@ -123,70 +123,74 @@
                 var lng=$(this).next().val();
                 var lat=$(this).next().next().val();
 
-                //设置当前地图的中心店
-                var map=new BMap.Map("map");
-                var point=new BMap.Point(lng,lat);
-                map.centerAndZoom(point,14);
-                map.enableScrollWheelZoom();
-
-                //中心点添加闪烁标注点
-                var centerMarker=new BMap.Marker(point);
-                centerMarker.setZIndex(10);
-                centerMarker.setTitle($(this).text());
-                centerMarker.addEventListener("click",function(){
-                    alert("跳转景点详情");
-                    window.open("/ScenicSpot");
-                });
-                map.addOverlay(centerMarker);
-                centerMarker.setAnimation(BMAP_ANIMATION_BOUNCE); //设置标注点动画效果  Animation:活泼 bounce:跳
-
-                //根据景点坐标获取周围酒店
-                $.ajax({
-                    url:'http://apitest.99263.com/Hotel/SearchHotelList',
-                    type:'post',
-                    data:{
-                        "ApiKey": "b421b9a21075a359c09a36db79325d5b",
-                        "Timestamp": "2017/10/01 00:00:00",
-                        "Data": {
-                            "PageSize": 10,
-                            "PageIndex": 1,
-                            "CLng":lng,
-                            "CLat":lat,
-                        }
-                    },
-                    dataType:'json',
-                    success:function(data){
-                        $("#HotelContent").empty();
-
-                        //酒店以标注点形式在地图上显示
-                        var hotelData=data.Data.DataHotel;
-                        for(var i=0;i<hotelData.length;i++){
-                            var point=new BMap.Point(hotelData[i].Lng,hotelData[i].Lat); //创建坐标点
-                            var marker=new BMap.Marker(point); //创建一个标注点
-                            centerMarker.setZIndex(10); //设置覆盖物的Zindex
-                            marker.setTitle(hotelData[i].HotelName); //鼠标移至标注点显示的标题
-                            marker.addEventListener("click",function(){ //添加标注点击事件
-                                alert("打开酒店详情页面");
-                                window.open("/ScenicSpot");
-                            });
-                            map.addOverlay(marker);// 将标注添加到地图中
-
-                            //显示周围酒店内容
-                            $("#HotelContent").append("<div class=\"hotel\">\n" +
-                                "        <img src='"+hotelData[i].DefaultPicture+"' width=\"300px\" height=\"200px\"/>\n" +
-                                "        <div class=\"title\">"+hotelData[i].HotelName+"</div>\n" +
-                                "        <div class=\"star\">"+hotelData[i].Star+"</div>\n" +
-                                "        <div class=\"service\"><b>服务：</b>"+hotelData[i].Service+"</div>\n" +
-                                "        <div class=\"minPrice\"><span>最低价格：</span>￥"+hotelData[i].MinPrice+"&nbsp;</div>\n" +
-                                "        <img src='../images/marker.png' class=\"marker\"/>\n" +
-                                "        <div class=\"address\">"+hotelData[i].Address+"</div>\n" +
-                                "    </div>");
-                        }
-                    }
-                });
-
+                a(lng,lat);
             });
         });
+
+        function a(lng,lat){
+            //设置当前地图的中心店
+            var map=new BMap.Map("map");
+            var point=new BMap.Point(lng,lat);
+            map.centerAndZoom(point,14);
+            map.enableScrollWheelZoom();
+
+            //中心点添加闪烁标注点
+            var centerMarker=new BMap.Marker(point);
+            centerMarker.setZIndex(10);
+            centerMarker.setTitle($(this).text());
+            centerMarker.addEventListener("click",function(){
+                alert("跳转景点详情");
+                window.open("/ScenicSpot");
+            });
+            map.addOverlay(centerMarker);
+            centerMarker.setAnimation(BMAP_ANIMATION_BOUNCE); //设置标注点动画效果  Animation:活泼 bounce:跳
+
+            //根据景点坐标获取周围酒店
+            $.ajax({
+                url:'http://apitest.99263.com/Hotel/SearchHotelList',
+                type:'post',
+                data:{
+                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                    "Timestamp": "2017/10/01 00:00:00",
+                    "Data": {
+                        "PageSize": 10,
+                        "PageIndex": 1,
+                        "CLng":lng,
+                        "CLat":lat,
+                    }
+                },
+                dataType:'json',
+                success:function(data){
+                    $("#HotelContent").empty();
+
+                    //酒店以标注点形式在地图上显示
+                    var hotelData=data.Data.DataHotel;
+                    for(var i=0;i<hotelData.length;i++){
+                        var point=new BMap.Point(hotelData[i].Lng,hotelData[i].Lat); //创建坐标点
+                        var marker=new BMap.Marker(point); //创建一个标注点
+                        centerMarker.setZIndex(10); //设置覆盖物的Zindex
+                        marker.setTitle(hotelData[i].HotelName); //鼠标移至标注点显示的标题
+                        marker.addEventListener("click",function(){ //添加标注点击事件
+                            alert("打开酒店详情页面");
+                            window.open("/ScenicSpot");
+                        });
+                        map.addOverlay(marker);// 将标注添加到地图中
+
+                        //显示周围酒店内容
+                        $("#HotelContent").append("<div class=\"hotel\">\n" +
+                            "        <img src='"+hotelData[i].DefaultPicture+"' width=\"300px\" height=\"200px\"/>\n" +
+                            "        <div class=\"title\">"+hotelData[i].HotelName+"</div>\n" +
+                            "        <div class=\"star\">"+hotelData[i].Star+"</div>\n" +
+                            "        <div class=\"service\"><b>服务：</b>"+hotelData[i].Service+"</div>\n" +
+                            "        <div class=\"minPrice\"><span>最低价格：</span>￥"+hotelData[i].MinPrice+"&nbsp;</div>\n" +
+                            "        <img src='../images/marker.png' class=\"marker\"/>\n" +
+                            "        <div class=\"address\">"+hotelData[i].Address+"</div>\n" +
+                            "    </div>");
+                    }
+                }
+            });
+
+        }
 
     </script>
 
@@ -235,7 +239,7 @@
                         </li>
 
                         <li class="navbar-scenic">
-                            <a class="navbar-btn" href="#"  data-cs-p="景点">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
                                 <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -247,7 +251,7 @@
                         </li>
 
                         <li class="navbar-overview">
-                            <a class="navbar-btn" href="#"  data-cs-p="攻略">
+                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy'}"  data-cs-p="攻略">
                                 <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -265,7 +269,7 @@
                         </li>
 
                         <li class="navbar-maps navbar-last">
-                            <a class="navbar-btn" href="#" target="_blank" data-cs-p="地图">
+                            <a class="navbar-btn" th:href="@{'/mapController/mapIndex'}" target="_blank" data-cs-p="地图">
                                 <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
                             </a>
                         </li>
@@ -279,19 +283,26 @@
 
 <!-- 当前城市的景点 -->
 <div class="scenic_spot">
-    <span style="background:#FFB200;color:white;">全部</span>&nbsp;
-    <span>天安门</span><input type="hidden" value="116.403847"><input type="hidden" value="39.915526">&nbsp;
-    <span>颐和园</span><input type="hidden" value="116.278749"><input type="hidden" value="40.004869">&nbsp;
-    <span>鸟巢</span><input type="hidden" value="116.402359"><input type="hidden" value="39.999763">&nbsp;
-    <span>天坛</span><input type="hidden" value="116.417246"><input type="hidden" value="39.888243">&nbsp;
+    <span class="info" th:if="${scenicspotList}!=null" th:each="obj,status:${scenicspotList}">
+        <span th:if="${obj.scenicSpotId==scenicspot.scenicSpotId}" th:text="${obj.chineseName}" style="background: #FFB200;color:white;"></span>
+        <span th:if="${obj.scenicSpotId!=scenicspot.scenicSpotId}" th:text="${obj.chineseName}">天安门</span>
+        <input type="hidden" th:value="${obj.longitude}">
+        <input type="hidden" th:value="${obj.latitude}">&nbsp;
+    </span>
 </div>
 
 <!-- 地图显示当前景点周围酒店的坐标 -->
 <div id="map"></div>
-<script>
-    var map = new BMap.Map("map");    // 创建Map实例
-    map.centerAndZoom("北京", 12);
+<script th:inline="javascript">
+    //初始化地图
+    var map = new BMap.Map("map");
+    map.centerAndZoom("北京", 10);
     map.enableScrollWheelZoom();
+
+    //默认选中景点
+    var scenicspot=[[${scenicspot}]];
+    a(scenicspot.longitude,scenicspot.latitude);
+
 </script>
 
 <div id="HotelContent"></div>

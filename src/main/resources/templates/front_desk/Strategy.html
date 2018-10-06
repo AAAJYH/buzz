@@ -70,7 +70,7 @@
                 </li>
 
                 <li class="navbar-sales navbar-dropdown">
-                    <a class="navbar-btn " href="#" target="_blank" data-cs-p="酒店">
+                    <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" target="_blank" data-cs-p="酒店">
                         <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
@@ -94,7 +94,7 @@
                 </li>
 
                 <li class="navbar-maps navbar-last">
-                    <a class="navbar-btn" href="#" target="_blank" data-cs-p="地图">
+                    <a class="navbar-btn" th:href="@{'/mapController/mapIndex'}" target="_blank" data-cs-p="地图">
                         <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
                     </a>
                 </li>
