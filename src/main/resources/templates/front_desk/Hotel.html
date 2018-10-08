@@ -123,11 +123,15 @@
                 var lng=$(this).next().val();
                 var lat=$(this).next().next().val();
 
-                a(lng,lat);
+                //景点id
+                var id=$(this).next().next().next().val();
+
+                a(lng,lat,$(this).val(),id);
             });
         });
 
-        function a(lng,lat){
+        //生成地图和酒店
+        function a(lng,lat,title,id){
             //设置当前地图的中心店
             var map=new BMap.Map("map");
             var point=new BMap.Point(lng,lat);
@@ -136,11 +140,10 @@
 
             //中心点添加闪烁标注点
             var centerMarker=new BMap.Marker(point);
-            centerMarker.setZIndex(10);
-            centerMarker.setTitle($(this).text());
+            centerMarker.setZIndex(100);
+            centerMarker.setTitle(title);
             centerMarker.addEventListener("click",function(){
-                alert("跳转景点详情");
-                window.open("/ScenicSpot");
+                window.open("/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+id);
             });
             map.addOverlay(centerMarker);
             centerMarker.setAnimation(BMAP_ANIMATION_BOUNCE); //设置标注点动画效果  Animation:活泼 bounce:跳
@@ -287,7 +290,9 @@
         <span th:if="${obj.scenicSpotId==scenicspot.scenicSpotId}" th:text="${obj.chineseName}" style="background: #FFB200;color:white;"></span>
         <span th:if="${obj.scenicSpotId!=scenicspot.scenicSpotId}" th:text="${obj.chineseName}">天安门</span>
         <input type="hidden" th:value="${obj.longitude}">
-        <input type="hidden" th:value="${obj.latitude}">&nbsp;
+        <input type="hidden" th:value="${obj.latitude}">
+        <input type="hidden" th:value="${obj.scenicSpotId}">
+        &nbsp;
     </span>
 </div>
 
@@ -301,7 +306,9 @@
 
     //默认选中景点
     var scenicspot=[[${scenicspot}]];
-    a(scenicspot.longitude,scenicspot.latitude);
+    if(scenicspot!=null){
+        a(scenicspot.longitude,scenicspot.latitude,scenicspot.chineseName,scenicspot.scenicSpotId);
+    }
 
 </script>
 

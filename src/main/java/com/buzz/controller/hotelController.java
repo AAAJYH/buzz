@@ -38,12 +38,14 @@ public class hotelController {
         //保存景点集合
         List<scenicspot> scenicspotList=scenicspotService.byCityIdQueryScenicspot(city.getCityId());
         model.addAttribute("scenicspotList",scenicspotList);
-        //默认选中第一个景点
-        if (scenicspotId .equals("")) {
-            scenicspotId=scenicspotList.get(0).getScenicSpotId();
+        if(scenicspotList.size()>0){
+            //默认选中第一个景点
+            if (scenicspotId .equals("")) {
+                scenicspotId=scenicspotList.get(0).getScenicSpotId();
+            }
+            scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicspotId);
+            model.addAttribute("scenicspot",scenicspot);
         }
-        scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicspotId);
-        model.addAttribute("scenicspot",scenicspot);
         return "front_desk/Hotel";
     }
 

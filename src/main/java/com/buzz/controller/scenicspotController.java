@@ -60,7 +60,6 @@ public class scenicspotController {
         //景点对象
         scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicSpotId);
         model.addAttribute("scenicspot",scenicspot);
-        System.out.println(request.getServletContext().getAttribute("city"));
         return "front_desk/ScenicSpotDetails";
     }
 

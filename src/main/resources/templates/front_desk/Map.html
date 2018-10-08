@@ -43,22 +43,27 @@
                         var marker=new BMap.Marker(point);
                         marker.setAnimation(BMAP_ANIMATION_DROP); //标注动画：坠落
                         marker.setTitle(scenicspotList[i].chineseName); //hover显示title
-                        var infoWindow=new BMap.InfoWindow("<div style=\"width:200px;height:100px;border:1px solid black;\">\n" +
-                            "                    <img th:src=\"@{'/images/"+scenicspotList[i].photo.split(',')[0]+"'}\" style=\"margin-top:5px;margin-left:5px;width:90px;height:91px;border-radius:3px;\"/>\n" +
-                            "                    <div style=\"width:112px;height:31px;font-weight:bold;color:#222222;font-size:130%;position:relative;top:-90px;left:105px;\">"+scenicspotList[i].chineseName+"</div>\n" +
-                            "                    <div style=\"width:112px;height:31px;position:relative;top:-85px;left:105px;color:#999999;font-size:110%;\">\n" +
-                            "                        <span style=\"color:#FF9E03;font-weight:bold;\">1230</span>条评价\n" +
-                            "                    </div>\n" +
-                            "                    <div style=\"width:112px;height:27px;position:relative;top:-85px;left:105px;color:#999999;font-size:110%;\">\n" +
-                            "                        <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration: underline;\">查看详情</a>\n" +
-                            "                    </div>\n" +
-                            "                </div>",{width:200, height:110});
-                        marker.addEventListener("click",function(){ //添加点击事件
-                            marker.openInfoWindow(infoWindow); //打开信息窗
-
-                        });
+                        addClick(marker);
                         map.addOverlay(marker);
                     }
+                }
+
+                function addClick(marker){
+                    //自定义infoWindow信息
+                    var infoWindow=new BMap.InfoWindow("<div style=\"width:200px;height:100px;border:1px solid black;\">\n" +
+                        "                    <img th:src=\"@{'/images/"+scenicspotList[i].photo.split(',')[0]+"'}\" style=\"margin-top:5px;margin-left:5px;width:90px;height:91px;border-radius:3px;\"/>\n" +
+                        "                    <div style=\"width:112px;height:31px;font-weight:bold;color:#222222;font-size:130%;position:relative;top:-90px;left:105px;\">"+scenicspotList[i].chineseName+"</div>\n" +
+                        "                    <div style=\"width:112px;height:31px;position:relative;top:-85px;left:105px;color:#999999;font-size:110%;\">\n" +
+                        "                        <span style=\"color:#FF9E03;font-weight:bold;\">1230</span>条评价\n" +
+                        "                    </div>\n" +
+                        "                    <div style=\"width:112px;height:27px;position:relative;top:-85px;left:105px;color:#999999;font-size:110%;\">\n" +
+                        "                        <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration: underline;\">查看详情</a>\n" +
+                        "                    </div>\n" +
+                        "                </div>",{width:200, height:110});
+                    marker.addEventListener("click",function(){ //添加点击事件
+                        marker.openInfoWindow(infoWindow); //打开信息窗
+
+                    });
                 }
 
             </script>
