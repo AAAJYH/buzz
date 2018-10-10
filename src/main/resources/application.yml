@@ -10,4 +10,4 @@ spring:
       suffix: .html
 
 server:
-  port: 8000
+  port: 80

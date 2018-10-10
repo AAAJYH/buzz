@@ -39,7 +39,6 @@
 </head>
 <body>
 
-
 <!-- 顶部导航菜单栏 -->
 <div id="header" xmlns="http://www.w3.org/1999/html">
     <div class="mfw-header">
@@ -66,7 +65,7 @@
             <!-- 目的地 > 中国 > 北京 > 北京景点 -->
             <div class="crumb">
                 <div class="item">目的地<em>&gt;</em></div>
-                <div class="item" th:text="${application.city.cityName+'&nbsp&nbsp;&gt;&nbsp&nbsp;'}">北京</div>
+                <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
                 <div class="item cur" th:text="${application.city.cityName+'景点'}">北京景点</div>
             </div>
 
@@ -87,7 +86,7 @@
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" target="_blank" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -205,13 +204,11 @@
                 </div>
             </a>
         </div>
-    </div>
     <script th:inline="javascript">
         // 百度地图API功能
         var map = new BMap.Map("_staticHotMap");    // 创建Map实例
         map.centerAndZoom([[${application.city.cityName}]], 9);  // 初始化地图,设置中心点坐标和地图级别
     </script>
-
 </div>
 
 <!-- 页脚（关于我们） -->

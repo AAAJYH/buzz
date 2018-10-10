@@ -236,7 +236,7 @@
         <span th:text="${obj[0].provinceName}" class="province">直辖市</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <span th:if="${obj[1]}!=null" class="city" >
             <span th:each="city,start:${obj[1]}">
-                <a th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${city.cityId}}"><span th:text="${city.cityName}">北京</span></a>&nbsp;&nbsp;&nbsp;
+                <a target="_blank" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${city.cityId}}"><span th:text="${city.cityName}">北京</span></a>&nbsp;&nbsp;&nbsp;
             </span>
         </span>
     </div>

@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>景点详情 - 嗡嗡嗡</title>
@@ -115,7 +116,7 @@
             <div class="crumb" data-cs-p="面包屑">
                 <div class="item">目的地<em>&gt;</em></div>
                 <div class="item"><div class="drop" th:text="${application.city.cityName}">北京</div><em>&gt;</em></div>
-                <div class="item cur" th:text="${application.city.cityName}+'景点&nbsp&nbsp;>&nbsp;&nbsp'">北京景点<em>&gt;</em></div>
+                <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
                 <div class="item cur" style="color:#FF7000;" th:text="${scenicspot.chineseName}">故宫</div>
             </div>
 

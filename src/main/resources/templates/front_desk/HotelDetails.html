@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>酒店详情 - 嗡嗡嗡</title>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script th:src="@{'/js/jquery-1.11.0.min.js'}"></script>
+    <link rel="stylesheet" href="/css/t-datepicker.min.css">
+    <link rel="stylesheet" href="/css/theme-main.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/t-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/perfect-scrollbar.min.js"></script>
+    <style>
+
+        .icon-sale0417 {
+            margin: 11px 0 0 5px;
+            display: inline-block;
+            width: 70px;
+            height: 20px;
+            background-image: url(http://images.mafengwo.net/images/hotel/hotel_index/20180417-icon.png);
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        .icon-sale0420 {
+            margin: 11px 0 0 5px;
+            display: inline-block;
+            width: 60px;
+            height: 20px;
+            background-image: url(http://images.mafengwo.net/images/hotel/activity/2018_0417/20180420-icon.png);
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        .hotel-new-icon {
+            position: absolute;
+            display: block;
+            width: 238px;
+            height: 210px;
+            bottom: -1px;
+            left: 5px;
+            z-index: -1;
+            background-image: url('http://css.mafengwo.net/images/hotel/new-customer-icon.gif');
+            background-size: 100% 100%;
+        }
+
+        .hotel-new-icon:hover {
+            z-index: 0;
+            background-image: url('http://css.mafengwo.net/images/hotel/new-customer-hover-icon.png');
+        }
+
+        .hotel-new-icon .close {
+            position: absolute;
+            display: block;
+            width: 25px;
+            height: 25px;
+            right: 0;
+            bottom: 83px;
+            border-radius: 50%;
+        }
+
+        .toolbar-item-top, .toolbar-item-feedback, .toolbar-item-code {
+            padding-left: 40px;
+        }
+    </style>
+
+    <script th:inline="javascript">
+
+        $(function(){
+            $.ajax({
+                url:'http://apitest.99263.com/Hotel/HotelDetail',
+                type:'post',
+                data:{
+                    "Data":{
+                        "HId": [[${hid}]]
+                    },
+                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                    "Sign": "11111111111111111111",
+                    "Timestamp": "2017/10/01 00:00:00"
+                },
+                dataType:'JSON',
+                success:function(data){
+                    // alert(JSON.stringify(data));
+                    var HoteDetails=data.Data.HotelDetails; //详情
+                    var DataPictures=data.Data.DataPictures; //图片
+                    var DataComments=data.Data.DataComments; //评论
+                    //酒店中文名、连锁名、地址、打分、评论数
+                    $("#one").append("<div class=\"intro-extra\">\n" +
+                        "<span class=\"score\"><em>"+HoteDetails.Dfscores+"</em>分</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+                        "<span class=\"from\"><br><i class=\"icon-bg icon-m\"></i>"+HoteDetails.CommentNum.split("$")[0]+"好评</span>\n" +
+                        "</div>\n" +
+                        "<div class=\"main-title\">\n" +
+                        "<h1>"+HoteDetails.HotelName+"</h1>\n" +
+                        "<i class=\"icon-bg icon-bird _j_icon_bird\"></i>\n" +
+                        "</div>\n" +
+                        "<div class=\"en-title\"><span>"+HoteDetails.Liansuo+"</span><span class=\"hotel-rate rate5\" >酒店星级："+HoteDetails.Star+"</span>\n" +
+                        "</div>\n" +
+                        "<div class=\"location\"><span title=\"北京前门东大街3号\">地址：北京前门东大街3号</span></div>");
+
+                    //酒店图片
+                    $("#two").append("<div class=\"img-big _j_album_trigger clickstat \" data-id=\"167218425\" data-is-top-album=\"1\" data-cs-p=\"图片\" data-cs-l=\"大图\" data-cs-d=\"大图\">\n" +
+                        "                <img src='"+HoteDetails.DefaultPicture+"'>\n" +
+                        "                <div class=\"exp\">\n" +
+                        "                    <p>"+HoteDetails.Contents.split("。")[0]+"。</p>\n" +
+                        "                </div>\n" +
+                        "            </div>\n" +
+                        "            <ul class=\"img-small\">\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[0].SmallPic+"\" title='"+DataPictures[0].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[1].SmallPic+"\" title='"+DataPictures[1].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[2].SmallPic+"\" title='"+DataPictures[2].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[3].SmallPic+"\" title='"+DataPictures[3].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[4].SmallPic+"\" title='"+DataPictures[4].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[5].SmallPic+"\" title='"+DataPictures[5].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "            </ul>");
+
+                }
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">旅游攻略</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="top-info clearfix" id="_j_crumb">
+
+        <!-- 旅游攻略 > 云南 > 丽江-->
+        <div class="crumb">
+            <div class="item">酒店<em>&gt;</em></div>
+            <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
+            <div class="item cur" th:text="${application.city.cityName+'酒店详情'}">北京酒店详情</div>
+        </div>
+
+        <!-- 天气 -->
+        <div class="weather-wrapper">
+            <link href="http://css.mafengwo.net/weather/littleWeather.css?1519936459" rel="stylesheet" type="text/css"/>
+            <div class="littleWeather">
+                <a href="/weather/10065.html" target="_blank">
+                    <img src="http://images.mafengwo.net/images/mdd_weather/icon/icon8.png" width="25" height="25"/>
+                    <span>多云 4℃~15℃</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hotel-intro">
+
+            <!-- title -->
+            <div class="intro-hd" id="one">
+<!--&#45;&#45;                 <div class="intro-extra">-->
+<!--&#45;&#45;                     <span class="score"><em>8.8</em>分</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--&#45;&#45;                     <span class="from"><br><i class="icon-bg icon-m"></i>5103评论</span>-->
+<!--&#45;&#45;                 </div>&ndash;&gt;-->
+<!--&#45;&#45;                 <div class="main-title">-->
+<!--&#45;&#45;                     <h1>北京首都大酒店</h1>-->
+<!--&#45;&#45;                     <i class="icon-bg icon-bird _j_icon_bird"></i>-->
+<!--&#45;&#45;                 </div>&ndash;&gt;-->
+<!--&#45;&#45;                 <div class="en-title"><span>Capital Hotel</span>                                            <span class="icon-bg hotel-rate rate5" ></span>&ndash;&gt;-->
+<!--&#45;&#45;                 </div>&ndash;&gt;-->
+<!--&#45;&#45;                 <div class="location"><span title="北京前门东大街3号">地址：北京前门东大街3号</span></div>-->
+            </div>
+
+        <!-- 图片 -->
+        <div class="intro-bd clearfix" data-cs-t="图片" id="two">
+            <!--<div class="img-big _j_album_trigger clickstat " data-id="167218425" data-is-top-album="1" data-cs-p="图片" data-cs-l="大图" data-cs-d="大图">-->
+                <!--<img src="http://p3-q.mafengwo.net/s10/M00/A8/24/wKgBZ1mIQsKAA6foAAj3lUDf2wA45.jpeg?imageMogr2%2Fthumbnail%2F%211360x760r%2Fgravity%2FCenter%2Fcrop%2F%211360x760%2Fquality%2F90">-->
+                <!--<div class="exp">-->
+                    <!--<p>老牌酒店，长安街旁，经久不衰的地标建筑；酒店地理位置优越，离王府井很近，早上可步行去看升旗，适合一家大小，性价比很高！</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<ul class="img-small">-->
+                <!--<li><img class="_j_album_trigger clickstat" src="http://n1-q.mafengwo.net/s10/M00/AA/3E/wKgBZ1mIQtmAdJpIAALYEWHJ85Q99.jpeg?imageMogr2%2Fthumbnail%2F%21300x240r%2Fgravity%2FCenter%2Fcrop%2F%21300x240%2Fquality%2F90" data-id="167220504" data-cs-p="图片" data-cs-l="小图" data-cs-d="小图"></li>-->
+                <!--<li><img class="_j_album_trigger clickstat" src="http://p2-q.mafengwo.net/s10/M00/AB/1C/wKgBZ1mIQuOAWgDcAAgSbt6rjgA67.jpeg?imageMogr2%2Fthumbnail%2F%21300x240r%2Fgravity%2FCenter%2Fcrop%2F%21300x240%2Fquality%2F90" data-id="167220732" data-cs-p="图片" data-cs-l="小图" data-cs-d="小图"></li>-->
+                <!--<li><img class="_j_album_trigger clickstat" src="http://n1-q.mafengwo.net/s10/M00/A8/1F/wKgBZ1mIQsKAAglfAAlFhR_WnGo38.jpeg?imageMogr2%2Fthumbnail%2F%21300x240r%2Fgravity%2FCenter%2Fcrop%2F%21300x240%2Fquality%2F90" data-id="167218491" data-cs-p="图片" data-cs-l="小图" data-cs-d="小图"></li>-->
+                <!--<li><img class="_j_album_trigger clickstat" src="http://b3-q.mafengwo.net/s10/M00/A8/AB/wKgBZ1mIQsiAezYtAAIjsQNlkMc43.jpeg?imageMogr2%2Fthumbnail%2F%21300x240r%2Fgravity%2FCenter%2Fcrop%2F%21300x240%2Fquality%2F90" data-id="167219052" data-cs-p="图片" data-cs-l="小图" data-cs-d="小图"></li>-->
+                <!--<li><img class="_j_album_trigger clickstat" src="http://p2-q.mafengwo.net/s10/M00/A8/A3/wKgBZ1mIQsiAMcpuAAH8b3QWnyo02.jpeg?imageMogr2%2Fthumbnail%2F%21300x240r%2Fgravity%2FCenter%2Fcrop%2F%21300x240%2Fquality%2F90" data-id="167218923" data-cs-p="图片" data-cs-l="小图" data-cs-d="小图"></li>-->
+                <!--<li><img class="_j_album_trigger clickstat" src="http://b3-q.mafengwo.net/s10/M00/A8/8E/wKgBZ1mIQseAORShAAF3NMFvLZ899.jpeg?imageMogr2%2Fthumbnail%2F%21300x240r%2Fgravity%2FCenter%2Fcrop%2F%21300x240%2Fquality%2F90" data-id="167219046" data-cs-p="图片" data-cs-l="小图" data-cs-d="小图"></li>-->
+            <!--</ul>-->
+        </div>
+
+  </div>
+</div>
+
+<div class="hotel-navbar" id="_j_navbar" data-cs-t="导航栏">
+    <div class="navbar-content clearfix">
+        <ul class="nav"></ul>
+        <div class="navbar-r">
+            <div class="r-a">
+                <a class="" id="_j_fav_trigger" href="javascript:;" data-cs-p="顶部导航" data-cs-l="收藏" data-cs-d="收藏"><i class="icon-bg icon-fav"></i>收藏</a>
+            </div>
+            <div class="r-b"><span style="display:none;">每晚<strong></strong></span><a class="r-btn _j_nav_item" href="javascript:;" data-type="bookingInfo" data-cs-p="顶部导航" data-cs-l="预订button" data-cs-d="预订button">预订</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="hotel-booking" id="_j_booking_date" style="border:1px solid black;">
+
+        <!-- 日期 -->
+        <div class="hotel-searchbar clearfix">
+            <div class="container-content animate">
+                <div class="t-datepicker t-show-1">
+                    <div class="t-check-in" id="begin"></div>
+                    <div class="t-check-out" id="end"></div>
+                </div>
+                <div class="hs-item hs-item-action">
+                    <a class="hs-btn" id="_j_price_btn" href="javascript:queryPrice();">查看价格</a>
+                    <script th:inline="javascript">
+                        function queryPrice(){
+                            //日期数组
+                            var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
+                            //开始时间
+                            var beginTime=getDates[0].getFullYear()+"/"+(getDates[0].getMonth()+1)+"/"+getDates[0].getDate();
+                            //结束时间
+                            var endTime=getDates[1].getFullYear()+"/"+(getDates[1].getMonth()+1)+"/"+getDates[1].getDate();
+                            alert(beginTime+" "+endTime);
+                            //酒店id
+                            var hid=new Array();
+                            hid.push([[${hid}]]);
+                            $.ajax({
+                               url:'http://apitest.99263.com/Hotel/HotelRooms',
+                               type:'post',
+                               data:{
+                                   "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                                   "Sign": "11111111111111111111",
+                                   "Timestamp": "2017/10/01 00:00:00",
+                                   "Data": {
+                                       "Hid": hid,
+                                       "InDate": "2018-10-10",
+                                       "OutDate": "2018-10-11"
+                                   }
+                               },
+                               dataType:'json',
+                               success:function(data){
+                                   alert(JSON.stringify(data));
+                               }
+                            });
+                        }
+                    </script>
+                </div>
+
+                <script type="text/javascript">
+                    $(document).ready( function() {
+                        function checkNum(pr_el, pr_num) {
+                            if ( isNaN(pr_num) ) {
+                                $(pr_el).addClass('error')
+                            } else {
+                                $(pr_el).removeClass('error')
+                                return Number(pr_num)
+                            }
+                        }
+                        function checkBolean(pr_bl) {
+                            if ( pr_bl === 'true' ) {
+                                return true
+                            }
+                            return false
+                        }
+                        function checkArray(pr_items) {
+                            var a = [];
+                            var pr_items = pr_items.split(',')
+                            pr_items.forEach(function(e){
+                                e = e.trim()
+                                a.push(e)
+                            })
+                            return a;
+                        }
+                        function show_amp_demo(pr_show_hide) {
+                            // Check mobile no run
+                            if ( 'ontouchstart' in window === false ) {
+                                if ( pr_show_hide === 'show' ) {
+                                    $('.amp_demo').css({
+                                        'top': $('.amp_demo').position().top+'px',
+                                        'left': $('.amp_demo').position().left+'px',
+                                        'opacity': 0,
+                                    }).animate({
+                                        'opacity': 1,
+                                        'top': 90+'px',
+                                        'height': 80+'%',
+                                    }, 300).css({
+                                        'width': 350+'px',
+                                        'position': 'fixed',
+                                        'left': $('.footer').position().left+$('.footer').width()-80+'px',
+                                    })
+                                }
+                                if ( pr_show_hide === 'hide' ) {
+                                    $('.amp_demo').css({
+                                        'top': 0,
+                                        'left': 0,
+                                        'height': 'auto',
+                                        'width': 100+'%',
+                                        'opacity': 0,
+                                        'position': 'relative',
+                                    }).animate({
+                                        'opacity': 1,
+                                    }, 300)
+                                }
+                            }
+                        }
+
+                        // Call Action toggle library
+                        var d = new Date()
+                        var ci_demo = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() + 5)
+                        var co_demo = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() + 15)
+                        $(".t-datepicker").tDatePicker({
+                            dateCheckIn: ci_demo,
+                            dateCheckOut: co_demo
+                        })
+                            .on('toggleAfterHideDay', function(){
+                                show_amp_demo('hide') // box js content copy
+                            }).on('afterCheckOut', function(){
+                            show_amp_demo('hide') // box js content copy
+                        })
+                        $(".t-datepicker").tDatePicker('show')
+
+                        // Call Click update event button
+                        $('.btn-update').on('click', function(){
+                            // box js content copy
+                            show_amp_demo('show')
+
+                            // Action
+                            var autoC = $('.ci_co_autoClose').val() || false
+                            autoC = checkBolean(autoC)
+                            var Duration = $('.ci_co_durationArrowTop').val() || 200
+                            Duration = checkNum('.ci_co_durationArrowTop', Duration)
+
+                            // Format
+                            var FM = $('.ci_co_formatDate').val() || 'yyyy-mm-dd'
+
+                            // date
+                            var CI = $('.ci_co_dateCheckIn').val() || null
+                            var CO = $('.ci_co_dateCheckOut').val() || null
+                            var startD = $('.ci_co_startDate').val() || null
+                            var endD = $('.ci_co_endDate').val() || null
+                            var limitPrev = $('.ci_co_limitPrevMonth').val() || 0
+                            limitPrev = checkNum('.ci_co_limitPrevMonth', limitPrev)
+
+                            var limitNext = $('.ci_co_limitNextMonth').val() || 11
+                            limitNext = checkNum('.ci_co_limitNextMonth', limitNext)
+
+                            var limitDateRan = $('.ci_co_limitDateRanges').val() || 31
+                            limitDateRan = checkNum('.ci_co_limitDateRanges', limitDateRan)
+
+                            var showFullDateRan = $('.ci_co_showFullDateRanges').val() || false
+                            showFullDateRan = checkBolean('.ci_co_showFullDateRanges' ,showFullDateRan)
+
+                            // fnDateEvent
+                            var DataE = $('.ci_co_fnDataEvent').val() || null
+                            if ( DataE === null ) {
+                                $('.ci_co_fnDataEvent').addClass('error')
+                            } else {
+                                $('.ci_co_fnDataEvent').removeClass('error')
+                            }
+                            var obDataE = {};
+                            DataE = DataE.split(',')
+                            DataE.forEach(function(e){
+                                e = e.toString()
+                                e = e.replace('\n','')
+                                var a = e.slice(0, e.indexOf(':'))
+                                a = a.trim()
+                                a = a.replace(/\'/g, '')
+                                var b = e.slice(e.indexOf(':') + 1, e.length);
+                                b = b.trim()
+                                b = b.replace(/\'/g, '')
+                                obDataE[a] = b;
+                            })
+
+                            // Theme
+                            var numCalen = $('.ci_co_numCalendar').val() || 2
+                            numCalen = checkNum('.ci_co_numCalendar', numCalen)
+
+                            var ci_co_titleCI   = $('.ci_co_titleCI').val()
+                            var ci_co_titleCO   = $('.ci_co_titleCO').val()
+                            var ci_co_titleDRa  = $('.ci_co_titleDateRange').val()
+                            var ci_co_titleDRas = $('.ci_co_titleDateRanges').val()
+                            var ci_co_toDay     = $('.ci_co_titleToday').val()
+
+                            var ci_co_Days      = $('.ci_co_titleDays').val()
+                            ci_co_Days = checkArray(ci_co_Days)
+                            var ci_co_Months    = $('.ci_co_titleMonths').val()
+                            ci_co_Months = checkArray(ci_co_Months)
+                            var ci_co_M_LimitShow = $('.ci_co_titleMonthsLimitShow').val() || 3
+                            ci_co_M_LimitShow = checkNum('.ci_co_titleMonthsLimitShow', ci_co_M_LimitShow)
+
+                            var ci_co_M_Replace = $('.ci_co_replaceTitleMonths').val() || null
+                            var ci_co_showDateTheme = $('.ci_co_showDateTheme').val() || null
+
+                            // Icon theme
+                            var ci_co_iTop = $('.ci_co_iconArrowTop').val() || true
+                            ci_co_iTop = checkBolean(ci_co_iTop)
+                            var ci_co_iDate = $('.ci_co_iconDate').val() || '<i class="fa fa-calendar"></i>'
+                            var ci_co_aP = $('.ci_co_arrowPrev').val() || '<i class="fa fa-chevron-left"></i>'
+                            var ci_co_aN = $('.ci_co_arrowNext').val() || '<i class="fa fa-chevron-right"></i>'
+
+                            // Title theme
+                            var ci_co_sTitle = $('.ci_co_toDayShowTitle').val() || 'Today'
+                            var ci_co_Range_sTitle = $('.ci_co_dateRangesShowTitle').val() || true
+                            ci_co_Range_sTitle = checkBolean(ci_co_Range_sTitle)
+                            var ci_co_toDay_hl = $('.ci_co_toDayHighlighted').val() || false
+                            ci_co_toDay_hl = checkBolean(ci_co_toDay_hl)
+                            var ci_co_nextDay_hl = $('.ci_co_nextDayHighlighted').val() || false
+                            ci_co_nextDay_hl = checkBolean(ci_co_nextDay_hl)
+                            var ci_co_DayOfW = $('.ci_co_daysOfWeekHighlighted').val() || [0,6]
+                            ci_co_DayOfW = checkArray(ci_co_DayOfW)
+
+
+                            var Object_Global = {}
+                            presentText(Object_Global)
+                            function presentText(pr_ob) {
+                                var ip = '[checked="checked"]';
+                                var arrayNameOptions = [
+                                    // Action
+                                    'autoClose',
+                                    'durationArrowTop',
+                                    // Format
+                                    'formatDate',
+
+                                    'dateCheckIn',
+                                    'dateCheckOut',
+                                    'startDate',
+                                    'endDate',
+                                    'limitPrevMonth',
+                                    'limitNextMonth',
+                                    'limitDateRanges',
+
+                                    'fnDataEvent',
+                                    'showFullDateRanges',
+
+                                    // Theme
+                                    'numCalendar',
+                                    'titleCI',
+                                    'titleCO',
+                                    'titleDateRange',
+                                    'titleDateRanges',
+                                    'titleToday',
+                                    'titleDays',
+                                    'titleMonths',
+                                    'titleMonthsLimitShow',
+                                    'replaceTitleMonths',
+                                    'showDateTheme',
+
+                                    // Icons
+                                    'iconArrowTop',
+                                    'iconDate',
+                                    'arrowPrev',
+                                    'arrowNext',
+
+                                    // Active date
+                                    'toDayShowTitle',
+                                    'dateRangesShowTitle',
+                                    'toDayHighlighted',
+                                    'nextDayHighlighted',
+                                    'daysOfWeekHighlighted'
+                                ]
+                                arrayNameOptions.forEach(function(e){
+                                    if ( $('.ci_co_'+e).parent().find(ip).length === 1 ) {
+                                        pr_ob[e] = $('.ci_co_'+e).val()+'tuds';
+                                        if ( e === 'fnDataEvent' ) {
+                                            pr_ob[e] = '{'+$('.ci_co_'+e).val()+'}tuds'
+                                        }
+                                        if ( e === 'titleDays' ) {
+                                            pr_ob[e] = ci_co_Days
+                                        }
+                                        if ( e === 'titleMonths' ) {
+                                            pr_ob[e] = ci_co_Months
+                                        }
+                                        if ( e === 'daysOfWeekHighlighted' ) {
+                                            pr_ob[e] = ci_co_DayOfW
+                                        }
+                                    }
+                                })
+                                // console.log(pr_ob)
+                                pr_ob = JSON.stringify(pr_ob)
+                                pr_ob = pr_ob.replace(/tuds\"\,/g, '\"\,\n\ \ ');
+                                pr_ob = pr_ob.replace(/tuds/g, '');
+                                pr_ob = pr_ob.replace(/],/g, '],\n\ \ ');
+                                pr_ob = pr_ob.replace(/\"/g, '\'');
+                                pr_ob = pr_ob.replace(/\\\'/g, '\"');
+                                pr_ob = pr_ob.replace(/\\n/g, '\n\ \ \ \ ');
+                                pr_ob = pr_ob.replace(/\'{/g, '{\n\ \ \ \ ');
+                                pr_ob = pr_ob.replace(/\ \ \\t}\'/g, '}');
+
+                                var text = '$(\'.t-datepicker\').tDatepicker('+pr_ob+')'
+                                text = text.replace(/\(\{/g, '\(\{\n\ \ ');
+                                text = text.replace(/\}\)/g, '\n\}\)');
+                                $('.amp_pre_wrap').text(text)
+                                return pr_ob;
+                            }
+
+
+
+                            $(".t-show-1").tDatePicker({
+                                // Action
+                                autoClose  : autoC,
+                                durationArrowTop  : Duration,
+
+                                // Format
+                                formatDate   : FM,
+
+                                // Date
+                                dateCheckIn  : CI,
+                                dateCheckOut : CO,
+                                startDate    : startD,
+                                endDate      : endD,
+                                limitPrevMonth : limitPrev,
+                                limitNextMonth : limitNext,
+                                limitDateRanges : limitDateRan,
+                                showFullDateRanges : showFullDateRan,
+                                fnDataEvent : obDataE,
+
+                                // theme
+                                numCalendar     : numCalen,
+
+                                titleCI         : ci_co_titleCI,
+                                titleCO         : ci_co_titleCO,
+                                titleDateRange  : ci_co_titleDRa,
+                                titleDateRanges : ci_co_titleDRa,
+
+                                titleToday      : ci_co_toDay,
+                                titleDays       : ci_co_Days,
+                                titleMonths     : ci_co_Months,
+
+                                titleMonthsLimitShow : ci_co_M_LimitShow,
+                                replaceTitleMonths   : ci_co_M_Replace,
+                                showDateTheme        : ci_co_showDateTheme,
+
+                                iconArrowTop   : ci_co_iTop,
+                                iconDate       : ci_co_iDate,
+                                arrowPrev      : ci_co_aP,
+                                arrowNext      : ci_co_aN,
+                                toDayShowTitle : ci_co_sTitle,
+                                dateRangesShowTitle : ci_co_Range_sTitle,
+                                toDayHighlighted    : ci_co_toDay_hl,
+                                nextDayHighlighted  : ci_co_nextDay_hl,
+                                daysOfWeekHighlighted: ci_co_DayOfW,
+                            })
+                            $(".t-show-1").tDatePicker('show')
+                        });
+                        // .btn-update
+
+                        // Target body hide calendar run animate box js content
+                        $('html').on('click', function(e) {
+                            // console.log('html')
+                            setTimeout( function() {
+                                // Chờ class t-datepicker-open được khởi tạo ở method 'show'
+                                if ( $(e.target).parents('.t-datepicker').hasClass('t-datepicker') === true
+                                    && $('.t-datepicker-day').length > 0 ) {
+                                    // box js content copy
+                                    show_amp_demo('show')
+                                }
+                                if ( $(e.target).parents('.t-datepicker').hasClass('t-datepicker') === false
+                                    && $('.t-datepicker-day').length === 0
+                                    && $(e.target).hasClass('btn-update') === false
+                                    && $('.amp_demo').css('opacity') !== '1' ) {
+                                    // box js content copy
+                                    show_amp_demo('hide')
+                                }
+                            },1)
+                        });
+
+                        $('.select-cbox').on('click', function(){
+                            if ( $(this).text() === 'Select All' ) {
+                                $('.checkbox').attr('checked', 'checked')
+                            } else {
+                                $('.checkbox').removeAttr('checked')
+                            }
+                        })
+                        $('.checkbox').on('click', function(){
+                            if ( $(this).attr('checked') === 'checked' ) {
+                                $(this).removeAttr('checked')
+                            } else {
+                                $(this).attr('checked', 'checked')
+                            }
+                        })
+                    })
+                </script>
+            </div>
+        </div>
+        <div class="book-list" id="_j_booking_info" style="display:none;"></div>
+
+      <style type="text/css">
+          .house_type{
+              width:1000px;
+              height:auto;
+              border:1px solid #E5E5E5;
+          }
+          .house_type  title{
+              width:1000px;
+              height:auto;
+          }
+      </style>
+      <!-- 可用房型 -->
+      <div class="house_type">
+        <div class="title">
+          <ul>
+              <li>价格来源</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 地图 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <div class="hotel-maps clearfix" id="_j_map_wrapper" data-cs-t="地图">
+      <div style="width:1000px;height:300px;" id="map"></div>
+    </div>
+    <script>
+        var map=new BMap.Map("map");
+        map.centerAndZoom("北京",12);
+    </script>
+
+    <div class="hotel-info" id="_j_hotel_info">
+        <div class="info-section">
+            <dl class="clearfix">
+                <dt>基本信息</dt>
+                <dd class="clearfix">
+
+                    <div class="cell">
+                        <span class="label">入住时间: </span>
+                        <span class="content"><strong>14:00</strong>之后</span>
+                    </div>
+                    <div class="cell">
+                        <span class="label">离店时间: </span>
+                        <span class="content"><strong>12:00</strong>之前</span>
+                    </div>
+                    <div class="cell">
+                        <span class="label">建成于: </span>
+                        <span class="content"><strong>1989</strong>年</span>
+                    </div>
+                    <div class="cell">
+                        <span class="label">翻修于: </span>
+                        <span class="content"><strong>2007</strong>年</span>
+                    </div>
+                    <div class="cell">
+                        <span class="label">酒店规模: </span>
+                        <span class="content"><strong>588</strong>间客房</span>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <div class="info-section">
+            <div class="expand-wrap" id="_j_facility_info" style="height:72px;">
+                <dl class="clearfix">
+                    <dt>主要设施</dt>
+                    <dd>
+                        <ul class="facility-item clearfix">
+                            <li ><i class="icon-bg icon-wifi"></i>免费wifi</li>
+                            <li ><i class="icon-bg icon-park"></i>收费停车场</li>
+                            <li ><i class="icon-bg icon-elevator"></i>电梯</li>
+                            <li ><i class="icon-bg icon-restaurant"></i>餐厅</li>
+                            <li ><i class="icon-bg icon-consign"></i>行李寄存</li>
+                            <li ><i class="icon-bg icon-24hours"></i>24小时服务</li>
+                            <li ><i class="icon-bg icon-thermos"></i>热水壶</li>
+                            <li ><i class="icon-bg icon-blower"></i>吹风机</li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl class="clearfix">
+                    <dt>酒店服务</dt>
+                    <dd>
+                        <ul class="facility-item clearfix">
+                            <li><i class="icon-bg icon-ok"></i>接机服务</li>
+                            <li><i class="icon-bg icon-ok"></i>外币兑换服务</li>
+                            <li><i class="icon-bg icon-ok"></i>票务服务</li>
+                            <li><i class="icon-bg icon-ok"></i>洗衣服务</li>
+                            <li><i class="icon-bg icon-ok"></i>邮政服务</li>
+                            <li><i class="icon-bg icon-ok"></i>旅游服务</li>
+                            <li><i class="icon-bg icon-ok"></i>婴儿/儿童看护</li>
+                            <li><i class="icon-bg icon-ok"></i>客房服务</li>
+                            <li><i class="icon-bg icon-ok"></i>擦鞋服务</li>
+                            <li><i class="icon-bg icon-ok"></i>租车服务</li>
+                            <li><i class="icon-bg icon-ok"></i>中文服务</li>
+                            <li><i class="icon-bg icon-ok"></i>干洗服务</li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl class="clearfix">
+                    <dt>酒店设施</dt>
+                    <dd>
+                        <ul class="facility-item clearfix">
+                            <li><i class="icon-bg icon-ok"></i>商务中心</li>
+                            <li><i class="icon-bg icon-ok"></i>理发美容室</li>
+                            <li><i class="icon-bg icon-ok"></i>中餐厅</li>
+                            <li><i class="icon-bg icon-ok"></i>咖啡厅</li>
+                            <li><i class="icon-bg icon-ok"></i>酒吧</li>
+                            <li><i class="icon-bg icon-ok"></i>健身房</li>
+                            <li><i class="icon-bg icon-ok"></i>高尔夫球场</li>
+                            <li><i class="icon-bg icon-ok"></i>室内游泳池</li>
+                            <li><i class="icon-bg icon-ok"></i>自动取款机</li>
+                            <li><i class="icon-bg icon-ok"></i>行政楼层</li>
+                            <li><i class="icon-bg icon-ok"></i>会议设施</li>
+                            <li><i class="icon-bg icon-ok"></i>残疾人设施</li>
+                            <li><i class="icon-bg icon-ok"></i>前台保险柜</li>
+                            <li><i class="icon-bg icon-ok"></i>桑拿</li>
+                            <li><i class="icon-bg icon-ok"></i>家庭房</li>
+                            <li><i class="icon-bg icon-ok"></i>贵宾室设施</li>
+                            <li><i class="icon-bg icon-ok"></i>储物柜</li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl class="clearfix">
+                    <dt>房间设施</dt>
+                    <dd>
+                        <ul class="facility-item clearfix">
+                            <li><i class="icon-bg icon-ok"></i>叫醒服务</li>
+                            <li><i class="icon-bg icon-ok"></i>国内长途电话</li>
+                            <li><i class="icon-bg icon-ok"></i>24小时热水</li>
+                            <li><i class="icon-bg icon-ok"></i>保险箱</li>
+                            <li><i class="icon-bg icon-ok"></i>浴衣</li>
+                            <li><i class="icon-bg icon-ok"></i>浴缸</li>
+                            <li><i class="icon-bg icon-ok"></i>雨伞租借服务</li>
+                            <li><i class="icon-bg icon-ok"></i>熨衣设备</li>
+                            <li><i class="icon-bg icon-ok"></i>多种规格电源插座</li>
+                            <li><i class="icon-bg icon-ok"></i>小冰箱／迷你吧</li>
+                            <li><i class="icon-bg icon-ok"></i>无烟房</li>
+                            <li><i class="icon-bg icon-ok"></i>宽带上网</li>
+                            <li><i class="icon-bg icon-ok"></i>传真机</li>
+                            <li><i class="icon-bg icon-ok"></i>国际长途电话</li>
+                            <li><i class="icon-bg icon-ok"></i>空调</li>
+                            <li><i class="icon-bg icon-ok"></i>洗漱用品</li>
+                            <li><i class="icon-bg icon-ok"></i>电视</li>
+                            <li><i class="icon-bg icon-ok"></i>淋浴设施</li>
+                            <li><i class="icon-bg icon-ok"></i>独立卫浴间</li>
+                            <li><i class="icon-bg icon-ok"></i>咖啡壶／茶具</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <a class="expand-more" id="_j_facility_info_expand_trigger" href="javascript:;" data-is-expand="0"><i class="icon-bg icon-more"></i><span>展开全部</span></a>
+        </div>
+        <div class="info-section">
+            <div class="expand-wrap" id="_j_description" style="height:auto;display:none;">
+                <dl class="clearfix">
+                    <dt>酒店攻略</dt>
+                    <dd>必读
+                        <br />酒店坐落于前门、王府井商业风景区内，近临故宫、天坛、景山等著名景点，步行就可到达闻名遐尔的天安门广场。地理位置十分显耀。
+                        <br />酒店交通四通八达，十分方便，距离近的地铁站仅需步行5分钟即可。
+                        <br />贴士
+                        <br />酒店配备各式客房，以故宫景观套房为闻名。
+                        <br />房间均配备宽带接口，拥有室内游泳池，多个大型餐厅，会议室，SPA等等标准五星级酒店应有的服务。
+                        <br />装修十分豪华的五星级高档酒店，服务设施质量有保证。
+                        <br />早上可步行前往天安门看升旗。</dd>
+                </dl>
+            </div>
+            <a class="expand-more" id="_j_description_expand_trigger" href="javascript:;" style="display:none;" data-is-expand="0"><i class="icon-bg icon-more"></i><span>展开全部</span></a>
+        </div>
+    </div>
+
+
+    <div class="hotel-comment" id="_j_comment" data-cs-t="酒店详情页">
+        <h3 class="title">5103条真实用户评论</h3>                    <dl class="hotel-score clearfix">
+        <dt>
+            <div class="num"><em>8.8</em>分</div>非常好
+        </dt>
+        <dd>
+            <div class="num p1"><em>9.3</em></div>位置
+        </dd>
+        <dd>
+            <div class="num p2"><em>9.0</em></div>服务
+        </dd>
+        <dd>
+            <div class="num p2"><em>8.9</em></div>清洁度
+        </dd>
+        <dd>
+            <div class="num p2"><em>8.8</em></div>舒适度
+        </dd>
+        <dd>
+            <div class="num p2"><em>8.2</em></div>设施
+        </dd>
+        <dd>
+            <div class="num p2"><em>8.9</em></div>餐饮
+        </dd>
+    </dl>
+        <div class="rev-tags">
+            <ul class="clearfix">
+                <li>
+                    <a class="_j_comment_keyword" href="javascript:;" data-id="178375056" data-type="1" data-cs-p="点评" data-cs-l="关键词" data-cs-d="关键词">
+                        <i class="num num1">1</i>
+                        <strong>服务周到</strong>
+                        <span><em>401</em>次提及</span>
+                        <i class="arrow"></i>
+                        <i class="close">×</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="_j_comment_keyword" href="javascript:;" data-id="190428646" data-type="1" data-cs-p="点评" data-cs-l="关键词" data-cs-d="关键词">
+                        <i class="num num2">2</i>
+                        <strong>性价比高</strong>
+                        <span><em>362</em>次提及</span>
+                        <i class="arrow"></i>
+                        <i class="close">×</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="_j_comment_keyword" href="javascript:;" data-id="154231290" data-type="1" data-cs-p="点评" data-cs-l="关键词" data-cs-d="关键词">
+                        <i class="num num3">3</i>
+                        <strong>离地铁站近</strong>
+                        <span><em>136</em>次提及</span>
+                        <i class="arrow"></i>
+                        <i class="close">×</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="_j_comment_keyword" href="javascript:;" data-id="128486564" data-type="1" data-cs-p="点评" data-cs-l="关键词" data-cs-d="关键词">
+                        <i class="num num4">4</i>
+                        <strong>环境很好</strong>
+                        <span><em>128</em>次提及</span>
+                        <i class="arrow"></i>
+                        <i class="close">×</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="_j_comment_keyword" href="javascript:;" data-id="107626430" data-type="0" data-cs-p="点评" data-cs-l="关键词" data-cs-d="关键词">
+                        <i class="num num5">5</i>
+                        <strong>性价比</strong>
+                        <span><em>121</em>次提及</span>
+                        <i class="arrow"></i>
+                        <i class="close">×</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="_j_comment_keyword" href="javascript:;" data-id="117985738" data-type="0" data-cs-p="点评" data-cs-l="关键词" data-cs-d="关键词">
+                        <i class="num num6">6</i>
+                        <strong>大床</strong>
+                        <span><em>83</em>次提及</span>
+                        <i class="arrow"></i>
+                        <i class="close">×</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="comm-bar">
+            <ul class="comm-tab">
+                <li class="on"><a class="_j_comment_type" href="javascript:;" data-type="0" data-cs-p="点评" data-cs-l="类型" data-cs-d="全部">全部点评5103条</a></li>
+                <li><a class="_j_comment_type" href="javascript:;" data-type="1" data-cs-p="点评" data-cs-l="类型" data-cs-d="相关游记">相关游记30篇</a></li>
+            </ul>
+            <a class="btn-add" href="javascript:;" data-japp="comment_dialog" data-jappconf="path" data-poi_id="40046" data-commentid="" data-source="3" data-cs-p="点评" data-cs-l="点评button" data-cs-d="点评button"><i class="icon-bg icon-plus"></i>写点评</a>
+        </div>
+        <div class="comm-list" id="_j_comment_list">
+            <div class="comm-item _j_comment_item" data-id="125320536">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=54357094&c=125320536" target="_blank"><img src="http://b3-q.mafengwo.net/s11/M00/9D/93/wKgBEFtI-2-AO69RAAqXD0iBS9Y58.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=54357094&c=125320536" target="_blank">Neverfull</a><br>
+                    <span class="lv">LV.3</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">豪华间，一大一小，酒店服务还是不错的，位置也算良好，出入方便，去看升旗出门右转直走看到广场后就是了。长城出门左边走几步就是公交，坐2站就可以0换成旅游1号线20元一位，车上的售票员会售卖矿水和雨衣。以及下车后他会要求大家在他们那购买索道和门票。就是软件设施可以更新一下了，尤其地毯和靠枕还有就是因为估计建的早插头都是马来西亚那边那种还不是国内的通用插座，所以可以在每个房间放一个拖线板，方便各位旅客。</div>
+                <div class="img clearfix">
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="228424912" ><img src="http://n4-q.mafengwo.net/s11/M00/D6/05/wKgBEFtRuLmACxH3AAfthuIRoCQ52.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="228424908" ><img src="http://b1-q.mafengwo.net/s11/M00/D6/05/wKgBEFtRuLmAbNLWAAMzPKmpWoQ90.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="228424904" ><img src="http://n2-q.mafengwo.net/s11/M00/D6/05/wKgBEFtRuLmAIvrVAARB-J2AguU96.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="228424900" ><img src="http://p2-q.mafengwo.net/s11/M00/D6/04/wKgBEFtRuLiAVhRJAAHclIC2KPI50.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                </div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-07-20</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="80428808">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=69515847&c=80428808" target="_blank"><img src="http://p3-q.mafengwo.net/s10/M00/69/21/wKgBZ1ixsj-ANJ4qADHqH4KTFo852.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=69515847&c=80428808" target="_blank">三十三。</a><br>
+                    <span class="lv">LV.6</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">10.6刚回来，住了两晚：<br>1位置：位置还可以，步行王府井天安门均15分钟左右，离地铁崇文门10分钟左右路程，出门有公交车到故宫，很多去长城的旅游车也是在崇文门上车，方便。<br>2服务：2颗星给前台。全程官方客套话应付。不加床也得加钱，要么加钱要么您再开一间房要么您就去其他地方住吧☺️。怎么说，所以公安局给了你们赚钱的理由？就那样吧，官方套话，您有理。<br>3清洁：如图所示，浴缸脏脏的，有点黑色的东西在，那晚刮了很久都刮不掉。床头柜塞着一些枕头毯子啥的。<br>4舒适：床还可以枕头也干净，就是被子有点硬。房里灯光亮度也不够。<br>5设施：不得不说房间插头，床头没有插头，我找了很久找到一个三孔插头竟然还不是我们现在用的规格的。只有三个插头可以用，如果充电器的头大一点都没法插了，得去用洗手间的插头充电去🙄老牌酒店，没办法<br>6餐饮：没试不评价</div>
+                <div class="img clearfix">
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="100621844" ><img src="http://n2-q.mafengwo.net/s10/M00/C5/E4/wKgBZ1nZAQeAUBERAAFpPSrCRMU95.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="100621841" ><img src="http://p3-q.mafengwo.net/s10/M00/C5/E3/wKgBZ1nZAQeAQKXOAAF7R-sD_NE54.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="100621838" ><img src="http://p1-q.mafengwo.net/s10/M00/C5/E3/wKgBZ1nZAQeAYC70AALSBfeyOcw80.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="100621835" ><img src="http://p4-q.mafengwo.net/s10/M00/C5/E2/wKgBZ1nZAQaAWDxPAAEOUz4fYiM65.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                </div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2017-10-08</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="118835728">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=88240740&c=118835728" target="_blank"><img src="http://p3-q.mafengwo.net/s11/M00/12/8E/wKgBEFtEnhCAEtNmAAzEd_Fm8Zo57.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=88240740&c=118835728" target="_blank">冷枫</a><br>
+                    <span class="lv">LV.3</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">确实不错，周末带着亲戚朋友一起去的北京:酒店环境很赞👍👍👍👍</div>
+                <div class="img clearfix">
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="227089988" ><img src="http://n4-q.mafengwo.net/s11/M00/37/2D/wKgBEFtFvTmABFC3AAPbtNxt7CE28.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                </div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-07-11</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="113469868">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=46801993&c=113469868" target="_blank"><img src="http://p4-q.mafengwo.net/s12/M00/F4/24/wKgED1uzL76AWqurAAaa1spwgEg00.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=46801993&c=113469868" target="_blank">Alex</a><br>
+                    <span class="lv">LV.11</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">因为到店时间较晚，且只住一天，被免费升级了套房。套房面积是够大的，只是设施确实陈旧了些，不过并不影响睡眠的舒适！酒店所处的位置，周边的环境都是一流的！还会再来的！</div>
+                <div class="img clearfix">
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="219027700" ><img src="http://n3-q.mafengwo.net/s11/M00/7E/AD/wKgBEFr7dMaAXHWwAASXBCwEjnk94.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                </div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-05-16</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="111766278">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=38067267&c=111766278" target="_blank"><img src="http://p1-q.mafengwo.net/s11/M00/2D/90/wKgBEFqakg2AfpMIAAAWLTvJevc05.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=38067267&c=111766278" target="_blank">陆艳</a><br>
+                    <span class="lv">LV.10</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">酒店地理位置很棒，离前门天安门步行20几分钟就能到，到崇文门地铁站只要十几分钟，餐饮没吃过有点贵，服务很热情，很喜欢</div>
+                <div class="img clearfix">
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="217737006" ><img src="http://n2-q.mafengwo.net/s11/M00/97/D4/wKgBEFrdFb-AfQs_AAE5btjrgS834.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                    <a href="javascript:;" class="_j_album_comment_trigger" data-id="217737002" ><img src="http://n1-q.mafengwo.net/s11/M00/97/D3/wKgBEFrdFb-ABY_1AAD8vLaK7cg94.jpeg?imageMogr2%2Fthumbnail%2F%21500x300r%2Fgravity%2FCenter%2Fcrop%2F%21500x300%2Fquality%2F90"></a>
+                </div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-04-23</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="127560476">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=58835679&c=127560476" target="_blank"><img src="http://n2-q.mafengwo.net/s12/M00/35/2C/wKgED1uqImOAAxCCAAAeJTVWYJU680.png?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=58835679&c=127560476" target="_blank">月の灵逸</a><br>
+                    <span class="lv">LV.4</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">首次通过马蜂窝订酒店，不得不说体验很好，首都大酒店不愧为老牌星级酒店，硬件软件都配<br>得上这个级别，只是北京的老牌酒店装修风格都偏老干部风格，但是这丝毫不影响此次在首都宾馆的住宿，地理位置很好，游泳池也不错，在这个地段可谓性价比超高，唯一一点需要指出的就是首都大酒店现在外观已经改成了首都宾馆，连出租车司机都不清楚，我们坐着出租车绕了两圈，难为了打的费，建议网上应该更新下，总体来说性价比高，下次来北京还会选择</div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-08-03</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="110432694">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=43451524&c=110432694" target="_blank"><img src="http://n2-q.mafengwo.net/s12/M00/35/2C/wKgED1uqImOAAxCCAAAeJTVWYJU680.png?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=43451524&c=110432694" target="_blank">马蜂窝用户</a><br>
+                    <span class="lv">LV.1</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">酒店位置不错，机场大巴直达崇文门站，酒店附近大约600米有2号地铁线崇文门站，出行方便。步行去王府井大街大约需要10分钟。可以步行去故宫。<br>酒店的房间隔音效果非常好，我住的是靠路边的，完全听不到马上上车流声。</div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-04-07</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="84117961">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=94070886&c=84117961" target="_blank"><img src="http://n4-q.mafengwo.net/s10/M00/A1/52/wKgBZ1oNg_mAJub_AAC28SSHB3853.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=94070886&c=84117961" target="_blank">想起个好名</a><br>
+                    <span class="lv">LV.4</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="0"><span>0</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">1<br>首都大酒店是一家集住宿、餐饮、商务、会议、旅游等服务为一体的五星级大酒店。酒店拥有装修豪华、高雅、环境舒适的各类客房，房间装饰明亮宽敞，设施设备齐全，均配备免费上网端口，以满足各类宾客的服务需求。酒店拥有大型多功能会议厅，为各级商贸洽谈、研讨会、学术论坛会等会议提供环境极佳的场所，会议的配套服务齐全。酒店为您了解首都的历史、文化和风貌提供了便捷的条件；幽雅舒适的环境和人性化的服务，为您提供了理想的旅居处所。</div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2017-11-16</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="154603520">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=86824822&c=154603520" target="_blank"><img src="http://n4-q.mafengwo.net/s8/M00/69/6A/wKgBpVWrif6AWIpOAAcjiUstxT473.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=86824822&c=154603520" target="_blank">喔喔牛</a><br>
+                    <span class="lv">LV.15</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">离天安门爆近，看升旗的小伙伴必选，地段没的说，酒店有点年头了，设施不算新，周边吃的东西多</div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-10-06</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="comm-item _j_comment_item" data-id="152444496">
+                <div class="user">
+                    <a class="avatar" href="/hotel/user_comment/index?u=30714589&c=152444496" target="_blank"><img src="http://n1-q.mafengwo.net/s12/M00/24/96/wKgED1ubtHeAFQD_AABA3qZ3_OM37.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90"></a>
+                    <a class="name" href="/hotel/user_comment/index?u=30714589&c=152444496" target="_blank">neal</a><br>
+                    <span class="lv">LV.4</span>
+                    <div class="prop clearfix">
+
+                    </div>
+                </div>
+                <div class="like" data-useful="1"><span>1</span><a class="icon-bg icon-like _j_comment_useful " href="javascript:;" data-has-useful="0"></a></div>
+                <div class="txt">住了一晚，找不到酒店位置的时候，客服服务态度超好…酒店位置很棒，到王府井大概二十分钟左右～</div>
+                <div class="comm-meta">
+                    <span class="icon-bg comm-star comm-star5"></span>
+                    <span class="time">2018-09-12</span>
+                </div>
+                <div class="reply-box">
+                    <ul class="reply-list">
+                    </ul>
+                    <div class="reply-add clearfix _j_comment_reply_add">
+                        <textarea placeholder="添加回复..."></textarea>
+                        <a class="btn-reply" href="javascript:;">回复</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m-pagination" id="_j_comment_pagination" style="display:none;"></div>
+
+        <script id="_j_comment_pagination_template" type="text/x-jquery-tmpl">
+                        <span class="count">共${pageTotal}页 / ${total}条</span>
+                        {{if pageTotal > 1}}
+                        {{if currPage > 1}}
+                        {{if currPage != 0}}
+                        <a class="pg-first _j_pageitem" href="/hotel/fav" data-page="1">首页</a>
+                        {{/if}}
+                        <a class="pg-prev _j_pageitem" href="javascript:;" data-page="${currPage - 1}">&lt;&lt; 上一页</a>
+                        {{/if}}
+                        {{each(i, index) indexers}}
+                        {{if index == currPage}}
+                        <span class="pg-current">${index}</span>
+                        {{else}}
+                        <a class="pi _j_pageitem" href="javascript:;" data-page="${index}">${index}</a>
+                        {{/if}}
+                        {{/each}}
+                        {{if currPage < pageTotal}}
+                        <a class="pg-next _j_pageitem" href="javascript:;" data-page="${currPage + 1}">下一页 &gt;&gt;</a>
+                        {{if pageTotal > 1}}
+                        <a class="pg-last _j_pageitem" href="javascript:;" data-page="${pageTotal}">末页</a>
+                        {{/if}}
+                        {{/if}}
+                        {{/if}}
+                    </script>
+
+
+        <script id="_j_comment_reply_template" type="text/x-jquery-tmpl">
+                        <li class="_j_comment_reply_item" data-id="${u}" data-uid="${uid}" data-user-name="${userName}">
+                            <a href="/u/${uid}.html" target="_blank"><img src="${userLogoW16}">${userName}</a>{{if replyId}}回复${replyUserName}{{/if}}: ${content}
+                            <a class="_j_comment_reply_trigger" href="javascript:;">回复</a><br><span class="time">${ctime}</span>
+                        </li>
+                    </script>
+
+    </div>
+
+
+
+
+    <div class="hotel-recommend" id="_j_nearby_hotels" style="display:none;" data-cs-t="酒店详情页">
+        <h3>周边酒店推荐</h3>
+        <ul class="clearfix"></ul>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    if (isSetNewIconDom()) {
+        if (!isLoginUser()) {
+            setNewIconDom();
+        } else {
+            $.ajax({
+                url: '/hotel/ajax_remote/showCoupon',
+                dataType: 'json'
+            }).done(function(data) {
+                if (data.data) {
+                    setNewIconDom();
+                }
+            });
+        }
+    }
+
+    function setNewIconDom() {
+        setTimeout(function() {
+            var mfwToolBar = $('#_j_mfwtoolbar');
+            mfwToolBar.append('<a class="hotel-new-icon"><span class="close"></span></a>');
+            mfwToolBar.on('click', '.hotel-new-icon .close', function() {
+                var timeStamp = (new Date().getTime()) + 7*24*3600*1000;
+                window.localStorage.setItem('new-icon-timeout', timeStamp);
+                mfwToolBar.find('.hotel-new-icon').remove();
+            });
+        }, 100);
+    }
+
+    function isSetNewIconDom() {
+        var timeStamp = window.localStorage.getItem('new-icon-timeout');
+        return !(timeStamp && parseInt(timeStamp) > new Date().getTime());
+    }
+
+    function isLoginUser() {
+        if(window.Env.UID) {
+            return true;
+        }
+
+        return false;
+    }
+</script>
+
+<!--页脚-->
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于马蜂窝</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="马蜂窝团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入马蜂窝</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>马蜂窝良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>马蜂窝旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>马蜂窝APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+</div>
+
+
+<!--返回顶部-->
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad:js+jquery.scrollTo:js+MouseTip:js+hotel+module+Hash:js+hotel+module+ModuleProvider:js+hotel+module+ImageLoader:js+hotel+module+Album:js+hotel+module+AlbumComment:js+M+module+dialog+alert:js+hotel+module+Log:js+hotel+module+FavDialog:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+hotel+mfwmap+mfwmap-overlays:js+hotel+module+ListTips:js+xdate:js+hotel+module+BookingDate:js+hotel+info:js+hotel+module+FestivalDateConfig:js+jquery-ui-core:js+jquery-ui-datepicker:js+hotel+module+DateRangePicker:js+hotel+module+BookingGuests:js+hotel+module+NumberGuestsPicker:js+hotel+module+BookingInfo:js+hotel+lib+spark-md5:js+hotel+module+Sign:js+hotel+info_booking:js+M+module+Pagination:js+M+module+TopTip:js+hotel+info_comment^YlFVQw^1534411953.js");
+    }
+</script>
+
+</body>
+</html>

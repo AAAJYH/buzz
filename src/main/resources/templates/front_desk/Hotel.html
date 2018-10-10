@@ -165,7 +165,6 @@
                 dataType:'json',
                 success:function(data){
                     $("#HotelContent").empty();
-
                     //酒店以标注点形式在地图上显示
                     var hotelData=data.Data.DataHotel;
                     for(var i=0;i<hotelData.length;i++){
@@ -173,10 +172,7 @@
                         var marker=new BMap.Marker(point); //创建一个标注点
                         centerMarker.setZIndex(10); //设置覆盖物的Zindex
                         marker.setTitle(hotelData[i].HotelName); //鼠标移至标注点显示的标题
-                        marker.addEventListener("click",function(){ //添加标注点击事件
-                            alert("打开酒店详情页面");
-                            window.open("/ScenicSpot");
-                        });
+                        a(marker,hotelData[i].HotelId);
                         map.addOverlay(marker);// 将标注添加到地图中
 
                         //显示周围酒店内容
@@ -192,6 +188,13 @@
                     }
                 }
             });
+
+            function a(marker,hotelId){
+                marker.addEventListener("click",function(){ //添加标注点击事件
+                    window.open("/hotelController/hotelDetailsIndex?hhotelIdotelId="+);
+
+                });
+            }
 
         }
 
@@ -227,8 +230,8 @@
             <!-- 目的地 > 北京 > 北京景点 -->
             <div class="crumb">
                 <div class="item">目的地<em>&gt;</em></div>
-                <div class="item">北京<em>&gt;</em></div>
-                <div class="item cur">北京酒店</div>
+                <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
+                <div class="item cur" th:text="${application.city.cityName+'酒店'}">北京酒店</div>
             </div>
 
             <!-- 玩法路线 景点 攻略 游记 问答 地图 -->
@@ -248,7 +251,7 @@
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " href="#" target="_blank" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>

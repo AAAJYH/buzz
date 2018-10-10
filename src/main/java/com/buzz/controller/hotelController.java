@@ -49,4 +49,12 @@ public class hotelController {
         return "front_desk/Hotel";
     }
 
+    //酒店详情页面
+    @RequestMapping("/hotelDetailsIndex")
+    public String hotelDetailsIndex(Model model,Integer hotelId){
+        System.out.println(hotelId);
+        model.addAttribute("hid",hotelId);
+        return "front_desk/HotelDetails";
+    }
+
 }

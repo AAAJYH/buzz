@@ -125,6 +125,12 @@
             <version>2.4</version>
         </dependency>
 
+        <!-- junit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
