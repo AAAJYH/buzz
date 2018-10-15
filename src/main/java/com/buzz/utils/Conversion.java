@@ -1,5 +1,8 @@
 package com.buzz.utils;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Date;
 
 public class Conversion

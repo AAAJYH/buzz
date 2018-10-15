@@ -1,0 +1,30 @@
+/* 右侧工具栏 */
+.mfw-toolbar{position: fixed; right:50%; bottom:20px; height: auto; margin-right:-558px; display:none;z-index:10;}
+.mfw-toolbar i{ background: url(/images/header-sprites9.png) no-repeat 0 0; display: inline-block;}
+.mfw-toolbar .icon_top{ width:21px; height:12px; background-position:-60px -165px; margin-top:16px;}
+.mfw-toolbar .icon_down{ width:21px; height:12px; background-position:-60px -185px; margin-top:16px;}
+.mfw-toolbar .icon_feedback{ width:18px; height:18px; background-position:-90px -165px; margin-top:13px;}
+.mfw-toolbar .icon_code{ width:19px; height:19px; background-position:-120px -165px; margin-top:13px;}
+.toolbar-item-top,.toolbar-item-feedback,.toolbar-item-code,.toolbar-item-down{margin-bottom:-1px;}
+.toolbar-item-top, .toolbar-item-down. .toolbar-item-code{ display: none;}
+.mfw-toolbar .btn{width:43px; height:43px; display: block; border:1px solid #e5e5e5; text-align: center; background-color:#fff; position:relative;}
+.mfw-toolbar .btn em{width:35px; background-color:#aaa; font-size:12px; line-height:16px; color:#fff; font-style:normal; position:absolute; left:-1px; top:-1px; z-index:2; display:none;padding:5px 4px 0 4px; height:38px; border:1px solid #aaa;}
+.mfw-toolbar .btn:hover em{ display:block;}
+.toolbar-item-code{ position: relative;}
+.toolbar-item-code .btn:hover{ background-color: #ff9d00; border-color:#ff9d00;}
+.toolbar-item-code .btn:hover .icon_code{background-position:-150px -165px;}
+.toolbar-item-code .mfw-code{border:1px solid #e5e5e5; display:none; position: absolute; right:55px; bottom:0; background-color:#fff; padding:6px; color: #999;}
+.toolbar-item-code.hover .mfw-code{ display:block;}
+.toolbar-item-code .mfw-code p{text-align: center; line-height: 27px; padding-top: 4px;}
+.toolbar-item-code a:hover{ text-decoration: none;}
+.wx-official-pop{border:1px solid #e5e5e5; position: absolute; right:55px; bottom:0; background-color:#fff; padding:6px;}
+.wx-official-pop i{position:absolute;right:3px;top:3px;width:25px;height:25px;background:url(/images/post/selectcats/close.png) no-repeat!important;cursor:pointer;}
+
+/* retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (min-device-pixel-ratio: 2){
+    .mfw-toolbar i{ background-image: url(/images/header-sprites9@2x.png); background-size: 200px;} 
+}
+/* 1024分辨率的兼容 */
+@media screen and (max-width: 1025px) {
+.mfw-toolbar{position: fixed; right:0; bottom:20px; height: auto; margin-right:0;}
+}

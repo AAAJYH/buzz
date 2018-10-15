@@ -1,5 +1,8 @@
 package com.buzz.utils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,5 +61,27 @@ public class Encryption
         Date date3=sdf.parse(date1);
         Date date4=sdf.parse(date2);
         return date3.compareTo(date4);
+    }
+    public static BufferedImage img_tailor(BufferedImage src, int x, int y, int width, int height) {
+        BufferedImage back=src.getSubimage(x,y,width,height);
+        return back;
+    }
+    public static BufferedImage file2img(String imgpath) {
+        try {
+            BufferedImage bufferedImage= ImageIO.read(new File(imgpath));
+            return bufferedImage;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    //保存图片,extent为格式，"jpg"、"png"等
+    public static void img2file(BufferedImage img,String extent,String newfile)
+    {
+        try {
+            ImageIO.write(img, extent, new File(newfile));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

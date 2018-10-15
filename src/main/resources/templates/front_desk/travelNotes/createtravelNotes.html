@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost/">
+    <title>添加文字 - 写游记</title>
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/css+jquery-ui-1.9.1.custom.min_css+clip_css+new_notes+publish_css+new_notes+edit_jsrel^a1M^1529042207.css" rel="stylesheet" type="text/css"/>
+    <link href="css/croppic.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/croppic.min.js"></script>
+    <style>
+        .icon-close_parent
+        {
+            height:30px;
+            margin:10px 10px 0 0;
+            position: relative;
+        }
+        .icon-close
+        {
+            background-image: url("images/post/new_notes/nn_v2/close.png");
+            background-size: 100% 100%;
+            display: block;
+            width:30px;
+            height:30px;
+            position: absolute;
+            right: 0px;
+        }
+    </style>
+</head>
+<body>
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="马蜂窝自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="http://www.mafengwo.cn/">首页</a></li>
+                <li class="head-nav-place" data-cs-p="mdd"><a href="http://www.mafengwo.cn/mdd/" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="http://www.mafengwo.cn/gonglve/" title="旅游攻略">旅游攻略</a></li>
+                <li class="head-nav-sales head-nav-dropdown _j_sales_nav_show" id="_j_nav_sales" data-cs-p="sales">
+                    <a class="drop-toggle" href="http://www.mafengwo.cn/sales/" style="cursor: pointer;display: block;border-bottom:0 none;" data-sales-nav="旅行商城">
+                        <span>旅行商城<i class="icon-caret-down"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-sales hide _j_sales_top" id="_j_sales_panel" data-cs-t="sales_nav">
+                        <ul>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/" data-sales-nav="机票＋酒店">自由行<i class="i-hot">hot</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4" data-sales-nav="跟团游">跟团游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/localdeals/" data-sales-nav="当地游">当地游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/flight/" data-sales-nav="国内机票">国内机票<i class="i-new">new</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/visa/" data-sales-nav="签证">签证</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/insure/" data-sales-nav="保险">保险</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="head-nav-hotel" data-cs-p="hotel"><a href="http://www.mafengwo.cn/hotel/" title="酒店">酒店</a></li>
+                <li class="head-nav-community head-nav-dropdown _j_shequ_nav_show" id="_j_nav_community" data-cs-p="community">
+                    <div class="drop-toggle"><span>社区<i class="icon-caret-down"></i></span></div>
+                    <!-- 社区下拉面板 begin -->
+                    <div class="dropdown-panel dropdown-community hide _j_shequ_top no-image" id="_j_community_panel" data-cs-t="community_nav">
+                        <div class="panel-wrapper">
+                            <ul class="nav-list clearfix">
+                                <li class="h"><a href="http://www.mafengwo.cn/wenda/" target="_blank" title="问答" data-cs-p="wenda">问答<i class="i-hot">hot</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/things.php" target="_blank" title="马蜂窝周边" data-cs-p="things">马蜂窝周边<i class="i-new">new</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/club/" target="_blank" title="蜂首俱乐部" data-cs-p="club">蜂首俱乐部</a></li>
+                                <li><a href="http://www.mafengwo.cn/together/" target="_blank" title="结伴" data-cs-p="together">结伴</a></li>
+                            </ul>
+                            <ul class="nav-list-sub clearfix">
+
+                                <li><a href="http://www.mafengwo.cn/group/" target="_blank" title="马蜂窝旅行家" data-cs-p="group">小组论坛</a></li>
+                                <li><a href="http://www.mafengwo.cn/rudder/" target="_blank" title="分舵同城" data-cs-p="rudder">分舵同城</a></li>
+                                <li><a href="http://www.mafengwo.cn/auction/" target="_blank" title="马蜂窝拍卖行" data-cs-p="paimai">马蜂窝拍卖行</a></li>
+
+                                <!--<li><a href="http://www.mafengwo.cn/postal/" target="_blank" title="游记纪念工厂" data-cs-p="postal">游记纪念工厂</a></li>-->
+                                <li><a href="http://www.mafengwo.cn/photo_pk/prev.php" target="_blank" title="照片PK" data-cs-p="photo_pk">照片PK</a></li>
+                                <li><a href="http://www.mafengwo.cn/focus/" target="_blank" title="真人兽" data-cs-p="focus">真人兽</a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/virtual_goods.php" target="_blank" title="道具商店" data-cs-p="virtual">道具商店</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 社区下拉面板 end -->
+                </li>
+                <li class="head-nav-app" data-cs-p="app"><a href="http://www.mafengwo.cn/app/intro/gonglve.php" title="APP">APP</a></li>
+            </ul>
+            <div class="head-search" data-online="1">
+                <div class="head-search-wrapper">
+                    <div class="head-searchform">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off">
+                        <a role="button" href="javascript:" class="icon-search" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+            <div data-pagelet id="pagelet-block-89585260192907cf617c6023c7116508" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <!-- 新自由行菜单 begin -->
+    <div class="dropdown-bar" style="display: none">
+        <div class="content">
+            <ul class="clearfix ul-dropdown-bar" id="Js_middleNav">
+                <li data-type="sales"><a href="http://www.mafengwo.cn/sales/">自由行</a></li>
+                <li data-type="freewalker"><a href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4">跟团游</a></li>
+                <li data-type="localdeals"><a href="http://www.mafengwo.cn/localdeals/">当地游</a></li>
+                <li data-type="flight"><a href="http://www.mafengwo.cn/flight/">国内机票</a></li>
+                <li data-type="visa"><a href="http://www.mafengwo.cn/sales/visa/">签证</a></li>
+                <li data-type="wifi"><a href="http://www.mafengwo.cn/localdeals/0-0-0-21-0-0-0-0.html">全球WiFi</a></li>
+                <li data-type="cruise"><a href="http://www.mafengwo.cn/sales/0-0-0-5-0-0-0-0.html">邮轮</a></li>
+
+                <li data-type="insurance"><a href="http://www.mafengwo.cn/insurance/">旅游保险</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 新自由行菜单 end -->
+</div>
+<div data-pagelet id="topic" class="" data-controller="/js/note/ControllerTopic">
+    <div class="set_index" id="_j_cover_box" style="height:650px;">
+        <div class="set_bg _j_toppiccnt" id="cropContainerModal"></div>
+        <div class="fully_loading">
+            <p vtip="头图加载中...">头图加载中...</p>
+            <img src="http://images.mafengwo.net/images/post/new_notes/fully_loading_v2.gif" alt="loading">
+        </div>
+        <div class="set_page">
+            <a role="button" class="set_add  _j_uploaderattop _j_upload_toppic" id="_j_upload_toppic"></a>
+            <h2>设置游记头图</h2>
+            <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+            <div class="clear"></div>
+        </div>
+        <div class="set_title">
+            <input type="text" id="_j_title" value="" placeholder="填写游记标题" maxlength="48" />
+            <span>可输入<strong>48</strong>字</span>
+            <div class="clear"></div>
+        </div>
+        <div class="set_btn" id="_j_cover_do">
+            <a role="button" title="设置头图" class="a_set _j_addtoppiclabel"><i></i><span>设置头图</span></a>
+            <ul>
+                <li id="_j_change_cover_cnt">
+                    <a role="button" title="重新上传头图" class="a_change _j_reposition_cover" id="_j_change_toppic"><i></i><span>重新上传头图</span></a>
+                </li>
+                <!--<li><a role="button" title="重新编辑头图" class="a_change _j_reposition_cover" data-fileid="" data-url="" data-size="[]"><i></i><span>重新编辑头图</span></a></li>
+                <li>
+                    <a role="button" title="" class="a_add  _j_addtopvideo"><i></i><span id="_j_video_switch">添加头图视频</span><strong>NEW</strong></a>
+                    <a role="button" id="_js_topic_video_upbtn" title="" ></a>
+                </li>
+                <li class="_j_topvideo_delete"><a role="button" title="" class="a_delete delete_video" id="_j_delete_video"><i></i><span>删除头图视频</span></a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div data-pagelet id="pagelet-block-2e45b644c927e980b6da626ea10b8476" class="content" data-controller="/js/note/ControllerEditContent" data-controller_data="{&quot;id&quot;:&quot;383336678&quot;}">
+        <div class="block-loading loading_backward"></div>
+        <div class="_j_content_box">
+            <div class='textarea_placeholder _j_plc_item'>
+                <textarea cols='30'   class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>
+            </div>
+        </div>
+        <div class="block-loading loading_forward"></div>
+    </div>
+    <div data-pagelet id="sidebar" class=" sidebar" data-controller="/js/note/ControllerEditSidebar">
+        <div class="_j_sidebar_sticky_cnt">
+            <div class="sidebar-item _j_sidebar_item">
+                <a role="button" class="add-btn _j_insert_choice"><i class="icon-photo"></i>插入图片</a>
+                <div class="add-panel add-panel-photo _j_insert_panel hide">
+                    <div class="icon-close_parent"><i class="icon-close"></i></div>
+                    <div class="inner clearfix">
+                        <div class="img-local" style="width:100%;">
+                            <div class="img-wrap"><a class="art-btn-upload _j_upload_pic_trigger" role="button">上传本地图片</a></div>
+                            <div class="art-tips">选取的图片尺寸应大于100*50，大小应小于30M<br>按ctrl键可支持多选，每次最多添加100张图片</div>
+                            <form action="">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-item _j_sidebar_item">
+                <a role="button" class="add-btn _j_insert_choice"><i class="icon-title"></i>插入段落标题</a>
+                <div class="add-panel add-panel-title _j_insert_panel hide">
+                    <div class="icon-close_parent"><i class="icon-close"></i></div>
+                    <div class="inner clearfix">
+                        <div class="a-form clearfix">
+                            <div class="a-inpwrap"><input class="a-inptxt _j_paragraph_title" id="sectionTitles" type="text" placeholder="请输入段落名称"><span class="limit _j_limit_tip">可输入<em>20</em>字</span></div>
+                            <a class="a-btn _j_submit_paragraph" id="sectionTitlesButton" role="button">确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-item _j_sidebar_item">
+                <a class="add-btn _j_insert_choice" style="display:block;" role="button"><i class="icon-music"></i>添加游记音乐</a>
+                <span class="edit-btn-music _j_modify_choice" style="display: none;"  role="button">
+                    <span class="music_switch _j_music_switch">
+                        <em class="hd_audio" data-music=""></em>
+                        <a class="pause _j_music_visible">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <img src="images/post/new_notes/nn_v2/music.gif" alt="">
+                        </a>
+                    </span>
+                    <span class="music-name _j_m_name"></span>
+                    <a class="music_modify _j_insert_choice"><i class="icon-pen"></i></a>
+                </span>
+                <div class="add-panel add-panel-music _j_insert_panel _j_beforeupload_mode hide" id="_j_add_music_box">
+                    <div class="icon-close_parent"><i class="icon-close"></i></div>
+                    <div class="inner">
+                        <div class="a-form clearfix">
+                            <div class="a-inpwrap">
+                                <div class="_j_mode_block _j_editing">
+                                    <div class="a-inptxt"><input type="text" class="_j_music_name_input" value=""><a role="button" class="_j_save_name_btn">保存</a><a role="button" class="_j_cancel_name_btn">取消</a></div>
+                                </div>
+                                <div class="_j_mode_block _j_uploaded">
+                                    <div class="a-inptxt"><span class="_j_music_name"></span><a role="button" class="_j_edit_trigger">编辑名称</a><a role="button" class="_j_rem_trigger">删除音乐</a></div>
+                                </div>
+                                <div class="_j_mode_block _j_beforeupload">
+                                    <div class="a-inptxt">背景音乐请选择后缀为.mp3的音乐文件</div>
+                                </div>
+                            </div>
+                            <a class="a-btn" id="_j_upload_music" role="button"><span class="_j_scan_txt">浏览</span><span class="_j_modify_txt">更换</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="side-save" id="_j_draft_save_block"><span class="_j_draft_save_time"></span><a class="btn-save _j_btn_save" role="button"><i></i>保存草稿</a></div>
+<div data-pagelet id="pagelet-block-572c84a5a202058d92e93d2f7029c227" class="" data-api=":note:pagelet:editCatalogApi" data-params="{&quot;id&quot;:&quot;383336678&quot;}" data-async="1" data-controller="/js/note/ControllerCatalogForEditPage"></div>
+<script id="_j_picupload_dialog_content_tmpl" type="text/x-jquery-tmpl">
+    <div id="_j_upload_list_box">
+        <div class="uppic-wrapper">
+            <div class="uppic-content">
+                <div class="uppic-title"><strong>添加照片</strong></div>
+                <div class="uppic-list" id="_j_upload_photo_box">
+                    <ul class="clearfix _j_piclist_cnt"><li style="display:none"><a class="btn-upAdd _j_continue_upload" role="button"><i></i></a></li></ul>
+                </div>
+            </div>
+        </div>
+        <div class="btm-action btm-upbar">
+            <div class="btm-cnt">
+                <a class="btn-primary" role="button" id="_j_next_step">上传</a>
+                <span class="up-nums"><span class="_j_finishedindex">0</span> / <em style="font-style:normal" class="_j_totalcount">0</em></span>
+                <div class="upload-bar"><span style="width: 0;" class="process _j_progress"></span></div>
+                <div class="water-mark _j_watermark_cnt">水印<span class="switch _j_wmswitch{{if !wm.open}} off{{/if}}"><i></i></span><a data-style="${wm.style}" data-position="${wm.position}" class="_j_wmsetting" role="button" tabindex="0">设置水印</a></div>
+            </div>
+        </div>
+    </div>
+    </script>
+<script id="_j_upload_pic_item" type="text/x-jquery-tmpl">
+    <li id="_j_photo_${file.id}" data-file_id="${file.id}" class="_j_picitem wait">
+        <div class="upitem-mask mask-wait">
+            <span class="btn-upClose _j_remove_up"></span>
+            <div class="mask-txt mask-txt-line2">等待<br>上传</div>
+        </div>
+        <div class="upitem-mask mask-progress">
+            <span class="btn-upClose _j_stop_up"></span>
+            <div class="mask-bar"><span class="_j_prog" style="width:0"></span></div>
+        </div>
+        <div class="upitem-mask mask-failed">
+            <div class="s-failed"><i></i>上传失败</div>
+        </div>
+    </li>
+</script>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="action-ft">
+        <div class="action-wrap">
+            <div class="item-btn _js_actionBtn">
+                <a data-href="/note/create.php/view/?id=383336678" class="btn-publish btn-preview _j_preview" role="button">预览</a>
+                <a class="btn-publish _j_btn_publish" role="button">发表游记</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-pagelet id="pagelet-block-24ef49f49805767ce4a62e7f2b3f081d" class=" imagesOrder" data-controller="/js/note/ControllerImagesReorder">
+    <script id="_j_sortitem_texttip_tmpl" type="text/x-jquery-tmpl">
+    <div class="word_con hide">
+        <div class="word_text"><p></p></div>
+        <div class="word_more"></div>
+        <span><i></i></span>
+    </div>
+</script>
+
+
+    <script id="_j_sortitem_tmpl" type="text/x-jquery-tmpl">
+    <ul>
+    <li class="{{if data.type == "image"}}li_image{{else data.type == "video"}}li_video{{else data.type == "txt"}}word{{else data.type == "paragraph"}}li_paragraph{{/if}}" data-seq="${data.seq}" id="_j_sort_${data.seq}">
+        {{if data.type == "image"}}
+        <img class="photo" src="${data.thumb}" />
+        {{else data.type == "video"}}
+        <img src="http://images.mafengwo.net/images/post/new_notes/video_v2.gif" />
+        {{else data.type == "paragraph"}}
+        <img src="http://images.mafengwo.net/images/post/new_notes/paragraph.gif" />
+        {{else data.type == "txt"}}
+        <img src="http://images.mafengwo.net/images/post/new_notes/word_v2.gif" />
+        {{/if}}
+        {{if data.type == "txt"}}
+        <div class="word_data">${data.content}</div>
+        {{else data.type == "paragraph"}}
+        <div class="word_data">${data.title}</div>
+        {{/if}}
+        <div class="selected">
+            <p class="cover_pop"></p>
+            <i></i>
+        </div>
+    </li>
+    </ul>
+</script>
+
+</div>
+<link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<!-- 提示框-->
+<div id="_j_layer_0" class="layer _j_layer" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;display: none;">
+    <div class="layer_mask _j_mask" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;"></div>
+    <div class="layer_content _j_content" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;">
+        <div id="popup_container" class="popup-box new-popbox pop_no_margin" style="position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left: 600px; top: 314.222px;">
+            <a class="close-btn _j_close"><i></i></a>
+            <div class="pop-ico" id="_j_alertpopicon"><i class="i1"></i></div>
+            <div class="pop-ctn">
+                <p class="hd _j_content"></p>
+                <p class="bd _j_detail"></p>
+            </div>
+            <div class="pop-btns">
+                <a role="button" tabindex="0" class="popbtn popbtn-submit _j_close">&nbsp;确定&nbsp;</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/travelNotes_create_travelNotes_1.js"></script>
+<script>
+    //点击插入图片、插入段落标题、游记音乐按钮,显示
+    $(".add-btn").click(
+        function()
+        {
+            var text=$(this).text();
+            if(text!='添加游记音乐')
+                $(this).next().removeClass("hide");
+            else
+                $("#_j_add_music_box").removeClass("hide");
+        }
+    );
+    //点击close按钮时,隐藏
+    $(".icon-close").click(
+        function()
+        {
+            $(this).parent().parent().addClass("hide");
+        }
+    );
+    $().ready(
+        function()
+        {
+            bodyjs();
+            $(".textarea_placeholder textarea").focus();//首个testarea获取光标
+        }
+    );
+    //页面大小变更,更改模态框在页面显示的位置
+    window.onresize = function(){
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        $("#popup_container").css({"left":width+"px","top":height+"px"});
+    }
+    //在js中进行操作需要进行加载的方法
+    function bodyjs()
+    {
+        $(".textarea_placeholder textarea").focus(
+            function()
+            {
+                textareaElement=$(this)[0];
+            }
+        );
+        //修改段落标签
+        $("._j_paragraph_title_edit").click(
+            function()
+            {
+
+            }
+        );
+        //删除段落标签
+        $("._j_paragraph_title_delete").click(
+            function()
+            {
+                var headline=$(this).parent().parent();
+                var textarea=$(headline).next().children("textarea");
+                var textareavalue=$(textarea).val();
+                //如果之后的textarea内容为空时,删除
+                if(textareavalue.length<=0)
+                {
+                    $(textarea).remove();
+                }
+                else
+                {
+                    var prevElement=$(headline).prev();
+                    if("textarea_placeholder _j_plc_item _j_inited"==$(prevElement).prop("class"))//判断是否为普通textarea
+                    {
+                         if($(prevElement).children("textarea").val().length<=0)
+                             $(prevElement).children("textarea").val(textareavalue);
+                         else
+                            $(prevElement).children("textarea").val($(prevElement).children("textarea").val()+"\n"+textareavalue);
+                        var prevElementdom=$(prevElement).children("textarea")[0];
+                        prevElementdom.setAttribute('style', 'height:' + (prevElementdom.scrollHeight) + 'px;overflow-y:hidden;');
+                        prevElementdom.style.height = 'auto';
+                        prevElementdom.style.height = (prevElementdom.scrollHeight) + 'px';
+                         $(prevElement).children("textarea").focus();
+                    }
+                    else if("textarea _j_textarea _j_textareaplc"==$(prevElement).prop("class"))//判断是否为首个textarea
+                    {
+                        if($(prevElement).val().length<=0)
+                            $(prevElement).val(textareavalue);
+                        else
+                            $(prevElement).val($(prevElement).val()+"\n"+textareavalue);
+                        var prevElementdom=$(prevElement)[0];
+                        prevElementdom.setAttribute('style', 'height:' + (prevElementdom.scrollHeight) + 'px;overflow-y:hidden;');
+                        prevElementdom.style.height = 'auto';
+                        prevElementdom.style.height = (prevElementdom.scrollHeight) + 'px';
+                        $(prevElement).focus();
+                    }
+                    $(textarea).remove();
+                }
+
+
+                $(this).parent().parent().remove();
+                bodyjs();
+            }
+        );
+    }
+    //判断段落标题是否超出20个字,如果超出进行剪切
+    $("#sectionTitles").keyup(
+        function()
+        {
+            var value=$(this).val();
+            var length=value.length;
+            if(length>=20)
+            {
+                $(this).val(value.substring(0,20));
+                length=20;
+            }
+            $(this).next().children("em").text(20-length);
+        }
+    );
+    //点击段落标题提交按钮时,添加段落标题
+    $("#sectionTitlesButton").click(
+        function()
+        {
+            var value=$("#sectionTitles").val();
+            if(value.length>0)
+            {
+                var pos = cursorPosition.get(textareaElement);
+                var currentvalue=$(textareaElement).val();
+                var currentlength=currentvalue.length;
+                var currentElement=null;
+                if("textarea _j_textarea _j_textareaplc"==$(textareaElement).prop("class"))//判断当前光标元素是否为默认textarea
+                {
+                    currentElement=textareaElement;
+                }
+                else
+                {
+                    currentElement=$(textareaElement).parent();
+                }
+                if(currentlength==0)//判断当前光标所在的元素内容长度,如果为零就在当前元素后面添加
+                {
+                    var nextElementClass=$(currentElement).next().prop("class");
+                    var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                    if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
+                    {
+                        insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;''></textarea></div>";
+                    }
+                    $(currentElement).after(insertElement);
+                }
+                else
+                {
+                    var currentClass=$(textareaElement).prop("class");
+                    if(pos.start==0)//判断光标在元素中的位置是否为0,如果为0就在之前当前textarea前面添加标题
+                    {
+                        if(currentClass=="textarea _j_textarea _j_textareaplc")//判断当前光标元素是否为默认textarea
+                        {
+                            var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                            var nextElementClass=$(textareaElement).next().prop("class");
+                            if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
+                            {
+                                insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'>"+currentvalue+"</textarea></div>";
+                            }
+                            else//将默认textarea中的内容拼接到之后的textarea中,并清空textarea中的内容
+                            {
+                                var nextElementChildren=$(textareaElement).next().children("textarea");
+                                var nextElementChildrenvalue=$(nextElementChildren).val();
+                                $(nextElementChildren).val(currentvalue+"\n"+nextElementChildrenvalue);
+                            }
+                            $(textareaElement).val("");
+                            $(textareaElement).after(insertElement);
+                        }
+                        else
+                        {
+                            var prevElement=$(textareaElement).parent().prev();
+                            var prevElementClass=$(prevElement).prop("class");
+                            var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                            if("textarea_placeholder _j_plc_item _j_inited"!=prevElementClass)//判断当前元素之前的兄弟节点是否为textarea,如果不是就添加textarea
+                            {//在标签之前添加textarea
+                                insertElement="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'></textarea></div><div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                            }
+                            $(textareaElement).parent().before(insertElement);
+                        }
+                    }
+                    else if(pos.start!=0&&pos.start<currentlength)//判断光标位置是否在元素字段内,如果在就截取字段,分为两个textarea,标题在两个textarea中间
+                    {
+                        var beforevalue=currentvalue.substring(0,pos.start);//获取当前光标之前的内容
+                        var aftervalue=currentvalue.substring(pos.start,currentlength);//获取当前光标之后的内容
+                        $(textareaElement).val(beforevalue);
+                        var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div><div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'>"+aftervalue+"</textarea></div>";
+                        $(currentElement).after(insertElement);
+                    }
+                    else if(pos.start==currentlength)//判断光标是否在textarea字段最后,如果在后面就在textarea后面追加标题
+                    {
+                        var nextElementClass=$(currentElement).next().prop("class");
+                        var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                        if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
+                        {
+                            insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;''></textarea></div>";
+                        }
+                        $(currentElement).after(insertElement);
+                    }
+                }
+                $("#sectionTitles").parent().parent().parent().parent().addClass("hide");
+                var value=$("#sectionTitles").val("");
+                $(this).next().children("em").text(20);
+                bodyjs();//重新绑定事件触发
+            }
+            else
+            {
+                showalert("请输入段落名称");
+            }
+        }
+    );
+    function showalert(_j_content)//显示模态框
+    {
+        $("#_j_layer_0").css("display","block");//显示提示模态框
+        $(".pop-ctn").children("._j_content").text(_j_content);
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        $("#popup_container").css({"left":width+"px","top":height+"px"});
+    }
+    //点击按钮关闭模态框
+    $("._j_close").click(
+        function()
+        {
+            if($("#_j_layer_0").css("display")=="block")
+            {
+                $("#_j_layer_0").css("display","none");//隐藏提示模态框
+            }
+        }
+    );
+    //如果点击不是模态框内,则关闭模态框
+    $("#_j_layer_0").click(
+        function()
+        {
+            if($(this).css("display")=="block")
+            {
+                $(this).css("display","none");//隐藏提示模态框
+            }
+        }
+    );
+    var cursorPosition = {
+        get: function (textarea) {
+            var rangeData = {text: "", start: 0, end: 0 };
+            if (textarea.setSelectionRange) { // W3C
+                textarea.focus();
+                rangeData.start= textarea.selectionStart;
+                rangeData.end = textarea.selectionEnd;
+                rangeData.text = (rangeData.start != rangeData.end) ? textarea.value.substring(rangeData.start, rangeData.end): "";
+            } else if (document.selection) { // IE
+                textarea.focus();
+                var i,
+                    oS = document.selection.createRange(),
+                    // Don't: oR = textarea.createTextRange()
+                    oR = document.body.createTextRange();
+                oR.moveToElementText(textarea);
+
+                rangeData.text = oS.text;
+                rangeData.bookmark = oS.getBookmark();
+                for (i = 0; oR.compareEndPoints('StartToStart', oS) < 0 && oS.moveStart("character", -1) !== 0; i ++) {
+                    // Why? You can alert(textarea.value.length)
+                    if (textarea.value.charAt(i) == '\r' ) {
+                        i ++;
+                    }
+                }
+                rangeData.start = i;
+                rangeData.end = rangeData.text.length + rangeData.start;
+            }
+            return rangeData;
+        }
+    }
+    var textareaElement=null;
+</script>
+</body>
+</html>

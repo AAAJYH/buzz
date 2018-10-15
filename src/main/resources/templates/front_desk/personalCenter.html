@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <base href="http://localhost:8000/">
+    <base href="http://localhost/">
     <title th:text="${user.userName+'的窝 - 嗡嗡嗡'}"></title>
     <meta name="renderer" content="webkit" />
     <script type="text/javascript">
         window.Env = {"profileSetting":{"banner_cover":"","banner_cover_url":"","banner_map_type":0,"bg_type":0,"cover_pic":0},"profileConfig":{"page_bg_type_config":[{"bodyClass":"bg0"},{"bodyClass":"bg2"},{"bodyClass":"bg3"},{"bodyClass":"bg4"},{"bodyClass":"bg1"}],"banner_map_type_config":[{"name":"\u7ecf\u5178","thumbnail":"\/images\/home_new2015\/m1.gif","className":"maps-theme-default","regionFill":[{"fill":"#cccccc","fill-opacity":"0.1"},{"fill":"#ffe5a6","fill-opacity":"0.9"},{"fill":"#ffd267","fill-opacity":"0.9"},{"fill":"#ffba14","fill-opacity":"0.9"},{"fill":"#ff9000","fill-opacity":"0.9"}]},{"name":"\u8dc3\u5165\u84dd\u8272\u661f\u7403","thumbnail":"\/images\/home_new2015\/m2.gif","className":"maps-theme-blue","regionFill":[{"fill":"#ffffff","fill-opacity":"0.8"},{"fill":"#4ea3d2","fill-opacity":"0.8"},{"fill":"#509ed3","fill-opacity":"0.8"},{"fill":"#3589cf","fill-opacity":"0.8"},{"fill":"#0066cc","fill-opacity":"0.8"}]},{"name":"\u65c5\u884c\u8ba9\u4e16\u754c\u6709\u5149","thumbnail":"\/images\/home_new2015\/m3.gif","className":"maps-theme-black","regionFill":[{"fill":"#2d2e32","fill-opacity":"1"},{"fill":"#ffcf59","fill-opacity":"1"},{"fill":"#ffbd21","fill-opacity":"1"},{"fill":"#ff9c00","fill-opacity":"1"},{"fill":"#fd703a","fill-opacity":"1"}]},{"name":"\u5927\u822a\u6d77\u65f6\u4ee3","thumbnail":"\/images\/home_new2015\/m4.gif","className":"maps-theme-green","regionFill":[{"fill":"#a3dde0","fill-opacity":"0.8"},{"fill":"#77d9dc","fill-opacity":"0.8"},{"fill":"#35c9cb","fill-opacity":"0.8"},{"fill":"#0eb0b2","fill-opacity":"0.8"},{"fill":"#039ba4","fill-opacity":"0.8"}]},{"name":"PINK PUNK","thumbnail":"\/images\/home_new2015\/m5.gif","className":"maps-theme-red","regionFill":[{"fill":"#ffffff","fill-opacity":"0.8"},{"fill":"#f7ae9c","fill-opacity":"0.8"},{"fill":"#f7ae9c","fill-opacity":"0.8"},{"fill":"#e46547","fill-opacity":"0.8"},{"fill":"#db4c2b","fill-opacity":"0.8"}]}]},"china_mdd_lng_lat":[],"world_mdd_lng_lat":[],"target_uid":52028572,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":52028572,"CSTK":"10d0d60fee53f8dfa3a44eb7d3ec7d36_74746be42734ad592cb771ea0461981a","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
     </script>
     <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
-    <link href="css/css+home_new2015+home_new2015_css+path+wo-path_v2_css+clip_css+path+map_css+path+jvectormap-2.0.1^alI^1509971336.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1%5EalI%5E1509971336.css" rel="stylesheet" type="text/css"/>
     <script language="javascript" src="js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -110,13 +110,11 @@
                         <div class="switch_btn">
                             <a role="button" class="bg_btn switch_pic _j_switch_pic"><i></i><span>切回照片封面</span></a>
                         </div>
-
                         <div class="map-item _j_map _j_worldmapholder" id="containerworld"></div>
                         <div class="map-item _j_map _j_chinamapholder small" id="container"><div class="china-map-tail"></div></div>
                     </div>
                 </div>
                 <div class="_j_mapcardwrap"></div>
-
             </div>
             <div class="home_bg _j_pic_cnt home_default_bg hide">
                 <div class="bg_switch bg_upload _j_toppic_default">
@@ -130,7 +128,6 @@
                 <div class="bg_switch bg_show _j_toppic hide">
                     <i class="my_bg" id="_j_bgimg" style="background-image: url(); background-size:cover" data-imgsrc=""></i>
                     <div class="center">
-
                     </div>
                     <div class="switch_btn">
                         <a role="button" class="bg_btn switch_map _j_switch_map"><i></i><span>切回炫酷地图封面</span></a>
@@ -159,7 +156,6 @@
                                 <li><a href="/order_center/" title="我的订单"><i class="ico_order"></i><span>我的订单</span></a></li>
                                 <li><a href="/sales/coupon.php" title="我的优惠券"><i class="ico_ticket"></i><span>我的优惠券</span></a></li>
                                 <li><a href="/mall/my_exchange.php" title="我的兑换"><i class="ico_exchange"></i><span>我的兑换</span></a></li>
-                                <!--<li><a href="/rent/order/boss?flag=-1" title="我的当地人"><i class="ico_rent"></i><span>我的当地人</span></a></li>-->
                                 <li><a href="/flight/passengers.php" title="常用信息"><i class="ico_information"></i><span>常用信息</span></a></li>
                             </ul>
                         </div>
@@ -295,23 +291,23 @@
                     <div class="set_list">
                         <ul>
                             <li class="_j_map_themetype  on" data-option="0">
-                                <a role="button"><img src="http://images.mafengwo.net/images/home_new2015/m1.gif"></a>
+                                <a role="button"><img src="images/home_new2015/m1.gif"></a>
                                 <p>经典</p>
                             </li>
                             <li class="_j_map_themetype " data-option="1">
-                                <a role="button"><img src="http://images.mafengwo.net/images/home_new2015/m2.gif"></a>
+                                <a role="button"><img src="images/home_new2015/m2.gif"></a>
                                 <p>跃入蓝色星球</p>
                             </li>
                             <li class="_j_map_themetype " data-option="2">
-                                <a role="button"><img src="http://images.mafengwo.net/images/home_new2015/m3.gif"></a>
+                                <a role="button"><img src="images/home_new2015/m3.gif"></a>
                                 <p>旅行让世界有光</p>
                             </li>
                             <li class="_j_map_themetype " data-option="3">
-                                <a role="button"><img src="http://images.mafengwo.net/images/home_new2015/m4.gif"></a>
+                                <a role="button"><img src="images/home_new2015/m4.gif"></a>
                                 <p>大航海时代</p>
                             </li>
                             <li class="_j_map_themetype " data-option="4">
-                                <a role="button"><img src="http://images.mafengwo.net/images/home_new2015/m5.gif"></a>
+                                <a role="button"><img src="images/home_new2015/m4.gif"></a>
                                 <p>PINK PUNK</p>
                             </li>
                         </ul>
@@ -340,10 +336,10 @@
                     <strong>页面背景选择</strong>
                     <span>
                     <a role="button" class="_j_bgoption on" data-option="0"><i style="background-color: #eee;"></i></a>
-                    <a role="button" class="_j_bgoption" data-option="1"><img src="http://images.mafengwo.net/images/home_new2015/b2.png" height="48" width="48"></a>
-                    <a role="button" class="_j_bgoption" data-option="2"><img src="http://images.mafengwo.net/images/home_new2015/b3.png" height="48" width="48"></a>
-                    <a role="button" class="_j_bgoption" data-option="3"><img src="http://images.mafengwo.net/images/home_new2015/b4.png" height="48" width="48"></a>
-                    <a role="button" class="_j_bgoption" data-option="4"><img src="http://images.mafengwo.net/images/home_new2015/b5.png" height="48" width="48"></a>
+                    <a role="button" class="_j_bgoption" data-option="1"><img src="images/home_new2015/b2.png" height="48" width="48"></a>
+                    <a role="button" class="_j_bgoption" data-option="2"><img src="images/home_new2015/b3.png" height="48" width="48"></a>
+                    <a role="button" class="_j_bgoption" data-option="3"><img src="images/home_new2015/b4.png" height="48" width="48"></a>
+                    <a role="button" class="_j_bgoption" data-option="4"><img src="images/home_new2015/b5.png" height="48" width="48"></a>
                 </span>
                 </div>
             </div>
@@ -524,7 +520,7 @@
         <div class="content flt2">
             <div class="common_block main_links">
                 <ul class="clearfix">
-                    <li><a href="/note/create_index.php" target="_blank"><i class="write_note"></i><span>写游记</span></a></li>
+                    <li><a href="travelNotesController/show_createNoteIndex_html" target="_blank"><i class="write_note"></i><span>写游记</span></a></li>
                     <li><a href="/wenda/" target="_blank"><i class="ask_expert"></i><span>问达人</span></a></li>
                     <li><a href="/path/" target="_blank"><i class="add_footprint"></i><span>添加足迹</span></a></li>
                     <li class="last"><a href="/together/" target="_blank"><i class="invite_friends"></i><span>发布结伴</span></a></li>
@@ -540,7 +536,7 @@
             </style>
             <div class="common_block personal_info" id="_j_taskwrap">
                 <div class="personal_tips">
-                    <p><strong>抽象°</strong>，这里是你的【窝】！</p>
+                    <p><strong th:text="${user.userName}"></strong>，这里是你的【窝】！</p>
                     <p>是记录你的旅行记忆，结交各路豪杰的地盘儿。现在开启嗡嗡嗡旅程！</p>
                 </div>
                 <div class="personal_list clearfix">
@@ -575,82 +571,6 @@
                     </ul>
                 </div>
             </div>
-            <script type="text/x-jquery-tmpl" id="_j_talent_tmpl">
-<div class="pop_recommenders">
-    <div class="recommend_box recommend_fengshou">
-        <div class="recommend_list clearfix">
-            <ul class="clearfix _j_focus_list" style="height:230px"></ul>
-        </div>
-        <div class="recommend_users" style="height:136px">
-            <ul class="clearfix _j_expert_list"></ul>
-        </div>
-        <div class="recommend_btn clearfix">
-            <a role="button" class="link_b link_cancel _j_close" title="关闭">关闭</a>
-            <a role="button" class="link_b _j_focus" title="确认关注">确认关注</a>
-            <a role="button" class="change_users _j_exchange">换一批<i></i></a>
-        </div>
-    </div>
-</div>
-</script>
-            <div class="common_block relative_info">
-                <!--<span class="MLittleClose" title="关闭"></span>-->
-                <p class="_j_feed_item" data-fid="567557099" data-ftype="11">
-                    <a href="/u/72550564.html" target="_blank" class="_j_feed_user">嗡嗡嗡用户</a>
-                    关注了 <a href="/u/5037685.html" target="_blank" class="_j_feed_detail_user">Kris陈瑞瑞</a>
-                    <span class="time">2018-10-01 22:10:37</span>
-                </p>
-                <p class="_j_feed_item" data-fid="567557103" data-ftype="11">
-                    <a href="/u/50972073.html" target="_blank" class="_j_feed_user">晨</a>
-                    关注了 <a href="/u/17712202.html" target="_blank" class="_j_feed_detail_user">晨琅</a>
-                    <span class="time">2018-10-01 22:10:37</span>
-                </p>
-                <p class="_j_feed_item" data-fid="567557107" data-ftype="2">
-                    <a href="/u/80614197.html" target="_blank" class="_j_feed_user">那不是问题</a>
-                    顶了 <a href="/u/53343627.html" target="_blank" class="_j_feed_detail_user">嘴角上扬</a> 的游记
-                    <span><a href="/i/10531186.html" target="_blank" class="_j_feed_detail_content">越南，说走就走</a></span>
-                    <span class="time">2018-10-01 22:10:37</span>
-                </p>
-                <p class="_j_feed_item" data-fid="567557115" data-ftype="3">
-                    <a href="/u/78776268.html" target="_blank" class="_j_feed_user">王阿翘</a>
-                    收藏了 <a href="/u/62073920.html" target="_blank" class="_j_feed_detail_user">Audrey大梦</a> 的游记
-                    <span><a href="/i/9292489.html" target="_blank" class="_j_feed_detail_content">一家低调而用心的秘境民宿，大连半个网红圈也来为它免费打call！</a></span>
-                    <span class="time">2018-10-01 22:10:37</span>
-                </p>
-                <p class="_j_feed_item" data-fid="567557119" data-ftype="1">
-                    <a href="/u/79147420.html" target="_blank" class="_j_feed_user">大心喵</a>
-                    发表了新游记 <a href="/i/10736246.html" target="_blank" class="_j_feed_detail_content">情迷东南亚 | 在泰国的街头走一走</a>
-                    <span class="time">2018-10-01 22:10:37</span>
-                </p>
-
-            </div>
-            <script>
-                M.closure(function(require) {
-                    var ptype = 0;
-                    (Env.UID == Env.target_uid) ? ptype = 0 : ptype = 1;
-                    $('._j_feed_user').click(function(ev) {
-                        var target = $(ev.currentTarget),
-                            parentObj = target.parent(),
-                            fid =  parentObj.data('fid'),
-                            ftype =  parentObj.data('ftype');
-                        mfwPageEvent('ugc','feed_click',{'ptype':ptype, 'uid':Env.UID, 'fid':fid, 'ftype':ftype, 'fblock':'user', 'source':'www'});
-                    });
-                    $('._j_feed_detail_user').click(function(ev) {
-                        var target = $(ev.currentTarget),
-                            parentObj = target.parent(),
-                            fid =  parentObj.data('fid'),
-                            ftype =  parentObj.data('ftype');
-                        mfwPageEvent('ugc','feed_click',{'ptype':ptype, 'uid':Env.UID, 'fid':fid, 'ftype':ftype, 'fblock':'detail_user', 'source':'www'});
-                    });
-                    $('._j_feed_detail_content').click(function(ev) {
-                        var target = $(ev.currentTarget),
-                            parentObj = target.parent().parent(),
-                            fid =  parentObj.data('fid'),
-                            ftype =  parentObj.data('ftype');
-
-                        mfwPageEvent('ugc','feed_click',{'ptype':ptype, 'uid':Env.UID, 'fid':fid, 'ftype':ftype, 'fblock':'detail_content', 'source':'www'});
-                    });
-                });
-            </script>
             <div class="common_block my_notes">
                 <div class="common_title clearfix">
                     <h2>我的游记</h2>
@@ -659,7 +579,7 @@
                 <div class="notes_default_v2">
                     <div class="notes_dcon">
                     </div>
-                    <a href="/note/create_index.php" title="写游记" class="btn_write"><i></i>写游记</a>
+                    <a href="travelNotesController/show_createNoteIndex_html" title="写游记" class="btn_write"><i></i>写游记</a>
                 </div>
                 <div class="more_notes">
                     <a class="btn_deleted" href="/u/note/delete.html"><i></i>已删除游记</a>
@@ -756,12 +676,6 @@
     if (typeof M !== "undefined" && typeof M.loadResource === "function") {
         M.loadResource("js/js+pageletcommon+pageHeadUserInfoWWWDark_js+home+AIndexTopCover_js+jquery-jvectormap-2.0.1.min_js+jvector-china_js+jvector-world_js+new_mdd_lnglat_map_js+jvmap_js+path+jvmap_js+path+ChinaWorldMap_js+home+ATopMap_js+jquery.js");
     }
-    $().ready(
-        function()
-        {
-            window.location.href="front_desk/updateuserPasswordBybindEmail.html";
-        }
-    );
 </script>
 </body>
 </html>

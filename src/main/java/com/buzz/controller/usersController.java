@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -394,18 +395,31 @@ public class usersController {
         }
     }
     @RequestMapping("login_user")
-    public String login_user(String passport,String password,Model model)
-    {
-        users user=usersservice.login_user(passport,Encryption.encryption_md5(password));
-        if(null!=user&&user.getBindPhone().equals(passport))
+    public String login_user(String passport,String password,Model model,HttpSession session) {
+        if (null != passport && !"".equals(passport) && null != password && !"".equals(password))
         {
-            model.addAttribute("user",user);
-            return "front_desk/personalCenter";
+            users user=usersservice.login_user(passport,Encryption.encryption_md5(password));
+            if(null!=user&&user.getBindPhone().equals(passport))
+            {
+                model.addAttribute("user",user);
+                return "front_desk/personalCenter";
+            }
+            else
+            {
+                model.addAttribute("danger_message","账号或密码错误,请重试!");
+                return "front_desk/login";
+            }
         }
         else
         {
-            model.addAttribute("danger_message","账号或密码错误,请重试!");
-            return "front_desk/login";
+            users user= (users) session.getAttribute("user");
+            if(null!=user&&!"".equals(user.getBindPhone()))
+                return "front_desk/personalCenter";
+            else
+            {
+                model.addAttribute("danger_message","账号或密码错误,请重试!");
+                return "front_desk/login";
+            }
         }
     }
 }
