@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>酒店预订 - 嗡嗡嗡嗡嗡嗡优选</title>
+    <script type="text/javascript">
+        window.Env = {"gParams":{"hotel_id":1232786,"ota_type":14,"poi_id":8464000,"ota_hotel_id":"706140","type_id":"6728488","room_id":"6728488__3dc78841c9ed975c765eb963d53e9b2d","type_name":"Double - Shared Bathroom","room_num":1,"check_date_in":"2019-02-28","check_date_out":"2019-03-10","roomData":"\"null\"","max_p_num":2,"remain_num":5,"basepay_percent":0.1,"pay_deadline_before_cancel":7,"activity":"","vipcode":null,"hotelcover":"http:\/\/n4-q.mafengwo.net\/s11\/M00\/5A\/32\/wKgBEFsx5qWAGQSeAAOF_1t4zyw14.jpeg?imageMogr2%2Fthumbnail%2F%21484x484r%2Fgravity%2FCenter%2Fcrop%2F%21484x484%2Fquality%2F90","checkActivityWhenWrong":0,"rate_type":0,"pkgPickupMin":"2018-10-16","can_input_chinese_name":false,"otaLogos":{"0":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_youyu.png","title":"\u6709\u9c7c\u8ba2\u623f"},"7":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_booking.png","title":"Booking"},"8":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_elong.png","title":"\u827a\u9f99"},"10":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_ctrip.png","title":"\u643a\u7a0b"}},"room_ext_data":"","rooms":"2","uuid":"5ba2fadc-acf4-7b94-89d6-6484da40883a","is_cnmain":false},"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":0,"CSTK":"c3fed25a84534a95e5d91815956afb38_48156a6578eacd26ebed4b762421da40","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
+    </script>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup^a1Q^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/youyudf+css+order-v2:css+hotel+hotel_order^Z1c^1527074989.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        $(function(){
+            //此网页js初始化的东西不显示
+            $(".dialog-container").css("display","none");
+            $(".dialog-mask").css("display","none");
+            $(".room-item .sub").css("display","none");
+            $(".room-index").html("");
+            $(".room-name").html("基本信息");
+
+            //初始化页面
+            $.ajax({
+                url: 'http://apitest.99263.com/Hotel/HotelDetail',
+                type: 'post',
+                data: {
+                    "Data": {
+                        "HId": [[${hid}]]
+                    },
+                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                    "Sign": "11111111111111111111",
+                    "Timestamp": "2017/10/01 00:00:00"
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    var HotelDetails = data.Data.HotelDetails; //详情
+
+                    //图片和酒店名称和地址
+                    $(".one1").html(" <a href=\"/hotelController/hotelDetailsIndex?hotelId="+[[${hid}]]+"\">\n" +
+                        "                        <img src=\""+HotelDetails.DefaultPicture+"\" height='300px'>\n" +
+                        "                    </a>");
+                    $(".one2").html("<a href=\"javascript;\">\n" +
+                        "                        <h2 style=\"height:50px;\">"+HotelDetails.HotelName+"</h2>\n" +
+                        "                    </a>\n" +
+                        "                    <p class=\"address\">"+HotelDetails.Address+"</p>");
+
+                    //地址
+                    $(".two2").html(HotelDetails.Address);
+
+                    //入户日期和离开日期
+                    $(".three3").html("<div class=\"t\">"+[[${beginTime}]].substring(0,4)+"年"+[[${beginTime}]].substring(5,7)+"月</div>\n" +
+                        "                        <div class=\"m\">"+[[${beginTime}]].substring(8)+"</div>\n" +
+                        "                        <div class=\"b\">星期四入住</div>");
+                    $(".four4").html("<div class=\"t\">"+[[${endTime}]].substring(0,4)+"年"+[[${endTime}]].substring(5,7)+"月</div>\n" +
+                        "                        <div class=\"m\">"+[[${endTime}]].substring(8)+"</div>\n" +
+                        "                        <div class=\"b\">星期日离店</div>");
+
+                    //订单明细
+                    $(".five5").html("1间<span>"+[[${roomName}]]+"</span>*\n" +
+                        "        <span>"+[[${days}]]+"</span>晚&nbsp;&nbsp;\n" +
+                        "        <span>"+[[${productName}]]+"</span>");
+
+                    //总价
+                    $(".six6").html("总价（含税）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n<span>￥<span>"+[[${price*days}]]+"</span></span>\n");
+                    $("#_j_final_confirm_price").text([[${price*days}]]);
+                }
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+
+<style type="text/css">
+    .mod-title {
+        margin-bottom: 0px;
+    }
+    .hotel-panel .extra,
+    .room-item .sub {
+        cursor: context-menu;
+    }
+    .room-item .sub {
+        position: relative;
+        z-index: 1;
+        padding-top: 10px;
+        font-size: 13px;
+        display: inline-block;
+    }
+    .extra-tips {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 150px;
+        padding: 20px;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        text-align: left;
+        -webkit-transition: opacity ease-in .3s;
+        -moz-transition: opacity ease-in .3s;
+        transition: opacity ease-in .3s;
+        webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+    .extra-tips.show {
+        opacity: 1;
+        z-index: 31;
+    }
+    .ui-input input,
+    .special-panel textarea {
+        box-sizing: content-box;
+    }
+    .room-item .ui-input {
+        width: 167px;
+    }
+    .room-item .ui-input input{
+        padding-right: 25px;
+    }
+    .ui-input.ui-input-long {
+        width: 343px;
+    }
+    .ui-input.ui-input-long input {
+        width: 326px;
+    }
+    .ui-hide{
+        display: none!important;
+    }
+    .sub .text {
+        padding-left: 10px;
+    }
+    .tips-question {
+        vertical-align: 2px;
+    }
+    .special-panel .ui-input {
+        width: 390px;
+        height: auto;
+    }
+    .special-panel textarea {
+        resize: none;
+    }
+    .ui-input.ui-input-error textarea {
+        border-color: #ff584b;
+    }
+    .ui-input.ui-input-focus textarea {
+        border-color: #ff9d00;
+    }
+    .ui-input.ui-input-success textarea {
+        border-color: #666;
+    }
+    .line {
+        margin: 10px 0;
+    }
+    .f-row {
+        margin: 0;
+    }
+    .ui-select {
+        width: 343px;
+        margin-top: 10px;
+    }
+    .ui-select .trigger {
+        padding: 0 10px;
+    }
+    .ui-select em.name {
+        font-size: 12px;
+        letter-spacing: 1px;
+        font-style: normal;
+        color: #999;
+    }
+    .ui-select .sel-bd {
+        display: block;
+        opacity: 0;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webket-transform: translateY(15px);
+        -moz-transform: translateY(15px);
+        transform: translateY(15px);
+        -webket-transition: all .3s ease-in-out 0s;
+        -moz-transition: all .3s ease-in-out 0s;
+        transition: all .3s ease-in-out 0s;
+    }
+    .ui-select.ui-select-long{
+        width: 390px;
+        margin-top: 0px;
+        border-color: #666;
+    }
+    .name-list-container .f-row {
+        padding-bottom: 10px;
+    }
+    .name-list-container,
+    .room-item .tips {
+        position: relative;
+        z-index: 1;
+    }
+    .room-item .tips {
+        margin: 0;
+        padding-top: 5px;
+    }
+
+    .coupon-container,
+    .insure-container,
+    .honey-container {
+        display: none;
+    }
+    .coupon-num,
+    .insure-num,
+    .honey-num,
+    .total-rate {
+        font-style: normal;
+    }
+    .ui-plain {
+        padding-right: 10px;
+    }
+    .ui-plain em {
+        font-size: 13px;
+        font-style: normal;
+        color: #333;
+    }
+    .order-side,
+    .plain-container,
+    .select-container {
+        opacity: 0;
+        -webkit-transition: opacity ease-in .5s;
+        -moz-transition: opacity ease-in .5s;
+        transition: opacity ease-in .5s;
+    }
+    .order-side.show,
+    .plain-container.show,
+    .select-container.show {
+        opacity: 1;
+    }
+    .select-container {
+        margin: 0;
+    }
+    .order-side .state {
+        padding: 10px;
+    }
+
+    .coupon-panel li {
+        height: 80px;
+    }
+    .coupon-panel .value {
+        height: 81px;
+        background-position: 0 -180px;
+    }
+
+    .hotel-panel .subtitle {
+        margin-bottom: 10px;
+    }
+    .hotel-panel .rate {
+        vertical-align: -2px;
+    }
+
+    /* 取消险相关 */
+    .price_pp {
+        font-style: normal;
+    }
+    .cancel-panel .icon-checkbox {
+        border:  1px solid #ff4638;
+    }
+    .cancel-panel .icon-checkbox.checked:after {
+        border-bottom: 2px solid #ff4638;
+        border-left: 2px solid #ff4638;
+    }
+    ._j_cancel-price {
+        color: #ff4638;
+    }
+    ._j_cancel-price .k-spinner,
+    .price .k-spinner,
+    ._j_honey-num .k-spinner {
+        left: 0;
+        width: 10px;
+        height: 10px;
+    }
+    ._j_cancel-price .k-bubble-1,
+    ._j_cancel-price .k-bubble-2,
+    .price .k-bubble-1,
+    .price .k-bubble-2,
+    ._j_honey-num .k-bubble-1,
+    ._j_honey-num .k-bubble-2 {
+        width: 5px;
+        height: 5px;
+        background-color: #f95555;
+    }
+    .honey-panel,
+    .limit-panel {
+        margin-bottom: 20px;
+        border: 1px solid #d9d9d9;
+        padding: 15px 25px;
+        background-color: #fefdfd;
+        border-radius: 4px;
+        color: #333;
+        line-height: 24px;
+    }
+    .honey-panel::after,
+    .limit-panel::after {
+        content: '';
+        display: table;
+        clear: both;
+        height: 0;
+        overflow: hidden;
+    }
+    .limit-panel {
+        display: none;
+    }
+    .invoice-panel .icon-checkbox,
+    .honey-panel .icon-checkbox {
+        display: inline-block;
+        float: left;
+        margin-top: 3px;
+        margin-right: 8px;
+        width: 15px;
+        height: 15px;
+        border: 1px solid #333;
+        border-radius: 3px;
+        position: relative;
+    }
+    .invoice-panel .icon-checkbox.checked::after,
+    .honey-panel .icon-checkbox.checked::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 5px;
+        border-bottom: 2px solid #333;
+        border-left: 2px solid #333;
+        transform: rotate(-45deg);
+        left: 3px;
+        top: 2px;
+    }
+
+    .invoice-panel {
+        position: relative;
+    }
+    .invoice-switch-btn-container {
+        position: absolute;
+        top: 18px;
+        right: 25px;
+    }
+    .invoice-switch-btn {
+        display: none;
+    }
+    .invoice-switch-btn-label {
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        width: 40px;
+        height: 20px;
+        border-radius: 20px;
+        box-shadow: #d7d7d7 0px 0px 0px 1px;
+        background-color: #d7d7d7;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -ms-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    .invoice-switch-btn-label::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        border-radius: 20px;
+        background-color: #fff;
+        z-index: 1;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -ms-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    label.invoice-switch-btn-label.invoice-switch-btn-label-checked::before {
+        left: 20px;
+    }
+    label.invoice-switch-btn-label.invoice-switch-btn-label-checked {
+        background-color: #ff9d00;
+    }
+    .invoice-panel .f-row {
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+    .invoice-panel .frequent {
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
+    .invoice-panel .radio {
+        padding: 0 25px;
+    }
+
+    .inactive-coupon {
+        position: relative;
+        margin: 5px;
+        font-size: 14px;
+        color: #333;
+        line-height: 24px;
+    }
+    .coupon-inactive-list li{
+        float: none;
+        display: block;
+        border: none;
+        width: auto;
+        height: 110px;
+    }
+    .coupon-inactive-list li:hover{
+        border-color: #d9d9d9;
+    }
+    .coupon-inactive-list .coupon-desc {
+        float: left;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    .coupon-inactive-card {
+        float: left;
+        display: inline;
+        margin: 0 348px 0 0;
+        height: 80px;
+        width: 250px;
+        border: 1px solid #d9d9d9;
+        border-radius: 2px;
+        position: relative;
+        cursor: pointer;
+    }
+    .coupon-inactive-card .value {
+        background-color: #d9d9d9;
+    }
+    .coupon-panel em{
+        font-style: normal;
+    }
+    @media (min-resolution: 1.25dppx), (-webkit-min-device-pixel-ratio: 1.25), not all {
+        .invoice-panel .radio.current::after,
+        .form-panel .radio.current::after {
+            background-image: url(http://images.mafengwo.net/images/youyu/order/sprites-v2.5@2x.png);
+            background-size: 300px auto;
+        }
+    }
+    .header-wrapper .head-logo a {
+        background-image: url(http://images.mafengwo.net/images/hotel/newlogo/form-up-logo@2x.png);
+        background-size: 170px auto;
+    }
+    .youyu-footer .foot-logo {
+        background-image: url(http://images.mafengwo.net/images/hotel/newlogo/form-down-logo@2x.png);
+        background-size: 128px auto;
+        background-position: 0 0;
+    }
+    @media (min-resolution: 1.25dppx), (-webkit-min-device-pixel-ratio: 1.25), not all {
+        .header-wrapper .head-logo a {
+            background-image: url(http://images.mafengwo.net/images/hotel/newlogo/form-up-logo@2x.png);
+            background-size: 170px auto;
+        }
+        .youyu-footer .foot-logo {
+            background-image: url(http://images.mafengwo.net/images/hotel/newlogo/form-down-logo@2x.png);
+            background-size: 128px auto;
+            background-position: 0 0;
+        }
+    }
+
+    .phone-ex-container {
+        float: left;
+        display: inline-block;
+        margin-right: 5px;
+        border: 1px solid #666;
+        width: 50px;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        font-size: 12px;
+        color: #333;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    .popup-container .pop-bd.pop-bank .bank-box {
+        margin-left: 0;
+    }
+    .popup-container .pop-bd.pop-bank .bank-nav,
+    .popup-container .pop-bd.pop-bank .bank-box {
+        height: 300px;
+    }
+</style>
+<div class="container">
+    <div class="wrapper" id="_j_wrapper">
+
+        <!-- 顶部 -->
+        <div class="process">
+            <ul class="clearfix">
+                <li class="visited"><i></i>1. 选择房间 </li>
+                <li class="on"><i></i>2. 填写入住详情</li>
+                <li><i></i>3. 确认支付信息</li>
+                <li><i></i>4. 预订完成</li>
+            </ul>
+        </div>
+
+        <div class="order-main">
+            <!-- 酒店信息 S -->
+            <div class="hotel-panel">
+                <!--酒店图片-->
+                <div class="img one1"></div>
+                <div class="info one2">
+                    <!-- 酒店名称 -->
+                    <a href="javascript;">
+                        <h2 style="height:50px;"></h2>
+                    </a>
+                    <!-- 地址 -->
+                    <p class="address"></p>
+                </div>
+                <div class="extra">
+                    <!-- 入住日期 -->
+                    <div class="item three3" name="date-check-in" data-val="2019-02-28"></div>
+                    <!-- 离开日期 -->
+                    <div class="item four4" name="date-check-out" data-val="2019-03-10"> </div>
+                    <div class="item">
+                        <div class="t">客房数</div>
+                        <div class="m">1</div>
+                        <div class="b">间</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 酒店信息 E -->
+
+            <!-- 填写表单 S -->
+            <div class="form-panel">
+                <!-- 房间信息 S -->
+                <div class="form-block form-room" id="_j_form_room_container"></div>
+                <!-- 房间信息 E -->
+
+                <div class="form-block form-contact" id="_j_contact_information_container">
+                    <div class="mod-title">联系人信息 (必填)</div>
+                    <div class="f-row">
+                        <div class="ui-input ui-input-long">
+                            <input type="text" class="name input-name" input-name="name">
+                            <label>姓名</label>
+                            <i class="icon-success"></i>
+                        </div>
+                        <span class="tips-err" style="display: none;"><i></i><em class="tips-err-text"></em></span>
+                    </div>
+                    <div class="f-row">
+                        <div class="phone-ex-container" id="_j_phone-ex-container">+<span class="phone-ex">86</span></div>
+                        <div class="ui-input ui-input-long" style="width: 286px;">
+                            <input type="text" class="phone input-name" input-name="phone" style="width: 269px;">
+                            <label>手机</label>
+                            <i class="icon-success"></i>
+                        </div>
+                        <span class="tips-err" style="display: none;"><i></i><em class="tips-err-text"></em></span>
+                    </div>
+                    <div class="f-row">
+                        <div class="ui-input ui-input-long">
+                            <input type="text" class="email input-name" input-name="email">
+                            <label>电子邮箱</label>
+                            <i class="icon-success"></i>
+                        </div>
+                        <span class="tips-err" style="display: none;"><i></i><em class="tips-err-text"></em></span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 填写表单 E -->
+
+            <!-- 特殊要求 S -->
+            <style>
+                .special-panel input[type="text"]{
+                    width:40px;
+                }
+            </style>
+            <div class="special-panel mod-wrap" id="_j_special_panel_container" name="special" style="height:120px;">
+                <div class="mod-title special">特殊要求（可不填）</div>
+                <p>
+                    最晚到店时间：<input type="text" placeholder="时" id="hour"/>&nbsp;&nbsp;：&nbsp;
+                    <input type="text" placeholder="分" id="minute"/>
+                </p></br>
+                <p>
+                    <textarea rows="15" cols="15" placeholder="备注" id="remark"></textarea>
+                </p>
+            </div>
+
+            <!-- 信用卡类型 E -->
+            <a class="btn-action" href="javascript:;" id="subOrder">提交订单（¥ <span id="_j_final_confirm_price"></span>）</a>
+            <script th:inline="javascript">
+               $("#subOrder").click(function(){
+                  var xing=$(".last-name").val(); //入住人 性
+                  var ming=$(".first-name").val(); //入住人 名
+                  var name=$(".name").val(); //联系人
+                  var phone=$(".phone").val(); //手机号
+                  var email=$(".email").val(); //电子邮箱
+                  var lastTime=$("#hour").val()+":"+$("#minute").val(); //最晚入住时间
+                  var hid=[[${hid}]] //酒店id
+                  var roomName=[[${roomName}]]; //房间名称
+                  var beginTime=[[${beginTime}]]; //入住日期
+                  var endTime=[[${endTime}]]; //离开日期
+                  var productName=[[${productName}]]; //含不含早
+                  var amount=[[${price*days}]]; //总金额
+                  var remark=$("#remark").val(); //备注
+                   alert(xing+" "+ming+" "+name+" "+phone+" "+email+" "+lastTime+" "+hid+" "+roomName+" "+beginTime+" "+endTime+" "+productName+" "+amount+" "+remark);
+               });
+            </script>
+        </div>
+
+        <!-- 不能删 -->
+        <div class="order-side" id="_j_expense_container"></div>
+
+    </div>
+</div>
+
+<!-- 全部费用明细 S -->
+<style>
+    .order_detail{
+        width:340px;
+        height:160px;
+        border:1px solid #E7E3E3;
+        position:absolute;
+        top:105px;
+        right:260px;
+        padding:0px;
+        border-radius:4px;
+    }
+    .order_detail .one{
+        font-weight:bold;
+        color:#222222;
+        width:325px;
+        padding-top:8px;
+        padding-bottom:8px;
+        padding-left:15px;
+        font-size:120%;
+        background:#F2EFEF;
+    }
+    .order_detail .two{
+        width:325px;
+        padding-top:15px;
+        padding-bottom:15px;
+        padding-left:15px;
+        border-bottom:1px solid #E7E3E3;
+    }
+    .order_detail .three{
+        width:325px;
+        padding-top:26.5px;
+        padding-bottom:26.5px;
+        padding-left:18px;
+        font-size:150%;
+        color:#222222;
+        border-bottom:1px solid #E7E3E3;
+    }
+    .three span{
+        color:#FF8D00;
+        font-weight:bold;
+    }
+</style>
+<div class="order_detail">
+    <div class="one">预定费用明细</div>
+    <div class="two five5"></div>
+    <div class="three six6"></div>
+</div>
+<!-- 全部费用明细 E -->
+
+<div class="youyu-footer">
+    <p class="copyright"><i class="foot-logo"></i>© 2018 mafengwo.cn </p>
+    <div class="foot-info">
+        <p class="foot-address"> 北京嗡嗡嗡网络科技有限公司 </p>
+        <p class="foot-contact"><a style="color:#8c9ba5" target="_blank" href="http://www.miibeian.gov.cn">京ICP备11015476号</a></p>
+    </div>
+</div>
+
+
+<script language="javascript" src="http://js.mafengwo.net/js/hotel/booking_www/dist/booking_form.js?1537925518" type="text/javascript" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1252981590'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D1252981590' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+</body>
+</html>

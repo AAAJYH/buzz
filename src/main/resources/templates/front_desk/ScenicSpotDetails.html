@@ -363,27 +363,34 @@
             map.centerAndZoom(target_point, 9);  // 初始化地图,设置中心点坐标和地图级别
             map.enableScrollWheelZoom(); //启动滚动轮缩放
 
-            //定位当前城市
-            var myCity = new BMap.LocalCity(); //创建一个获取本地城市位置的实例
-            //当获取城市信息后，回调函数会被调用，其参数类型为LocalCityResult对象
-            // LocalCityResult对象  属性1.center:城市所在的中心点  属性2.name:城市名称  属性3.level:展示当前城市的最佳地图级别
-            myCity.get(function myFun(result){
-                //创建行车路线实例  map:检索区域(Map,Point,String)   renderOptions:结果呈现设置  {map:map}：展现结果的地图示例
-                var drivingRoute=new BMap.DrivingRoute(map,{renderOptions:{map:map}});
-                drivingRoute.search(result.center,target_point);
-                //设置检索后的回调函数 参数：results
-                drivingRoute.setSearchCompleteCallback(function(results){
-                    var plan=results.getPlan(0); //获取第一个方案
-                    var duration=plan.getDuration(true); //获取时间  duration:持续，期间
-                    var distance=plan.getDistance(true); //获取距离  distance:距离
-                    $(".mhd").children("span").text("（路程大约"+distance+",驾车时间大约"+duration+"）");
-                });
-                drivingRoute.setMarkersSetCallback(function(pois){
-                    var geocoder=new BMap.Geocoder();
-                    pois[0].marker.setTitle(result.name);
-                    pois[1].marker.setTitle([[${scenicspot.chineseName}]]);
-                })
-            });
+            var geolocation = new BMap.Geolocation();  //实例化浏览器定位对象。
+
+            //下面是getCurrentPosition方法。调用该对象的 getCurrentPosition()，与HTML5不同的是，这个方法原型是 getCurrentPosition(callback:function[, options: PositionOptions])，也就是说无论成功与否都执行回调函数1，第二个参数是关于位置的选项。 因此能否定位成功需要在回调函数1中自己判断。
+
+            geolocation.getCurrentPosition(function(r){   //定位结果对象会传递给r变量
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){  //通过Geolocation类的getStatus()可以判断是否成功定位。
+                    var mk = new BMap.Marker(r.point);    //基于定位的这个点的点位创建marker
+                    //创建行车路线实例  map:检索区域(Map,Point,String)   renderOptions:结果呈现设置  {map:map}：展现结果的地图示例
+                    var drivingRoute=new BMap.DrivingRoute(map,{renderOptions:{map:map}});
+                    drivingRoute.search(r.point,target_point);
+                    //设置检索后的回调函数 参数：results
+                    drivingRoute.setSearchCompleteCallback(function(results){
+                        var plan=results.getPlan(0); //获取第一个方案
+                        var duration=plan.getDuration(true); //获取时间  duration:持续，期间
+                        var distance=plan.getDistance(true); //获取距离  distance:距离
+                        $(".mhd").children("span").text("（路程大约"+distance+",驾车时间大约"+duration+"）");
+                    });
+                    //设置标注点回调函数
+                    drivingRoute.setMarkersSetCallback(function(pois){
+                        pois[1].marker.setTitle([[${scenicspot.chineseName}]]);
+                    })
+                    // alert('您的位置：'+r.point.lng+','+r.point.lat);  //r对象的point属性也是一个对象，这个对象的lng属性表示经度，lat属性表示纬度。
+                }
+                else {
+                    alert('failed'+this.getStatus());
+                }
+            },{enableHighAccuracy: true})
+
         </script>
     </div>
 

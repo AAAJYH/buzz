@@ -16,6 +16,8 @@
     <link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <!--星星css-->
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
 
     <style type="text/css">
         #header{
@@ -77,10 +79,10 @@
         .hotel .star{
             top:-185px;
             width:116px;
-            height:24px;
+            height:30px;
         }
         .hotel .service{
-            top:-155px;
+            top:-145px;
             width:553px;
             height:70px;
             font-size:105%;
@@ -125,8 +127,7 @@
 
                 //景点id
                 var id=$(this).next().next().next().val();
-
-                a(lng,lat,$(this).val(),id);
+                a(lng,lat,$(this).text(),id);
             });
         });
 
@@ -168,18 +169,29 @@
                     //酒店以标注点形式在地图上显示
                     var hotelData=data.Data.DataHotel;
                     for(var i=0;i<hotelData.length;i++){
-                        var point=new BMap.Point(hotelData[i].Lng,hotelData[i].Lat); //创建坐标点
-                        var marker=new BMap.Marker(point); //创建一个标注点
-                        centerMarker.setZIndex(10); //设置覆盖物的Zindex
-                        marker.setTitle(hotelData[i].HotelName); //鼠标移至标注点显示的标题
-                        a(marker,hotelData[i].HotelId);
-                        map.addOverlay(marker);// 将标注添加到地图中
 
+                        // 将地址解析结果显示在地图上,并调整地图视野
+                        c(hotelData[i],map);
+                        var start=hotelData[i].Star;
+                        var str="";
+                        if(start=="1"){
+                            str=" <span class=\"icon-bg comm-star comm-star1\"></span>";
+                        }else if(start=="2"){
+                            str=" <span class=\"icon-bg comm-star comm-star2\"></span>";
+                        } else if(start=="3"){
+                            str=" <span class=\"icon-bg comm-star comm-star3\"></span>";
+                        } else if(start=="4"){
+                            str=" <span class=\"icon-bg comm-star comm-star4\"></span>";
+                        } else if(start=="5"){
+                            str=" <span class=\"icon-bg comm-star comm-star5\"></span>";
+                        }else if(start=="0"){
+                            str=" <span class=\"icon-bg comm-star comm-star0\"></span>";
+                        }
                         //显示周围酒店内容
                         $("#HotelContent").append("<div class=\"hotel\">\n" +
-                            "        <img src='"+hotelData[i].DefaultPicture+"' width=\"300px\" height=\"200px\"/>\n" +
-                            "        <div class=\"title\">"+hotelData[i].HotelName+"</div>\n" +
-                            "        <div class=\"star\">"+hotelData[i].Star+"</div>\n" +
+                            "<a href='/hotelController/hotelDetailsIndex?hotelId="+hotelData[i].HotelId+"' target='_blank'><img src='"+hotelData[i].DefaultPicture+"' width=\"300px\" height=\"200px\"/></a>\n" +
+                            "<a href='/hotelController/hotelDetailsIndex?hotelId="+hotelData[i].HotelId+"' target='_blank'><div class=\"title\">"+hotelData[i].HotelName+"</div></a>\n" +
+                            "        <div class=\"star\">"+str+"</div>\n" +
                             "        <div class=\"service\"><b>服务：</b>"+hotelData[i].Service+"</div>\n" +
                             "        <div class=\"minPrice\"><span>最低价格：</span>￥"+hotelData[i].MinPrice+"&nbsp;</div>\n" +
                             "        <img src='../images/marker.png' class=\"marker\"/>\n" +
@@ -188,21 +200,35 @@
                     }
                 }
             });
-
-            function a(marker,hotelId){
+            function b(marker,hotelId){
                 marker.addEventListener("click",function(){ //添加标注点击事件
-                    window.open("/hotelController/hotelDetailsIndex?hhotelIdotelId="+);
-
+                    window.open("/hotelController/hotelDetailsIndex?hotelId="+hotelId);
                 });
+            }
+
+            function c(obj,map){
+                var address=obj.HotelName;
+                // 创建地址解析器实例
+                var myGeo = new BMap.Geocoder();
+                var address=obj.Address;
+                myGeo.getPoint(address, function(p){
+                    if (p) {
+                        var marker=new BMap.Marker(p); //创建一个标注点
+                        centerMarker.setZIndex(10); //设置覆盖物的Zindex
+                        marker.setTitle(obj.HotelName); //鼠标移至标注点显示的标题
+                        b(marker,obj.HotelId);
+                        map.addOverlay(marker);// 将标注添加到地图中
+                    }else{
+                        alert("您选择地址没有解析到结果!");
+                    }
+                }, "北京市");
             }
 
         }
 
     </script>
-
 </head>
 <body>
-
 
 <!-- 顶部导航菜单栏 -->
 <div id="header" xmlns="http://www.w3.org/1999/html">
@@ -240,7 +266,7 @@
                     <ul class="navbar clearfix">
                         <li class="navbar-line">
                             <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
-                                <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                             </a>
                         </li>
 
@@ -291,7 +317,7 @@
 <div class="scenic_spot">
     <span class="info" th:if="${scenicspotList}!=null" th:each="obj,status:${scenicspotList}">
         <span th:if="${obj.scenicSpotId==scenicspot.scenicSpotId}" th:text="${obj.chineseName}" style="background: #FFB200;color:white;"></span>
-        <span th:if="${obj.scenicSpotId!=scenicspot.scenicSpotId}" th:text="${obj.chineseName}">天安门</span>
+        <span th:if="${obj.scenicSpotId!=scenicspot.scenicSpotId}" th:text="${obj.chineseName}"></span>
         <input type="hidden" th:value="${obj.longitude}">
         <input type="hidden" th:value="${obj.latitude}">
         <input type="hidden" th:value="${obj.scenicSpotId}">
@@ -304,9 +330,9 @@
 <script th:inline="javascript">
     //初始化地图
     var map = new BMap.Map("map");
-    map.centerAndZoom("北京", 10);
-    map.enableScrollWheelZoom();
+    map.centerAndZoom([[${application.city.cityName}]], 10);
 
+    map.enableScrollWheelZoom();
     //默认选中景点
     var scenicspot=[[${scenicspot}]];
     if(scenicspot!=null){

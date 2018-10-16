@@ -61,6 +61,7 @@
                         "                    </div>\n" +
                         "                </div>",{width:200, height:110});
                     marker.addEventListener("click",function(){ //添加点击事件
+                        alert(JSON.stringify(infoWindow));
                         marker.openInfoWindow(infoWindow); //打开信息窗
 
                     });
