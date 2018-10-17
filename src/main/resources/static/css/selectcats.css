@@ -1,0 +1,151 @@
+@charset "utf-8";
+/* 
+SelectCats Notes
+UI by Yangcong
+CSS By TengFei
+PM GaiYunzhen
+*/
+
+
+.wrapper{ width:1000px; margin:0 auto; clear:both; padding:115px 0 0;}
+.da1000{width:1000px;margin:-95px 0 55px;}
+.wrapper .btns{}
+.wrapper .btns li{ float:left; position:relative;height:410px;}
+.wrapper li.btn1{ width:450px;}
+.wrapper li.btn2{ width:450px; padding-left:100px;}
+.wrapper .btns a.btn{ display:inline-block; border-radius:10px; width:450px; height:155px; padding-top:5px; font-size:42px; text-align:left;}
+.wrapper .btns a.btn:hover{ text-decoration:none;}
+.wrapper .btns .icon{ display:inline-block; vertical-align:middle; margin:0 38px 0 56px; width:120px; height:155px; position:relative;}
+.wrapper .btns .icon i{ display:inline-block; position:absolute;}
+.wrapper li.btn1 a.btn{ background-color:#c8e6e5; color:#507675; box-shadow:0px 0px 0px #b4dddb inset, 0px 5px 0px 0px #b4dddb, 0px 5px 0px #b4dddb;}
+.wrapper li.btn1 .icon{ background:url(/images/post/selectcats/btnbg.png) no-repeat;}
+.wrapper li.btn1 .icon i{ width:65px; height:76px; background:url(/images/post/selectcats/btn1.gif) no-repeat; top:40px; left:30px;}
+.wrapper li.btn1 a.btn:hover{ background-color:#b4dddb;}
+.wrapper li.btn1 a.btn:hover i{ background:url(/images/post/selectcats/btn1_2.gif) no-repeat;}
+.wrapper li.btn2 a.btn{ background-color:#fac662; color:#a1601b; box-shadow:0px 0px 0px #f4b02e inset, 0px 5px 0px 0px #f4b02e, 0px 5px 0px #f4b02e;}
+.wrapper li.btn2 .icon{ background:url(/images/post/selectcats/btnbg.png) -120px 0 no-repeat;}
+.wrapper li.btn2 .icon i{ width:74px; height:56px; background:url(/images/post/selectcats/btn2.gif) no-repeat; top:55px; left:25px;}
+.wrapper li.btn2 a.btn:hover{ background-color:#FCBD44; box-shadow:0px 0px 0px #FCBD44 inset, 0px 5px 0px 0px #FCBD44, 0px 5px 0px #FCBD44;}
+.wrapper li.btn2 a.btn:hover i{ background:url(/images/post/selectcats/btn2_2.gif) no-repeat;}
+.wrapper li.btn1 .context{ text-align:center; padding:30px 0 0; font-size:16px; color:#666; line-height:2em;}
+.wrapper .agreement{ position:absolute; bottom:42px; left:0; font-size:14px; color:#999;}
+.wrapper .agreement i{ width:14px; height:14px; border:1px solid #ccc; display:inline-block; vertical-align:middle; margin:0 10px 2px 0;}
+.wrapper .agreement i.on{ background:url(/images/post/selectcats/i_bg.png) no-repeat; background-position:0 0;}
+.wrapper .agreement a{ font-size:14px; color:#999;}
+.wrapper .qa { font-size: 14px; position: absolute; left: 26px; bottom: 15px; text-decoration: underline;}
+.wrapper .qa a { color: #999;}
+.wrapper .draftbox{ position:relative; margin-top:190px;}
+.wrapper .draftbox .bubble{ width: 270px; height: 66px; background: url(/images/post/selectcats/bubble.png) no-repeat; position: absolute; right: 0; bottom: 54px;}
+.wrapper .draftbox .bubble i{ display: block; width: 26px; font-size: 22px; font-style: normal; text-align: center; line-height: 64px; color: #fff; margin-left: 62px; letter-spacing: -3px;}
+.wrapper .draftbox .bubble span{ display: block; width: 25px; height: 25px; background: url(/images/post/selectcats/close.png) no-repeat; position: absolute; right: 0px; top: -6px; cursor: pointer;}
+.wrapper .draftbox .bubble1{ width: 243px; height: 58px; background: url(/images/post/selectcats/bubble2.png) no-repeat;}
+.wrapper .draftbox .bubble1 span{ width: 22px; height: 22px; background: url(/images/post/selectcats/close1.png) no-repeat; top: -8px; cursor: pointer;}
+.wrapper .draftbox .mybox{ display:block; height:48px; width:100%; position:relative;}
+.wrapper .draftbox .mybox a{ display: block; width: 184px; height: 44px; border-radius: 8px; border: 2px dashed #fff; font-size:18px; line-height: 44px; text-align: center; color:#666; float: right;}
+.wrapper .draftbox .mybox a.border{ border-color: #fc9c27;}
+.wrapper .draftbox .mybox a:hover{ text-decoration:none;}
+.wrapper .draftbox i.i-mybox{ width:32px; height:32px; display:inline-block; background:url(/images/post/selectcats/i_bg.png) -46px 0 no-repeat; margin:0 15px 2px 10px; vertical-align:middle;}
+
+.spotlight{ width:100%; background-color:#f6f6f6; padding:16px 0 15px;}
+.spotlight .content{ width:980px; margin:0 auto; font-size:14px; color:#999; line-height:50px;}
+.spotlight .content a{ font-size:14px; color:#ff8a00;}
+.spotlight .content i{ width:30px; height:50px; display:inline-block; background:url(/images/post/selectcats/i_spotlight.png) no-repeat; vertical-align:middle;}
+.spotlight .content i.i1{ background-position:0 0; margin-left:16px;}
+.spotlight .content i.i2{ background-position:-30px 0; margin-left:33px;}
+.spotlight .content i.i3{ background-position:-60px 0; margin-left:40px;}
+
+/* 消夏计划 */
+.wrapper .box{background-color:#fff;}
+
+/* 2015.9.22 新加预约游记弹窗 */
+.popup-box-wrap{ width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#64000000,endColorstr=#64000000); position: fixed; left: 0; top: 0;}
+.popup-box { position: fixed; _position: absolute; z-index: 1001; width: 600px; height: auto; top: 40%; left: 50%; margin: -160px 0 0 -300px; border-radius: 3px; box-shadow: 0 0 3px rgba(0,0,0,0.3); border: 1px solid #ccc\9; border: none\9\0; overflow: hidden; background-color: #fff;}
+
+.popup-con{}
+.popup-con h6{ padding-top: 8px; font-size: 18px; font-weight: normal; color: #333; line-height: 60px; padding-left: 32px;}
+.popup-con .jiyu{ background-color: #fff8da; border-radius: 4px; border: 1px solid #f5e8aa; width: 538px; height: 48px; font-size: 14px; color: #ff9d00; text-align: center; line-height: 48px; margin: 0 auto;}
+.popup-con .box{ width:100%; padding-bottom: 20px; }
+.popup-con .box ul{ margin-top: 14px; max-height: 240px; overflow: hidden; overflow-y:auto;}
+.popup-con .box li{ height:44px; padding: 11px 0 5px 0; border-left:3px solid #fff; padding-left:28px;}
+.popup-con .box .t1{ width:392px; padding-right: 10px;float:left;}
+.popup-con .box .t1 .title{}
+.popup-con .box .t1 .title a{ display: inline-block; max-width: 276px; font-size:16px; line-height: 25px; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.popup-con .box .t1 .title a:hover{ color:#ff8a00; text-decoration: none;}
+.popup-con .box .t1 .title span{ display: inline-block; padding-left: 10px; height: 28px; vertical-align: top; font-size: 14px; color: #fdb93b; line-height: 28px;}
+.popup-con .box .t1 .title span img{ display: inline-block; vertical-align: middle; margin-right: 2px;}
+.popup-con .box .t1 .date{ font-size:12px; line-height: 19px; color:#999;}
+.popup-con .box .t2{ width:100px; float:left; padding:6px 10px 0 0;}
+.popup-con .box .t2 a{ display:block; border:1px solid #d7d7d7; border-radius:5px; height:26px; line-height:26px; color:#ff8a00; font-size:12px; text-align: center;}
+.popup-con .box .t2 a:hover{ color:#fff; border:1px solid #ff8a00; background-color:#ff8a00; text-decoration:none;}
+.popup-con .box .t2 i{ width:24px; height:26px; margin-right: 2px; display:inline-block; background:url(/images/post/selectcats/i_bg2.png) -118px -7px no-repeat; vertical-align:middle;}
+.popup-con .box .t2 a:hover i{ background-position:-118px -37px;}
+.popup-con .box .t4 i{background:url(/images/post/selectcats/i_bg3.png) 0px 0px no-repeat;}
+.popup-con .box .t4 a:hover i{ background-position:-24px 0px;}
+.popup-con .box .t5 a{ color: #666; background-color:#d7d7d7; cursor: pointer;}
+.popup-con .box .t5 a:hover{ color:#666; border:1px solid #d7d7d7; background-color:#d7d7d7; text-decoration:none;}
+.popup-con .box .t5 i{background:url(/images/post/selectcats/i_bg3.png) -48px 0px no-repeat;}
+.popup-con .box .t5 a:hover i{ background-position: -48px 0px;}
+.popup-con .box .t3{ width:28px; float:left; padding-top:6px;}
+.popup-con .box .t3 a{ display:block; width:26px; height:26px; border:1px solid #d7d7d7; border-radius:5px; background:url(/images/post/selectcats/i_bg.png) -20px 1px no-repeat;}
+.popup-con .box .t3 a:hover{ background-color: #999; background-position: -20px -21px; border:1px solid #999;}
+.popup-con .box .t6 a{ background:url(/images/post/selectcats/i_bg3.png) -72px 0px no-repeat;}
+.popup-con .box .t6 a:hover{ background-position: -98px 0px;}
+.popup-con .box li:hover{ border-left:3px solid #ffc65a; background-color: #f6f6f6;}
+
+ /* 2016.3.15 新增首次进入弹出 by HWJ */
+.popup-first{ width: 460px; height: 251px; padding: 75px 90px 135px 60px; background: url(/images/post/selectcats/pop.png) no-repeat; box-shadow: none;}
+.popup-first a.close-btn{ right: 50px; top: 36px;}
+.popup-first .fir-note{ width: 460px; height: 110px; background: url(/images/post/selectcats/poptext.png) no-repeat; font-size: 18px; color: #666; text-indent: 60px; line-height: 26px; margin-bottom: 10px;}
+.popup-first p{ font-size: 14px; line-height: 26px; color: #999; margin-bottom: 14px;}
+.popup-first p span{ color: #ff8a00;}
+.popup-first p a{ color: #999;}
+ /* 2016.3.15 新增首次进入弹出 end */
+
+ /* 2016.6.28 草稿箱改版 zhou */
+.drafts{position:relative;margin-top:190px;z-index:20;}
+.drafts .trigger,.drafts .close{display:block;text-align:right;padding-right:20px;font-size:18px;line-height:32px;}
+.drafts .trigger a{display:inline-block;color:#666;}
+.drafts .trigger a:hover{text-decoration:none;}
+.drafts .trigger i,.drafts .close i{display:inline-block;margin-left:5px;float:right;width:32px;height:32px;background:url(/images/post/selectcats/drafts-icon.png) no-repeat 0 0;}
+a:hover .icon-draft{background-position:-40px 0;}
+.draft-panel{position:absolute;right:0;bottom:-21px;width:998px;min-height:500px;border:1px solid #e5e5e5;background-color:#fff;box-shadow:0 2px 3px rgba(0,0,0,.1);}
+.draft-panel .inner{padding:30px 20px 20px 30px;}
+.draft-panel .hd{margin-bottom:15px;height:20px;font-size:18px;line-height:20px;color:#333;font-weight:normal;}
+.draft-panel .hd span{margin-left:10px;font-size:14px;color:#ef523d;}
+.draft-panel .bd{margin:0 -15px;height:390px;}
+.draft-panel .bd li{float:left;width:440px;height:100px;padding:15px;}
+.draft-panel li:hover{background-color:#f8f8f8;}
+.draft-panel .bd .img{float:left;width:150px;position:relative;margin-right:20px;}
+.draft-panel .detail{float:left;width:270px;height:100px;overflow:hidden;position:relative;}
+.draft-panel .title{margin-bottom:5px;}
+.draft-panel .title a{display:block;width:270px;height:22px;font-size:16px;line-height:22px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;color:#666;}
+.draft-panel .title a:hover{text-decoration:none;color:#ff9d00;}
+.draft-panel .action{position:absolute;left:0;bottom:0;right:0;}
+.draft-panel .btn-continue{display:inline-block;margin-right:20px;border:1px solid #e5e5e5;line-height:24px;padding:0 20px;font-size:12px;color:#666;border-radius:3px;vertical-align:middle;}
+.draft-panel .btn-continue:hover{color:#fff;background-color:#ff9a00;border-color:#ff9d00;text-decoration:none;}
+.draft-panel .btn-continue i{display:inline-block;float:left;margin:4px 4px 0 0;width:16px;height:16px;background:url(/images/post/selectcats/drafts-icon.png) no-repeat -120px 0;}
+.draft-panel .btn-continue:hover .icon-write{background-position:-120px -40px;}
+.draft-panel .time{color:#999;}
+.draft-panel .i-delete{display:none;width:14px;height:17px;background:url(/images/post/selectcats/drafts-icon.png) no-repeat -160px 0;line-height:100px;overflow:hidden;vertical-align:middle;}
+.draft-panel .i-delete:hover{background-position:-160px -40px;}
+.draft-panel li:hover .i-delete{display:inline-block;}
+.draft-panel .mark-appoint{position:absolute;left:0;top:0;width:56px;height:56px;background:url(/images/post/selectcats/drafts-icon.png) no-repeat 0 -80px;}
+.draft-panel .btn-continue .icon-appoint{background-position:-80px 0;}
+.draft-panel .btn-continue:hover .icon-appoint{background-position:-80px -40px;}
+.draft-panel .extra{margin:7px 0;color:#ff9d00;}
+.draft-panel .extra span{margin-right:15px;}
+.draft-panel .icon-exp,.draft-panel .icon-honey{display:inline-block;margin-left:5px;width:30px;height:15px;background:url(/images/post/selectcats/drafts-icon.png) no-repeat -120px -80px;vertical-align:-4px;*vertical-align:middle;}
+.draft-panel .icon-honey{width:15px;height:18px;background-position:-80px -80px;}
+.draft-panel .ft{position:absolute;right:15px;top:15px;width:32px;height:32px;overflow:hidden;}
+.draft-panel .close{padding:0;color:#666;}
+.draft-panel .close:hover{text-decoration:none;}
+.draft-panel .close i{background-position:0 -40px;}
+.draft-panel .close:hover i{background-position:-40px -40px;}
+
+/* 2017.8.31 升级啦 by HWJ */
+.wrapper li.btn1 a.btn{ position: relative;}
+.wrapper li.btn1 a.btn:after{ content: ""; display: block; width: 105px; height: 50px; background:url(/images/post/selectcats/update.png) no-repeat; background-size: 100% 100%; position: absolute; top: 0; right: -4px;}
+
+@media (min-resolution:1.25dppx),(-webkit-min-device-pixel-ratio:1.25),(min-device-pixel-ratio:1.25){
+	.drafts .trigger i,.drafts .close i,.draft-panel .btn-continue i,.draft-panel .i-delete,.draft-panel .mark-appoint{background-image:url(/images/post/selectcats/drafts-icon@2x.png);background-size:200px auto;}
+}

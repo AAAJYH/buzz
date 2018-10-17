@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 /**
@@ -14,14 +15,14 @@ import java.util.UUID;
 
 public class test {
 
-   @Test
-    public void a(){
-        for(int i=0;i<20;i++){
-                System.out.println(UUID.randomUUID());
-            }
-            int w=113;
-            int h=114;
-            System.out.println(w/1.252+"  "+h/1.25);
+    @Test
+    public void a() {
+        for (int i = 0; i < 20; i++) {
+            System.out.println(UUID.randomUUID());
+        }
+        int w = 113;
+        int h = 114;
+        System.out.println(w / 1.252 + "  " + h / 1.25);
     }
 
     @Test
@@ -33,7 +34,7 @@ public class test {
         conn.setDoInput(true);
         conn.setConnectTimeout(5 * 1000);
         conn.setRequestMethod("POST");
-        DataOutputStream os = new DataOutputStream( conn.getOutputStream() );
+        DataOutputStream os = new DataOutputStream(conn.getOutputStream());
         conn.connect();
         InputStream inStream = conn.getInputStream();
         byte[] data = toByteArray(inStream);
@@ -51,6 +52,11 @@ public class test {
             output.write(buffer, 0, n);
         }
         return output.toByteArray();
+    }
+
+    @Test
+    public void c(){
+        System.out.println(new Timestamp(System.currentTimeMillis()));
     }
 
 }

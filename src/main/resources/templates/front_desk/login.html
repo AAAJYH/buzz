@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <base href="http://localhost/">
+    <title>帐号登录 - 嗡嗡嗡</title>
+    <meta property="mfw:partner-platform" content="">
+    <link href="css/css+login+login_v2_mobile+css+omc+login-omc+login-omc^ZlY^1526627473.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="js/js+global+json2_js+m.statistics^YFQ^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="container container-login">
+        <a href="http://www.mafengwo.cn" title="返回首页" class="logo">嗡嗡嗡</a>
+        <div class="signup-forms flip">
+            <div class="signup-box" id="_j_signup_box">
+                <div class="inner inner_v2 clearfix">
+                    <div class="inner_v2" style="padding-bottom: 30px;">
+                        <form action="usersController/show_register_html" method="post" id="_j_signup_form">
+                            <input type="hidden" name="token" value="618df8e3d8689fed31a73173f3e3f83e" />
+                            <div class="form-field">
+                                <input name="bindPhone" type="text" placeholder="您的手机号码" autocomplete="off" data-type="mobile"
+                                       data-verification-name="手机号码" class="verification[required,maxSize[50],custom[mobile],ajax[checkMobile]]" value="" />
+                                <div class="err-tip"></div>
+                            </div>
+
+                            <div class="submit-btn">
+                                <button type="submit">立即注册</button>
+                            </div>
+                        </form>
+                        <div class="agreement">
+                            注册视为同意<a target="_blank" href="usersController/show_agreement_html">《嗡嗡嗡用户使用协议》</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="bottom-link">
+                    已经注册?<a href="#">马上登录</a>
+                </div>
+            </div>
+            <div class="login-box" id="_j_login_box">
+                <div class="inner inner_v2 clearfix">
+                    <div class="inner_v2" style="padding-bottom:30px">
+                        <div class="alert alert-danger" th:if="${null != danger_message}" th:text="${danger_message}"></div>
+                        <div class="alert alert-warning" th:if="${null != warning_message}" th:text="${warning_message}"></div>
+                        <form action="usersController/login_user" method="post" id="_j_login_form">
+                            <div class="form-field">
+                                <input name="passport" type="text" placeholder="您的手机号码" autocomplete="off"
+                                       data-verification-name="帐号" class="verification[required,maxSize[50]]" value="" />
+                                <div class="err-tip"></div>
+                            </div>
+                            <div class="form-field">
+                                <input name="password" type="password" placeholder="您的密码" autocomplete="off"
+                                       data-verification-name="密码" class="verification[required,minSize[4],maxSize[50]]" />
+                                <div class="err-tip"></div>
+                            </div>
+                            <div class="form-link"><a href="usersController/show_forgetuserPassword_html">忘记密码</a></div>
+                            <div class="submit-btn">
+                                <button>登 录</button>
+                            </div>
+                        </form>
+                        </div>
+                </div>
+                <div class="bottom-link">
+                    还没有帐号?<a href="#">马上注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript" src="js/js+jquery-1.8.1.min_js+plugins+jquery.placeholder_passport+js+app^ZVA^1493174420.js" type="text/javascript" crossorigin="anonymous"></script>
+<script language="javascript" src="js/js+mfw.verification_passport+js+form_passport+js+partner^ZlM^1534757150.js" type="text/javascript" crossorigin="anonymous"></script>
+<div class="fullscreen-bg" style="background-image: url(images/24.jpg);"><img src="images/24.jpg&#10;" style="width: auto; height: 969px;"></div>
+</body>
+</html>

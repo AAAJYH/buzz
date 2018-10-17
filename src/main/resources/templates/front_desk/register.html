@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <base href="http://localhost/">
+    <title>帐号注册 - 嗡嗡嗡</title>
+    <meta property="mfw:partner-platform" content="">
+    <link href="css/css+login+login_v2_mobile+css+omc+login-omc+login-omc^ZlY^1526627473.css" rel="stylesheet" type="text/css">
+    <script language="javascript" src="js/js+global+json2_js+m.statistics^YFQ^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script charset="UTF-8" async="" src="js/sense.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <a href="http://www.mafengwo.cn" title="返回首页" class="logo">嗡嗡嗡</a>
+        <div class="signup-forms">
+            <div class="signup-box">
+                <div class="add-info">
+                    <div class="hd">账号注册</div>
+                    <div class="alert alert-danger" th:if="${null != danger_message}" th:text="${danger_message}"></div>
+                    <form action="usersController/register_user"  method="post" id="_j_signup_mobile_form">
+                        <input type="hidden" name="challenge">
+                        <div class="form-field m-t-10">
+                            <input type="hidden" id="bindPhone" name="mobile" th:value="${bindPhone}">
+                            <input name="userName" type="text" id="userName" placeholder="您的名称" autocomplete="off" data-verification-name="名号" class="verification[required]">
+                            <div class="err-tip"></div>
+                        </div>
+                        <div class="form-field">
+                            <input name="password" type="password" placeholder="您的密码" autocomplete="off" data-verification-name="密码" class="verification[required,minSize[8],maxSize[30],funcCall[checkPasswordStrong]]">
+                            <div class="err-tip"></div>
+                        </div>
+                        <div class="form-field">
+                            <input name="rpassword" type="password" placeholder="确认密码" autocomplete="off" data-verification-name="密码" class="verification[equals[password]]">
+                            <div class="err-tip"></div>
+                        </div>
+                        <div class="form-field">
+                            <div class="clearfix">
+                                <a href="#" class="vcode-send sms-code-send">免费获取验证码</a>
+                                <input name="smscode" type="text" placeholder="短信验证码" autocomplete="off" data-verification-name="短信验证码" class="vcode-input verification[required,funcCall[checkSMSCode]]">
+                            </div>
+                            <div class="err-tip clearfix"></div>
+                        </div>
+                        <div class="submit-btn">
+                            <button type="submit">完成注册</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript" src="js/js+jquery-1.8.1.min_js+plugins+jquery.placeholder_passport+js+app^ZVA^1493174420.js" type="text/javascript" crossorigin="anonymous"></script>
+<script language="javascript" src="js/register.js" type="text/javascript" crossorigin="anonymous"></script>
+<div class="fullscreen-bg" style="background-image: url(images/32.jpg);"><img src="images/32.jpg&#10;" style="width: auto; height: 969px;"></div>
+</body>
+</html>
