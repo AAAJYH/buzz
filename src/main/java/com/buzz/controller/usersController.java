@@ -6,6 +6,7 @@ import com.buzz.entity.users;
 import com.buzz.service.emailService;
 import com.buzz.service.usersService;
 import com.buzz.utils.Encryption;
+import com.buzz.utils.SmsVerification;
 import com.buzz.utils.verifyCodeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,9 @@ public class usersController {
      * @return 返回登录页面路径
      */
     @RequestMapping("show_login_html")
-    public String show_login_html() {
+    public String show_login_html(String url,HttpServletRequest request) {
+        System.out.println(url);
+        request.getServletContext().setAttribute("url",url);
         return "front_desk/login";
     }
 
@@ -137,7 +140,7 @@ public class usersController {
     public int SendRegisterVerificationCode(String bindPhone, HttpServletRequest request, HttpServletResponse response) {
         int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
         String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-        //SmsVerification.getVerificationCode(bindPhone,smsContent);
+//        SmsVerification.getVerificationCode(bindPhone,smsContent);
         System.out.println(verificationCode);
         smsCode smscode = new smsCode(bindPhone, verificationCode);
         String str = JSON.toJSONString(smscode);
@@ -394,15 +397,18 @@ public class usersController {
             return "front_desk/forgetuserPassword";
         }
     }
+
+    //登录
     @RequestMapping("login_user")
-    public String login_user(String passport,String password,Model model,HttpSession session) {
+    public String login_user(String passport,String password,Model model,HttpSession session,HttpServletRequest request) {
+
         if (null != passport && !"".equals(passport) && null != password && !"".equals(password))
         {
             users user=usersservice.login_user(passport,Encryption.encryption_md5(password));
             if(null!=user&&user.getBindPhone().equals(passport))
             {
                 model.addAttribute("user",user);
-                return "front_desk/personalCenter";
+                return "redirect:"+request.getServletContext().getAttribute("url").toString().substring(16);
             }
             else
             {
@@ -414,7 +420,7 @@ public class usersController {
         {
             users user= (users) session.getAttribute("user");
             if(null!=user&&!"".equals(user.getBindPhone()))
-                return "front_desk/personalCenter";
+                return "redirect:"+request.getServletContext().getAttribute("url").toString().substring(16);
             else
             {
                 model.addAttribute("danger_message","账号或密码错误,请重试!");

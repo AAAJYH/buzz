@@ -196,11 +196,11 @@
     <!-- 查看城市全部景点地图 -->
     <div class="row row-allPlace row-bg" data-cs-p="地图">
         <div class="wrapper">
-            <a class="maps" href="#" target="_blank" title="查看景点地图">
+            <a class="maps" href="/mapController/mapIndex" target="_blank" title="查看景点地图">
                 <div id="_staticHotMap" style="height: 246px;"></div>
                 <div class="mask"></div>
                 <div class="trigger">
-                    <span class="btn">查看<span th:text="${application.city.cityName}"></span>景点地图</span>
+                   <span class="btn">查看<span th:text="${application.city.cityName}"></span>景点地图</span>
                 </div>
             </a>
         </div>

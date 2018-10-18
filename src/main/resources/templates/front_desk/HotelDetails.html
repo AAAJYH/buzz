@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress ALL-->
+<!--suppress All-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -233,9 +233,53 @@
                 <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
             </ul>
             <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+
+            <!-- 登录模块 -->
+            <style type="text/css">
+                .login_register{
+                    width:100px;
+                    height:30px;
+                    position:absolute;
+                    right:0;
+                    top:32%;
+                    font-size:120%;
+                }
+                .login_register a{
+                    color:#FF9F05;
+                }
+                .photo{
+                    width:50px;
+                    height:50px;
+                    border-radius:25px;
+                    position:absolute;
+                    right:0;
+                    top:15%;
+                }
+            </style>
+
+            <span th:if="${session.user!=null}">
+                <img th:src="@{'/images/userPhoto/'+${session.user.photo}}" class="photo">
+            </span>
+
+            <div th:if="${session.user==null}" class="login_register">
+                <a href="javascript:;" id="login">登录</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="/usersController/show_register_html">注册</a>
+            </div>
+
+            <script>
+                $("#login").click(function(){
+                    window.location.href='/usersController/show_login_html?url='+(window.location.href).toString();
+                });
+            </script>
+            <!--登录模块-->
+
         </div>
         <div class="shadow"></div>
+
     </div>
+
+
 </div>
 
 <div class="container">
@@ -254,13 +298,37 @@
             <div class="hotel-navbar" id="_j_navbar">
                 <div class="navbar-r">
                     <div class="r-a">
-                        <a class="" style="position:relative;left:-10px;" id="_j_fav_trigger" href="javascript:;" data-cs-p="顶部导航" data-cs-l="收藏" data-cs-d="收藏"><i class="icon-bg icon-fav"></i>收藏</a>
+                        <span th:if="${state=='未收藏'}">
+                            <a class="" style="position:relative;left:-10px;" id="_j_fav_trigger" href="javascript:;" data-cs-p="顶部导航" data-cs-l="收藏" data-cs-d="收藏"><i class="icon-bg icon-fav"></i>收藏</a>
+                        </span>
+                        <span th:if="${state=='已收藏'}">
+                            <a class="on" href="javascript:;" style="position:relative;left:-10px;" data-cs-p="顶部导航" data-cs-l="收藏" data-cs-d="收藏"><i class="icon-bg icon-fav"></i>已收藏</a>
+                        </span>
                     </div>
                 </div>
             </div>
-            <script>
+            <script th:inline="javascript">
+                //收藏酒店
                 $("#_j_fav_trigger").click(function(){
-                    alert("收藏");
+                    if([[${session.user}]]==null){
+                        alert("请先登录");
+                    }else{
+                        $.ajax({
+                            url:'/hotelCollectController/addHotelCollect',
+                            type:'post',
+                            data:{
+                                hotelId:[[${hid}]]
+                            },
+                            dataType:'text',
+                            success:function(data){
+                                if(data>0){
+                                    $(".r-a").html("<a class=\"on\" style=\"position:relative;left:-10px;\" href=\"javascript:;\" data-cs-p=\"顶部导航\" data-cs-l=\"收藏\" data-cs-d=\"收藏\"><i class=\"icon-bg icon-fav\"></i>已收藏</a>\n");
+                                }else{
+                                    alert("收藏失败，请重新收藏");
+                                }
+                            }
+                        });
+                    }
                 });
             </script>
         </div>
@@ -329,9 +397,19 @@
                                                "                    <li>"+rooms[i].RoomName+"</li>\n" +
                                                "                    <li>"+rooms[i].RoomProducts[0].ProductName+"</li>\n" +
                                                "                    <li>"+rooms[i].RoomProducts[0].PerDayPrice+"</li>\n" +
-                                               "                    <li style='font-size:150%;color:#FFB200;'><a href='/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+rooms[i].RoomProducts[0].ProductName+"&price="+rooms[i].RoomProducts[0].PerDayPrice+"&roomName="+rooms[i].RoomName+"'>预定</a></li>\n" +
+                                               "                    <li style='font-size:150%;'><a class='yuding' style='color:#FFB200;' href='javascript:;'>预定</a></li>\n" +
                                                "                </ul>");
                                        }
+                                       $(".yuding").click(function(){
+                                           if([[${session.user}]]!=null){
+                                               var productName=$(this).parent().prev().prev().text();
+                                               var price=$(this).parent().prev().text();
+                                               var productName=$(this).parent().prev().prev().prev().text();
+                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+productName+"";
+                                           }else{
+                                               alert("请先登录");
+                                           }
+                                       });
                                    }else{
                                        $("#content").append("<div align='center' style='padding-top:10px;padding-bottom:10px;'>此日期暂无可选房型</div>");
                                    }

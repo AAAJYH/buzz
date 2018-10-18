@@ -1,7 +1,10 @@
 package com.buzz.controller;
 
 import com.buzz.entity.city;
+import com.buzz.entity.hotelCollect;
 import com.buzz.entity.scenicspot;
+import com.buzz.entity.users;
+import com.buzz.service.hotelCollectService;
 import com.buzz.service.scenicspotService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +30,9 @@ public class hotelController {
 
     @Resource
     scenicspotService scenicspotService;
+
+    @Resource
+    hotelCollectService hotelCollectService;
 
     /**
      * 查看城市酒店
@@ -52,10 +59,28 @@ public class hotelController {
         return "front_desk/Hotel";
     }
 
-    //酒店详情页面
+    /**
+     * 查看酒店详情
+     * @param model state:存放当前酒店是否被当前用户收藏
+     * @param hotelId 酒店id
+     * @param session 用户获取当前登录的user
+     * @return 酒店详情页面
+     */
     @RequestMapping("/hotelDetailsIndex")
-    public String hotelDetailsIndex(Model model,Integer hotelId){
+    public String hotelDetailsIndex(Model model, String hotelId, HttpSession session){
         model.addAttribute("hid",hotelId);
+        if(session.getAttribute("user")!=null){
+            users users= (users) session.getAttribute("user");
+            hotelCollect hotelCollect= hotelCollectService.byUseridAndHotelIdQuery(users.getUserId(),hotelId);
+            if(hotelCollect==null){
+                model.addAttribute("state","未收藏");
+            }else{
+                model.addAttribute("state","已收藏");
+            }
+        }else{
+            model.addAttribute("state","未收藏");
+        }
+        System.out.println("ok");
         return "front_desk/HotelDetails";
     }
 
