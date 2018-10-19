@@ -4,203 +4,44 @@
  * @authors zhou
  * @date    2014-11-17 10:37:57
  */
-#footer {
-	clear: both;
-	background-color: #3c3c3c;
-	color: #c2c2c2;
-	line-height: 22px;
-	padding-bottom: 20px;
-	font-size: 12px;
-}
-
-#footer a {
-	color: #c2c2c2;
-}
-
-#footer a:hover {
-	color: #fff;
-	text-decoration: none;
-}
-
-#footer .ft-content {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-#footer .ft-info {
-	padding: 30px 8px 40px 8px;
-	border-bottom: 1px solid #575a5b;
-}
-
-#footer .ft-info-col {
-	float: left;
-	display: inline;
-}
-
-#footer .ft-info dt {
-	height: 30px;
-	font-size: 14px;
-	overflow: hidden;
-}
-
-#footer .ft-info-intro {
-	width: 200px;
-	margin-right: 68px;
-}
-
-#footer .ft-info-intro strong {
-	color: #ff9d00;
-	font-weight: normal;
-}
-
-#footer .ft-info-about {
-	width: 128px;
-	margin-right: 85px;
-}
-
-#footer .ft-info-service {
-	width: 135px;
-	margin-right: 80px;
-}
-
-#footer .ft-info-service dt {
-	text-align: center;
-}
-
-#footer .ft-info-service dd {
-	width: 100%;
-	overflow: hidden;
-}
-
-#footer .ft-info-service ul {
-	margin-right: -35px;
-}
-
-#footer .ft-info-service li {
-	float: left;
-	width: 85px;
-}
-
-#footer .ft-info-qrcode {
-	float: right;
-	padding-top: 22px;
-	line-height: 1.4em;
-}
-
-#footer .ft-info-qrcode dd {
-	width: 100px;
-	display: inline;
-	margin-left: 30px;
-	float: right;
-	text-align: center;
-}
-
-#footer .ft-info-qrcode span {
-	display: block;
-	height: 90px;
-	margin: 0 0 8px 6px;
-}
-
-#footer .ft-qrcode-weixin {
-	background: url(/images/footer/qr_mfw4.gif) no-repeat;
-}
-
-#footer .ft-qrcode-tejia {
-	background: url(/images/footer/qr_tejia4.png) no-repeat;
-}
-
-#footer .ft-info-social {
-	clear: both;
-	text-align: center;
-	padding-top: 25px;
-}
-
-#footer .ft-info-social dt {
-	font-size: 16px;
-}
-
-#footer .ft-info-social dd {
-	padding: 5px 0;
-}
-
-#footer .ft-info-social dd a {
-	display: inline-block;
-	margin: 0 6px;
-}
-
-#footer .ft-social-icon {
-	display: inline-block;
-	width: 28px;
-	height: 28px;
-	background: url(/images/mfw-footer-sprite7.png) no-repeat 0 0;
-	overflow: hidden;
-}
-
-#footer .ft-social-qqt .ft-social-icon {
-	background-position: -30px 0;
-}
-
-#footer .ft-social-qzone .ft-social-icon {
-	background-position: -60px 0;
-}
-
-#footer .ft-links {
-	margin-top: -1px;
-	border-top: 1px solid #575a5b;
-	border-bottom: 1px solid #575a5b;
-	padding: 17px 0 17px 8px;
-}
-
-#footer .ft-links a {
-	display: inline-block;
-	margin-right: 12px;
-}
-
-#footer .ft-copyright {
-	padding: 12px 0 12px 20px;
-	margin-top: -1px;
-	border-top: 1px solid #575a5b;
-}
-
-#footer .ft-mfw-logo {
-	float: left;
-	margin: 2px 20px 0 0;
-	width: 136px;
-	height: 39px;
-	background: url(/images/mfw-footer-sprite7.png) no-repeat 0 -30px;
-	overflow: hidden;
-}
-
-#footer .ft-safety {
-	text-align: center;
-}
-
-#footer .ft-safety a {
-	display: inline-block;
-	margin-left: 10px;
-	width: 90px;
-	height: 30px;
-	background: url(/images/mfw-footer-sprite7.png) no-repeat 0 -70px;
-	overflow: hidden;
-}
-
-#footer .ft-safety .s-b {
-	background-position: 0 -110px;
-}
-
-#footer .ft-safety .s-c {
-	background-position: 0 -150px;
-}
-
-#footer .line3 {
-	margin-left: 156px;
-}
+#footer{clear:both;background-color:#3c3c3c;color:#c2c2c2;line-height:22px;padding-bottom:20px; font-size:12px;}
+#footer a{color:#c2c2c2;}
+#footer a:hover{color:#fff;text-decoration:none;}
+#footer .ft-content{width:1000px;margin:0 auto;}
+#footer .ft-info{padding:30px 8px 40px 8px;border-bottom:1px solid #575a5b;}
+#footer .ft-info-col{float:left;display:inline;}
+#footer .ft-info dt{height:30px;font-size:14px;overflow:hidden;}
+#footer .ft-info-intro{width:200px;margin-right:68px;}
+#footer .ft-info-intro strong{color:#ff9d00;font-weight:normal;}
+#footer .ft-info-about{width:128px;margin-right:85px;}
+#footer .ft-info-service{width:135px;margin-right:80px;}
+#footer .ft-info-service dt{text-align:center;}
+#footer .ft-info-service dd{width:100%;overflow:hidden;}
+#footer .ft-info-service ul{margin-right:-35px;}
+#footer .ft-info-service li{float:left;width:85px;}
+#footer .ft-info-qrcode{float:right;padding-top:22px;line-height:1.4em;}
+#footer .ft-info-qrcode dd{width:100px;display:inline;margin-left:30px;float:right;text-align:center;}
+#footer .ft-info-qrcode span{display:block;height:90px;margin:0 0 8px 6px;}
+#footer .ft-qrcode-weixin{background:url(/images/footer/qr_mfw4.gif) no-repeat; }
+#footer .ft-qrcode-tejia{background:url(/images/footer/qr_tejia4.png) no-repeat;}
+#footer .ft-info-social{clear:both;text-align:center;padding-top:25px;}
+#footer .ft-info-social dt{font-size:16px;}
+#footer .ft-info-social dd{padding:5px 0;}
+#footer .ft-info-social dd a{display:inline-block;margin:0 6px;}
+#footer .ft-social-icon{display:inline-block;width:28px;height:28px;background:url(/images/mfw-footer-sprite7.png) no-repeat 0 0;overflow:hidden;}
+#footer .ft-social-qqt .ft-social-icon{background-position:-30px 0;}
+#footer .ft-social-qzone .ft-social-icon{background-position:-60px 0;}
+#footer .ft-links{margin-top:-1px;border-top:1px solid #575a5b;border-bottom:1px solid #575a5b;padding:17px 0 17px 8px;}
+#footer .ft-links a{display:inline-block;margin-right:12px;}
+#footer .ft-copyright{padding:12px 0 12px 20px;margin-top:-1px;border-top:1px solid #575a5b;}
+#footer .ft-mfw-logo{float:left;margin:2px 20px 0 0;width:136px;height:39px;background:url(/images/mfw-footer-sprite7.png) no-repeat 0 -30px;overflow:hidden;}
+#footer .ft-safety{ text-align:center;}
+#footer .ft-safety a{ display:inline-block;margin-left:10px;width:90px;height:30px;background:url(/images/mfw-footer-sprite7.png) no-repeat 0 -70px;overflow:hidden;}
+#footer .ft-safety .s-b{background-position:0 -110px;}
+#footer .ft-safety .s-c{background-position:0 -150px;}
+#footer .line3{ margin-left:156px;}
 
 /* retina css */
-@media ( -webkit-min-device-pixel-ratio : 2) , ( min-device-pixel-ratio
-	: 2) {
-	#footer .ft-mfw-logo {
-		background: url(/images/mfw-footer-sprite3@2x.png) no-repeat 0 -30px;
-		background-size: 150px;
-	}
+@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2){
+    #footer .ft-mfw-logo{background:url(/images/mfw-footer-sprite3@2x.png) no-repeat 0 -30px;background-size:150px;}
 }

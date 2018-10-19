@@ -40,7 +40,6 @@ public class usersController {
      */
     @RequestMapping("show_login_html")
     public String show_login_html(String url,HttpServletRequest request) {
-        System.out.println(url);
         request.getServletContext().setAttribute("url",url);
         return "front_desk/login";
     }
@@ -228,7 +227,7 @@ public class usersController {
     @RequestMapping("register_user")
     public String register_user(Model model, users user, String password, String mobile) {
         user.setUserId(Encryption.getUUID());
-        user.setPhoto("images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
+        user.setPhoto("wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
         user.setUserPassword(Encryption.encryption_md5(password));
         user.setSex("男");
         user.setStateId("0ee26211-3ae8-48b7-973f-8488bfe837d6");

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress All-->
+<!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,11 +9,13 @@
     <script th:src="@{'/js/jquery-1.11.0.min.js'}"></script>
     <link rel="stylesheet" href="/css/t-datepicker.min.css">
     <link rel="stylesheet" href="/css/theme-main.css">
-    <!--星星css-->
-    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/t-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/perfect-scrollbar.min.js"></script>
+
+    <!--星星css-->
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
+
 
     <!--默认css-->
     <style>
@@ -252,7 +254,7 @@
                     height:50px;
                     border-radius:25px;
                     position:absolute;
-                    right:0;
+                    right:3%;
                     top:15%;
                 }
             </style>
@@ -364,7 +366,6 @@
                     <a class="hs-btn" id="_j_price_btn" href="javascript:queryPrice();">查看价格</a>
                     <script th:inline="javascript">
                         function queryPrice(){
-
                             //日期数组
                                 var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
                             //开始时间
@@ -395,6 +396,7 @@
                                        for(var i=0;i<rooms.length;i++){
                                            $("#content").append("<ul>\n" +
                                                "                    <li>"+rooms[i].RoomName+"</li>\n" +
+                                               "                    <li>"+rooms[i].BedType+"</li>\n" +
                                                "                    <li>"+rooms[i].RoomProducts[0].ProductName+"</li>\n" +
                                                "                    <li>"+rooms[i].RoomProducts[0].PerDayPrice+"</li>\n" +
                                                "                    <li style='font-size:150%;'><a class='yuding' style='color:#FFB200;' href='javascript:;'>预定</a></li>\n" +
@@ -404,8 +406,9 @@
                                            if([[${session.user}]]!=null){
                                                var productName=$(this).parent().prev().prev().text();
                                                var price=$(this).parent().prev().text();
-                                               var productName=$(this).parent().prev().prev().prev().text();
-                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+productName+"";
+                                               var productName=$(this).parent().prev().prev().prev().prev().text();
+                                               var bedType=$(this).parent().prev().prev().prev().text();
+                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+productName+"&bedType="+bedType;
                                            }else{
                                                alert("请先登录");
                                            }
@@ -774,7 +777,7 @@
           }
           .house_type .title li{
               float:left;
-              width:249.5px;
+              width:199.6px;
               font-size:120%;
               padding-top:10px;
               padding-bottom:10px;
@@ -789,6 +792,7 @@
         <div class="title">
           <ul class="first">
               <li>房型</li>
+              <li>床型</li>
               <li>含不含早</li>
               <li>最低价格/每晚</li>
               <li>预定</li>
@@ -864,49 +868,6 @@
     </div>
 
 </div>
-
-
-<script type="text/javascript">
-    if (isSetNewIconDom()) {
-        if (!isLoginUser()) {
-            setNewIconDom();
-        } else {
-            $.ajax({
-                url: '/hotel/ajax_remote/showCoupon',
-                dataType: 'json'
-            }).done(function(data) {
-                if (data.data) {
-                    setNewIconDom();
-                }
-            });
-        }
-    }
-
-    function setNewIconDom() {
-        setTimeout(function() {
-            var mfwToolBar = $('#_j_mfwtoolbar');
-            mfwToolBar.append('<a class="hotel-new-icon"><span class="close"></span></a>');
-            mfwToolBar.on('click', '.hotel-new-icon .close', function() {
-                var timeStamp = (new Date().getTime()) + 7*24*3600*1000;
-                window.localStorage.setItem('new-icon-timeout', timeStamp);
-                mfwToolBar.find('.hotel-new-icon').remove();
-            });
-        }, 100);
-    }
-
-    function isSetNewIconDom() {
-        var timeStamp = window.localStorage.getItem('new-icon-timeout');
-        return !(timeStamp && parseInt(timeStamp) > new Date().getTime());
-    }
-
-    function isLoginUser() {
-        if(window.Env.UID) {
-            return true;
-        }
-
-        return false;
-    }
-</script>
 
 <!--页脚-->
 <link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>

@@ -1,10 +1,8 @@
 package com.buzz.controller;
 
-import com.buzz.entity.city;
-import com.buzz.entity.hotelCollect;
-import com.buzz.entity.scenicspot;
-import com.buzz.entity.users;
+import com.buzz.entity.*;
 import com.buzz.service.hotelCollectService;
+import com.buzz.service.hotelOrdersService;
 import com.buzz.service.scenicspotService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +32,9 @@ public class hotelController {
 
     @Resource
     hotelCollectService hotelCollectService;
+
+    @Resource
+    hotelOrdersService hotelOrdersService;
 
     /**
      * 查看城市酒店
@@ -80,35 +82,72 @@ public class hotelController {
         }else{
             model.addAttribute("state","未收藏");
         }
-        System.out.println("ok");
         return "front_desk/HotelDetails";
     }
 
     /**
-     *
+     * 预定调往订单页面
      * @param hid 酒店id
      * @param beginTime 入住日期
      * @param endTime 离开日期
      * @param productName 含早/不含早
      * @param price 价格
      * @param roomName 房间名称
+     * @param bedType 床型
      * @param model
      * @return 订单页面
      */
     @RequestMapping("/hotelOrderIndex")
-    public String hotelOrderIndex(String hid,String beginTime,String endTime,String productName,Double price,Model model,String roomName) throws ParseException {
+    public String hotelOrderIndex(String hid,String beginTime,String endTime,String productName,Double price,Model model,String roomName,String bedType) throws ParseException {
         model.addAttribute("hid",hid);
         model.addAttribute("beginTime",beginTime);
         model.addAttribute("endTime",endTime);
         model.addAttribute("productName",productName);
         model.addAttribute("price",price);
         model.addAttribute("roomName",roomName);
+        model.addAttribute("bedType",bedType);
         SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy/MM/dd"); //加上时间
         Date date1=sDateFormat.parse(beginTime);
         Date date2=sDateFormat.parse(endTime);
         int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
         model.addAttribute("days",days); //入住天数
-        return "front_desk/Order";
+        return "/front_desk/HotelOrder";
+    }
+
+    //酒店订单支付页面
+    @RequestMapping("/HotelOrderPayment")
+    public String HotelOrderPayment(){
+        return "/front_desk/HotelOrderPayment";
+    }
+
+    /**
+     * 提交订单，调往订单支付页面
+     * @param session 获取用户id
+     * @param model 存放当前订单对象
+     * @param hid
+     * @param roomName
+     * @param bedType
+     * @param beginTime
+     * @param endTime
+     * @param lastTime
+     * @param productName
+     * @param amount
+     * @param xingming
+     * @param name
+     * @param phone
+     * @param email
+     * @param remark
+     * @return 订单支付页面
+     */
+    @RequestMapping("/HotelOrderPaymentIndex")
+    public String HotelOrderPaymentIndex(Model model,HttpSession session,String hid,String roomName,String bedType,String beginTime,String endTime,String lastTime,String productName,Double amount,String xingming,String name,String phone,String email,String remark){
+        String userid=((users)(session.getAttribute("user"))).getUserId();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
+        String orderId=simpleDateFormat.format(new Date());
+        hotelorders hotelorders=new hotelorders(orderId,hid,roomName,bedType,beginTime,endTime,lastTime,productName,amount,xingming,name,phone,email,remark,userid,"待支付",new Timestamp(System.currentTimeMillis()));
+        hotelOrdersService.addHotelOrder(hotelorders);
+        model.addAttribute("hotelOrder",hotelorders);
+        return "/front_desk/HotelOrderPayment";
     }
 
 }

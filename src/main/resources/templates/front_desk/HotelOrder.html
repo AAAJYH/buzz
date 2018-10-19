@@ -4,19 +4,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>酒店预订 - 嗡嗡嗡嗡嗡嗡优选</title>
+    <title>酒店预订 - 嗡嗡嗡优选</title>
     <script type="text/javascript">
         window.Env = {"gParams":{"hotel_id":1232786,"ota_type":14,"poi_id":8464000,"ota_hotel_id":"706140","type_id":"6728488","room_id":"6728488__3dc78841c9ed975c765eb963d53e9b2d","type_name":"Double - Shared Bathroom","room_num":1,"check_date_in":"2019-02-28","check_date_out":"2019-03-10","roomData":"\"null\"","max_p_num":2,"remain_num":5,"basepay_percent":0.1,"pay_deadline_before_cancel":7,"activity":"","vipcode":null,"hotelcover":"http:\/\/n4-q.mafengwo.net\/s11\/M00\/5A\/32\/wKgBEFsx5qWAGQSeAAOF_1t4zyw14.jpeg?imageMogr2%2Fthumbnail%2F%21484x484r%2Fgravity%2FCenter%2Fcrop%2F%21484x484%2Fquality%2F90","checkActivityWhenWrong":0,"rate_type":0,"pkgPickupMin":"2018-10-16","can_input_chinese_name":false,"otaLogos":{"0":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_youyu.png","title":"\u6709\u9c7c\u8ba2\u623f"},"7":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_booking.png","title":"Booking"},"8":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_elong.png","title":"\u827a\u9f99"},"10":{"image":"http:\/\/images.mafengwo.net\/mobile\/images\/app\/youyu\/logo_ctrip.png","title":"\u643a\u7a0b"}},"room_ext_data":"","rooms":"2","uuid":"5ba2fadc-acf4-7b94-89d6-6484da40883a","is_cnmain":false},"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":0,"CSTK":"c3fed25a84534a95e5d91815956afb38_48156a6578eacd26ebed4b762421da40","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
     </script>
     <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup^a1Q^1527308432.css" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/cv/youyudf+css+order-v2:css+hotel+hotel_order^Z1c^1527074989.css" rel="stylesheet" type="text/css"/>
-    <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script language="javascript" src="/js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
     <script th:inline="javascript">
         $(function(){
             //此网页js初始化的东西不显示
             $(".dialog-container").css("display","none");
             $(".dialog-mask").css("display","none");
             $(".room-item .sub").css("display","none");
+            $(".tips").html("");
+            $(".name-list-container .tips").html("*请按相应证件准确填写姓名拼音，订单提交后将无法变更或收费变更。");
+            $(".f-row .btn-people").css("display","none");
             $(".room-index").html("");
             $(".room-name").html("基本信息");
 
@@ -546,7 +549,7 @@
                     <div class="f-row">
                         <div class="ui-input ui-input-long">
                             <input type="text" class="email input-name" input-name="email">
-                            <label>电子邮箱</label>
+                            <label>QQ邮箱</label>
                             <i class="icon-success"></i>
                         </div>
                         <span class="tips-err" style="display: none;"><i></i><em class="tips-err-text"></em></span>
@@ -565,8 +568,14 @@
             <div class="special-panel mod-wrap" id="_j_special_panel_container" name="special" style="height:120px;">
                 <div class="mod-title special">特殊要求（可不填）</div>
                 <p>
-                    最晚到店时间：<input type="text" placeholder="时" id="hour"/>&nbsp;&nbsp;：&nbsp;
-                    <input type="text" placeholder="分" id="minute"/>
+                    最晚到店时间：<input type="text" placeholder="时" id="hour" class="jiaoyan"/>&nbsp;&nbsp;：&nbsp;
+                    <input type="text" placeholder="分" id="minute" class="jiaoyan"/>
+                    <script>
+                        //检验最晚到店时间
+                        $(".jiaoyan").keyup(function(){
+                            $(this).val($(this).val().replace(/\D/g,""));
+                        });
+                    </script>
                 </p></br>
                 <p>
                     <textarea rows="15" cols="15" placeholder="备注" id="remark"></textarea>
@@ -582,7 +591,10 @@
                   var name=$(".name").val(); //联系人
                   var phone=$(".phone").val(); //手机号
                   var email=$(".email").val(); //电子邮箱
-                  var lastTime=$("#hour").val()+":"+$("#minute").val(); //最晚入住时间
+                  var lastTime="";
+                  if($("#minute").val()!=""&&$("#hour").val()!=""){
+                     lastTime=$("#hour").val()+"时:"+$("#minute").val()+"分"; //最晚入住时间
+                  }
                   var hid=[[${hid}]] //酒店id
                   var roomName=[[${roomName}]]; //房间名称
                   var beginTime=[[${beginTime}]]; //入住日期
@@ -590,7 +602,16 @@
                   var productName=[[${productName}]]; //含不含早
                   var amount=[[${price*days}]]; //总金额
                   var remark=$("#remark").val(); //备注
-                   alert(xing+" "+ming+" "+name+" "+phone+" "+email+" "+lastTime+" "+hid+" "+roomName+" "+beginTime+" "+endTime+" "+productName+" "+amount+" "+remark);
+                  var bedType=[[${bedType}]];
+
+                  var pinyin=/^[a-z]+$/; //拼音正则表达式
+                  var hanzi=/^[\u4E00-\u9FA5]+$/; //汉字正则表达式
+                  var shoujihao=/^1[0-9]{10}$/; //手机号正则表达式
+                  var youxiang=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; //邮箱正则表达式
+
+                   if((hanzi.test(name)||pinyin.test(name))&&pinyin.test(xing)&&pinyin.test(ming)&&shoujihao.test(phone)&&youxiang.test(email)){
+                      window.location.href="/hotelController/HotelOrderPaymentIndex?hid="+hid+"&roomName="+roomName+"&bedType="+bedType+"&beginTime="+beginTime+"&endTime="+endTime+"&lastTime="+lastTime+"&productName="+productName+"&amount="+amount+"&xingming="+(xing+ming)+"&name="+name+"&phone="+phone+"&email="+email+"&remark="+remark+"";
+                  }
                });
             </script>
         </div>

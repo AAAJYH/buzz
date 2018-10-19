@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>收银台 - 马蜂窝</title>
+
+    <link href="https://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup^a1Q^1527308432.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/css/cashier_hotel.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/css+cashier+cashier_css+cashier+cashier_flight^Z1M^1539308201.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="/js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="main-title">
+        <span><img src="/images/one/buzz.png" style="width:120px;height:30px;margin-top:-5px;"></span>
+        <span class="split"></span>
+        <span class="sub">收银台</span>
+    </div>
+
+    <div class="message">
+        <h3>
+            <img src="/images/one/duigou.png" style="position:absolute;top:11.7%;left:16%;"/>
+            <i class="i-success"></i>您的订单提交成功！
+            <span class="countdown">支付剩余时间：
+                <span class="_j_expire_time" data-time="1218">
+                    <em>00</em>小时<em>20</em>分<em>18</em>秒
+                </span>，超时则订单关闭
+            </span>
+        </h3>
+        <div class="item clearfix">
+            <span class="label">订单号：</span>
+            <span class="num" th:text="${hotelOrder.orderId}">51181018016629454</span>
+        </div>
+    </div>
+
+    <div class="message _j_split_container">
+        <div class="item clearfix">
+            <span class="label">应付金额：</span>
+            <span class="price"><em>￥</em><span th:text="${hotelOrder.orderAmout}">5381.03</span></span>
+    </div>
+
+    <div class="cashier-wrapper">
+        <div class="hotel-info">
+            <div class="hd">
+                <i></i>
+                <img src="/images/one/huangsezuobiao.png" style="position:absolute;top:39%;left:17.5%;"/>
+                <h2 id="hotelName"></h2>
+                <p id="address"></p>
+                <script>
+                    //设置地址
+                    $.ajax({
+                        url: 'http://apitest.99263.com/Hotel/HotelDetail',
+                        type: 'post',
+                        data: {
+                            "Data": {
+                                "HId": [[${hotelOrder.hid}]]
+                            },
+                            "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                            "Sign": "11111111111111111111",
+                            "Timestamp": "2017/10/01 00:00:00"
+                        },
+                        dataType: 'JSON',
+                        success: function (data) {
+                            var HoteDetails=data.Data.HotelDetails; //详情
+                            $("#hotelName").text(HoteDetails.HotelName);
+                            $("#address").text("地址："+HoteDetails.Address);
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="bd clearfix">
+                <ul>
+                    <li><span class="label">入住时间：</span>
+                        <span class="txt-red" th:text="${hotelOrder.inDate}">2019年02月13日 星期三</span>
+                    </li>
+                    <li><span class="label">退房时间：</span>
+                        <span class="txt-red" th:text="${hotelOrder.outDate}">2019年02月23日 星期六</span>
+                    </li>
+                    <li><span class="label">房型：</span>
+                        <span th:text="${hotelOrder.roomName}">标准房</span>
+                    </li>
+                    <li><span class="label">房间数量：</span>1间</li>
+                    <li><span class="label">入住人：</span>
+                        <span th:text="${hotelOrder.passengers}">jiyuhang</span>
+                    </li>
+                    <li><span class="label">床型：</span>固定：
+                        <span th:text="${hotelOrder.bedType}">两张单人床X1</span>
+                    </li>
+                    <li><span class="label">是否吸烟：</span>无烟X1</li>
+                </ul>
+                <ul>
+                    <li><span class="label">联系人：</span>
+                        <span th:text="${hotelOrder.contactName}">姬雨航</span>
+                    </li>
+                    <li><span class="label">手机：</span>
+                        <span th:text="${hotelOrder.contactMobile}">15487452154</span>
+                    </li>
+                    <li><span class="label">QQ邮箱：</span>
+                        <span th:text="${hotelOrder.email}">1654125545@qq.com</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="notice">
+                <p>取消政策：
+                    此房价预订后酒店不接受取消或变更的请求。
+                </p>
+            </div>
+            <div class="notice">
+                <p>特别提示：
+                    此订单可开具增值税普通发票。成功入住后1个月内仍可以申请补开发票。
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="payment">
+        <div class="hd">支付方式</div>
+        <div class="bd" style="height:35px;">
+            <div class="item">
+                <a class="_j_choose_pay on" href="javascript:void(0);" data-platform="alipay">
+                    <span class="logo-alipay"></span>
+                    <img src="/images/one/zhifubao.png" width="110px" height="44px" style="position:relative;top:-40px;left:-20px;"/>
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="order-action">
+        <a class="btn" href="javascript:void(0);" id="_j_pay_submit">确认支付</a>
+        <p>支付成功后，请注意接受邮件。</p>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("https://js.mafengwo.net/js/cv/js+module+app+Page:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+ACnzzGaLog:js+ARecruit^YVda^1531130229.js");
+    }
+</script>
+
+</body>
+</html>

@@ -1,14 +1,8 @@
-
 <!DOCTYPE html>
 <!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>2018丽江旅游攻略下载,丽江自助游,自由行攻略旅游指南 - 嗡嗡嗡</title>
-    <meta name="description" content="丽江旅游攻略路书下载,介绍丽江旅游季节,丽江历史文化,行程,丽江地图,丽江特色美食,住宿,交通贴士等,嗡嗡嗡丽江旅游攻略,丽江自助游,自由行攻略旅游指南,丽江旅游攻略信息,来自真实用户的心得体会." />
-    <meta name="keywords" content="丽江旅游攻略下载,丽江自助游,自由行攻略,丽江旅游指南" />
-    <meta name="renderer" content="webkit" />
-
+    <title>攻略 - 嗡嗡嗡</title>
     <script type="text/javascript">
         window.Env = {"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":53274674,"CSTK":"e767c6aa4af6f7bc8fe097ffb25c4b87_6994ca09e626c1b0ca084b2473102616","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
     </script>
@@ -63,23 +57,38 @@
                     </a>
                 </li>
 
-                <li class="navbar-scenic">
-                    <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
+                <li class="navbar-scenic" id="jingdian">
+                    <a class="navbar-btn" href="javascript:;"  data-cs-p="景点">
                         <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
+                <script th:inline="javascript">
+                    $("#jingdian").click(function(){
+                       window.location.href="/scenicspotController/byCityIdQueryScenicspot?cityId="+[[${application.city.cityId}]];
+                    });
+                </script>
 
-                <li class="navbar-sales navbar-dropdown">
-                    <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
+                <li class="navbar-sales navbar-dropdown" id="jiudian">
+                    <a class="navbar-btn " href="javascript:;" data-cs-p="酒店">
                         <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
+                <script th:inline="javascript">
+                    $("#jiudian").click(function(){
+                        window.location.href="/hotelController/hotelIndex?scenicspotId=";
+                    });
+                </script>
 
-                <li class="navbar-overview">
-                    <a class="navbar-btn" href="/strategyController/queryCityStrategy"  data-cs-p="攻略">
+                <li class="navbar-overview" id="gonglue">
+                    <a class="navbar-btn" href="javascript:;"  data-cs-p="攻略">
                         <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
+                <script th:inline="javascript">
+                    $("#gonglue").click(function(){
+                        window.location.href="/strategyController/queryCityStrategy";
+                    });
+                </script>
 
                 <li class="navbar-local navbar-dropdown">
                     <a class="navbar-btn " href="#" target="_blank" data-cs-p="游记">
@@ -93,11 +102,16 @@
                     </a>
                 </li>
 
-                <li class="navbar-maps navbar-last">
-                    <a class="navbar-btn" th:href="@{'/mapController/mapIndex'}" target="_blank" data-cs-p="地图">
+                <li class="navbar-maps navbar-last" id="ditu">
+                    <a class="navbar-btn" href="javascript:;" target="_blank" data-cs-p="地图">
                         <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
                     </a>
                 </li>
+                <script th:inline="javascript">
+                    $("#ditu").click(function(){
+                        window.open("/mapController/mapIndex");
+                    });
+                </script>
             </ul>
         </div>
     </div>
@@ -127,9 +141,9 @@
     </div>
 
     <!-- 下载攻略 -->
-    <div class="down_glb">
+    <div class="down_glb" style="position:relative;top:30px;">
 
-        <span th:text="${strategy.downloadNumber}">4693036</span><span>人下载</span></h2>
+        <span style="font-size:120%;color:#222222;" th:text="${strategy.downloadNumber}">4693036</span><span>次下载</span></h2>
 
         <div class="down_p">
             <a data-bookid="24" href="/mdd/book_down.php?type=pdfdown&amp;mddid=10186">下载PDF版本</a>
