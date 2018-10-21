@@ -7,7 +7,8 @@ import com.buzz.service.scenicspotService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -121,9 +122,8 @@ public class hotelController {
     }
 
     /**
-     * 提交订单，调往订单支付页面
+     * 提交订单
      * @param session 获取用户id
-     * @param model 存放当前订单对象
      * @param hid
      * @param roomName
      * @param bedType
@@ -137,17 +137,55 @@ public class hotelController {
      * @param phone
      * @param email
      * @param remark
-     * @return 订单支付页面
+     * @return 酒店订单支付方法
      */
-    @RequestMapping("/HotelOrderPaymentIndex")
-    public String HotelOrderPaymentIndex(Model model,HttpSession session,String hid,String roomName,String bedType,String beginTime,String endTime,String lastTime,String productName,Double amount,String xingming,String name,String phone,String email,String remark){
+    @RequestMapping("/addHotelOrder")
+    public String addHotelOrder(HttpSession session, String hid, String roomName, String bedType, String beginTime, String endTime, String lastTime, String productName, Double amount, String xingming, String name, String phone, String email, String remark) throws ParseException {
+        //获取用户id、当前时间生成订单号，执行添加订单方法
         String userid=((users)(session.getAttribute("user"))).getUserId();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
         String orderId=simpleDateFormat.format(new Date());
         hotelorders hotelorders=new hotelorders(orderId,hid,roomName,bedType,beginTime,endTime,lastTime,productName,amount,xingming,name,phone,email,remark,userid,"待支付",new Timestamp(System.currentTimeMillis()));
         hotelOrdersService.addHotelOrder(hotelorders);
+        session.setAttribute("hotelOrderId",orderId);
+        return "redirect:/hotelController/HotelOrderPaymentIndex";
+    }
+
+    /**
+     * 添加完酒店订单后，调往酒店订单支付页面
+     * @param session 获取用户id
+     * @param model 保存待支付订单剩余时间
+     * @return 酒店订单支付页面
+     */
+    @RequestMapping("/HotelOrderPaymentIndex")
+    public String HotelOrderPaymentIndex(HttpSession session,Model model){
+        //根据订单id查询订单保存request中
+        String hotelOrderId= (String) session.getAttribute("hotelOrderId");
+        hotelorders hotelorders=hotelOrdersService.byHotelOrderIdQuery(hotelOrderId);
         model.addAttribute("hotelOrder",hotelorders);
-        return "/front_desk/HotelOrderPayment";
+        if(hotelorders.getState().equals("待支付")){
+            Timestamp orderDate=hotelorders.getSubTime();
+            Long orderTime=orderDate.getTime()+1*60*1000;
+            Long currentTime=System.currentTimeMillis();
+            int sumSecond= (int) ((orderTime-currentTime)/1000);
+            int fen= sumSecond/60;
+            int miao=sumSecond-fen*60;
+            model.addAttribute("fen",fen);
+            model.addAttribute("miao",miao);
+        }
+        return "front_desk/HotelOrderPayment";
+    }
+
+    /**
+     * ajax修改订单状态
+     * @param HotelOrderId
+     * @return
+     */
+    @RequestMapping("/UpdateHotelOrderState")
+    @ResponseBody
+    public int UpdateHotelOrderState(String HotelOrderId){
+        int rs=hotelOrdersService.byHotelOrderIdUpdateState(HotelOrderId,"超时未支付");
+        return rs;
     }
 
 }

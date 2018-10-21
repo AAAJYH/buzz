@@ -11,6 +11,7 @@
     <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup^a1Q^1527308432.css" rel="stylesheet" type="text/css"/>
     <link href="http://css.mafengwo.net/css/cv/youyudf+css+order-v2:css+hotel+hotel_order^Z1c^1527074989.css" rel="stylesheet" type="text/css"/>
     <script language="javascript" src="/js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script th:href="@{'/js/jquery-1.11.0.min.js'}"></script>
     <script th:inline="javascript">
         $(function(){
             //此网页js初始化的东西不显示
@@ -52,12 +53,26 @@
                     $(".two2").html(HotelDetails.Address);
 
                     //入户日期和离开日期
+                    var date1 = new Date([[${beginTime}]]);
+                    var date2=new Date([[${endTime}]]);
+                    xingqi1=date1.getDay();
+                    xingqi2=date2.getDay();
+                    if(xingqi1==0){
+                        xingqi1="星期7";
+                    }else{
+                        xingqi1="星期"+xingqi1;
+                    }
+                    if(xingqi2==0){
+                        xingqi2="星期7";
+                    }else{
+                        xingqi2="星期"+xingqi2;
+                    }
                     $(".three3").html("<div class=\"t\">"+[[${beginTime}]].substring(0,4)+"年"+[[${beginTime}]].substring(5,7)+"月</div>\n" +
                         "                        <div class=\"m\">"+[[${beginTime}]].substring(8)+"</div>\n" +
-                        "                        <div class=\"b\">星期四入住</div>");
+                        "                        <div class=\"b\">"+xingqi1+"</div>");
                     $(".four4").html("<div class=\"t\">"+[[${endTime}]].substring(0,4)+"年"+[[${endTime}]].substring(5,7)+"月</div>\n" +
                         "                        <div class=\"m\">"+[[${endTime}]].substring(8)+"</div>\n" +
-                        "                        <div class=\"b\">星期日离店</div>");
+                        "                        <div class=\"b\">"+xingqi2+"</div>");
 
                     //订单明细
                     $(".five5").html("1间<span>"+[[${roomName}]]+"</span>*\n" +
@@ -610,7 +625,7 @@
                   var youxiang=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; //邮箱正则表达式
 
                    if((hanzi.test(name)||pinyin.test(name))&&pinyin.test(xing)&&pinyin.test(ming)&&shoujihao.test(phone)&&youxiang.test(email)){
-                      window.location.href="/hotelController/HotelOrderPaymentIndex?hid="+hid+"&roomName="+roomName+"&bedType="+bedType+"&beginTime="+beginTime+"&endTime="+endTime+"&lastTime="+lastTime+"&productName="+productName+"&amount="+amount+"&xingming="+(xing+ming)+"&name="+name+"&phone="+phone+"&email="+email+"&remark="+remark+"";
+                      window.location.href="/hotelController/addHotelOrder?hid="+hid+"&roomName="+roomName+"&bedType="+bedType+"&beginTime="+beginTime+"&endTime="+endTime+"&lastTime="+lastTime+"&productName="+productName+"&amount="+amount+"&xingming="+(xing+ming)+"&name="+name+"&phone="+phone+"&email="+email+"&remark="+remark+"";
                   }
                });
             </script>

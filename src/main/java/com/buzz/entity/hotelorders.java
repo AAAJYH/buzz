@@ -2,6 +2,7 @@ package com.buzz.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class hotelorders {
 
     private String orderId; //id

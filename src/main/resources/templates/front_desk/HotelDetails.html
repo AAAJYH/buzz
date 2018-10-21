@@ -240,10 +240,11 @@
             <style type="text/css">
                 .login_register{
                     width:100px;
-                    height:30px;
+                    height:40px;
+                    padding-top:25px;
                     position:absolute;
-                    right:0;
-                    top:32%;
+                    right:-3%;
+                    top:0;
                     font-size:120%;
                 }
                 .login_register a{
@@ -263,10 +264,8 @@
                 <img th:src="@{'/images/userPhoto/'+${session.user.photo}}" class="photo">
             </span>
 
-            <div th:if="${session.user==null}" class="login_register">
+            <div th:if="${session.user==null}" class="login_register" id="login">
                 <a href="javascript:;" id="login">登录</a>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <a href="/usersController/show_register_html">注册</a>
             </div>
 
             <script>
@@ -314,6 +313,7 @@
                 $("#_j_fav_trigger").click(function(){
                     if([[${session.user}]]==null){
                         alert("请先登录");
+                        window.location.href="#login";
                     }else{
                         $.ajax({
                             url:'/hotelCollectController/addHotelCollect',
@@ -366,6 +366,8 @@
                     <a class="hs-btn" id="_j_price_btn" href="javascript:queryPrice();">查看价格</a>
                     <script th:inline="javascript">
                         function queryPrice(){
+                            $("#content").empty();
+                            $(".zhuan_quan_quan").css("display","block"); //显示加载图片
                             //日期数组
                                 var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
                             //开始时间
@@ -390,7 +392,7 @@
                                },
                                dataType:'json',
                                success:function(data){
-                                   $("#content").empty();
+                                   $(".zhuan_quan_quan").css("display","none"); //关闭加载图片
                                    var rooms=data.Data.HotelRooms[0].Rooms;
                                    if(rooms.length>0){
                                        for(var i=0;i<rooms.length;i++){
@@ -411,6 +413,7 @@
                                                window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+productName+"&bedType="+bedType;
                                            }else{
                                                alert("请先登录");
+                                               window.location.href="#login";
                                            }
                                        });
                                    }else{
@@ -787,6 +790,10 @@
           .house_type .title .first li{
               background:#F4F4F4;
           }
+          .zhuan_quan_quan{
+              margin-left:35%;
+              display:none;
+          }
       </style>
       <div class="house_type">
         <div class="title">
@@ -797,8 +804,9 @@
               <li>最低价格/每晚</li>
               <li>预定</li>
           </ul>
-            <span id="content">
-            </span>
+          <img src="/images/one/zhuanquanquan.gif" class="zhuan_quan_quan" title="转圈圈"/>
+          <span id="content">
+          </span>
         </div>
       </div>
 

@@ -25,11 +25,55 @@
         <h3>
             <img src="/images/one/duigou.png" style="position:absolute;top:11.7%;left:16%;"/>
             <i class="i-success"></i>您的订单提交成功！
-            <span class="countdown">支付剩余时间：
+            <span th:if="${hotelOrder.state=='待支付'}" class="countdown" id="tishi">支付剩余时间：
                 <span class="_j_expire_time" data-time="1218">
-                    <em>00</em>小时<em>20</em>分<em>18</em>秒
+                    <em th:text="${fen}" id="fen">20</em>分
+                    <em th:text="${miao}" id="miao">18</em>秒
                 </span>，超时则订单关闭
             </span>
+            <span class="countdown" th:if="${hotelOrder.state!='待支付'}">
+                <span th:text="'[订单：'+${hotelOrder.state}+']'"></span>
+            </span>
+            <script th:inline="javascript">
+
+                //倒计时
+                var obj;
+                function countDown(){
+                    //获取分秒
+                    var fen=parseInt($("#fen").text());
+                    var miao=parseInt($("#miao").text());
+                    $("#miao").text(miao-1); //秒递减1
+
+                    if(miao==0&&fen>0){ //当秒为0,分中>0时,使分钟-1、秒设为60
+                        fen=fen-1;
+                        miao=60;
+                        $("#fen").text(fen);
+                        $("#miao").text(miao);
+                    }else if(miao==0&&fen==0){ //停止倒计时，并修改订单状态
+                        $("#miao").text(0); //因为每次秒都先减1，当为0时还会减1，所以设置为0
+                        clearTimeout(obj);
+                        //修改订单状态
+                        $.ajax({
+                           url:'/hotelController/UpdateHotelOrderState',
+                           type:'post',
+                           data:{
+                               HotelOrderId:[[${hotelOrder.orderId}]]
+                           },
+                            dataType:'text',
+                            success:function(data){
+                               if(data){
+                                   //设置页面变化
+                                   $("#tishi").html("[订单超时，已自动取消]");
+                                   $(".order-action").css("display","none");
+                               }
+                            }
+                        });
+                    }
+
+                }
+                obj=setInterval(countDown,1000);
+
+            </script>
         </h3>
         <div class="item clearfix">
             <span class="label">订单号：</span>
@@ -51,7 +95,7 @@
                 <h2 id="hotelName"></h2>
                 <p id="address"></p>
                 <script>
-                    //设置地址
+                    //设置酒店地址信息
                     $.ajax({
                         url: 'http://apitest.99263.com/Hotel/HotelDetail',
                         type: 'post',
@@ -88,7 +132,7 @@
                     <li><span class="label">入住人：</span>
                         <span th:text="${hotelOrder.passengers}">jiyuhang</span>
                     </li>
-                    <li><span class="label">床型：</span>固定：
+                    <li><span class="label">床型：</span>
                         <span th:text="${hotelOrder.bedType}">两张单人床X1</span>
                     </li>
                     <li><span class="label">是否吸烟：</span>无烟X1</li>
@@ -118,7 +162,6 @@
         </div>
     </div>
 
-
     <div class="payment">
         <div class="hd">支付方式</div>
         <div class="bd" style="height:35px;">
@@ -131,7 +174,8 @@
             </div>
         </div>
     </div>
-    <div class="order-action">
+
+    <div class="order-action" th:if="${hotelOrder.state=='待支付'}">
         <a class="btn" href="javascript:void(0);" id="_j_pay_submit">确认支付</a>
         <p>支付成功后，请注意接受邮件。</p>
     </div>
