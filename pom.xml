@@ -100,7 +100,7 @@
             <version>5.22.0</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>spring-security-config</artifactId>
+                    <artifactId>spring-security-configuration</artifactId>
                     <groupId>org.springframework.security</groupId>
                 </exclusion>
                 <exclusion>
@@ -149,6 +149,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- 支付宝支付 -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.0.52.ALL</version>
         </dependency>
 
     </dependencies>

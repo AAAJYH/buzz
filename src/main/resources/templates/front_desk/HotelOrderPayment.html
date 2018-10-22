@@ -176,7 +176,7 @@
     </div>
 
     <div class="order-action" th:if="${hotelOrder.state=='待支付'}">
-        <a class="btn" href="javascript:void(0);" id="_j_pay_submit">确认支付</a>
+        <a class="btn" th:href="@{'/alipayController/pay?money='+${hotelOrder.orderAmout}+'&orderId='+${hotelOrder.orderId}+'&productName='+${hotelOrder.productName}}" id="_j_pay_submit">确认支付</a>
         <p>支付成功后，请注意接受邮件。</p>
     </div>
 </div>
