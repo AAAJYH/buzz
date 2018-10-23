@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>酒店详情 - 嗡嗡嗡</title>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
+    <script th:src="@{'/js/jquery-1.11.0.min.js'}"></script>
+    <link rel="stylesheet" href="/css/t-datepicker.min.css">
+    <link rel="stylesheet" href="/css/theme-main.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/t-datepicker.min.js"></script>
+    <script type="text/javascript" src="/js/perfect-scrollbar.min.js"></script>
+
+    <!--星星css-->
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
+
+
+    <!--默认css-->
+    <style>
+
+        .icon-sale0417 {
+            margin: 11px 0 0 5px;
+            display: inline-block;
+            width: 70px;
+            height: 20px;
+            background-image: url(http://images.mafengwo.net/images/hotel/hotel_index/20180417-icon.png);
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        .icon-sale0420 {
+            margin: 11px 0 0 5px;
+            display: inline-block;
+            width: 60px;
+            height: 20px;
+            background-image: url(http://images.mafengwo.net/images/hotel/activity/2018_0417/20180420-icon.png);
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        .hotel-new-icon {
+            position: absolute;
+            display: block;
+            width: 238px;
+            height: 210px;
+            bottom: -1px;
+            left: 5px;
+            z-index: -1;
+            background-image: url('http://css.mafengwo.net/images/hotel/new-customer-icon.gif');
+            background-size: 100% 100%;
+        }
+
+        .hotel-new-icon:hover {
+            z-index: 0;
+            background-image: url('http://css.mafengwo.net/images/hotel/new-customer-hover-icon.png');
+        }
+
+        .hotel-new-icon .close {
+            position: absolute;
+            display: block;
+            width: 25px;
+            height: 25px;
+            right: 0;
+            bottom: 83px;
+            border-radius: 50%;
+        }
+
+        .toolbar-item-top, .toolbar-item-feedback, .toolbar-item-code {
+            padding-left: 40px;
+        }
+    </style>
+
+    <!--初始化页面-->
+    <script th:inline="javascript">
+
+        $(function(){
+            $.ajax({
+                url:'http://apitest.99263.com/Hotel/HotelDetail',
+                type:'post',
+                data:{
+                    "Data":{
+                        "HId": [[${hid}]]
+                    },
+                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                    "Sign": "11111111111111111111",
+                    "Timestamp": "2017/10/01 00:00:00"
+                },
+                dataType:'JSON',
+                success:function(data){
+                    var HoteDetails=data.Data.HotelDetails; //详情
+                    var DataPictures=data.Data.DataPictures; //图片
+                    var DataComments=data.Data.DataComments; //评论
+
+                    var start=HoteDetails.Star;
+                    var str="";
+                    if(start=="1"){
+                        str=" <span class=\"icon-bg comm-star comm-star1\"></span>";
+                    }else if(start=="2"){
+                        str=" <span class=\"icon-bg comm-star comm-star2\"></span>";
+                    } else if(start=="3"){
+                        str=" <span class=\"icon-bg comm-star comm-star3\"></span>";
+                    } else if(start=="4"){
+                        str=" <span class=\"icon-bg comm-star comm-star4\"></span>";
+                    } else if(start=="5"){
+                        str=" <span class=\"icon-bg comm-star comm-star5\"></span>";
+                    }else if(start=="0"){
+                        str=" <span class=\"icon-bg comm-star comm-star0\"></span>";
+                    }
+
+                    //酒店中文名、连锁名、地址、打分、评论数
+                    $("#one").append("<div class=\"intro-extra\">\n" +
+                        "<span class=\"score\"><em>"+HoteDetails.Dfscores+"</em>分</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+                        "<span class=\"from\"><br><i class=\"icon-bg icon-m\"></i>"+HoteDetails.CommentNum.split("$")[0]+"好评</span>\n" +
+                        "</div>\n" +
+                        "<div class=\"main-title\" style='position:relative;top:-20px;'>\n" +
+                        "<h1>"+HoteDetails.HotelName+"</h1>\n" +
+                        "<i class=\"icon-bg icon-bird _j_icon_bird\"></i>\n" +
+                        "</div>\n" +
+                        "<div class=\"en-title\" style='position:relative;top:-10px;'><span>"+HoteDetails.Liansuo+"</span><span class=\"hotel-rate rate5\" >酒店星级："+str+"</span>\n" +
+                        "</div>\n" +
+                        "<div class=\"location\"><span title=\""+HoteDetails.Address+"\">地址："+HoteDetails.Address+"</span></div>");
+
+                    //酒店图片
+                    $("#two").append("<div class=\"img-big _j_album_trigger clickstat \" data-id=\"167218425\" data-is-top-album=\"1\" data-cs-p=\"图片\" data-cs-l=\"大图\" data-cs-d=\"大图\">\n" +
+                        "                <img src='"+HoteDetails.DefaultPicture+"'>\n" +
+                        "                <div class=\"exp\">\n" +
+                        "                    <p>"+HoteDetails.Contents.split("。")[0]+"。</p>\n" +
+                        "                </div>\n" +
+                        "            </div>\n" +
+                        "            <ul class=\"img-small\">\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[0].SmallPic+"\" title='"+DataPictures[0].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[1].SmallPic+"\" title='"+DataPictures[1].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[2].SmallPic+"\" title='"+DataPictures[2].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[3].SmallPic+"\" title='"+DataPictures[3].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[4].SmallPic+"\" title='"+DataPictures[4].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "                <li><img class=\"_j_album_trigger clickstat\" src=\""+DataPictures[5].SmallPic+"\" title='"+DataPictures[5].Title+"' data-id=\"167220504\" data-cs-p=\"图片\" data-cs-l=\"小图\" data-cs-d=\"小图\"></li>\n" +
+                        "            </ul>");
+
+                    //地图显示酒店位置
+                    var map=new BMap.Map("map");
+                    map.enableScrollWheelZoom();
+                    b(HoteDetails,map);
+
+                    //基本信息
+                    $("#jian_cheng").html(HoteDetails.Kaiye); //建成时间
+                    if(HoteDetails.Zhuangxiu==" "){ //如果Zhuangxiu变量为空就不显示翻修时间
+                        $("#fan_xiu").parent().parent().html("");
+                    }else{
+                        $("#fan_xiu").text(HoteDetails.Zhuangxiu); //装修时间
+                    }
+
+                    //tags
+                    if(HoteDetails.Tags!=null){
+                        var tags=HoteDetails.Tags.replace(/,/g,"，"); //替换逗号 i:执行对大小写不敏感的匹配  g:执行全局匹配  m:执行多次匹配
+                        tags=tags.substring(0,tags.lastIndexOf("，")); //删除最后一个，
+                    $("#tags").html(tags);
+                        }else{
+                            $("#tags").html("空空的");
+                        }
+
+                    //jian'jie
+                    $("#contents").html(HoteDetails.Contents);
+
+                    //总数
+                    var sum=0;
+                    if(HoteDetails.CommentNum!=""){
+                        var comment=HoteDetails.CommentNum.split("$");
+                        for(var i=0;i<comment.length;i++){
+                            sum+=parseInt(comment[i]);
+                        }
+                        $("#commentNum").html(sum+"条真实用户评论")
+                    }
+
+                    //评论内容
+                    for(var i=0;i<DataComments.length;i++){
+                        $("#_j_comment_list").append(" <div class=\"comm-item _j_comment_item\" data-id=\"125320536\">\n" +
+                            "                <div class=\"user\">\n" +
+                            "                    <a class=\"avatar\" href=\"javascript:\" target=\"_blank\"><img src=\"http://b3-q.mafengwo.net/s11/M00/9D/93/wKgBEFtI-2-AO69RAAqXD0iBS9Y58.jpeg?imageMogr2%2Fthumbnail%2F%2196x96r%2Fgravity%2FCenter%2Fcrop%2F%2196x96%2Fquality%2F90\"></a>\n" +
+                            "                    <a class=\"name\" href=\"javascript:\" target=\"_blank\">"+DataComments[i].UserName+"</a><br>\n" +
+                            "                    <div class=\"prop clearfix\">\n" +
+                            "                    </div>\n" +
+                            "                </div>\n" +
+                            "                <div class=\"txt\">"+DataComments[i].Content+"</div>\n" +
+                            "                <div class=\"comm-meta\">\n" +
+                            "                    <span>合适人群："+DataComments[i].Renqun+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+                            "                    <span>对酒店印象："+DataComments[i].YinXiang+"</span>\n" +
+                            "                </div>\n" +
+                            "            </div>");
+                    }
+                }
+            });
+
+            function b(obj,map){
+                var address=obj.HotelName;
+                // 创建地址解析器实例
+                var myGeo = new BMap.Geocoder();
+                myGeo.getPoint(address, function(p){
+                    if (p) {
+                        map.centerAndZoom(p,18);
+                        var marker=new BMap.Marker(p); //创建一个标注点
+                        marker.setZIndex(10); //设置覆盖物的Zindex
+                        marker.setTitle(obj.HotelName); //鼠标移至标注点显示的标题
+                        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+                        map.addOverlay(marker);// 将标注添加到地图中
+                    }else{
+                        alert("您选择地址没有解析到结果!");
+                    }
+                }, "北京市");
+            }
+        });
+    </script>
+
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+
+            <!-- 登录模块 -->
+            <style type="text/css">
+                .login_register{
+                    width:100px;
+                    height:40px;
+                    padding-top:25px;
+                    position:absolute;
+                    right:-3%;
+                    top:0;
+                    font-size:120%;
+                }
+                .login_register a{
+                    color:#FF9F05;
+                }
+                .photo{
+                    width:50px;
+                    height:50px;
+                    border-radius:25px;
+                    position:absolute;
+                    right:3%;
+                    top:15%;
+                }
+            </style>
+
+            <span th:if="${session.user!=null}">
+                <img th:src="@{'/images/userPhoto/'+${session.user.photo}}" class="photo">
+            </span>
+
+            <div th:if="${session.user==null}" class="login_register" id="login">
+                <a href="javascript:;" id="login">登录</a>
+            </div>
+
+            <script>
+                $("#login").click(function(){
+                    window.location.href='/usersController/show_login_html?url='+(window.location.href).toString();
+                });
+            </script>
+            <!--登录模块-->
+
+        </div>
+        <div class="shadow"></div>
+
+    </div>
+
+
+</div>
+
+<div class="container">
+
+    <div class="top-info clearfix" id="_j_crumb">
+
+        <!-- 旅游攻略 > 云南 > 丽江-->
+        <div class="crumb">
+            <div class="item">酒店<em>&gt;</em></div>
+            <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
+            <div class="item cur" th:text="${application.city.cityName+'酒店详情'}">北京酒店详情</div>
+        </div>
+
+        <!-- 收藏 -->
+        <div class="weather-wrapper" style="position: relative;top:30px;">
+            <div class="hotel-navbar" id="_j_navbar">
+                <div class="navbar-r">
+                    <div class="r-a">
+                        <span th:if="${state=='未收藏'}">
+                            <a class="" style="position:relative;left:-10px;" id="_j_fav_trigger" href="javascript:;" data-cs-p="顶部导航" data-cs-l="收藏" data-cs-d="收藏"><i class="icon-bg icon-fav"></i>收藏</a>
+                        </span>
+                        <span th:if="${state=='已收藏'}">
+                            <a class="on" href="javascript:;" style="position:relative;left:-10px;" data-cs-p="顶部导航" data-cs-l="收藏" data-cs-d="收藏"><i class="icon-bg icon-fav"></i>已收藏</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <script th:inline="javascript">
+                //收藏酒店
+                $("#_j_fav_trigger").click(function(){
+                    if([[${session.user}]]==null){
+                        alert("请先登录");
+                        window.location.href="#login";
+                    }else{
+                        $.ajax({
+                            url:'/hotelCollectController/addHotelCollect',
+                            type:'post',
+                            data:{
+                                hotelId:[[${hid}]]
+                            },
+                            dataType:'text',
+                            success:function(data){
+                                if(data>0){
+                                    $(".r-a").html("<a class=\"on\" style=\"position:relative;left:-10px;\" href=\"javascript:;\" data-cs-p=\"顶部导航\" data-cs-l=\"收藏\" data-cs-d=\"收藏\"><i class=\"icon-bg icon-fav\"></i>已收藏</a>\n");
+                                }else{
+                                    alert("收藏失败，请重新收藏");
+                                }
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+    </div>
+
+    <!-- 酒店介绍 -->
+    <div class="hotel-intro">
+       <!-- title -->
+       <div class="intro-hd" id="one"></div>
+
+       <!-- 图片 -->
+       <div class="intro-bd clearfix" data-cs-t="图片" id="two"></div>
+  </div>
+
+</div>
+
+<!-- 导航栏 -->
+
+
+<div class="container">
+
+    <div class="hotel-booking" id="_j_booking_date">
+
+        <!-- 日期 -->
+        <div class="hotel-searchbar clearfix">
+            <div class="container-content animate">
+                <div class="t-datepicker t-show-1">
+                    <div class="t-check-in" id="begin"></div>
+                    <div class="t-check-out" id="end"></div>
+                </div>
+                <div class="hs-item hs-item-action">
+                    <a class="hs-btn" id="_j_price_btn" href="javascript:queryPrice();">查看价格</a>
+                    <script th:inline="javascript">
+                        function queryPrice(){
+                            $("#content").empty();
+                            $(".zhuan_quan_quan").css("display","block"); //显示加载图片
+                            //日期数组
+                                var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
+                            //开始时间
+                            var beginTime=getDates[0].getFullYear()+"/"+(getDates[0].getMonth()+1)+"/"+getDates[0].getDate();
+                            //结束时间
+                            var endTime=getDates[1].getFullYear()+"/"+(getDates[1].getMonth()+1)+"/"+getDates[1].getDate();
+                            //酒店id
+                            var hid=new Array();
+                            hid.push([[${hid}]]);
+                            $.ajax({
+                               url:'http://apitest.99263.com/Hotel/HotelRooms',
+                               type:'post',
+                               data:{
+                                   "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                                   "Sign": "11111111111111111111",
+                                   "Timestamp": "2017/10/01 00:00:00",
+                                   "Data": {
+                                       "Hid": hid,
+                                       "InDate": beginTime,
+                                       "OutDate": endTime
+                                   }
+                               },
+                               dataType:'json',
+                               success:function(data){
+                                   $(".zhuan_quan_quan").css("display","none"); //关闭加载图片
+                                   var rooms=data.Data.HotelRooms[0].Rooms;
+                                   if(rooms.length>0){
+                                       for(var i=0;i<rooms.length;i++){
+                                           $("#content").append("<ul>\n" +
+                                               "                    <li>"+rooms[i].RoomName+"</li>\n" +
+                                               "                    <li>"+rooms[i].BedType+"</li>\n" +
+                                               "                    <li>"+rooms[i].RoomProducts[0].ProductName+"</li>\n" +
+                                               "                    <li>"+rooms[i].RoomProducts[0].PerDayPrice+"</li>\n" +
+                                               "                    <li style='font-size:150%;'><a class='yuding' style='color:#FFB200;' href='javascript:;'>预定</a></li>\n" +
+                                               "                </ul>");
+                                       }
+                                       $(".yuding").click(function(){
+                                           if([[${session.user}]]!=null){
+                                               var productName=$(this).parent().prev().prev().text();
+                                               var price=$(this).parent().prev().text();
+                                               var productName=$(this).parent().prev().prev().prev().prev().text();
+                                               var bedType=$(this).parent().prev().prev().prev().text();
+                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+productName+"&bedType="+bedType;
+                                           }else{
+                                               alert("请先登录");
+                                               window.location.href="#login";
+                                           }
+                                       });
+                                   }else{
+                                       $("#content").append("<div align='center' style='padding-top:10px;padding-bottom:10px;'>此日期暂无可选房型</div>");
+                                   }
+                               }
+                            });
+                        }
+                    </script>
+                </div>
+
+                <script type="text/javascript">
+                    $(document).ready( function() {
+                        function checkNum(pr_el, pr_num) {
+                            if ( isNaN(pr_num) ) {
+                                $(pr_el).addClass('error')
+                            } else {
+                                $(pr_el).removeClass('error')
+                                return Number(pr_num)
+                            }
+                        }
+                        function checkBolean(pr_bl) {
+                            if ( pr_bl === 'true' ) {
+                                return true
+                            }
+                            return false
+                        }
+                        function checkArray(pr_items) {
+                            var a = [];
+                            var pr_items = pr_items.split(',')
+                            pr_items.forEach(function(e){
+                                e = e.trim()
+                                a.push(e)
+                            })
+                            return a;
+                        }
+                        function show_amp_demo(pr_show_hide) {
+                            // Check mobile no run
+                            if ( 'ontouchstart' in window === false ) {
+                                if ( pr_show_hide === 'show' ) {
+                                    $('.amp_demo').css({
+                                        'top': $('.amp_demo').position().top+'px',
+                                        'left': $('.amp_demo').position().left+'px',
+                                        'opacity': 0,
+                                    }).animate({
+                                        'opacity': 1,
+                                        'top': 90+'px',
+                                        'height': 80+'%',
+                                    }, 300).css({
+                                        'width': 350+'px',
+                                        'position': 'fixed',
+                                        'left': $('.footer').position().left+$('.footer').width()-80+'px',
+                                    })
+                                }
+                                if ( pr_show_hide === 'hide' ) {
+                                    $('.amp_demo').css({
+                                        'top': 0,
+                                        'left': 0,
+                                        'height': 'auto',
+                                        'width': 100+'%',
+                                        'opacity': 0,
+                                        'position': 'relative',
+                                    }).animate({
+                                        'opacity': 1,
+                                    }, 300)
+                                }
+                            }
+                        }
+
+                        // Call Action toggle library
+                        var d = new Date()
+                        var ci_demo = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() + 5)
+                        var co_demo = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() + 15)
+                        $(".t-datepicker").tDatePicker({
+                            dateCheckIn: ci_demo,
+                            dateCheckOut: co_demo
+                        })
+                            .on('toggleAfterHideDay', function(){
+                                show_amp_demo('hide') // box js content copy
+                            }).on('afterCheckOut', function(){
+                            show_amp_demo('hide') // box js content copy
+                        })
+                        $(".t-datepicker").tDatePicker('show')
+
+                        // Call Click update event button
+                        $('.btn-update').on('click', function(){
+                            // box js content copy
+                            show_amp_demo('show')
+
+                            // Action
+                            var autoC = $('.ci_co_autoClose').val() || false
+                            autoC = checkBolean(autoC)
+                            var Duration = $('.ci_co_durationArrowTop').val() || 200
+                            Duration = checkNum('.ci_co_durationArrowTop', Duration)
+
+                            // Format
+                            var FM = $('.ci_co_formatDate').val() || 'yyyy-mm-dd'
+
+                            // date
+                            var CI = $('.ci_co_dateCheckIn').val() || null
+                            var CO = $('.ci_co_dateCheckOut').val() || null
+                            var startD = $('.ci_co_startDate').val() || null
+                            var endD = $('.ci_co_endDate').val() || null
+                            var limitPrev = $('.ci_co_limitPrevMonth').val() || 0
+                            limitPrev = checkNum('.ci_co_limitPrevMonth', limitPrev)
+
+                            var limitNext = $('.ci_co_limitNextMonth').val() || 11
+                            limitNext = checkNum('.ci_co_limitNextMonth', limitNext)
+
+                            var limitDateRan = $('.ci_co_limitDateRanges').val() || 31
+                            limitDateRan = checkNum('.ci_co_limitDateRanges', limitDateRan)
+
+                            var showFullDateRan = $('.ci_co_showFullDateRanges').val() || false
+                            showFullDateRan = checkBolean('.ci_co_showFullDateRanges' ,showFullDateRan)
+
+                            // fnDateEvent
+                            var DataE = $('.ci_co_fnDataEvent').val() || null
+                            if ( DataE === null ) {
+                                $('.ci_co_fnDataEvent').addClass('error')
+                            } else {
+                                $('.ci_co_fnDataEvent').removeClass('error')
+                            }
+                            var obDataE = {};
+                            DataE = DataE.split(',')
+                            DataE.forEach(function(e){
+                                e = e.toString()
+                                e = e.replace('\n','')
+                                var a = e.slice(0, e.indexOf(':'))
+                                a = a.trim()
+                                a = a.replace(/\'/g, '')
+                                var b = e.slice(e.indexOf(':') + 1, e.length);
+                                b = b.trim()
+                                b = b.replace(/\'/g, '')
+                                obDataE[a] = b;
+                            })
+
+                            // Theme
+                            var numCalen = $('.ci_co_numCalendar').val() || 2
+                            numCalen = checkNum('.ci_co_numCalendar', numCalen)
+
+                            var ci_co_titleCI   = $('.ci_co_titleCI').val()
+                            var ci_co_titleCO   = $('.ci_co_titleCO').val()
+                            var ci_co_titleDRa  = $('.ci_co_titleDateRange').val()
+                            var ci_co_titleDRas = $('.ci_co_titleDateRanges').val()
+                            var ci_co_toDay     = $('.ci_co_titleToday').val()
+
+                            var ci_co_Days      = $('.ci_co_titleDays').val()
+                            ci_co_Days = checkArray(ci_co_Days)
+                            var ci_co_Months    = $('.ci_co_titleMonths').val()
+                            ci_co_Months = checkArray(ci_co_Months)
+                            var ci_co_M_LimitShow = $('.ci_co_titleMonthsLimitShow').val() || 3
+                            ci_co_M_LimitShow = checkNum('.ci_co_titleMonthsLimitShow', ci_co_M_LimitShow)
+
+                            var ci_co_M_Replace = $('.ci_co_replaceTitleMonths').val() || null
+                            var ci_co_showDateTheme = $('.ci_co_showDateTheme').val() || null
+
+                            // Icon theme
+                            var ci_co_iTop = $('.ci_co_iconArrowTop').val() || true
+                            ci_co_iTop = checkBolean(ci_co_iTop)
+                            var ci_co_iDate = $('.ci_co_iconDate').val() || '<i class="fa fa-calendar"></i>'
+                            var ci_co_aP = $('.ci_co_arrowPrev').val() || '<i class="fa fa-chevron-left"></i>'
+                            var ci_co_aN = $('.ci_co_arrowNext').val() || '<i class="fa fa-chevron-right"></i>'
+
+                            // Title theme
+                            var ci_co_sTitle = $('.ci_co_toDayShowTitle').val() || 'Today'
+                            var ci_co_Range_sTitle = $('.ci_co_dateRangesShowTitle').val() || true
+                            ci_co_Range_sTitle = checkBolean(ci_co_Range_sTitle)
+                            var ci_co_toDay_hl = $('.ci_co_toDayHighlighted').val() || false
+                            ci_co_toDay_hl = checkBolean(ci_co_toDay_hl)
+                            var ci_co_nextDay_hl = $('.ci_co_nextDayHighlighted').val() || false
+                            ci_co_nextDay_hl = checkBolean(ci_co_nextDay_hl)
+                            var ci_co_DayOfW = $('.ci_co_daysOfWeekHighlighted').val() || [0,6]
+                            ci_co_DayOfW = checkArray(ci_co_DayOfW)
+
+
+                            var Object_Global = {}
+                            presentText(Object_Global)
+                            function presentText(pr_ob) {
+                                var ip = '[checked="checked"]';
+                                var arrayNameOptions = [
+                                    // Action
+                                    'autoClose',
+                                    'durationArrowTop',
+                                    // Format
+                                    'formatDate',
+
+                                    'dateCheckIn',
+                                    'dateCheckOut',
+                                    'startDate',
+                                    'endDate',
+                                    'limitPrevMonth',
+                                    'limitNextMonth',
+                                    'limitDateRanges',
+
+                                    'fnDataEvent',
+                                    'showFullDateRanges',
+
+                                    // Theme
+                                    'numCalendar',
+                                    'titleCI',
+                                    'titleCO',
+                                    'titleDateRange',
+                                    'titleDateRanges',
+                                    'titleToday',
+                                    'titleDays',
+                                    'titleMonths',
+                                    'titleMonthsLimitShow',
+                                    'replaceTitleMonths',
+                                    'showDateTheme',
+
+                                    // Icons
+                                    'iconArrowTop',
+                                    'iconDate',
+                                    'arrowPrev',
+                                    'arrowNext',
+
+                                    // Active date
+                                    'toDayShowTitle',
+                                    'dateRangesShowTitle',
+                                    'toDayHighlighted',
+                                    'nextDayHighlighted',
+                                    'daysOfWeekHighlighted'
+                                ]
+                                arrayNameOptions.forEach(function(e){
+                                    if ( $('.ci_co_'+e).parent().find(ip).length === 1 ) {
+                                        pr_ob[e] = $('.ci_co_'+e).val()+'tuds';
+                                        if ( e === 'fnDataEvent' ) {
+                                            pr_ob[e] = '{'+$('.ci_co_'+e).val()+'}tuds'
+                                        }
+                                        if ( e === 'titleDays' ) {
+                                            pr_ob[e] = ci_co_Days
+                                        }
+                                        if ( e === 'titleMonths' ) {
+                                            pr_ob[e] = ci_co_Months
+                                        }
+                                        if ( e === 'daysOfWeekHighlighted' ) {
+                                            pr_ob[e] = ci_co_DayOfW
+                                        }
+                                    }
+                                })
+                                // console.log(pr_ob)
+                                pr_ob = JSON.stringify(pr_ob)
+                                pr_ob = pr_ob.replace(/tuds\"\,/g, '\"\,\n\ \ ');
+                                pr_ob = pr_ob.replace(/tuds/g, '');
+                                pr_ob = pr_ob.replace(/],/g, '],\n\ \ ');
+                                pr_ob = pr_ob.replace(/\"/g, '\'');
+                                pr_ob = pr_ob.replace(/\\\'/g, '\"');
+                                pr_ob = pr_ob.replace(/\\n/g, '\n\ \ \ \ ');
+                                pr_ob = pr_ob.replace(/\'{/g, '{\n\ \ \ \ ');
+                                pr_ob = pr_ob.replace(/\ \ \\t}\'/g, '}');
+
+                                var text = '$(\'.t-datepicker\').tDatepicker('+pr_ob+')'
+                                text = text.replace(/\(\{/g, '\(\{\n\ \ ');
+                                text = text.replace(/\}\)/g, '\n\}\)');
+                                $('.amp_pre_wrap').text(text)
+                                return pr_ob;
+                            }
+
+
+
+                            $(".t-show-1").tDatePicker({
+                                // Action
+                                autoClose  : autoC,
+                                durationArrowTop  : Duration,
+
+                                // Format
+                                formatDate   : FM,
+
+                                // Date
+                                dateCheckIn  : CI,
+                                dateCheckOut : CO,
+                                startDate    : startD,
+                                endDate      : endD,
+                                limitPrevMonth : limitPrev,
+                                limitNextMonth : limitNext,
+                                limitDateRanges : limitDateRan,
+                                showFullDateRanges : showFullDateRan,
+                                fnDataEvent : obDataE,
+
+                                // theme
+                                numCalendar     : numCalen,
+
+                                titleCI         : ci_co_titleCI,
+                                titleCO         : ci_co_titleCO,
+                                titleDateRange  : ci_co_titleDRa,
+                                titleDateRanges : ci_co_titleDRa,
+
+                                titleToday      : ci_co_toDay,
+                                titleDays       : ci_co_Days,
+                                titleMonths     : ci_co_Months,
+
+                                titleMonthsLimitShow : ci_co_M_LimitShow,
+                                replaceTitleMonths   : ci_co_M_Replace,
+                                showDateTheme        : ci_co_showDateTheme,
+
+                                iconArrowTop   : ci_co_iTop,
+                                iconDate       : ci_co_iDate,
+                                arrowPrev      : ci_co_aP,
+                                arrowNext      : ci_co_aN,
+                                toDayShowTitle : ci_co_sTitle,
+                                dateRangesShowTitle : ci_co_Range_sTitle,
+                                toDayHighlighted    : ci_co_toDay_hl,
+                                nextDayHighlighted  : ci_co_nextDay_hl,
+                                daysOfWeekHighlighted: ci_co_DayOfW,
+                            })
+                            $(".t-show-1").tDatePicker('show')
+                        });
+                        // .btn-update
+
+                        // Target body hide calendar run animate box js content
+                        $('html').on('click', function(e) {
+                            // console.log('html')
+                            setTimeout( function() {
+                                // Chờ class t-datepicker-open được khởi tạo ở method 'show'
+                                if ( $(e.target).parents('.t-datepicker').hasClass('t-datepicker') === true
+                                    && $('.t-datepicker-day').length > 0 ) {
+                                    // box js content copy
+                                    show_amp_demo('show')
+                                }
+                                if ( $(e.target).parents('.t-datepicker').hasClass('t-datepicker') === false
+                                    && $('.t-datepicker-day').length === 0
+                                    && $(e.target).hasClass('btn-update') === false
+                                    && $('.amp_demo').css('opacity') !== '1' ) {
+                                    // box js content copy
+                                    show_amp_demo('hide')
+                                }
+                            },1)
+                        });
+
+                        $('.select-cbox').on('click', function(){
+                            if ( $(this).text() === 'Select All' ) {
+                                $('.checkbox').attr('checked', 'checked')
+                            } else {
+                                $('.checkbox').removeAttr('checked')
+                            }
+                        })
+                        $('.checkbox').on('click', function(){
+                            if ( $(this).attr('checked') === 'checked' ) {
+                                $(this).removeAttr('checked')
+                            } else {
+                                $(this).attr('checked', 'checked')
+                            }
+                        })
+                    })
+                </script>
+            </div>
+        </div>
+        <div class="book-list" id="_j_booking_info" style="display:none;"></div>
+
+      <!-- 可用房型 -->
+      <style type="text/css">
+          .house_type{
+              width:1000px;
+              height:auto;
+              border:1px solid #E5E5E5;
+          }
+          .house_type  title{
+              width:1000px;
+              height:auto;
+          }
+          .house_type .title ul{
+              overflow:auto;
+              border:1px dashed #F4F4F4;
+          }
+          .house_type .title li{
+              float:left;
+              width:199.6px;
+              font-size:120%;
+              padding-top:10px;
+              padding-bottom:10px;
+              color:#222222;
+              text-align:center;
+          }
+          .house_type .title .first li{
+              background:#F4F4F4;
+          }
+          .zhuan_quan_quan{
+              margin-left:35%;
+              display:none;
+          }
+      </style>
+      <div class="house_type">
+        <div class="title">
+          <ul class="first">
+              <li>房型</li>
+              <li>床型</li>
+              <li>含不含早</li>
+              <li>最低价格/每晚</li>
+              <li>预定</li>
+          </ul>
+          <img src="/images/one/zhuanquanquan.gif" class="zhuan_quan_quan" title="转圈圈"/>
+          <span id="content">
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 地图 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <div class="hotel-maps clearfix" id="_j_map_wrapper" data-cs-t="地图">
+      <div style="width:1000px;height:300px;" id="map"></div>
+    </div>
+
+    <div class="hotel-info" id="_j_hotel_info">
+        <div class="info-section">
+        <dl class="clearfix">
+            <dt>基本信息</dt>
+            <dd class="clearfix">
+                <div class="cell">
+                    <span class="label">建成于: </span>
+                    <span class="content"><strong id="jian_cheng"></strong></span>
+                </div>
+                <div class="cell">
+                    <span class="label">翻修于: </span>
+                    <span class="content"><strong id="fan_xiu"></strong></span>
+                </div>
+            </dd>
+        </dl>
+    </div>
+
+        <div class="info-section">
+            <dl class="clearfix">
+                <dt>Tags</dt>
+                <dd class="clearfix">
+                    <div class="cell" style="width:800px;">
+                        <span id="tags"></span>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="info-section">
+            <dl class="clearfix">
+                <dt>简介</dt>
+                <dd class="clearfix">
+                    <div class="cell" style="width:800px;">
+                        <span id="contents"></span>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+
+    <!-- 评论 -->
+    <div class="hotel-comment" id="_j_comment" data-cs-t="酒店详情页">
+        <h3 class="title" id="commentNum"></h3>
+        <div class="comm-bar">
+            <ul class="comm-tab">
+                <li class="on"><a class="_j_comment_type" href="javascript:;" data-type="0" data-cs-p="点评" data-cs-l="类型" data-cs-d="全部">全部点评</a></li>
+            </ul>
+        </div>
+
+        <!--评论集合-->
+        <div class="comm-list" id="_j_comment_list">
+
+        </div>
+        <div class="m-pagination" id="_j_comment_pagination" style="display:none;"></div>
+    </div>
+
+</div>
+
+<!--页脚-->
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于马蜂窝</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="马蜂窝团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入马蜂窝</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>马蜂窝良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>马蜂窝旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>马蜂窝APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+</div>
+
+
+<!--返回顶部-->
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad:js+jquery.scrollTo:js+MouseTip:js+hotel+module+Hash:js+hotel+module+ModuleProvider:js+hotel+module+ImageLoader:js+hotel+module+Album:js+hotel+module+AlbumComment:js+M+module+dialog+alert:js+hotel+module+Log:js+hotel+module+FavDialog:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+hotel+mfwmap+mfwmap-overlays:js+hotel+module+ListTips:js+xdate:js+hotel+module+BookingDate:js+hotel+info:js+hotel+module+FestivalDateConfig:js+jquery-ui-core:js+jquery-ui-datepicker:js+hotel+module+DateRangePicker:js+hotel+module+BookingGuests:js+hotel+module+NumberGuestsPicker:js+hotel+module+BookingInfo:js+hotel+lib+spark-md5:js+hotel+module+Sign:js+hotel+info_booking:js+M+module+Pagination:js+M+module+TopTip:js+hotel+info_comment^YlFVQw^1534411953.js");
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>地图 - 嗡嗡嗡</title>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup^a1Q^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+mddmap:css+mdd+map-mark.v2^YFE^1521574026.css" rel="stylesheet" type="text/css"/>
+    <script th:src="@{'/js/jquery-1.11.0.min.js'}"></script>
+</head>
+<body>
+
+<div class="map_wrapper">
+    <div class="city_maps">
+        <div class="city_inner clearfix">
+
+            <!-- 标题 -->
+            <div class="location">
+                <div class="city_location" data-id=10065 style="position: relative;left:-150px;"><i></i>
+                    <span>
+                        <a th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}" target="_blank" th:text="${application.city.cityName}">北京</a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 地图 -->
+            <div class="pos_location" id="map" style="width:1135px;height:675px;">
+
+            </div>
+            <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+            <script th:inline="javascript">
+                <!--实例化地图-->
+                var map=new BMap.Map("map");
+                map.centerAndZoom([[${application.city.cityName}]],10);
+                map.enableScrollWheelZoom();
+
+                //生成标注点
+                var scenicspotList=[[${scenicspotList}]];
+                if(scenicspotList!=null){
+                    for(var i=0;i<scenicspotList.length;i++){
+                        var point=new BMap.Point(scenicspotList[i].longitude,scenicspotList[i].latitude);
+                        var marker=new BMap.Marker(point);
+                        marker.setAnimation(BMAP_ANIMATION_DROP); //标注动画：坠落
+                        marker.setTitle(scenicspotList[i].chineseName); //hover显示title
+                        addClick(marker);
+                        map.addOverlay(marker);
+                    }
+                }
+
+                function addClick(marker){
+                    //自定义infoWindow信息
+                    var infoWindow=new BMap.InfoWindow("<div style=\"width:200px;height:100px;\">\n" +
+                        "                    <img src=\"/images/"+scenicspotList[i].photo.split(',')[0]+"\" style=\"margin-top:5px;margin-left:5px;width:90px;height:91px;border-radius:3px;\"/>\n" +
+                        "                    <div style=\"width:112px;height:31px;font-weight:bold;color:#222222;font-size:130%;position:relative;top:-90px;left:120px;\">"+scenicspotList[i].chineseName+"</div>\n" +
+                        "                    <div style=\"width:112px;height:31px;position:relative;top:-85px;left:120px;color:#999999;font-size:110%;\">\n" +
+                        "                        <span style=\"color:#FF9E03;font-weight:bold;\">1230</span>条评价\n" +
+                        "                    </div>\n" +
+                        "                    <div style=\"width:112px;height:27px;position:relative;top:-85px;left:120px;color:#999999;font-size:110%;\">\n" +
+                        "                        <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration: underline;\">查看详情</a>\n" +
+                        "                    </div>\n" +
+                        "                </div>",{width:200, height:110});
+                    marker.addEventListener("click",function(){ //添加点击事件
+                        marker.openInfoWindow(infoWindow); //打开信息窗
+
+                    });
+                }
+
+            </script>
+
+            <!-- 右菜单栏 -->
+            <style type="text/css">
+                .type{
+                    width:400px;
+                    padding-top:16px;
+                    padding-bottom:15px;
+                    text-align:center;
+                    float:left;
+                    font-size:120%;
+                    color:#222222;
+                    border-bottom:1px solid #EAEAEA;
+                }
+                .type:hover{
+                    cursor:pointer;
+                    background:#EAEAEA;
+                }
+            </style>
+            <div class="mdd_chwl">
+                <div class="type" style="background:#FF9D00;color:#fff;">景点列表</div>
+
+                <div class="bd_wrapper" style="position: absolute;z-index:10;top:50px;width:400px;">
+                    <div class="attra_list J_list"><div class="J_poilist"><div class="total">
+                        <span class="J_name" th:text="${application.city.cityName}">北京</span>共 <span class="J_total" th:text="${total}">6389</span>个<span class="J_channel">景点</span></div>
+                        <div class="list" style="overflow: auto; height: 719px;">
+                        <ul>
+                            <li class="clearfix" th:if="${scenicspotList}!=null" th:each="obj,status:${scenicspotList}">
+                                <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" style="text-decoration:none;">
+                                    <span class="serial_num" th:text="${status.count}">1</span>
+                                    <img class="attra_img" th:src="@{'/images/'+${obj.photo.split(',')[0]}}" width="60" height="60">
+                                    <div class="attra_info">
+                                        <h3 th:text="${obj.chineseName}">故宫</h3>
+                                        <span class="en_name" th:text="${obj.englishName}">The Palace Museum</span>
+                                    </div>
+                                    <div class="comments">
+                                        <div class="comments_num comments_num2"><span>12128</span> 条点评</div>
+                                    </div>
+                                    <span class="star_num star_numdj" data-pid="3474" data-ptype="3"></span>
+                                    <div class="ckzw_wrapper clearfix">
+                                        <div class="ckzw_hotel">
+                                            <a th:href="@{'/hotelController/hotelIndex?scenicspotId='+${obj.scenicSpotId}}" target="_blank" style="color:#FF9D00;text-decoration:underline;">查看景点周边酒店</a>
+                                        </div>
+                                    </div>
+                                </a>
+                             </li>
+                        </ul>
+                  </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+            </div>
+    </div>
+</div>
+</body>
+</html>

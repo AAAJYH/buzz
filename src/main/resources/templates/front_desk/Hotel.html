@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>酒店 - 嗡嗡嗡</title>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/js/jquery-1.11.0.min.js}" type="text/javascript"></script>
+    <link href="/css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <!--星星css-->
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+        #header{
+            margin-bottom: 0;
+        }
+        .crumb {
+            width: 1000px;
+            font:12px Arial,"Microsoft Yahei","\5FAE\8F6F\96C5\9ED1",Tahoma,Helvetica,STHeiti,"Hiragino Sans GB";
+            height: 20px;
+            padding: 15px 0;
+            color: #666;
+            line-height: 20px;
+            margin: 0 auto;
+        }
+        .crumb .item a{
+            color:#666;
+            font-size:12px;
+        }
+        .scenic_spot,#map{
+            width:350px;
+            height:220px;
+            margin-top:40px;
+            margin-left:265px;
+            margin-bottom:40px;
+        }
+        #map{
+            width:500px;
+            margin-left:640px;
+            margin-top:-263px;
+        }
+        .info span{
+            font-family:"微软雅黑";
+            font-size:120%;
+            color:black;
+            padding:5px;
+            border-radius:5px
+        }
+        .info span:hover{
+            cursor:pointer;
+            color:#FFB200;
+        }
+        #HotelContent{
+            width:880px;
+            height:auto;
+            margin-left:265px;
+        }
+        .hotel{
+            width:880px;
+            height:200px;
+            padding:20px 0px;
+            border-bottom:1px solid #EAEAEA;
+        }
+        .hotel .title,.service,.address,.marker,.minPrice,.star{
+            position:relative;
+            top:-195px;
+            left:320px;
+            font-size:150%;
+        }
+        .hotel .star{
+            top:-185px;
+            width:116px;
+            height:30px;
+        }
+        .hotel .service{
+            top:-145px;
+            width:553px;
+            height:70px;
+            font-size:105%;
+        }
+        .hotel .address{
+            left:345px;
+            top:-198px;
+            font-size:105%;
+        }
+        .hotel .marker{
+            top:-175px;
+            left:315px;
+        }
+        .hotel .minPrice{
+            width:120px;
+            height:25px;
+            top:-255px;
+            color:#FF8A00;
+        }
+        .hotel .minPrice span{
+            color:#666666;
+            font-size:70%;
+        }
+    </style>
+
+    <script>
+
+        $(function(){
+
+            //景点点击事件
+            $(".info span").click(function(){
+                //全部默认样式
+                $(".info span").css("background","#fff");
+                $(".info span").css("color","black");
+                //改变点击span样式
+                $(this).css("background","#FFB200");
+                $(this).css("color","white");
+
+                //获取景点经纬度
+                var lng=$(this).next().val();
+                var lat=$(this).next().next().val();
+
+                //景点id
+                var id=$(this).next().next().next().val();
+                a(lng,lat,$(this).text(),id);
+            });
+        });
+
+        //生成地图和酒店
+        function a(lng,lat,title,id){
+            //设置当前地图的中心店
+            var map=new BMap.Map("map");
+            var point=new BMap.Point(lng,lat);
+            map.centerAndZoom(point,14);
+            map.enableScrollWheelZoom();
+
+            //中心点添加闪烁标注点
+            var centerMarker=new BMap.Marker(point);
+            centerMarker.setZIndex(100);
+            centerMarker.setTitle(title);
+            centerMarker.addEventListener("click",function(){
+                window.open("/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+id);
+            });
+            map.addOverlay(centerMarker);
+            centerMarker.setAnimation(BMAP_ANIMATION_BOUNCE); //设置标注点动画效果  Animation:活泼 bounce:跳
+
+            //根据景点坐标获取周围酒店
+            $.ajax({
+                url:'http://apitest.99263.com/Hotel/SearchHotelList',
+                type:'post',
+                data:{
+                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                    "Timestamp": "2017/10/01 00:00:00",
+                    "Data": {
+                        "PageSize": 10,
+                        "PageIndex": 1,
+                        "CLng":lng,
+                        "CLat":lat,
+                    }
+                },
+                dataType:'json',
+                success:function(data){
+                    $("#HotelContent").empty();
+                    //酒店以标注点形式在地图上显示
+                    var hotelData=data.Data.DataHotel;
+                    for(var i=0;i<hotelData.length;i++){
+
+                        // 将地址解析结果显示在地图上,并调整地图视野
+                        c(hotelData[i],map);
+                        var start=hotelData[i].Star;
+                        var str="";
+                        if(start=="1"){
+                            str=" <span class=\"icon-bg comm-star comm-star1\"></span>";
+                        }else if(start=="2"){
+                            str=" <span class=\"icon-bg comm-star comm-star2\"></span>";
+                        } else if(start=="3"){
+                            str=" <span class=\"icon-bg comm-star comm-star3\"></span>";
+                        } else if(start=="4"){
+                            str=" <span class=\"icon-bg comm-star comm-star4\"></span>";
+                        } else if(start=="5"){
+                            str=" <span class=\"icon-bg comm-star comm-star5\"></span>";
+                        }else if(start=="0"){
+                            str=" <span class=\"icon-bg comm-star comm-star0\"></span>";
+                        }
+                        //显示周围酒店内容
+                        $("#HotelContent").append("<div class=\"hotel\">\n" +
+                            "<a href='/hotelController/hotelDetailsIndex?hotelId="+hotelData[i].HotelId+"' target='_blank'><img src='"+hotelData[i].DefaultPicture+"' width=\"300px\" height=\"200px\"/></a>\n" +
+                            "<a href='/hotelController/hotelDetailsIndex?hotelId="+hotelData[i].HotelId+"' target='_blank'><div class=\"title\">"+hotelData[i].HotelName+"</div></a>\n" +
+                            "        <div class=\"star\">"+str+"</div>\n" +
+                            "        <div class=\"service\"><b>服务：</b>"+hotelData[i].Service+"</div>\n" +
+                            "        <div class=\"minPrice\"><span>最低价格：</span>￥"+hotelData[i].MinPrice+"&nbsp;</div>\n" +
+                            "        <img src='../images/marker.png' class=\"marker\"/>\n" +
+                            "        <div class=\"address\">"+hotelData[i].Address+"</div>\n" +
+                            "    </div>");
+                    }
+                }
+            });
+            function b(marker,hotelId){
+                marker.addEventListener("click",function(){ //添加标注点击事件
+                    window.open("/hotelController/hotelDetailsIndex?hotelId="+hotelId);
+                });
+            }
+
+            function c(obj,map){
+                var address=obj.HotelName;
+                // 创建地址解析器实例
+                var myGeo = new BMap.Geocoder();
+                var address=obj.Address;
+                myGeo.getPoint(address, function(p){
+                    if (p) {
+                        var marker=new BMap.Marker(p); //创建一个标注点
+                        centerMarker.setZIndex(10); //设置覆盖物的Zindex
+                        marker.setTitle(obj.HotelName); //鼠标移至标注点显示的标题
+                        b(marker,obj.HotelId);
+                        map.addOverlay(marker);// 将标注添加到地图中
+                    }else{
+                        alert("您选择地址没有解析到结果!");
+                    }
+                }, "北京市");
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo">
+                <img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/gugong1.jpg"></img>
+            </div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div id="container" data-cs-t="景点列表页">
+    <div class="row row-placeTop" data-cs-p="面包屑">
+        <div class="wrapper">
+
+            <!-- 目的地 > 北京 > 北京景点 -->
+            <div class="crumb">
+                <div class="item">目的地<em>&gt;</em></div>
+                <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
+                <div class="item cur" th:text="${application.city.cityName+'酒店'}">北京酒店</div>
+            </div>
+
+            <!-- 玩法路线 景点 攻略 游记 问答 地图 -->
+            <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
+                <div class="navbar-con">
+                    <ul class="navbar clearfix">
+                        <li class="navbar-line">
+                            <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
+                                <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-scenic">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
+                                <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-sales navbar-dropdown">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
+                                <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-overview">
+                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy'}"  data-cs-p="攻略">
+                                <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-local navbar-dropdown">
+                            <a class="navbar-btn " href="#" target="_blank" data-cs-p="游记">
+                                <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-community navbar-dropdown">
+                            <a class="navbar-btn ">
+                                <i class="navbar-icon"></i><span>问答</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-maps navbar-last">
+                            <a class="navbar-btn" th:href="@{'/mapController/mapIndex'}" target="_blank" data-cs-p="地图">
+                                <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 当前城市的景点 -->
+<div class="scenic_spot">
+    <span class="info" th:if="${scenicspotList}!=null" th:each="obj,status:${scenicspotList}">
+        <span th:if="${obj.scenicSpotId==scenicspot.scenicSpotId}" th:text="${obj.chineseName}" style="background: #FFB200;color:white;"></span>
+        <span th:if="${obj.scenicSpotId!=scenicspot.scenicSpotId}" th:text="${obj.chineseName}"></span>
+        <input type="hidden" th:value="${obj.longitude}">
+        <input type="hidden" th:value="${obj.latitude}">
+        <input type="hidden" th:value="${obj.scenicSpotId}">
+        &nbsp;
+    </span>
+</div>
+
+<!-- 地图显示当前景点周围酒店的坐标 -->
+<div id="map"></div>
+<script th:inline="javascript">
+    //初始化地图
+    var map = new BMap.Map("map");
+    map.centerAndZoom([[${application.city.cityName}]], 10);
+
+    map.enableScrollWheelZoom();
+    //默认选中景点
+    var scenicspot=[[${scenicspot}]];
+    if(scenicspot!=null){
+        a(scenicspot.longitude,scenicspot.latitude,scenicspot.chineseName,scenicspot.scenicSpotId);
+    }
+
+</script>
+
+<div id="HotelContent"></div>
+
+<!-- 页脚（关于我们） -->
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

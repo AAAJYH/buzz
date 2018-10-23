@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/**
+ *
+ * @authors baowenyu
+ * @date    2016-10-27 18:02:45
+ */
+.crumb{height:20px;padding:15px 0;color:#666;font-size:12px;line-height:20px;}
+.crumb a{color:#666;font-size:12px;}
+.crumb h1{display:inline;font-size:12px;font-weight:normal;}
+.crumb .tit{float:left;}
+.crumb .item{float:left;}
+.crumb .item em{margin:0 6px;color:#999;font-family:'simsun';font-style:normal;}
+.crumb .drop{float:left;}
+.crumb .drop .hd{height:20px;}
+.crumb .drop .hd a{display:block;height:20px;_float:left;padding:0 13px 0 5px;}
+.crumb .drop .hd a:hover{text-decoration:none;}
+.crumb .drop .hd i{position:absolute;margin:8px 0 0 3px;*margin:4px 0 0 3px;width:0;height:0;border-top:3px solid #ff7000;border-left:3px dashed transparent;border-right:3px dashed transparent;overflow:hidden;font-size:0;}
+.crumb .drop.open .hd a{background-color:#ff7000;color:#fff;}
+.crumb .drop.open .hd i{border-top-color:#fff;}
+.crumb .drop .bd{position:absolute;display:none;margin:5px 0 0 -10px;_margin:20px 0 0 -70px;z-index:20;padding:10px 0 8px 7px;background-color:#fff;border:1px solid #e5e5e5;}
+.crumb .drop.open .bd{display:block;}
+.crumb .drop .bd .arrow{position:absolute;left:20px;top:-6px;width:0;height:0;border-bottom:6px solid #e5e5e5;border-left:6px dashed transparent;border-right:6px dashed transparent;font-size:0;}
+.crumb .drop .bd .arrow b{position:absolute;left:-6px;top:2px;width:0;height:0;border-bottom:6px solid #fff;border-left:6px dashed transparent;border-right:9px dashed transparent;font-size:0;overflow:hidden;}
+.crumb .drop .col{float:left;width:145px;}
+.crumb .drop h3{padding-left:7px;color:#333;}
+.crumb .drop li{float:left;display:inline;width:137px;margin:4px 8px 0 0;height:21px;line-height:20px;overflow:hidden;}
+.crumb .drop li a{display:block;height:21px;padding:0 7px;color:#333;}
+.crumb .drop li span{color:#999;}
+.crumb .drop li a:hover,.crumb .drop li.on a{background-color:#fff1d7;color:#ff7000;text-decoration:none;}
+.crumb .drop li a:hover span,.crumb .drop li.on a span{color:#ff7000;}
+.crumb .drop .more{clear:both;padding:10px 20px 0 0;text-align:right;}
+.crumb .drop .more a{color:#ff7000;}
+.crumb .item.cur{color:#ff7000;}
+
+.crumb-white .item >a,
+.crumb-white .item >em,
+.crumb-white .drop >.hd,
+.crumb-white .drop >.hd a{color:#fff;text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);}

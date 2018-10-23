@@ -154,9 +154,7 @@
     <div data-pagelet id="pagelet-block-2e45b644c927e980b6da626ea10b8476" class="content" data-controller="/js/note/ControllerEditContent" data-controller_data="{&quot;id&quot;:&quot;383336678&quot;}">
         <div class="block-loading loading_backward"></div>
         <div class="_j_content_box">
-            <div class='textarea_placeholder _j_plc_item' id="travelNotesContent">
-                <textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>
-            </div>
+            <div class='textarea_placeholder _j_plc_item' id="travelNotesContent"></div>
         </div>
         <div class="block-loading loading_forward"></div>
     </div>
@@ -353,7 +351,7 @@
             }
             loadtravelNotesContent();
             bodyjs();
-            $(".textarea_placeholder textarea").focus();//首个testarea获取光标
+            $(".textarea_placeholder textarea").focus();//首个textarea获取光标
             var video = document.getElementById('backgroundMusic');
             if($(video).attr("src")!=null&&$(video).attr("src").length>0)//判断是否有背景音乐
             {

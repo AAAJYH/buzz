@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>目的地 - 嗡嗡嗡</title>
+    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <link href="/css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/mfw-place.2015.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo">
+                <img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/gugong1.jpg"></img>
+            </div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index"><a href="#">首页</a></li>
+                <li class="head-nav-index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index"><a href="#">酒店</a></li>
+                <li class="head-nav-index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
+                <li class="head-nav-index"><a href="#">游记</a></li>
+                <li class="head-nav-index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div class="container" data-cs-t="目的地首页">
+    <div class="place-focus"  data-cs-p="头图">
+        <div class="show-banner show-info-notes">
+
+            <!--背景图片-->
+            <div class="cover">
+                <a class="bigimg"  href="http://www.mafengwo.cn/gonglve/ziyouxing/113110.html" target="_blank" data-cs-l="图片">
+                    <img data-ow="5812" data-oh="3885" src='https://b3-q.mafengwo.net/s12/M00/F2/94/wKgED1uiLIOAE-7wAaYGGKxKhu037.jpeg'/>
+                    <div class="shade"></div>
+                </a>
+            </div>
+
+            <!---->
+            <div class="show-info show-info-sm">
+                <div class="owner">
+                </div>
+                <div class="show-name">
+                    <a href="javascrpt:" target="_blank" data-t="目的地">
+                        <h2>不只是布拉格与CK，捷克还有这些地方值得去~</h2><span></span>
+                    </a>
+                </div>
+                <p class="location">很多人去东欧，都会选择奥捷匈，奥捷亦或是德捷这样的热门搭配。而说到捷克，往往想到的也只是布拉格、CK小镇和人骨教堂。其实捷克有的远不止此……</p>
+                <div class="show-links">
+                    <a href="javascrpt:" target="_blank">阅读全文</a>
+                </div>
+            </div>
+            <div class="show-shadow"></div>
+            <a class="show-arrdown" href="#" data-cs-l="锚点下箭头"></a>
+        </div>
+
+        <!--搜索框-->
+        <div class="place-search-panel place-search-panel-sm">
+            <h2>Don't fear the unknown</h2>
+            <form name="mdd-search-form" action="#" method="get">
+                <div class="searchbar">
+                    <input id="search" autocomplete="off" class="search-input" type="text" name="q" placeholder="我想去（城市、景点）..."/>
+                    <a class="search-button" href="#" data-cs-l="搜索" role="button"><i class="icon-search"></i></a>
+                </div>
+            </form>
+            <div class="place-search-hot">
+            </div>
+            <script>
+                //自动补全
+                $("#search").keyup(function(){
+                    var searchText=$(this).val();
+                    $.ajax({
+                        url:'/destinationController/fuzzySearch',
+                        type:'post',
+                        data:{
+                            name:searchText
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            alert(JOSN.Stringify(data));
+                        }
+                    });
+
+                });
+            </script>
+        </div>
+        <!--搜索框-->
+
+    </div>
+</div>
+
+<!--图片处理-->
+<script type="text/javascript">
+    //图片处理
+    function loadImg(src, load) {
+        $(new Image()).load(load)[0].src = src;
+    }
+    function coverPicLoad(img,$con,fitType,cropData){
+        var $img = $(img = img || this);
+        if (typeof $con == "string" || typeof $con == "number") {
+            fitType = $con;
+            $con = $img.parent();
+        } else if ($.type($con) != "object" || $.isPlainObject($con)) {
+            $con = $img.parent();
+        }
+        var imagew = (img = $img[0]).naturalWidth, imageh = img.naturalHeight,
+            offsetw = $con.width(),
+            offseth = $con.height(),
+            css = {};
+        if(!imagew){
+            if($img.attr("data-ow")){
+                imagew =  $img.attr("data-ow");
+                imageh =  $img.attr("data-oh");
+            }else{
+                $img.attr("data-ow",imagew = img.width);
+                $img.attr("data-oh",imageh = img.height);
+            }
+        }
+        if (imagew / imageh >= offsetw / offseth) {
+            if (imageh >= offseth || fitType=="1") {
+                css = {
+                    margin: "0 0 0 " + (offsetw - imagew / (imageh / offseth)) / 2 + "px",
+                    height: fitType=="1"?"100%":offseth,
+                    width: "auto"
+                };
+            } else if (imageh / offseth >= 0.95) {
+                css = {
+                    margin: "0 0 0 " + (offsetw - imagew) / 2 + "px",
+                    width: imagew,
+                    height: offseth
+                };
+            } else{
+                css = {
+                    margin: (offseth - imageh) / 2 + "px 0 0 " + (offsetw - imagew) / 2 + "px",
+                    width: "auto",
+                    height: "auto"
+                };
+            }
+        } else {
+            if (imagew >= offsetw || fitType=="1") {
+                css = {
+                    margin: (offseth - imageh / (imagew / offsetw)) / 2 + "px 0 0 0",
+                    width: fitType=="1"?"100%":offsetw,
+                    height: "auto"
+                };
+            } else if (imagew / offsetw >= 0.95) {
+                css = {
+                    margin: (offseth - imageh) / 2 + "px 0 0 0",
+                    width: offsetw,
+                    height: imageh
+                };
+            } else {
+                css = {
+                    margin: (offseth - imageh) / 2 + "px 0 0 " + (offsetw - imagew) / 2 + "px",
+                    width: "auto",
+                    height: "auto"
+                };
+            }
+        }
+        $img.css(css).appendTo($con);
+    }
+    //头图处理
+    (function(){
+        var $window = $(window),
+            $banner = $('.place-focus'),
+            $cover = $banner.find('.show-banner >.cover'),
+            $coverc = $cover.find('a.bigimg'),
+            img = $coverc.find('img'),
+            $info = $banner.find('.show-info'),
+            $searchPanel = $('.place-search-panel'),
+            _resizetimeout;
+
+        function calHeight() {
+            var wh = $window.height(), ww = Math.max($banner.width(), $window.width());
+            if (wh > ww * .8) {
+                return img.data('oh') / img.data('ow') * ww;
+            } else {
+                return Math.max(wh - Math.max(Math.min(wh - 550, 150), 100), 400);
+            }
+        }
+        $cover.height(calHeight());
+        if (img[0].complete) {
+            $cover.height('auto');
+        } else {
+            img.load(function () {
+                $cover.height('auto');
+            });
+        }
+        var winH, winW;
+        $window.bind('resize.bannerimg', function (e, t) {
+            var height = $window.height();
+            var width = $window.width();
+            if (winH != height || winW != width) {
+                winH = height;
+                winW = width;
+                $info[$window.width() <= 1440 ? 'addClass' : 'removeClass']('show-info-sm');
+                $searchPanel[$window.width() <= 1440 ? 'addClass' : 'removeClass']('place-search-panel-sm');
+                coverPicLoad(img, $coverc.height(calHeight()), 1);
+            }
+        }).trigger("resize.bannerimg");
+    })();
+
+    //向下滚动
+    $('.show-arrdown').click(function(e){
+        e.preventDefault();
+        var top = $('.row:first').offset().top;
+        $('html,body').stop().animate({
+            'scrollTop':top
+        },300);
+    });
+    $('.show-links').find('.icon-arr').eq(0).hide();
+</script>
+
+<!--热门目的地-->
+<style>
+    .title{
+        font-size:200%;
+        color:black;
+        margin-left: 46%;
+    }
+    .destination{
+        width:1200px;
+        overflow:auto;
+        margin-bottom:50px;
+        margin:-10px 0 50px 18%;
+    }
+    .destination .info{
+        width:470px;
+        float:left;
+        padding:28px 0;
+        margin-right:95px;
+        border-bottom:1px dashed #EAEAEA;
+    }
+    .destination .province{
+        font-size: 150%;
+        color:#222222;
+    }
+    .destination .city{
+        font-size:140%;
+    }
+</style>
+<div class="title row row-hot">热门目的地</div>
+<div class="destination">
+    <div class="info" th:each="obj,start:${destinationList}">
+        <span th:text="${obj[0].provinceName}" class="province">直辖市</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span th:if="${obj[1]}!=null" class="city" >
+            <span th:each="city,start:${obj[1]}">
+                <a target="_blank" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${city.cityId}}"><span th:text="${city.cityName}">北京</span></a>&nbsp;&nbsp;&nbsp;
+            </span>
+        </span>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<script language="javascript" src="/js/mdd_index.js" type="text/javascript" crossorigin="anonymous"></script>
+<link href="/css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

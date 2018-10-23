@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>攻略 - 嗡嗡嗡</title>
+    <script type="text/javascript">
+        window.Env = {"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":53274674,"CSTK":"e767c6aa4af6f7bc8fe097ffb25c4b87_6994ca09e626c1b0ca084b2473102616","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
+    </script>
+    <link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/gonglve/gonglve.css?1524043248" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="/js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script language="javascript" src="/js/m.sns.share.js" type="text/javascript" crossorigin="anonymous"></script>
+    <script th:src="@{js/jquery-1.11.0.min.js}" type="text/javascript"></script>
+</head>
+<body th:if="${strategy}!=null">
+
+<!-- 导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+            </ul>
+            <div data-pagelet id="pagelet-block-5eb4f18760928cb3af1e1bbeb47defba" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div class="wrapper">
+
+    <!-- 旅游攻略 > 云南 > 丽江-->
+    <div class="crumb" style="position: relative;top:-15px;">
+        <div class="item">目的地<em>&gt;</em></div>
+        <div class="item">旅游攻略<em>&gt;</em></div>
+        <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
+        <div class="item cur" th:text="${strategy.strategyHeadline}">丽江攻略</div>
+    </div>
+
+    <!-- 玩法路线 景点 酒店 攻略 游记 问答 地图 -->
+    <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
+        <div class="navbar-con">
+            <ul class="navbar clearfix">
+                <li class="navbar-line">
+                    <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
+                        <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+
+                <li class="navbar-scenic" id="jingdian">
+                    <a class="navbar-btn" href="javascript:;"  data-cs-p="景点">
+                        <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <script th:inline="javascript">
+                    $("#jingdian").click(function(){
+                       window.location.href="/scenicspotController/byCityIdQueryScenicspot?cityId="+[[${application.city.cityId}]];
+                    });
+                </script>
+
+                <li class="navbar-sales navbar-dropdown" id="jiudian">
+                    <a class="navbar-btn " href="javascript:;" data-cs-p="酒店">
+                        <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <script th:inline="javascript">
+                    $("#jiudian").click(function(){
+                        window.location.href="/hotelController/hotelIndex?scenicspotId=";
+                    });
+                </script>
+
+                <li class="navbar-overview" id="gonglue">
+                    <a class="navbar-btn" href="javascript:;"  data-cs-p="攻略">
+                        <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <script th:inline="javascript">
+                    $("#gonglue").click(function(){
+                        window.location.href="/strategyController/queryCityStrategy";
+                    });
+                </script>
+
+                <li class="navbar-local navbar-dropdown">
+                    <a class="navbar-btn " href="#" target="_blank" data-cs-p="游记">
+                        <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+
+                <li class="navbar-community navbar-dropdown">
+                    <a class="navbar-btn ">
+                        <i class="navbar-icon"></i><span>问答</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+
+                <li class="navbar-maps navbar-last" id="ditu">
+                    <a class="navbar-btn" href="javascript:;" target="_blank" data-cs-p="地图">
+                        <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
+                    </a>
+                </li>
+                <script th:inline="javascript">
+                    $("#ditu").click(function(){
+                        window.open("/mapController/mapIndex");
+                    });
+                </script>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 标题图片 -->
+    <div class="mdd_img" style="cursor: pointer">
+        <img th:src="@{'/images/'+${strategy.strategyPhoto.split(',')[0]}}" width="228px" height="324px" alt=""/>
+    </div>
+
+    <div class="middle_de">
+        <!--攻略标题-->
+        <h1 th:text="${strategy.strategyHeadline}">丽江</h1>
+        <!--相关景点-->
+        <div class="gl_title">
+            <span th:each="str,status:${strategy.scenicSpot.split(',')}">
+                <span th:text="${str}"></span>
+            </span>
+            <div class="clear"></div>
+        </div>
+        <div class="jianjie">
+            <p><strong>简介</strong>
+                <span th:text="${strategy.strategyBriefIntroduction}">
+                    丽江最著名的要数丽江古城（大研古镇），与其他古城不一样的是没有围墙，水是古城的灵魂，小桥流水衬着青瓦白墙，显得无比雅致；离古城较近的景点有拉市海、束河古镇、玉龙雪山等，古城东北部则是宝山石头城，东面是泸沽湖，西面有老君山、石鼓镇等；由石鼓镇往北可进入虎跳峡，虎跳峡再往北就进入了香格里拉。在丽江古城喝茶晒太阳，到老君山、虎跳峡徒步，逛逛抬头可见玉龙雪山的忠义市场和洛克心中最美的雪嵩村，都是很棒的体验。
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 下载攻略 -->
+    <div class="down_glb" style="position:relative;top:30px;">
+
+        <span style="font-size:120%;color:#222222;" th:text="${strategy.downloadNumber}">4693036</span><span>次下载</span></h2>
+
+        <div class="down_p">
+            <a data-bookid="24" href="/mdd/book_down.php?type=pdfdown&amp;mddid=10186">下载PDF版本</a>
+            <p>文件大小 9.96 MB</p>
+        </div>
+
+        <div class="down_p down_p1">
+            <a data-bookid="24" href="/mdd/book_down.php?type=jpegdown&amp;mddid=10186">下载JPG版本</a>
+            <p>文件大小 18.20 MB</p>
+        </div>
+
+        <div class="up_time" style="width:220px;margin-left:-30px;">
+            <p>更新时间 <span th:text="${strategy.updateTime}">2016-02-02</span></p>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
+    <div class="box_wrap">
+        <div class="scroll_wrap scroll-pane">
+            <ul class="scroll-content">
+                <li class="scroll-content-item" th:each="str,status:${strategy.strategyPhoto.split(',')}">
+                    <a href="javascript:void(0);" class="on_fous preview_btn" data-paper_num="0">
+                        <img th:src="@{'/images/'+${str}+''}" width="138" height="195">
+                        <span>点击<br/>预览</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="scroll_wrapper">
+            <div class="scroll_f">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="clear"></div>
+    <div class="qr-code hide"></div>
+    <div class="layout" style="display:none;"></div>
+    <div class="pop_w" style="display:none;">
+        <div class="popdiv">
+            <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
+                <img th:src="@{'/images/'+${str}+''}" th:width="605px" th:height="800px"/>
+            </p>
+            <a style="display: block; position: fixed" href="javascript:;" class="fangda">放大</a>
+            <span style="display: block; position: fixed">关闭</span>
+        </div>
+    </div>
+    <iframe id="pnl_downframe" class="hide"></iframe>
+
+    <!--攻略书-->
+    <div id="mfw_op_box" style="display:none; overflow-x: hidden; ">
+        <div id="mfw_op_cont_box">
+            <div id="mfw_op_cont">
+                <div class="slideLayer">
+                    <div class="slideBox">
+                        <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
+                            <img th:src="@{'/images/'+${str}+''}"/>
+                        </p>
+                        <img class="book_paper_img" src="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a title="缩小" id="mfw_op_minfy_btn" href="javascript:;" class="suoxiao">缩小</a>
+        <a title="关闭" id="mfw_op_close_btn" href="javascript:;" style="margin-left: 433px;">关闭</a>
+    </div>
+</div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+    var paper_num = 0,
+        book_id = '24',
+        mddId = '10186',
+        pic_size = { sw: 609, sh: 860, bw: 998, bh: 1411},
+        share_title = '嗡嗡嗡【丽江】#旅游攻略#--->免费下载！',
+        share_content = {
+            wb: "丽江走起！我刚下载了嗡嗡嗡【丽江】#旅游攻略#，4693036人已下载。丽江最著名的要数丽江古城（大研古镇），与其他古城不一样的是没有围墙，水是古城的...",
+            rr: "【4693036人已下载】丽江最著名的要数丽江古城（大研古镇），与其他古城不一样的是没有围墙，水是古城的灵魂，小桥流水衬着青瓦白墙...",
+            qz: "【4693036人已下载】丽江最著名的要数丽江古城（大研古镇），与其他古城不一样的是没有围墙，水是古城的灵魂，小桥流水衬着青瓦白墙...",
+            qt: "丽江走起！我刚下载了嗡嗡嗡【丽江】#旅游攻略#，4693036人已下载。丽江最著名的要数丽江古城（大研古镇），与其他古城不一样的是没有围墙，水是古城的..."
+        },
+        share_url = 'http://www.mafengwo.cn/gonglve/mdd-10186.html',
+        share_img = 'http://b4-q.mafengwo.net/s9/M00/F2/BF/wKgBs1awfLuAO7JdAAnkU_UO-j446.jpeg?imageMogr2%2Fthumbnail%2F%21609x860r%2Fgravity%2FCenter%2Fcrop%2F%21609x860%2Fquality%2F90|http://p4-q.mafengwo.net/s9/M00/F2/BF/wKgBs1awfLuAedRxAAwXwNzpXEg08.jpeg?imageMogr2%2Fthumbnail%2F%21609x860r%2Fgravity%2FCenter%2Fcrop%2F%21609x860%2Fquality%2F90|http://b4-q.mafengwo.net/s9/M00/F2/C0/wKgBs1awfLyACYS-AA6WaZl_3xY96.jpeg?imageMogr2%2Fthumbnail%2F%21609x860r%2Fgravity%2FCenter%2Fcrop%2F%21609x860%2Fquality%2F90|http://n2-q.mafengwo.net/s9/M00/F2/C0/wKgBs1awfLyAJh_bAAq1aZL34U469.jpeg?imageMogr2%2Fthumbnail%2F%21609x860r%2Fgravity%2FCenter%2Fcrop%2F%21609x860%2Fquality%2F90',
+        stype = 'mdd',
+        squery = '10186';
+
+</script>
+<script language="javascript" src="http://js.mafengwo.net/js/mfw.delegation.js?1493174420" type="text/javascript" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    $('ul.scroll-content>li').unbind('click').bind('click', function () {
+        var attr = {
+        };
+        attr['mddid'] = 10186;
+        attr['platform'] = 'www';
+        mfwPageEvent('mdd','book_preview',attr);
+    });
+</script>
+
+<!-- 页脚 -->
+<div id="footer" style="position:relative;top:30px;">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">网络出版服务许可证：(总)网出证(京)字第161号</span></p>
+            <p>增值电信业务经营许可证：京B2-20180228 <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+dialog+confirm:js+mSnsShare:js+jquery.mousewheel.min:js+M+module+ScrollBar:js+gonglve+book_detail:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^ZFZT^1532697023.js");
+    }
+</script>
+
+</body>
+</html>
