@@ -40,7 +40,7 @@ public class usersController {
      */
     @RequestMapping("show_login_html")
     public String show_login_html(String url,HttpServletRequest request) {
-        request.getServletContext().setAttribute("url",url);
+        request.getServletContext().setAttribute("pageurl",url);
         return "front_desk/login";
     }
 
@@ -407,7 +407,11 @@ public class usersController {
             if(null!=user&&user.getBindPhone().equals(passport))
             {
                 model.addAttribute("user",user);
-                return "redirect:"+request.getServletContext().getAttribute("url").toString().substring(16);
+                if(request.getServletContext().getAttribute("pageurl")!=null){
+                    return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                }else{
+                    return "/destinationController/queryAllDestination";
+                }
             }
             else
             {
@@ -419,8 +423,12 @@ public class usersController {
         {
             users user= (users) session.getAttribute("user");
             if(null!=user&&!"".equals(user.getBindPhone()))
-                return "redirect:"+request.getServletContext().getAttribute("url").toString().substring(16);
-            else
+                if(request.getServletContext().getAttribute("pageurl")!=null){
+                    return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                }else{
+                    return "/destinationController/queryAllDestination";
+                }
+             else
             {
                 model.addAttribute("danger_message","账号或密码错误,请重试!");
                 return "front_desk/login";
