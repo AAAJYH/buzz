@@ -30,4 +30,9 @@ public class cityService {
         return cityDao.byCityIdQuery(cityId);
     }
 
+    //根据城市名模糊查询
+    public List<city> byCityNameQuery(String cityName){
+        return cityDao.byCityNameQuery(cityName);
+    }
+
 }

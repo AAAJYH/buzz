@@ -35,4 +35,9 @@ public class scenicspotService {
         return scenicspotDao.queryAll();
     }
 
+    //根据景点名称模糊查询
+    public List<scenicspot> byScenicspotNameQuery(String ScenicspotName){
+        return scenicspotDao.byScenicspotNameQuery(ScenicspotName);
+    }
+
 }

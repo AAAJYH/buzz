@@ -25,4 +25,8 @@ public interface cityDao {
     @Select("select * from city where cityId=#{cid}")
     public city byCityIdQuery(@Param("cid") String cityId);
 
+    //根据城市名模糊查询
+    @Select("select * from city where cityName like #{'%'+cityName+'%'}")
+    public List<city> byCityNameQuery(@Param("cityName") String cityName);
+
 }

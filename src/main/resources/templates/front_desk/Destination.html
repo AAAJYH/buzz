@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
@@ -18,12 +17,12 @@
                 <img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/gugong1.jpg"></img>
             </div>
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
-                <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
+                <li class="head-nav-index"><a href="#">首页</a></li>
+                <li class="head-nav-index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index"><a href="#">酒店</a></li>
+                <li class="head-nav-index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
+                <li class="head-nav-index"><a href="#">游记</a></li>
+                <li class="head-nav-index"><a href="#">问答</a></li>
             </ul>
             <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
         </div>
@@ -64,15 +63,35 @@
         <!--搜索框-->
         <div class="place-search-panel place-search-panel-sm">
             <h2>Don't fear the unknown</h2>
-            <form name="mdd-search-form" action="/search/s.php" method="get">
+            <form name="mdd-search-form" action="#" method="get">
                 <div class="searchbar">
-                    <input autocomplete="off" class="search-input" type="text" name="q" placeholder="我想去（城市）..."/>
+                    <input id="search" autocomplete="off" class="search-input" type="text" name="q" placeholder="我想去（城市、景点）..."/>
                     <a class="search-button" href="#" data-cs-l="搜索" role="button"><i class="icon-search"></i></a>
                 </div>
             </form>
             <div class="place-search-hot">
             </div>
+            <script>
+                //自动补全
+                $("#search").keyup(function(){
+                    var searchText=$(this).val();
+                    $.ajax({
+                        url:'/destinationController/fuzzySearch',
+                        type:'post',
+                        data:{
+                            name:searchText
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            alert(JOSN.Stringify(data));
+                        }
+                    });
+
+                });
+            </script>
         </div>
+        <!--搜索框-->
+
     </div>
 </div>
 

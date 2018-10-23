@@ -29,4 +29,8 @@ public interface scenicspotDao {
     @Select("select * from scenicspot")
     public List<scenicspot> queryAll();
 
+    //根据景点名称模糊查询
+    @Select("select * from scenicspot where chineseName like #{'%'+ScenicspotName+'%'}")
+    public List<scenicspot> byScenicspotNameQuery(@Param("ScenicspotName") String ScenicspotName);
+
 }
