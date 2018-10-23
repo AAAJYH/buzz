@@ -414,7 +414,9 @@ public class usersController {
         {
             users user= (users) session.getAttribute("user");
             if(null!=user&&!"".equals(user.getBindPhone()))
+            {
                 return "front_desk/personalCenter";
+            }
             else
             {
                 model.addAttribute("danger_message","账号或密码错误,请重试!");

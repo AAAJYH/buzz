@@ -65,4 +65,12 @@ public interface usersDao
      */
     @Select("select * from users where bindEmail=#{bindEmail} and userPassword=#{userPassword}")
     public users find_userByuserPasswordAndbindEmail(@Param("bindEmail")String bindEmail,@Param("userPassword")String userPassword);
+
+    /**
+     * 通过用户id查询用户
+     * @param userId 用户编号
+     * @return 用户实体
+     */
+    @Select("select * from users where userId=#{userId}")
+    public users find_userByuseruserId(@Param("userId")String userId);
 }

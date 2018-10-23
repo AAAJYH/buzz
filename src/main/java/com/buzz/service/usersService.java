@@ -76,4 +76,13 @@ public class usersService
     {
         return userdao.find_userByuserPasswordAndbindEmail(bindEmail,userPassword);
     }
+    /**
+     * 通过用户id查询用户
+     * @param userId 用户编号
+     * @return 用户实体
+     */
+    public users find_userByuseruserId(String userId)
+    {
+        return userdao.find_userByuseruserId(userId);
+    }
 }

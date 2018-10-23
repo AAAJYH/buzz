@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<!--suppress All-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <base href="http://localhost/">
@@ -115,11 +116,12 @@
     <!-- 新自由行菜单 end -->
 </div>
 <div data-pagelet id="topic" class="" data-controller="/js/note/ControllerTopic">
+    <input type="hidden" id="travelNotesId" name="travelNotesId" th:value="${travelNotes.travelNotesId}" >
     <div class="set_index" id="_j_cover_box" style="height:650px;">
         <div class="set_bg _j_toppiccnt" id="cropContainerModal"></div>
         <div class="fully_loading">
             <p vtip="头图加载中...">头图加载中...</p>
-            <img src="http://images.mafengwo.net/images/post/new_notes/fully_loading_v2.gif" alt="loading">
+            <img src="images/post/new_notes/fully_loading_v2.gif" alt="loading">
         </div>
         <div class="set_page">
             <a role="button" class="set_add  _j_uploaderattop _j_upload_toppic" id="_j_upload_toppic"></a>
@@ -128,7 +130,7 @@
             <div class="clear"></div>
         </div>
         <div class="set_title">
-            <input type="text" id="_j_title" value="" placeholder="填写游记标题" maxlength="48" />
+            <input type="text" id="_j_title" th:value="${travelNotes.travelNotesheadline}" placeholder="填写游记标题" maxlength="48"  />
             <span>可输入<strong>48</strong>字</span>
             <div class="clear"></div>
         </div>
@@ -152,13 +154,14 @@
     <div data-pagelet id="pagelet-block-2e45b644c927e980b6da626ea10b8476" class="content" data-controller="/js/note/ControllerEditContent" data-controller_data="{&quot;id&quot;:&quot;383336678&quot;}">
         <div class="block-loading loading_backward"></div>
         <div class="_j_content_box">
-            <div class='textarea_placeholder _j_plc_item'>
-                <textarea cols='30'   class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>
+            <div class='textarea_placeholder _j_plc_item' id="travelNotesContent">
+                <textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>
             </div>
         </div>
         <div class="block-loading loading_forward"></div>
     </div>
     <div data-pagelet id="sidebar" class=" sidebar" data-controller="/js/note/ControllerEditSidebar">
+        <div style="display: none;"></div>
         <div class="_j_sidebar_sticky_cnt">
             <div class="sidebar-item _j_sidebar_item">
                 <a role="button" class="add-btn _j_insert_choice"><i class="icon-photo"></i>插入图片</a>
@@ -167,9 +170,9 @@
                     <div class="inner clearfix">
                         <div class="img-local" style="width:100%;">
                             <div class="img-wrap"><a class="art-btn-upload _j_upload_pic_trigger" role="button">上传本地图片</a></div>
-                            <div class="art-tips">选取的图片尺寸应大于100*50，大小应小于30M<br>按ctrl键可支持多选，每次最多添加100张图片</div>
-                            <form action="">
-
+                            <div class="art-tips">选取的图片尺寸应大于100*50，大小应小于30M</div>
+                            <form id="insert_travelNotesphotoForm" enctype="multipart/form-data" method="post">
+                                <input type="file" style="display: none;" name="travelNotesphoto" accept="image/*" id="travelNotesphoto">
                             </form>
                         </div>
                     </div>
@@ -186,13 +189,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="add-panel add-panel-title _j_insert_panel hide">
+                    <div class="icon-close_parent"><i class="icon-close"></i></div>
+                    <div class="inner clearfix">
+                        <div class="a-form clearfix">
+                            <div class="a-inpwrap"><input class="a-inptxt _j_paragraph_title" id="updatesectionTitles" type="text" placeholder="请输入段落名称"><span class="limit _j_limit_tip">可输入<em>20</em>字</span></div>
+                            <a class="a-btn _j_submit_paragraph" id="updatesectionTitlesButton" role="button">确定</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="sidebar-item _j_sidebar_item">
-                <a class="add-btn _j_insert_choice" style="display:block;" role="button"><i class="icon-music"></i>添加游记音乐</a>
-                <span class="edit-btn-music _j_modify_choice" style="display: none;"  role="button">
+                <!-- 背景音乐-->
+                <a class="add-btn _j_insert_choice" id="_j_insert_choice_music" role="button"><i class="icon-music"></i>添加游记音乐</a>
+                <span class="edit-btn-music _j_modify_choice"role="button">
                     <span class="music_switch _j_music_switch">
-                        <em class="hd_audio" data-music=""></em>
-                        <a class="pause _j_music_visible">
+                        <em class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;">
+                            <img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
+                            <audio id="backgroundMusic" autoplay="true" loop="true" th:src="${travelNotes.backgroundMusic}"></audio>
+                        </em>
+                        <a class="_j_music_visible pause">
                             <i></i>
                             <i></i>
                             <i></i>
@@ -201,7 +217,7 @@
                             <img src="images/post/new_notes/nn_v2/music.gif" alt="">
                         </a>
                     </span>
-                    <span class="music-name _j_m_name"></span>
+                    <span class="music-name _j_m_name" th:text="${travelNotes.backgroundMusicName}"></span>
                     <a class="music_modify _j_insert_choice"><i class="icon-pen"></i></a>
                 </span>
                 <div class="add-panel add-panel-music _j_insert_panel _j_beforeupload_mode hide" id="_j_add_music_box">
@@ -210,64 +226,43 @@
                         <div class="a-form clearfix">
                             <div class="a-inpwrap">
                                 <div class="_j_mode_block _j_editing">
-                                    <div class="a-inptxt"><input type="text" class="_j_music_name_input" value=""><a role="button" class="_j_save_name_btn">保存</a><a role="button" class="_j_cancel_name_btn">取消</a></div>
+                                    <div class="a-inptxt">
+                                        <input type="text" class="_j_music_name_input" th:value="${travelNotes.backgroundMusicName}">
+                                        <a role="button" class="_j_save_name_btn">保存</a>
+                                        <a role="button" class="_j_cancel_name_btn">取消</a>
+                                    </div>
                                 </div>
                                 <div class="_j_mode_block _j_uploaded">
-                                    <div class="a-inptxt"><span class="_j_music_name"></span><a role="button" class="_j_edit_trigger">编辑名称</a><a role="button" class="_j_rem_trigger">删除音乐</a></div>
+                                    <div class="a-inptxt">
+                                        <span class="_j_music_name" th:text="'已上传  -  '+${travelNotes.backgroundMusicName}"></span>
+                                        <a role="button" class="_j_edit_trigger">编辑名称</a>
+                                        <a role="button" class="_j_rem_trigger">删除音乐</a>
+                                    </div>
                                 </div>
                                 <div class="_j_mode_block _j_beforeupload">
                                     <div class="a-inptxt">背景音乐请选择后缀为.mp3的音乐文件</div>
                                 </div>
                             </div>
-                            <a class="a-btn" id="_j_upload_music" role="button"><span class="_j_scan_txt">浏览</span><span class="_j_modify_txt">更换</span></a>
+                            <form method="post" id="insert_backgroundMusicForm" enctype="multipart/form-data">
+                                <input type="file" style="display: none;" name="backgroundMusic" id="File_backgroundMusic" accept="/*.mp3">
+                            </form>
+                            <a class="a-btn" id="_j_upload_music" role="button">
+                                <span class="_j_scan_txt">浏览</span>
+                                <span class="_j_modify_txt">更换</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 <div class="side-save" id="_j_draft_save_block"><span class="_j_draft_save_time"></span><a class="btn-save _j_btn_save" role="button"><i></i>保存草稿</a></div>
 <div data-pagelet id="pagelet-block-572c84a5a202058d92e93d2f7029c227" class="" data-api=":note:pagelet:editCatalogApi" data-params="{&quot;id&quot;:&quot;383336678&quot;}" data-async="1" data-controller="/js/note/ControllerCatalogForEditPage"></div>
-<script id="_j_picupload_dialog_content_tmpl" type="text/x-jquery-tmpl">
-    <div id="_j_upload_list_box">
-        <div class="uppic-wrapper">
-            <div class="uppic-content">
-                <div class="uppic-title"><strong>添加照片</strong></div>
-                <div class="uppic-list" id="_j_upload_photo_box">
-                    <ul class="clearfix _j_piclist_cnt"><li style="display:none"><a class="btn-upAdd _j_continue_upload" role="button"><i></i></a></li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="btm-action btm-upbar">
-            <div class="btm-cnt">
-                <a class="btn-primary" role="button" id="_j_next_step">上传</a>
-                <span class="up-nums"><span class="_j_finishedindex">0</span> / <em style="font-style:normal" class="_j_totalcount">0</em></span>
-                <div class="upload-bar"><span style="width: 0;" class="process _j_progress"></span></div>
-                <div class="water-mark _j_watermark_cnt">水印<span class="switch _j_wmswitch{{if !wm.open}} off{{/if}}"><i></i></span><a data-style="${wm.style}" data-position="${wm.position}" class="_j_wmsetting" role="button" tabindex="0">设置水印</a></div>
-            </div>
-        </div>
-    </div>
-    </script>
-<script id="_j_upload_pic_item" type="text/x-jquery-tmpl">
-    <li id="_j_photo_${file.id}" data-file_id="${file.id}" class="_j_picitem wait">
-        <div class="upitem-mask mask-wait">
-            <span class="btn-upClose _j_remove_up"></span>
-            <div class="mask-txt mask-txt-line2">等待<br>上传</div>
-        </div>
-        <div class="upitem-mask mask-progress">
-            <span class="btn-upClose _j_stop_up"></span>
-            <div class="mask-bar"><span class="_j_prog" style="width:0"></span></div>
-        </div>
-        <div class="upitem-mask mask-failed">
-            <div class="s-failed"><i></i>上传失败</div>
-        </div>
-    </li>
-</script>
         </div>
     </div>
     <div class="clear"></div>
     <div class="action-ft">
         <div class="action-wrap">
             <div class="item-btn _js_actionBtn">
-                <a data-href="/note/create.php/view/?id=383336678" class="btn-publish btn-preview _j_preview" role="button">预览</a>
+                <a class="btn-publish btn-preview _j_preview" role="button">预览</a>
                 <a class="btn-publish _j_btn_publish" role="button">发表游记</a>
             </div>
         </div>
@@ -281,33 +276,6 @@
         <span><i></i></span>
     </div>
 </script>
-
-
-    <script id="_j_sortitem_tmpl" type="text/x-jquery-tmpl">
-    <ul>
-    <li class="{{if data.type == "image"}}li_image{{else data.type == "video"}}li_video{{else data.type == "txt"}}word{{else data.type == "paragraph"}}li_paragraph{{/if}}" data-seq="${data.seq}" id="_j_sort_${data.seq}">
-        {{if data.type == "image"}}
-        <img class="photo" src="${data.thumb}" />
-        {{else data.type == "video"}}
-        <img src="http://images.mafengwo.net/images/post/new_notes/video_v2.gif" />
-        {{else data.type == "paragraph"}}
-        <img src="http://images.mafengwo.net/images/post/new_notes/paragraph.gif" />
-        {{else data.type == "txt"}}
-        <img src="http://images.mafengwo.net/images/post/new_notes/word_v2.gif" />
-        {{/if}}
-        {{if data.type == "txt"}}
-        <div class="word_data">${data.content}</div>
-        {{else data.type == "paragraph"}}
-        <div class="word_data">${data.title}</div>
-        {{/if}}
-        <div class="selected">
-            <p class="cover_pop"></p>
-            <i></i>
-        </div>
-    </li>
-    </ul>
-</script>
-
 </div>
 <link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
 <div class="mfw-toolbar" id="_j_mfwtoolbar">
@@ -355,12 +323,153 @@
         </div>
     </div>
 </div>
+<!--确认 取消提示框-->
+<div id="_j_layer_1" class="layer _j_layer" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;display: none;">      		<div class="layer_mask _j_mask" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;"></div>
+    <div class="layer_content _j_content" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;">
+        <div id="popup_container1" class="popup-box new-popbox pop_no_margin" style="position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left: 306px; top: 314.222px;">
+            <a class="close-btn _j_close _j_false"><i></i></a>
+            <div class="pop-ico" id="popup_icon"><i class="i2"></i></div>
+            <div class="pop-ctn">
+                <p class="hd _j_content">确认删除音乐？</p>
+                <p class="bd _j_detail"></p>
+                <input type="hidden" id="cause">
+            </div>
+            <div class="pop-btns">
+                <a role="button" tabindex="0" class="popbtn popbtn-cancel popbtn-half _j_close _j_false">&nbsp;取消&nbsp;</a>
+                <a role="button" tabindex="0" class="popbtn popbtn-submit popbtn-half _j_close _j_true">&nbsp;确定&nbsp;</a>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="js/travelNotes_create_travelNotes_1.js"></script>
 <script>
+    $().ready(
+        function()
+        {
+            var travelNotesheadPhoto="[[${travelNotes.travelNotesheadPhoto}]]";
+            if(travelNotesheadPhoto.length>0)
+            {
+                $("#cropContainerModal").css("background-image","url("+travelNotesheadPhoto+")");
+            }
+            loadtravelNotesContent();
+            bodyjs();
+            $(".textarea_placeholder textarea").focus();//首个testarea获取光标
+            var video = document.getElementById('backgroundMusic');
+            if($(video).attr("src")!=null&&$(video).attr("src").length>0)//判断是否有背景音乐
+            {
+                video.play();
+                $("._j_modify_choice").css("display","block");//显示播放音乐
+                $("#_j_insert_choice_music").css("display","none");//将添加游记音乐隐藏
+                $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_uploaded_mode hide");//修改音乐隐藏块样式
+            }
+            else
+            {
+                $("._j_modify_choice").css("display","none");//隐藏播放音乐
+                $("#_j_insert_choice_music").css("display","block");//将添加游记音乐显示
+                $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_beforeupload_mode hide");//修改音乐隐藏块样式
+            }
+            if(!video.paused)
+            {
+                $("._j_music_visible").attr("class","_j_music_visible play");
+            }
+        }
+    );
+    //加载游记内容
+    function loadtravelNotesContent()
+    {
+        var travelNotesId=$("#travelNotesId").val();
+        $.ajax({
+            url:"travelNotesController/preview_travelNotes",
+            type:"post",
+            dataType:"json",
+            data:{travelNotesId:travelNotesId},
+            success:function(data)
+            {
+                var insertHtml="";
+                if(null!=data)
+                {
+                    var i=0;
+                    if(data.travelNotesContents[0].type=="textarea")
+                    {
+                        var value=data.travelNotesContents[i].value.replace(/\<br\/>/g,'\n');
+                        insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'>"+value+"</textarea>";
+                        i=i+1;
+                    }
+                    else
+                        insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>";
+                    for(i;i<data.travelNotesContents.length;i++)
+                    {
+                        if(data.travelNotesContents[i].type=="textarea")
+                        {
+                            var value=data.travelNotesContents[i].value.replace(/\<br\/>/g,'\n');
+                            insertHtml+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='height:54px;overflow-y:hidden;'>"+value+"</textarea></div>";
+                        }
+                        else if(data.travelNotesContents[i].type=="img")
+                        {
+                            insertHtml+="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+data.travelNotesContents[i].value+"' width='680' height='453'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+data.travelNotesContents[i].value+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                        }
+                        else if(data.travelNotesContents[i].type=="h2")
+                        {
+                            insertHtml+="<div class='article_title _j_data_item'><h2 class='t9'><span>"+data.travelNotesContents[i].value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                        }
+                    }
+                }
+                else
+                    insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>";
+                $("#travelNotesContent").html(insertHtml);
+                $('textarea').each(function ()
+                {
+                    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function ()
+                {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+                bodyjs();
+            },
+            error:function()
+            {
+                showalert("抱歉,加载失败请刷新页面!")
+            }
+        });
+    }
+    $(document).scroll(
+        function()
+        {
+            var distance = $(document).scrollTop();
+            if(710<=distance)
+            {
+
+               $("._j_sidebar_sticky_cnt").prev().css({"display":"block","height":distance-710+"px"});
+                $("._j_sidebar_sticky_cnt").addClass("_j_fix_block_fix_1");
+                $("._j_sidebar_sticky_cnt").addClass("_j_sticky_fix");
+            }
+            else
+            {
+                $("._j_sidebar_sticky_cnt").prev().css("display","none");
+                $("._j_sidebar_sticky_cnt").removeClass("_j_fix_block_fix_1");
+                $("._j_sidebar_sticky_cnt").removeClass("_j_sticky_fix");
+            }
+        }
+    );
+    //经过重新上传头图时显示
+    $("#_j_cover_do").hover(
+        function()
+        {
+            $("#_j_change_toppic").show();
+            $(this).attr("class","set_btn on");
+        },
+        function()
+        {
+            $(this).attr("class","set_btn");
+        }
+    );
     //点击插入图片、插入段落标题、游记音乐按钮,显示
     $(".add-btn").click(
         function()
         {
+            $("._j_insert_panel").addClass("hide");//首先隐藏所有
+            $("#_j_add_music_box").addClass("hide");
             var text=$(this).text();
             if(text!='添加游记音乐')
                 $(this).next().removeClass("hide");
@@ -375,20 +484,26 @@
             $(this).parent().parent().addClass("hide");
         }
     );
-    $().ready(
-        function()
-        {
-            bodyjs();
-            $(".textarea_placeholder textarea").focus();//首个testarea获取光标
-        }
-    );
     //页面大小变更,更改模态框在页面显示的位置
     window.onresize = function(){
         var width=$(window).width();
         var height=$(window).height();
         width=width/2-210;
         height=height/2-130;
+        var width1=width/2-700;
+        var height1=height/2-500;
+        if(width1<=0)
+        {
+            width1=0;
+        }
+        if(height1<=0)
+        {
+            height1=0;
+        }
         $("#popup_container").css({"left":width+"px","top":height+"px"});
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
+        if(("#popup_container2").length>0)
+            $("#popup_container2").css({"left":width1+"px","top":height1+"px"});
     }
     //在js中进行操作需要进行加载的方法
     function bodyjs()
@@ -399,11 +514,80 @@
                 textareaElement=$(this)[0];
             }
         );
-        //修改段落标签
+        var currentsectionTitles=null;//当前段落标签
+        //显示修改段落标签
         $("._j_paragraph_title_edit").click(
             function()
             {
-
+                currentsectionTitles=$(this).parent().prev().children("span");//赋值给当前段落标签
+                var value=$(this).parent().prev().children("span").text();//获取原来标题值
+                $("#updatesectionTitles").val(value);
+                $($("._j_insert_panel")[2]).removeClass("hide");
+                save_travelNotes(false);//保存游记内容为草稿游记
+            }
+        );
+        $("#updatesectionTitlesButton").click(
+            function()
+            {
+                var value=$("#updatesectionTitles").val();
+                if(0<value.length)
+                {
+                    $(currentsectionTitles).text(value);
+                    $($("._j_insert_panel")[2]).addClass("hide");
+                }
+                else
+                    showalert("请输入段落名称");
+            }
+        )
+        //删除游记图片
+        $("._j_removepic").click(
+            function()
+            {
+                var photo=$(this).parent().parent().parent();
+                var textarea=$(photo).next().children("textarea");
+                var textareavalue=$(textarea).val();
+                //如果之后的textarea内容为空时,删除
+                if(null==textareavalue||textareavalue.length<=0)
+                {
+                    $(textarea).parent().remove();
+                }
+                else
+                {
+                    var prevElement=$(photo).prev();
+                    if("textarea_placeholder _j_plc_item _j_inited"==$(prevElement).prop("class"))//判断是否为普通textarea
+                    {
+                        if($(prevElement).children("textarea").val().length<=0)
+                            $(prevElement).children("textarea").val(textareavalue);
+                        else
+                            $(prevElement).children("textarea").val($(prevElement).children("textarea").val()+"\n"+textareavalue);
+                        var prevElementdom=$(prevElement).children("textarea")[0];
+                        prevElementdom.setAttribute('style', 'height:' + (prevElementdom.scrollHeight) + 'px;overflow-y:hidden;');
+                        prevElementdom.style.height = 'auto';
+                        prevElementdom.style.height = (prevElementdom.scrollHeight) + 'px';
+                        $(prevElement).children("textarea").focus();
+                    }
+                    else if("textarea _j_textarea _j_textareaplc"==$(prevElement).prop("class"))//判断是否为首个textarea
+                    {
+                        if($(prevElement).val().length<=0)
+                            $(prevElement).val(textareavalue);
+                        else
+                            $(prevElement).val($(prevElement).val()+"\n"+textareavalue);
+                        var prevElementdom=$(prevElement)[0];
+                        prevElementdom.setAttribute('style', 'height:' + (prevElementdom.scrollHeight) + 'px;overflow-y:hidden;');
+                        prevElementdom.style.height = 'auto';
+                        prevElementdom.style.height = (prevElementdom.scrollHeight) + 'px';
+                        $(prevElement).focus();
+                    }
+                    $(textarea).parent().remove();
+                }
+                $(photo).remove();
+                $.ajax({//删除图片
+                    url:"travelNotesController/delete_travelNotesphoto",
+                    type:"post",
+                    dataType:"json",
+                    data:{url:$(this).prev().val()}
+                });
+                save_travelNotes(false);//保存游记内容为草稿游记
             }
         );
         //删除段落标签
@@ -414,9 +598,9 @@
                 var textarea=$(headline).next().children("textarea");
                 var textareavalue=$(textarea).val();
                 //如果之后的textarea内容为空时,删除
-                if(textareavalue.length<=0)
+                if(null==textareavalue||textareavalue.length<=0)
                 {
-                    $(textarea).remove();
+                    $(textarea).parent().remove();
                 }
                 else
                 {
@@ -445,17 +629,213 @@
                         prevElementdom.style.height = (prevElementdom.scrollHeight) + 'px';
                         $(prevElement).focus();
                     }
-                    $(textarea).remove();
+                    $(textarea).parent().remove();
                 }
-
-
-                $(this).parent().parent().remove();
-                bodyjs();
+                $(headline).remove();
+                save_travelNotes(false);//保存游记内容为草稿游记
             }
         );
     }
+    //如果点击浏览音乐文件时,显示选择音乐框
+    $("._j_scan_txt").click(
+        function()
+        {
+            $("#File_backgroundMusic").click();
+        }
+    );
+    //音乐文件input值改变时
+    $("#File_backgroundMusic").change(
+        function()
+        {
+            var filename=$("#File_backgroundMusic").val();
+            var filetype=filename.substring(filename.lastIndexOf(".")+1);
+            if("mp3"==filetype)
+            {
+                $(".a-btn").addClass("btn-loading");
+                var formdata=new FormData($("#insert_backgroundMusicForm")[0]);
+                formdata.append("travelNotesId",$("#travelNotesId").val());
+                $.ajax({
+                     url:"travelNotesController/insert_backgroundMusic",
+                     type:"post",
+                     dataType:"json",
+                     data:formdata,
+                     processData: false,
+                     contentType : false,
+                     success:function(data)
+                     {
+                         if(data.result)
+                         {
+                             $("#backgroundMusic").attr("src",data.url);
+                             var backgroundMusic=document.getElementById("backgroundMusic");
+                             backgroundMusic.play();
+                             $("._j_music_name_input").val(data.musicname);
+                             $("._j_music_name").text("已上传    -     "+data.musicname);
+                             $("._j_m_name").text(data.musicname);
+                             if($("._j_modify_choice").css("display")!="block")
+                             {
+                                 $("._j_modify_choice").css("display","block");//显示播放音乐
+                                 $("#_j_insert_choice_music").css("display","none");//将添加游记音乐隐藏
+                                 $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_uploaded_mode hide");//修改音乐隐藏块样式
+                             }
+                         }
+                         else
+                             showalert("上传游记音乐失败,请重试");
+                         $(".a-btn").removeClass("btn-loading");
+                     },
+                     error:function()
+                     {
+                         showalert("上传游记音乐失败,请重试");
+                         $(".a-btn").removeClass("btn-loading");
+                     }
+                 });
+            }
+            else
+                showalert("只能上传mp3格式的音乐");
+        }
+    );
+    //显示修改背景音乐块
+    $(".icon-pen").click(
+        function()
+        {
+            $("#_j_add_music_box").removeClass("hide");
+        }
+    );
+    //点击编辑音乐名称时显示输入框
+    $("._j_edit_trigger").click(
+        function()
+        {
+            $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_editing_mode");
+        }
+    );
+    var _j_music_name_input="";
+    $("._j_music_name_input").focus(
+        function()
+        {
+            _j_music_name_input=$("._j_music_name_input").val();
+        }
+    );
+    //点击保存音乐名称时,修改音乐名称
+    $("._j_save_name_btn").click(
+        function()
+        {
+            var value=$("._j_music_name_input").val();
+            if(null!=value&&0<value.length)
+            {
+                $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_uploaded_mode");
+                var travelNotesId=$("#travelNotesId").val();
+                $.ajax({
+                    url:"travelNotesController/update_backgroundMusicName_BytravelNotesId",
+                    type:"post",
+                    dataType:"json",
+                    data:{travelNotesId:travelNotesId,backgroundMusicName:value},
+                    success:function(data)
+                    {
+                        if(data)
+                        {
+                            $("._j_music_name_input").val(value);
+                            $("._j_music_name").text("已上传    -     "+value);
+                            $("._j_m_name").text(value);
+                        }
+                        else
+                        {
+                            $("._j_music_name_input").val(_j_music_name_input);
+                            showalert("出现错误请重试")
+                        }
+                    },
+                    error:function()
+                    {
+                        $("._j_music_name_input").val(_j_music_name_input);
+                        showalert("出现错误请重试")
+                    }
+                });
+            }
+            else
+                showalert("请输入音乐名称");
+        }
+    );
+    //点击取消修改音乐名称时
+    $("._j_cancel_name_btn").click(
+        function()
+        {
+            $("._j_music_name_input").val(_j_music_name_input);
+            $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_uploaded_mode");
+        }
+    );
+    //点击删除音乐时,显示删除音乐提示模态框
+    $("._j_rem_trigger").click(
+        function()
+        {
+            showbuttonalert("确认删除音乐?","delete_backgroundMusic");
+        }
+    );
+    //确认删除音乐时
+    $("._j_true").click(
+        function()
+        {
+            var _j_detail=$("#popup_container1").children(".pop-ctn").children("#cause").val();
+            if(0<_j_detail.length)
+            {
+                if("delete_backgroundMusic"==_j_detail)//删除游记背景音乐
+                {
+                    var travelNotesId=$("#travelNotesId").val();
+                    var backgroundMusic=$("#backgroundMusic").attr("src");
+                    $.ajax({
+                        url:"travelNotesController/delete_backgroundMusic_BytravelNotesId",
+                        dataType:"",
+                        type:"post",
+                        data:{travelNotesId:travelNotesId,backgroundMusic:backgroundMusic},
+                        success:function(data)
+                        {
+                            if(data)
+                            {
+                                var music=document.getElementById("backgroundMusic");
+                                music.pause();
+                                $("#backgroundMusic").attr("src","");
+                                $("._j_music_name_input").val("");
+                                $("._j_music_name").text("");
+                                $("._j_m_name").text("");
+                                $("._j_modify_choice").css("display","none");//隐藏播放音乐
+                                $("#_j_insert_choice_music").css("display","block");//将添加游记音乐显示
+                                $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_beforeupload_mode hide");//修改音乐隐藏块样式
+
+                            }
+                            else
+                                showalert("删除游记音乐失败")
+                        },
+                        error:function()
+                        {
+                            showalert("删除游记音乐出错")
+                        }
+                    });
+                }
+            }
+            else
+                showalert("缺少参数_j_detail");
+        }
+    );
+    //点击更换音乐时,显示选择文件框
+    $("._j_modify_txt").click(
+        function()
+        {
+            $("#File_backgroundMusic").click();
+        }
+    );
     //判断段落标题是否超出20个字,如果超出进行剪切
     $("#sectionTitles").keyup(
+        function()
+        {
+            var value=$(this).val();
+            var length=value.length;
+            if(length>=20)
+            {
+                $(this).val(value.substring(0,20));
+                length=20;
+            }
+            $(this).next().children("em").text(20-length);
+        }
+    );
+    //修改段落标题时,判断还可输入几个字
+    $("#updatesectionTitles").keyup(
         function()
         {
             var value=$(this).val();
@@ -493,7 +873,7 @@
                     var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
                     if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
                     {
-                        insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;''></textarea></div>";
+                        insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'></textarea></div>";
                     }
                     $(currentElement).after(insertElement);
                 }
@@ -545,7 +925,7 @@
                         var insertElement="<div class='article_title _j_data_item'><h2 class='t9'><span>"+value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
                         if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
                         {
-                            insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;''></textarea></div>";
+                            insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'></textarea></div>";
                         }
                         $(currentElement).after(insertElement);
                     }
@@ -554,6 +934,7 @@
                 var value=$("#sectionTitles").val("");
                 $(this).next().children("em").text(20);
                 bodyjs();//重新绑定事件触发
+                save_travelNotes(false);//保存游记内容为草稿游记
             }
             else
             {
@@ -561,7 +942,170 @@
             }
         }
     );
-    function showalert(_j_content)//显示模态框
+    //添加游记图片至页面
+    function addtravelNotesphoto(photourl)
+    {
+        //加载图片获取图片真实宽度和高度,如果高度大于453px或宽度大于680px,设置img高度和宽度
+        var image = new Image();
+        image.src= photourl;
+        image.onload=function()
+        {
+            var width = image.width;
+            var height = image.height;
+            if(width>680)
+                width=680;
+            if(height>453)
+                height=453;
+            var pos = cursorPosition.get(textareaElement);
+            var currentvalue=$(textareaElement).val();
+            var currentlength=currentvalue.length;
+            var currentElement=null;
+            if("textarea _j_textarea _j_textareaplc"==$(textareaElement).prop("class"))//判断当前光标元素是否为默认textarea
+            {
+                currentElement=textareaElement;
+            }
+            else
+            {
+                currentElement=$(textareaElement).parent();
+            }
+            if(currentlength==0)//判断当前光标所在的元素内容长度,如果为零就在当前元素后面添加
+            {
+                var nextElementClass=$(currentElement).next().prop("class");
+                var insertElement="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+photourl+"' width='"+width+"' height='"+height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+photourl+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
+                {
+                    insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'></textarea></div>";
+                }
+                $(currentElement).after(insertElement);
+            }
+            else
+            {
+                var currentClass=$(textareaElement).prop("class");
+                if(pos.start==0)//判断光标在元素中的位置是否为0,如果为0就在之前当前textarea前面添加标题
+                {
+                    if(currentClass=="textarea _j_textarea _j_textareaplc")//判断当前光标元素是否为默认textarea
+                    {
+                        var insertElement="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+photourl+"' width='"+width+"' height='"+height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+photourl+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                        var nextElementClass=$(textareaElement).next().prop("class");
+                        if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
+                        {
+                            insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'>"+currentvalue+"</textarea></div>";
+                        }
+                        else//将默认textarea中的内容拼接到之后的textarea中,并清空textarea中的内容
+                        {
+                            var nextElementChildren=$(textareaElement).next().children("textarea");
+                            var nextElementChildrenvalue=$(nextElementChildren).val();
+                            $(nextElementChildren).val(currentvalue+"\n"+nextElementChildrenvalue);
+                        }
+                        $(textareaElement).val("");
+                        $(textareaElement).after(insertElement);
+                    }
+                    else
+                    {
+                        var prevElement=$(textareaElement).parent().prev();
+                        var prevElementClass=$(prevElement).prop("class");
+                        var insertElement="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+photourl+"' width='"+width+"' height='"+height+"'><span class='loading'></span><span class='turn _j_actionarea'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                        if("textarea_placeholder _j_plc_item _j_inited"!=prevElementClass)//判断当前元素之前的兄弟节点是否为textarea,如果不是就添加textarea
+                        {//在标签之前添加textarea
+                            insertElement="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'></textarea></div><div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+photourl+"' width='"+width+"' height='"+height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+photourl+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                        }
+                        $(textareaElement).parent().before(insertElement);
+                    }
+                }
+                else if(pos.start!=0&&pos.start<currentlength)//判断光标位置是否在元素字段内,如果在就截取字段,分为两个textarea,标题在两个textarea中间
+                {
+                    var beforevalue=currentvalue.substring(0,pos.start);//获取当前光标之前的内容
+                    var aftervalue=currentvalue.substring(pos.start,currentlength);//获取当前光标之后的内容
+                    $(textareaElement).val(beforevalue);
+                    var insertElement="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+photourl+"' width='"+width+"' height='"+height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+photourl+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div><div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'>"+aftervalue+"</textarea></div>";
+                    $(currentElement).after(insertElement);
+                }
+                else if(pos.start==currentlength)//判断光标是否在textarea字段最后,如果在后面就在textarea后面追加标题
+                {
+                    var nextElementClass=$(currentElement).next().prop("class");
+                    var insertElement="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+photourl+"' width='"+width+"' height='"+height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+photourl+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                    if("textarea_placeholder _j_plc_item _j_inited"!=nextElementClass)//判断此元素的下一个同级元素是否为textarea
+                    {
+                        insertElement+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='overflow: hidden;'></textarea></div>";
+                    }
+                    $(currentElement).after(insertElement);
+                }
+            }
+            $("#sectionTitles").parent().parent().parent().parent().addClass("hide");
+            var value=$("#sectionTitles").val("");
+            $(this).next().children("em").text(20);
+            bodyjs();//重新绑定事件触发
+            save_travelNotes(false);//保存游记内容为草稿游记
+        }
+    }
+    //上传游记图片
+    $("._j_upload_pic_trigger").click(//如果点击上传本地图片,触发File文本框
+        function()
+        {
+            $("#travelNotesphoto").click();
+        }
+    );
+    //上传游记图片input值改变时
+    $("#travelNotesphoto").change(
+        function()
+        {
+            var photo=$(this).val();
+            var photosuffix=photo.substring(photo.indexOf(".")+1);
+            if("jpg"==photosuffix||"jpeg"==photosuffix||"png"==photosuffix)
+            {
+                var formData=new FormData($("#insert_travelNotesphotoForm")[0]);
+                $.ajax({
+                    url:"travelNotesController/insert_travelNotesphoto",
+                    dataType:"json",
+                    type:"post",
+                    data:formData,
+                    processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
+                    contentType : false,  //必须false才会自动加上正确的Content-Type
+                    success:function(data)
+                    {
+                        if(data.result)
+                        {
+                            $("._j_insert_panel").addClass("hide");
+                            addtravelNotesphoto(data.url);
+                        }
+                        else
+                            showalert("啊哦,添加图片出现错误,请重试");
+                    }
+                });
+            }
+            else
+                showalert("请上传PNG,JPEG,PNG图片格式");
+        }
+    );
+    //暂停或播放音乐
+    $("._j_music_visible").click(
+        function()
+        {
+            var thisClass=$(this).attr("class");
+            if("_j_music_visible pause"==thisClass)
+            {
+                $(this).attr("class","_j_music_visible play");
+                playMusic();
+            }
+            else
+            {
+                $(this).attr("class","_j_music_visible pause");
+                playMusic();
+            }
+        }
+    );
+    //播放或暂停音乐
+    function playMusic()
+    {
+        var player = $("audio")[0];
+        if (player.paused){ /*如果已经暂停*/
+            player.play(); /*播放*/
+        }else {
+            player.pause();/*暂停*/
+        }
+    }
+    //显示模态框
+    function showalert(_j_content)
     {
         $("#_j_layer_0").css("display","block");//显示提示模态框
         $(".pop-ctn").children("._j_content").text(_j_content);
@@ -570,6 +1114,19 @@
         width=width/2-210;
         height=height/2-130;
         $("#popup_container").css({"left":width+"px","top":height+"px"});
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
+    }
+    //显示确认取消模态框
+    function showbuttonalert(_j_content,_j_detail)
+    {
+        $("#_j_layer_1").css("display","block");//显示提示模态框
+        $("#popup_container1").children(".pop-ctn").children("._j_content").text(_j_content);
+        $("#popup_container1").children(".pop-ctn").children("#cause").val(_j_detail);
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
     }
     //点击按钮关闭模态框
     $("._j_close").click(
@@ -579,10 +1136,24 @@
             {
                 $("#_j_layer_0").css("display","none");//隐藏提示模态框
             }
+            if($("#_j_layer_1").css("display")=="block")
+            {
+                $("#_j_layer_1").css("display","none");//隐藏提示模态框
+            }
         }
     );
     //如果点击不是模态框内,则关闭模态框
     $("#_j_layer_0").click(
+        function()
+        {
+            if($(this).css("display")=="block")
+            {
+                $(this).css("display","none");//隐藏提示模态框
+            }
+        }
+    );
+    //如果点击不是模态框内,则关闭模态框
+    $("#_j_layer_1").click(
         function()
         {
             if($(this).css("display")=="block")
@@ -622,6 +1193,166 @@
         }
     }
     var textareaElement=null;
+    //获取textarea中内容,将换行替换为<br/>
+    function getTextareaValue(obj)
+    {
+        var value=$(obj).val();
+        //浏览器换行符不一致,所以要进行多次replace
+        return value.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+    }
+    //获取游记整个内容
+    function gettravelNotesContent() {
+        var children = $("#travelNotesContent").children();
+        var json = "";
+            json="[";
+            for(var i=0;i<children.length;i++)
+            {
+                var currentChildrenClass=$(children[i]).attr("class");
+                if("textarea _j_textarea _j_textareaplc"==currentChildrenClass)//判断是否为首个textarea
+                {
+                    var value=getTextareaValue(children[i]);
+                    if(null!=value&&0<value.length)
+                    {
+                        json+="{\"type\":\"textarea\",\"value\":\""+value+"\"}";
+                    }
+                }
+                else if("add_pic _j_data_item"==currentChildrenClass)//判断是否为图片
+                {
+                    var img=$(children[i]).children().children("img");
+                    var src=img.attr("src");
+                    var width=img.attr("width");
+                    var height=img.attr("height");
+                    //var imageproperty="<img src='"+src+"' width='"+width+"' height='"+height+"' />";
+                    json+="{\"type\":\"img\",\"value\":\""+src+"\",\"width\":\""+width+"\",\"height\":\""+height+"\"}";
+                }
+                else if("textarea_placeholder _j_plc_item _j_inited"==currentChildrenClass)//判断是否为普通textarea
+                {
+                    var value=getTextareaValue($(children[i]).children("textarea"));
+                    json+="{\"type\":\"textarea\",\"value\":\""+value+"\"}";
+                }
+                else if("article_title _j_data_item"==currentChildrenClass)//判断是否为段落
+                {
+                    var value=$(children[i]).children("h2").children("span").text();
+                    json+="{\"type\":\"h2\",\"value\":\""+value+"\"}";
+                }
+                if(i<children.length-1)
+                {
+                    json+=",";
+                }
+            }
+            json+="]";
+        return json;
+    }
+    //保存内容为草稿 jump是否跳转页面
+    function save_travelNotes(jump)
+    {
+        var travelNotesContent=gettravelNotesContent();
+        var travelNotesId=$("#travelNotesId").val();
+        var travelNotesheadline=$("#_j_title").val();
+        if(null==travelNotesheadline||travelNotesheadline.length<=0)
+        {
+            travelNotesheadline="未命名游记标题";
+        }
+        $.ajax({
+            url:"travelNotesController/insert_travelNotes_draft",
+            type:"post",
+            dataType:"json",
+            data:{travelNotesId:travelNotesId,travelNotesheadline:travelNotesheadline,travelNotesContent:travelNotesContent},
+            success:function(data)
+            {
+                if(data)
+                {
+                    if(jump)
+                        window.location.href="front_desk/travelNotes/preview_travelNotes.html?travelNotesId="+travelNotesId;
+                    else
+                    {
+                        $("body").append("<div id='over_container'><div id='over_message'>保存草稿成功</div></div>");
+                        var date = new Date();
+                        var hour = date.getHours();
+                        var minute = date.getMinutes();
+                        var second = date.getSeconds();
+                        if(hour<=9)
+                            hour="0"+hour;
+                        if(minute<=9)
+                            minute="0"+minute;
+                        if(second<=9)
+                            second="0"+second;
+                        $("._j_draft_save_time").text(hour+":"+minute+":"+second+"保存了草稿");
+                        var over_container_setInterval=setInterval(function(){
+                            if($("#over_container").length>0)
+                            {
+                                $("#over_container").remove();
+                                window.clearInterval(over_container_setInterval);
+                            }
+                        },5000);
+                    }
+                }
+                else
+                    showalert("保存为草稿错误");
+            }
+        });
+    }
+    //点击保存草稿按钮
+    $("._j_btn_save").click(
+        function()
+        {
+            save_travelNotes(false);
+        }
+    );
+    //点击预览按钮
+    $("._j_preview").click(
+        function()
+        {
+            save_travelNotes(true);
+        }
+    );
+    //点击发表游记
+    $("._j_btn_publish").click(
+        function()
+        {
+            $("._j_btn_publish").addClass("n_loading");//修改发表游记按钮样式
+            var travelNotesheadline=$("#_j_title").val();
+            if(null!=travelNotesheadline&&0<travelNotesheadline.length)
+            {
+                var travelNotesContent=gettravelNotesContent();
+                var travelNotesId=$("#travelNotesId").val();
+                $.ajax({
+                    url:"travelNotesController/insert_travelNotes_draft",
+                    type:"post",
+                    dataType:"json",
+                    data:{travelNotesId:travelNotesId,travelNotesheadline:travelNotesheadline,travelNotesContent:travelNotesContent},
+                    success:function(data)
+                    {
+                        if(data.result)
+                        {
+                            $("body").append("<div id='_j_layer_2' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10004;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div class='popup-box layer_dialog _j_dialog pop_no_margin pub-last' id='popup_container2' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; left: 348.5px; top: 208.444px;'><div class='dialog_title' style='display:none'><div class='_j_title title'></div></div><div class='dialog_body _j_content'><a role='button' class='close-btn'><i></i></a><div class='pl-head'><img src='"+data.travelNotesheadPhoto+"'><div class='pl-msg'><h3>第"+data.travelNotesNum+"篇大作发表成功!</h3><p>你已在马蜂窝留下了"+data.fontNum+"字,"+data.imageNum+"张图片<br>世界游记任你写</p></div></div><div class='pl-body'><div class='pl-subtit'>系统检测到你的游记中提及了以下目的地，请选择和你游记最有关联的目的地</div><div class='pl-tags' style='overflow:auto'><a class='pl-tag' name='info_tag'>北京</a> <!--pl-tag cur--></div><div class='pl-subtit'>如果都不理想，那就为你的游记添加一个目的地吧</div><div class='pl-add'><div class='pl-search'><div name='mdd-search-form'><div class='pl-schbar'><input autocomplete='off' class='search-input' type='text' name='q' placeholder='搜索目的地'><i></i></div></div><div class='pl-schlist hide' style='display: none;'><ul class='suggest-list'><li data-mddname='河南'>河南</li><li data-mddname='河南蒙古族自治县'>河南蒙古族自治县<span class=''>青海</span></li><li data-mddname='河南市'>河南市<span class=''>韩国</span></li></ul></div></div><div class='input_mddname_panel hide' style='display: block;'><a class='pl-tag cur input_mddname' role='button'>河南蒙古族自治县</a></div></div><div class='pl-action'><a class='btn-done'>完成</a></div></div></div><a id='popup_close' class='close-btn _j_close'><i></i></a></div></div></div>");
+                            var width=$(window).width();
+                            var height=$(window).height();
+                            var width1=width/2-700;
+                            var height1=height/2-500;
+                            if(width1<=0)
+                            {
+                                width1=0;
+                            }
+                            if(height1<=0)
+                            {
+                                height1=0;
+                            }
+                            if(("#popup_container2").length>0)
+                                $("#popup_container2").css({"left":width1+"px","top":height1+"px"});
+                        }
+                        else
+                        {
+                            $("._j_btn_publish").removeClass("n_loading");
+                            showalert("发表游记出错");
+                        }
+                    }
+                });
+            }
+            else
+                showalert("游记标题不能为空")
+        }
+    );
 </script>
 </body>
 </html>

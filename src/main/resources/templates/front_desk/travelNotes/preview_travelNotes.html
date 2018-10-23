@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <base href="http://localhost/">
-    <title>写游记 - 嗡嗡嗡</title>
-    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
     <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
-    <link href="css/selectcats.css" rel="stylesheet" type="text/css"/>
+    <link href="css/new_notes.css" rel="stylesheet" type="text/css"/>
     <script language="javascript" src="js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -58,7 +57,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <!-- 社区下拉面板 end -->
                 </li>
                 <li class="head-nav-app" data-cs-p="app"><a href="http://www.mafengwo.cn/app/intro/gonglve.php" title="APP">APP</a></li>
@@ -71,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div data-pagelet id="pagelet-block-90f562ad6c83bb9768d92668c7887f0e" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+            <div data-pagelet id="pagelet-block-a6dc727b7a66c91dbdba1cce25edea84" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
         </div>
         <div class="shadow"></div>
     </div>
@@ -172,174 +170,63 @@
                 $(this).addClass('on').siblings().removeClass('on');
             });
         })();
+
     </script>
+
 </div>
-<div class="wrapper">
-    <ul class="btns clearfix">
-        <li class="btn1" data-cs-p="new">
-            <a class="btn _jump" data-url="front_desk/travelNotes/createtravelNotes.html"><div class="icon"><i></i></div>新版游记</a>
-            <div class="context">所见即所得、工具栏整合、边写边听音乐<br>全新的游记书写体验</div>
-            <div class="agreement"><i class="on _j_agree_checkbox"></i>我已阅读并同意《<a href="front_desk/agreement.html" target="_blank">嗡嗡嗡游记协议</a>》</div>
-            <div class="qa"><a href="http://www.mafengwo.cn/i/5317220.html" target="_blank">游记常见问题及解答</a></div>
-        </li>
-        <li class="btn2" data-cs-p="old">
-            <a data-url="/ginfo/create.php" class="btn _jump"><div class="icon"><i></i></div>经典游记</a>
-            <div class="draftbox "  id="_j_draftbox" data-cs-p="draft">
-                <div class="bubble _j_tip_container" ><i><b class="_j_roughcount">0</b></i><span class="close _j_tip_close"></span></div>
-                <div class="bubble bubble1 _j_tip_container" style="display: none"><span class="close _j_tip_close"></span></div>
-                <p class="mybox"><a role="button" class="border _j_show_pop">我的草稿箱(<span id="_j_roughcount" class="_j_roughcount">0</span>)<i class="i-mybox"></i></a></p>
-            </div>
-            <div class="drafts _j_save_pop hide">
-                <div class="trigger"><a href="#"><i class="icon-draft"></i>我的草稿箱 (<b class="_j_roughcount">0</b>)</a></div>
-                <div class="draft-panel">
-                    <div class="inner">
-                        <h3 class="hd">我的草稿 <b class="_j_roughcount">0</b>
-                            <span>【亲爱的蜂蜂，你还有<b class="_j_roughcount">0</b>篇草稿没有完成，我们很期待你的大作哦~】</span>
-                        </h3>
-                        <div class="draft-list">
-                            <div class="bd">
-                                <ul class="clearfix">
-                                    <!--<li>
-                                        <span class="img"><img src="http://images.mafengwo.net/images/home_new2015/default.jpg" style="height: 100px;width: 150px;"></span>
-                                        <div class="detail">
-                                            <div class="title"><a href="/ginfo/create.php?rid=53891117">未命名草稿</a></div>
-                                            <span class="time">2018-10-02 11:02:49</span>
-                                            <div class="action">
-                                                <a class="btn-continue" href="/ginfo/create.php?rid=53891117"><i class="icon-write"></i>继续写</a>
-                                                <a class="i-delete _j_del_rough" data-rid="53891117">删除</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span class="img"><img src="http://images.mafengwo.net/images/home_new2015/default.jpg" style="height: 100px;width: 150px;"></span>
-                                        <div class="detail">
-                                            <div class="title"><a href="/ginfo/create.php?rid=53643525">未命名草稿</a></div>
-                                            <span class="time">2018-09-26 09:12:41</span>
-                                            <div class="action">
-                                                <a class="btn-continue" href="/ginfo/create.php?rid=53643525"><i class="icon-write"></i>继续写</a>
-                                                <a class="i-delete _j_del_rough" data-rid="53643525">删除</a>
-                                            </div>
-                                        </div>
-                                    </li>-->
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="ft"><a class="close _j_pop_close" href="javascript:void(0);"><i></i>关闭我的草稿箱</a></div>
-                    </div>
+<div class="main">
+    <input type="hidden" id="travelNotesId" name="travelNotesId">
+    <div class="set_index" id="_j_cover_box">
+        <div class="fully_loading"></div>
+        <div class="_j_titlebg">
+            <div class="title_bg"></div>
+            <div class="view_info" data-length="0">
+                <div class="vi_con">
+                    <h1 data-length="0" class="headtext lh80">未命名游记</h1>
                 </div>
             </div>
-        </li>
-    </ul>
+        </div>
+        <span class="no_pic">还没有添加游记头图</span>
+    </div>
+    <script>$('#_j_cover_box').height($(window).width()/3);</script>
+    <div class="view_title clearfix">
+        <div class="vt_center">
+            <div class="person">
+                <a href="usersController/login_user" target="_blank" class="per_pic"><img src="" /></a>
+                <strong><a href="usersController/login_user" target="_blank" class="per_name"></a></strong>
+                <div class="vc_time">
+                    <span class="time"></span>
+                </div>
+            </div>
+            <div class=" music_botton">
+                <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="http://mp3file.mafengwo.net/201810230856/463b7c90be545982113b5d326735f4a2/s10/M00/F8/55/wKgBZ1ngEbqAO933AIxZ5LD3gmI625.mp3"></audio></div>
+                <a href="javascript:void(0);" rel="nofollow" title="播放" class="control _j_m_control pause">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <img src="http://images.mafengwo.net/images/post/new_notes/nn_v2/music.gif" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="view clearfix">
+        <div class="view_con">
+            <div class="vc_article">
+                <div class="va_con _j_master_content" data-cs-t="ginfo_kw_hotel"></div>
+            </div>
+        </div>
+    </div>
+    <div class="draft" style="display: block">
+        <div class="draft_con">
+            <span class="draft_btn">
+                <a  title="返回" class="btn_big">返回</a>
+            </span>
+            <div class="clear"></div>
+        </div>
+    </div>
 </div>
-<script>
-    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
-    $.ajaxSetup({
-        //设置ajax请求结束后的执行动作
-        complete :
-            function(XMLHttpRequest, textStatus) {
-                // 通过XMLHttpRequest取得响应头，sessionstatus
-                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-                if (sessionstatus == "TIMEOUT") {
-                    var win = window;
-                    while (win != win.top){
-                        win = win.top;
-                    }
-                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-                }
-            }
-    });
-    $().ready(
-        function()
-        {
-            $.ajax({
-                url:"travelNotesController/find_travelNotes_ByuserId",
-                dataType:"json",
-                type:"post",
-                success:function (data)
-                {
-                    if(null!=data)
-                    {
-                        $("._j_roughcount").text(data.length);
-                        for(var i=0;i<data.length;i++)
-                        {
-                            var travelNotesheadline=data[i].travelNotesheadline;
-                            if(travelNotesheadline.length<=0)
-                            {
-                                travelNotesheadline="未命名草稿";
-                            }
-                            var releaseTime=data[i].releaseTime;
-                            releaseTime=releaseTime.replace("T"," ");
-                            releaseTime=releaseTime.substring(0,releaseTime.lastIndexOf("."));
-                            $(".bd .clearfix").append("<li><span class='img'><img src='"+data[i].travelNotesheadPhoto+"' style='height: 100px;width: 150px;'></span><div class='detail'><div class='title'><a href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' >"+travelNotesheadline+"</a></div><span class='time'>"+releaseTime+"</span><div class='action'><a class='btn-continue' href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' ><i class='icon-write'></i>继续写</a><a class='i-delete _j_del_rough' data-rid='"+data[i].travelNotesId+"'>删除</a></div></div></li>");
-                        }
-                    }
-                }
-            });
-        }
-    );
-    M.closure(function(require) {
-        var Confirm = require('dialog/confirm'),
-            Alert = require('dialog/alert'),
-            ScrollBar = require('ScrollBar'),
-            roughCountDOM = $('._j_roughcount'),
-            roughCountFDOM = $('._j_roughcount:eq(0)'),
-            saveContainerDom = $("._j_save_pop");
-        var slb;
-        if ($('.bd').length){
-            slb =  new ScrollBar({
-                container:'.bd',
-                warp:'.draft-list',
-                maxHeight: '390px',
-                barTPL:'<div class="scrollbar" style="height: auto; position:absolute;right:-10px;top:0;width:5px;height:100px;background-color:#d6d6d6;border-radius:10px;cursor:pointer"></div>'
-            });
-        }
-        $("._jump").on('click', function () {
-            var url = $(this).data('url');
-            $.get('travelNotesController/check_travelNotesNumber', function (data)
-            {
-                if (data) {
-                    location.href = url;
-                } else {
-                    Alert.pop('草稿箱已满，请优先处理未完成草稿');
-                }
-            }, 'json');
-        });
-        $('._j_save_pop').on('click', '._j_del_rough', function(ev) {
-
-            Confirm.pop('确认删除该草稿吗？', function () {
-                var target = $(ev.currentTarget),
-                    rid = target.data('rid');
-                target.closest('li').remove();
-                roughCountDOM.text((+roughCountFDOM.text()) - 1);
-                $.post('/ajax/ajax_rough.php', {'action': 'delete_rough', 'id': rid});
-            });
-        });
-        $("._j_show_pop").live("click", function(){
-            saveContainerDom.show();
-            $(".draftbox").hide();
-        });
-        $("._j_pop_close").live("click",function(){
-            console.log(4);
-            saveContainerDom.hide();
-            $(".draftbox").show();
-        });
-        $("._j_tip_close").live("click",function(){
-            $("._j_tip_container").hide();
-            $("._j_show_pop").removeClass("border");
-        });
-
-        $('._j_agree_checkbox').on('click', function(ev) {
-            $(ev.currentTarget).toggleClass('on');
-        });
-
-        $('.close').on('click',function(){
-            $('.drafts').hide();
-        });
-        $('.close-btn').on('click',function(){
-            $('.popup-box-wrap').hide();
-        });
-    });
-</script>
 <link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
 <div id="footer">
     <div class="ft-content" style="width: 1105px">
@@ -403,6 +290,7 @@
                 </dd>
             </dl>
         </div>
+
         <div class="ft-copyright">
             <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
             <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
@@ -413,6 +301,7 @@
             <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
             <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
         </div>
+
     </div>
 </div>
 <link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
@@ -434,6 +323,8 @@
             <i class="icon_code"></i>
         </a>
         <a role="button" class="mfw-code _j_code">
+
+
             <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
         </a>
         <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
@@ -445,9 +336,106 @@
         </a>
     </div>
 </div>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
+    var __iid = parseInt('0');
+    var music_auto_play = 1;
+    var music_url = '';
+</script>
+<!--<script language="javascript" src="js/js+common+widgets_js+jquery.lazyload_js+jquery.jplayer_js+M+module+Cookie_js+note+APreview_js+common+jquery.plugins_js+m.sns.share_js+cvideo+swfobject_js+cvideo+moment.min_js+M+module+dialog+Layer_js+M+module+dialog+Dial.js" type="text/javascript" crossorigin="anonymous"></script>-->
+<!--<script language="javascript" type="text/javascript">
     if (typeof M !== "undefined" && typeof M.loadResource === "function") {
-        M.loadResource("js/js+Dropdown_js+pageletcommon+pageHeadUserInfoWWWNormal_js+jquery.tmpl_js+M+module+InputListener_js+M+module+SuggestionXHR_js+M+module+DropList_js+M+module+Suggestion_js+M+module+MesSearchEvent_js+SiteSearch_js+AHeader_js.js");
+        M.loadResource("js/js+Dropdown_js+pageletcommon+pageHeadUserInfoWWWNormal_js+jquery.tmpl_js+M+module+InputListener_js+M+module+SuggestionXHR_js+M+module+DropList_js+M+module+Suggestion_js+M+module+MesSearchEvent_js+SiteSearch_js+AHeader_js+.js");
+    }
+</script>-->
+<script>
+    $().ready(
+        function()
+        {
+            var travelNotesId=GetQueryString("travelNotesId");
+            $("#travelNotesId").val(travelNotesId);
+            $(".btn_big").prop("href","travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+travelNotesId);
+            $.ajax({
+                url: "travelNotesController/preview_travelNotes",
+                type: "post",
+                dataType: "json",
+                data: {travelNotesId: travelNotesId},
+                success: function (data)
+                {
+                    if(null!=data)
+                    {
+                        if(null!=data.travelNotesheadPhoto&&data.travelNotesheadPhoto.length>0)
+                        {
+                            $(".set_index").html("<div class='set_bg _j_load_cover' style='z-index: 1;opacity: 1;background-image: url("+data.travelNotesheadPhoto+");'><img src='"+data.travelNotesheadPhoto+"' style='display: none'></div><div class='_j_titlebg'><div class='title_bg'></div><div class='view_info' data-length='0'><div class='vi_con'><h1 data-length='0' class='headtext lh80'></h1></div></div></div>");
+                        }
+                        $("title").text(data.travelNotesheadline);
+                        $(".per_pic").children("img").prop("src",data.user.photo);
+                        var per_name=data.user.userName;
+                        if(null!=data.user.address&&data.user.address.length>0)
+                        {
+                            per_name="("+data.user.address+")";
+                        }
+                        $(".per_name").text(per_name);
+                        $(".headtext").text(data.travelNotesheadline);
+                        if(null!=data.backgroundMusic&&data.backgroundMusic.length>0)
+                        {
+                            $("#jp_audio_0").prop("src",data.backgroundMusic);
+                            var music=$("#jp_audio_0")[0];
+                            music.play();
+                            if(music.pause)
+                                $("._j_m_control").attr("class","control _j_m_control pause");
+                            else
+                                $("._j_m_control").attr("class","control _j_m_control play");
+                        }
+                        else
+                        {
+                            $(".music_botton").css("display","none");
+                        }
+                        var insertHtml="";
+                        for(var i=0;i<data.travelNotesContents.length;i++)
+                        {
+                            if("textarea"==data.travelNotesContents[i].type)
+                                insertHtml+="<p class='_j_note_content _j_seqitem'>"+data.travelNotesContents[i].value+"</p>";
+                            else if("img"==data.travelNotesContents[i].type)
+                            {
+                                insertHtml+="<div id='_j_photo_390561227' class='add_pic _j_anchorcnt _j_seqitem' style='width:680px'><a target='_blank' style='display: block' href='"+data.travelNotesContents[i].value+"'><img class='_j_lazyload' src='"+data.travelNotesContents[i].value+"' style='background-color:white; display: inline;' height='"+data.travelNotesContents[i].height+"'px width='"+data.travelNotesContents[i].width+"'px></a></div>";
+                            }
+                            else if("h2"==data.travelNotesContents[i].type)
+                            {
+                                insertHtml+="<div id='_j_paragraph_2' class='article_title _j_anchorcnt _j_seqitem'><h2 class='t9'><span class='_j_anchor'>"+data.travelNotesContents[i].value+"</span></h2></div>";
+                            }
+                        }
+                        $("._j_master_content").html(insertHtml);
+                    }
+                }
+            });
+        }
+    );
+    $(".music_botton").click(
+        function()
+        {
+            playMusic();
+        }
+    );
+    //播放或暂停音乐
+    function playMusic()
+    {
+        var player = $("audio")[0];
+        if (player.paused)
+        { /*如果已经暂停*/
+            $("._j_m_control").attr("class","control _j_m_control play");
+            player.play(); /*播放*/
+        }else
+        {
+            $("._j_m_control").attr("class","control _j_m_control pause");
+            player.pause();/*暂停*/
+        }
+    }
+    //获取地址栏中的参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
     }
 </script>
 </body>
