@@ -40,6 +40,16 @@ public class mapController {
         return "front_desk/Map";
     }
 
-
+    /**
+     * 查询全部景点
+     * @param model 保存景点集合信息
+     * @return 标记集群地图页面
+     */
+    @RequestMapping("/MarkerClustererMapIndex")
+    public String MarkerClustererMapIndex(Model model){
+        List<scenicspot> scenicspotList=scenicspotService.queryAll();
+        model.addAttribute("scenicspotList",scenicspotList);
+        return "front_desk/MarkerClustererMap";
+    }
 
 }

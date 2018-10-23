@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>支付成功</title>
     <script src="/js/jquery-1.11.0.min.js"></script>
+    <script>
+       $(function(){
+           setTimeout(a,3000);
+       });
+
+       function a(){
+           window.location.href="about:blank";
+           window.close();
+       }
+    </script>
 </head>
 <body>
     <div style="width:400px;height:250px;position: absolute;top:30%;left:33%;">
@@ -13,9 +23,3 @@
     </div>
 </body>
 </html>
-
-<script>
-    setInterval(function(){
-        window.close();
-    },5000)
-</script>

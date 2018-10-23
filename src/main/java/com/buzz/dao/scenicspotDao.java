@@ -25,4 +25,8 @@ public interface scenicspotDao {
     @Select("select * from scenicspot where scenicSpotId=#{id}")
     public scenicspot byScenicSpotIdQueryScenicSpot(@Param("id") String scenicSpotId);
 
+    //查询全部景点
+    @Select("select * from scenicspot")
+    public List<scenicspot> queryAll();
+
 }

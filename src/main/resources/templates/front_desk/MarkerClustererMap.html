@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>地图 - 嗡嗡嗡</title>
+    <script type="text/javascript"src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+</head>
+<body style="padding:0;margin:0;">
+    <div style="width:1536px;height:727px;" id="map"></div>
+    <script th:inline="javascript">
+
+        //初始化地图
+        var map=new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(107.907017,36.003761),5);
+        map.enableScrollWheelZoom(); //启动滚轮缩放
+        map.enableKeyboard(); //启动键盘移动地图
+        map.setMinZoom(5); //最小缩放级别
+
+        // 添加带有定位的导航控件
+        var navigationControl = new BMap.NavigationControl({
+            // 靠左上角位置
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            // LARGE类型
+            type: BMAP_NAVIGATION_CONTROL_LARGE,
+            // 启用显示定位
+            enableGeolocation: true
+        });
+        map.addControl(navigationControl);
+
+        //标记集群
+        var scenicspotList=[[${scenicspotList}]];
+        var markerArray=[];
+        if(scenicspotList.length>0){
+            for(var i=0;i<scenicspotList.length;i++){
+
+                //获取经纬度
+               var longitude=scenicspotList[i].longitude;
+               var latitude=scenicspotList[i].latitude;
+
+               //创建标记点
+               var point=new BMap.Point(longitude,latitude);
+               var marker=new BMap.Marker(point);
+
+               //添加地图覆盖物
+               map.addOverlay(marker);
+
+               //设置标注点label
+                var label = new BMap.Label(scenicspotList[i].chineseName,{position:point});
+                label.setStyle({   //设置label样式
+                    width: "120px",
+                    color: '#fff',
+                    background: '#76C50B',
+                    border: '1px solid "#ff8355"',
+                    borderRadius: "5px",
+                    textAlign: "center",
+                    height: "26px",
+                    lineHeight: "26px"
+                });
+                map.addOverlay(label);
+
+                //添加点击事件
+                addClick(marker);
+
+               //添加标记点数组
+               markerArray.push(marker);
+            }
+
+            //创建标记点集群对象
+            var markerClusterer=new BMapLib.MarkerClusterer(map,{
+                markers:markerArray,
+                styles:[{ //聚合点样式
+                    url:'/images/one/blue.jpg', //图片地址
+                    size:new BMap.Size(92,92), //图片大小px
+                    textColor:'#fff',
+                    textSize:18,
+                    backgroundColor:'red'
+                }]
+            });
+
+        }
+
+        //标记点点击事件
+        function addClick(marker){
+            //自定义infoWindow信息
+            var infoWindow=new BMap.InfoWindow("<div style=\"width:200px;height:100px;\">\n" +
+                "                    <img src=\"/images/"+scenicspotList[i].photo.split(',')[0]+"\" style=\"margin-top:5px;margin-left:5px;width:100px;height:91px;border-radius:3px;\"/>\n" +
+                "                    <div style=\"width:112px;height:31px;font-weight:bold;color:#222222;font-size:130%;position:relative;top:-98px;left:120px;\">"+scenicspotList[i].chineseName+"</div>\n" +
+                "                    <div style=\"width:112px;height:31px;position:relative;top:-93px;left:120px;color:#999999;font-size:110%;\">\n" +
+                "                        <span style=\"color:#FF9E03;font-weight:bold;\">1230</span>条评价\n" +
+                "                    </div>\n" +
+                "                    <div style=\"width:112px;height:27px;position:relative;top:-93px;left:120px;color:#999999;font-size:110%;\">\n" +
+                "                        <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration: underline;\">查看详情</a>\n" +
+                "                    </div>\n" +
+                "                </div>",{width:200, height:110});
+            marker.addEventListener("click",function(){ //添加点击事件
+                marker.openInfoWindow(infoWindow); //打开信息窗
+            });
+        }
+
+    </script>
+</body>
+</html>

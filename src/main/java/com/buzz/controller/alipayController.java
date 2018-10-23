@@ -117,9 +117,9 @@ public class alipayController {
         if (signVerified) {
             //修改订单状态
             hotelOrdersService.byHotelOrderIdUpdateState(request.getServletContext().getAttribute("orderId").toString(),"已付款");
-            mav.setViewName("redirect:localhost/alipayController/paySuccessIndex");
+            mav.setViewName("redirect:/alipayController/paySuccessIndex");
         } else {
-            mav.setViewName("redirect:localhost/alipayController/payFailureIndex");
+            mav.setViewName("redirect:/alipayController/payFailureIndex");
         }
         return mav;
     }
@@ -141,40 +141,5 @@ public class alipayController {
     public String payFailureIndex(){
         return "front_desk/payFailure";
     }
-
-//    /**
-//     * 支付宝服务器异步通知
-//     *
-//     * @param request
-//     * @throws Exception
-//     */
-//    @RequestMapping("/notifyUrl")
-//    public void notifyUrl(HttpServletRequest request) throws Exception {
-//        // 获取支付宝GET过来反馈信息
-//        Map<String, String> params = new HashMap<String, String>();
-//        Map<String, String[]> requestParams = request.getParameterMap();
-//        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
-//            String name = (String) iter.next();
-//            String[] values = (String[]) requestParams.get(name);
-//            String valueStr = "";
-//            for (int i = 0; i < values.length; i++) {
-//                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
-//            }
-//            params.put(name, valueStr);
-//        }
-//
-//        boolean signVerified = AlipaySignature.rsaCheckV1(params, public_key, charset, signtype); // 调用SDK验证签名
-//        System.out.println("异步"+signVerified);
-//        if (signVerified) { // 验证成功 更新订单信息
-//            System.out.println("异步通知成功");
-//            // 商户订单号
-//            String out_trade_no = request.getParameter("out_trade_no");
-//            // 交易状态
-//            String trade_status = request.getParameter("trade_status");
-//            // 修改数据库
-//        } else {
-//            System.out.println("异步通知失败");
-//        }
-//    }
 
 }

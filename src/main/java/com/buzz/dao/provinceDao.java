@@ -20,4 +20,8 @@ public interface provinceDao {
     @Select("select * from province order by uptime desc")
     public List<province> queryAllProvince();
 
+    //查询城市
+    @Select("select * from province where provinceId")
+    public province byProvinceIdQuery(String provinceId);
+
 }

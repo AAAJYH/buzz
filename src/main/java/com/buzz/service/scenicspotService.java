@@ -30,4 +30,9 @@ public class scenicspotService {
         return scenicspotDao.byScenicSpotIdQueryScenicSpot(scenicSpotId);
     }
 
+    //查询全部景点
+    public List<scenicspot> queryAll(){
+        return scenicspotDao.queryAll();
+    }
+
 }
