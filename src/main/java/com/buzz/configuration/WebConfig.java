@@ -1,4 +1,4 @@
-package com.buzz.config;
+package com.buzz.configuration;
 
 import com.buzz.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
