@@ -24,6 +24,44 @@
                 <li class="head-nav-index"><a href="#">游记</a></li>
                 <li class="head-nav-index"><a href="#">问答</a></li>
             </ul>
+            <!-- 登录模块 -->
+            <style type="text/css">
+                .login_register{
+                    width:100px;
+                    height:40px;
+                    padding-top:25px;
+                    position:absolute;
+                    right:-3%;
+                    top:0;
+                    font-size:130%;
+                }
+                .login_register a{
+                    color:#FF9F05;
+                }
+                .photo{
+                    width:50px;
+                    height:50px;
+                    border-radius:25px;
+                    position:absolute;
+                    right:3%;
+                    top:15%;
+                }
+            </style>
+
+            <span th:if="${session.user!=null}">
+                <img th:src="@{'/images/userPhoto/'+${session.user.photo}}" class="photo">
+            </span>
+
+            <div th:if="${session.user==null}" class="login_register" id="login">
+                <a href="javascript:;" id="login">登录</a>
+            </div>
+
+            <script>
+                $("#login").click(function(){
+                    window.location.href='/usersController/show_login_html?url='+(window.location.href).toString();
+                });
+            </script>
+            <!--登录模块-->
             <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
         </div>
         <div class="shadow"></div>

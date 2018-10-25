@@ -89,7 +89,6 @@ public class destinationController {
             map.put("type","目的地");
             mapList.add(map);
         }
-        System.out.println(mapList);
         return mapList;
     }
 
