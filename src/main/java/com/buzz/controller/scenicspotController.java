@@ -7,14 +7,20 @@ import com.buzz.entity.scenicspotCollect;
 import com.buzz.entity.users;
 import com.buzz.service.cityService;
 import com.buzz.service.scenicspotService;
+import com.buzz.utils.Upload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.mail.Multipart;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -83,6 +89,14 @@ public class scenicspotController {
             model.addAttribute("state","未收藏");
         }
         return "front_desk/ScenicSpotDetails";
+    }
+
+    @RequestMapping("/comment")
+    @ResponseBody
+    public String comment(MultipartFile img) throws Exception {
+        String path= ResourceUtils.getURL("src/main/resources/static/images/upload/").getPath(); //获取当前项目文件的绝对路径
+        String imgName=Upload.upload(img,path);
+        return "/images/upload/"+imgName;
     }
 
 }

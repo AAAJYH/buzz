@@ -407,10 +407,10 @@ public class usersController {
             if(null!=user&&user.getBindPhone().equals(passport))
             {
                 model.addAttribute("user",user);
-                if(request.getServletContext().getAttribute("pageurl")!=null){
+                if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
                     return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
                 }else{
-                    return "/destinationController/queryAllDestination";
+                    return "redirect:/destinationController/queryAllDestination";
                 }
             }
             else
@@ -423,10 +423,10 @@ public class usersController {
         {
             users user= (users) session.getAttribute("user");
             if(null!=user&&!"".equals(user.getBindPhone()))
-                if(request.getServletContext().getAttribute("pageurl")!=null){
+                if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
                     return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
                 }else{
-                    return "/destinationController/queryAllDestination";
+                    return "redirect:/destinationController/queryAllDestination";
                 }
              else
             {
@@ -435,4 +435,5 @@ public class usersController {
             }
         }
     }
+
 }
