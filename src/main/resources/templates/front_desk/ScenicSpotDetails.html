@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-<!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>景点详情 - 嗡嗡嗡</title>
@@ -65,7 +64,7 @@
             </span>
 
             <div th:if="${session.user==null}" class="login_register" id="login">
-                <a href="javascript:;" id="login">登录</a>
+                <a href="javascript:;">登录</a>
             </div>
 
             <script>
@@ -509,7 +508,7 @@
             color:#FFAC26;
             overflow: auto;
             margin:0;
-            margin-top: -10px;
+            margin-top: 20px;
             padding-bottom:10px;
             border-bottom:1px solid #CCCCCC;
         }
@@ -530,6 +529,7 @@
             height:100px;
             margin-top:10px;
             border:1px solid #FF9D00;
+            color:black;
         }
         #huifu,#close{
             width:50px;
@@ -542,65 +542,156 @@
             cursor:pointer;
         }
     </style>
-    <div data-anchor="commentlist">
-        <div class="comment">嗡嗡点评（公有<span>1230</span>条真实评价）</div>
-        <div class="one">
-            <!-- 头像 -->
-            <img th:src="@{'/images/gugong3.jpg'}" class="userPicture">
-            <!-- 用户名称 -->
-            <div class="userName">Kasumi</div>
-            <!-- 评论内容 -->
-            <div class="content">
-                颐和园和我最初想象的不一样，意外的是颐和园需要爬，而且还要爬很高，万寿山最顶还有棵传说中的不老树。这一趟路程，我也算是三山五园都给踏遍了，腿都不是自己的了。<br/>
-                颐和园很大，非常的大，虽然昆明湖这个湖占据了四分之三，剩下的地方还是很大。景区里面的景点超级多，很容易迷路，真的皇家园林就是不一样，小女子拜服。里面很多野导黑导有点烦人。不过景色真的超美，感谢慈禧，在几度被烧毁又花费了巨资重建，让我们后人能够观赏。<br/>
-                门票也很便宜，不过里面几个点需要单独买门票，我们怕麻烦就买了联票了，其实不太有必要买，倒不是说单独买的点景不好，而是压根走不完，我们走了全算是有五分之四吧，已经尽力了，另一部分在湖的另一端太远了我们就没去了，我们也没有选择坐船（坐船了不能轻易下船），全程步行。在山顶景色很棒，其次是十七孔桥，南湖岛，西堤，都非常非常美～这才是秋天该有的样子。<br/><br/>
-                <img th:src="@{'/images/gugong1.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;
-                <img th:src="@{'/images/gugong2.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;
-                <img th:src="@{'/images/gugong3.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;
-                <img th:src="@{'/images/gugong4.jpg'}" width="200px" height="120px"/> <br/><br/>
-                <div class="one1">
-                    <span style="float:left;">2018-07-31 14:19:48</span>
-                    <span style="float:right;" class="huifu1">回复</span>
-                </div>
-                <div class="two">
-                    <span>aaajyh</span> 回复
-                    <span>aaazhf</span>：
-                    <span style="color:black;">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="huifu2" onclick="">回复</span><br/>
-                    <span style="color:#CCCCCC;">2018-09-08 18:19:48</span>
-                </div>
-                <div style="display:none;" class="three">
-                    <textarea class="reply"></textarea>
-                    <div id="huifu">回复</div>
-                </div>
-            </div>
-        </div>
+    <div data-anchor="commentlist" id="commentList">
+        <!--<div class="comment">嗡嗡点评（共有<span>1230</span>条真实评价）</div>-->
+
+        <!--<div class="one">-->
+            <!--&lt;!&ndash; 头像 &ndash;&gt;-->
+            <!--<img th:src="@{'/images/gugong3.jpg'}" class="userPicture">-->
+            <!--&lt;!&ndash; 用户名称 &ndash;&gt;-->
+            <!--<div class="userName">Kasumi</div>-->
+            <!--&lt;!&ndash; 评论内容 &ndash;&gt;-->
+            <!--<div class="content">-->
+                <!--颐和园和我最初想象的不一样，意外的是颐和园需要爬，而且还要爬很高，万寿山最顶还有棵传说中的不老树。这一趟路程，我也算是三山五园都给踏遍了，腿都不是自己的了。<br/>-->
+                <!--颐和园很大，非常的大，虽然昆明湖这个湖占据了四分之三，剩下的地方还是很大。景区里面的景点超级多，很容易迷路，真的皇家园林就是不一样，小女子拜服。里面很多野导黑导有点烦人。不过景色真的超美，感谢慈禧，在几度被烧毁又花费了巨资重建，让我们后人能够观赏。<br/>-->
+                <!--门票也很便宜，不过里面几个点需要单独买门票，我们怕麻烦就买了联票了，其实不太有必要买，倒不是说单独买的点景不好，而是压根走不完，我们走了全算是有五分之四吧，已经尽力了，另一部分在湖的另一端太远了我们就没去了，我们也没有选择坐船（坐船了不能轻易下船），全程步行。在山顶景色很棒，其次是十七孔桥，南湖岛，西堤，都非常非常美～这才是秋天该有的样子。<br/><br/>-->
+                <!--<img th:src="@{'/images/gugong1.jpg'}" width="200px" height="120px"/>&nbsp;&nbsp;&nbsp;-->
+                <!--<div class="one1">-->
+                    <!--<span style="float:left;">2018-07-31 14:19:48</span>-->
+                    <!--<span style="float:right;" class="huifu1">回复</span>-->
+                <!--</div>-->
+                <!--<div class="two">-->
+                    <!--<span>aaajyh</span> 回复-->
+                    <!--<span>aaazhf</span>：-->
+                    <!--<span style="color:black;">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-->
+                    <!--<span class="huifu2">回复</span><br/>-->
+                    <!--<span style="color:#CCCCCC;">2018-09-08 18:19:48</span>-->
+                <!--</div>-->
+                <!--<div style="display:none;" class="three">-->
+                    <!--<textarea class="reply"></textarea>-->
+                    <!--<div id="huifu">回复</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
     </div>
-    <script>
+    <input th:if="${session.user}!=null" type="hidden" th:value="${session.user.userId}" id="userId">
+    <script th:inline="javascript">
+        function loadComment(){
+            $.ajax({
+                url:'/scenicSpotCommentController/queryScenicsPotComment',
+                type:'post',
+                data:{
+                    scenicSpotId:[[${scenicspot.scenicSpotId}]]
+                },
+                dataType:'JSON',
+                success:function(data){
+                    if(data!=""){
+                        $("#commentList").empty();
+                        //设置总评论数
+                        $("#commentList").append("<div class=\"comment\">嗡嗡点评（公有<span>"+data[data.length-1].commentSum+"</span>条真实评价）</div>");
+                        //设置评论
+                        for(var i=0;i<data.length-1;i++)
+                        {
+                            var comment=data[i].scenicSpotComment; //评论集合
+                            var commentReply=data[i].reply; //评论回复对象
+                            //拼接评论头像，用户名称，评论内容
+                            var content="";
+                            content+="<div class=\"one\">\n" +
+                                "<img src='/images/userPhoto/"+comment.userPicture+"' class=\"userPicture\">\n" +
+                                "<input type='hidden' value="+comment.scenicSpotCommentId+"><input type='hidden' value='"+comment.userId+"'><div class=\"userName\">"+comment.userName+"</div>\n" +
+                                "<div class=\"content\">"+comment.content+"<br/><br/>";
+                            var imgs=comment.pictures.split(",");
+                            //拼接评论图片
+                            if(imgs!=""){
+                                for(var j=0;j<imgs.length;j++){
+                                    content+="<img src='"+imgs[j]+"' width=\"200px\" height=\"120px\"/>&nbsp;&nbsp;&nbsp;";
+                                }
+                            }
+                            //拼接评论时间
+                            content+="<div class=\"one1\"><span style=\"float:left;\">"+comment.commentTime+"</span><br/>";
+                            if($("#userId").val()!=null&&$("#userId").val()!=comment.userId){
+                                content+="<span style=\"float:right;\" class=\"huifu1\">回复</span></div>";
+                            }
+                            //拼接评论回复
+                            if(commentReply!=""){
+                                for(var j=0;j<commentReply.length;j++){
+                                    content+="<div class=\"two\">\n" +
+                                        "<input type='hidden' value="+comment.scenicSpotCommentId+"><input type='hidden' value='"+commentReply[j].userId+"'/> <span>"+commentReply[j].userName+"</span> <span style='color:black;'>回复</span>\n" +
+                                        "<span>"+commentReply[j].replyUserName+"</span>：\n" +
+                                        "<span style=\"color:black;\">"+commentReply[j].replyContent+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                                        if($("#userId").val()!=null&&$("#userId").val()!=commentReply[j].userId){
+                                                content+="<span class=\"huifu2\">回复</span>";
+                                        }
+                                    content+="<br/><span style=\"color:black;\">"+commentReply[j].replyTime+"</span></div>";
+                                }
+                            }
+                            //拼接回复框
+                            content+="<div style=\"display:none;\" class=\"three\">\n" +
+                                "<textarea class=\"reply\"></textarea>\n" +
+                                "<div id=\"huifu\">回复</div>\n" +
+                                "</div>\n" +
+                                "</div>\n" +
+                                "</div>";
+                            $("#commentList").append(content);
+                        }
 
-        //文档双击事件关闭评论框
-        $(document).dblclick(function(){
-            $(".three").css("display","none");
-        });
+                    }
+                    var replayUserName;
+                    var replayUserId;
+                    var scenicSpotCommentId;
+                    //回复点击事件
+                    $(".huifu1").click(function(){
+                        $(".three").css("display","block"); //显示评论框
+                        replayUserName=$(this).parent().parent().prev().text(); //回复用户名称
+                        replayUserId=$(this).parent().parent().prev().prev().val(); //回复用户id
+                        scenicSpotCommentId=$(this).parent().parent().prev().prev().prev().val(); //评论id
+                        $(".reply").attr("placeholder","回复"+replayUserName);
+                    });
+                    //回复点击事件
+                    $(".huifu2").click(function(){
+                        $(".three").css("display","block"); //显示评论框
+                        replayUserName=$(this).prev().prev().prev().prev().text(); //回复用户名称
+                        replayUserId=$(this).prev().prev().prev().prev().prev().val(); //回复用户id
+                        scenicSpotCommentId=$(this).prev().prev().prev().prev().prev().prev().val(); //评论id
+                        $(".reply").attr("placeholder","回复"+replayUserName);
+                    });
+                    //回复提交事件
+                    $("#huifu").click(function(){
+                        if([[${session.user}]]!=null){
+                            var content=$(this).prev().val();
+                            $.ajax({
+                                url:'/scenicSpotCommentReplyController/addScenicSpotCommentReply',
+                                type:'post',
+                                data:{
+                                    content:content,
+                                    replayUserName:replayUserName,
+                                    replayUserId:replayUserId,
+                                    scenicSpotCommentId:scenicSpotCommentId
+                                },
+                                dataType:'text',
+                                success:function(data){
+                                    if(data>0){
+                                        $(".reply").val("");
+                                        $(".three").css("display","none"); //显示评论框
+                                        loadComment();
+                                    }
+                                }
+                            })
+                        }else{
+                            alert("请登录");
+                            window.location.href="#login"; //锚点
+                        }
+                    });
+                    //文档双击事件关闭评论框
+                    $(document).dblclick(function(){
+                        $(".three").css("display","none");
+                    });
+                }
+            });
+        }
 
-        var replayUserName;
-        //回复点击事件
-        $(".huifu1").click(function(){
-            $(".three").css("display","block"); //显示评论框
-            replayUserName=$(this).parent().parent().prev().text(); //回复用户名称
-            $(".reply").attr("placeholder","回复"+replayUserName);
-        });
-        //回复点击事件
-        $(".huifu2").click(function(){
-            $(".three").css("display","block"); //显示评论框
-            replayUserName=$(this).prev().prev().prev().text(); //回复用户名称
-            $(".reply").attr("placeholder","回复"+replayUserName);
-        });
-        //回复提交事件
-        $("#huifu").click(function(){
-            var content=$(".reply").val();
-            alert(replayUserName+content);
-        });
+        loadComment();
 
     </script>
   <!-- 评论内容 -->
@@ -616,7 +707,6 @@
                             <strong th:text="${scenicspot.chineseName}">颐和园</strong>
                             <em>*</em>为必填选项
                         </h2>
-                        <form action="javascript:" method="post" class="_j_commentdialogform" data-typeid="3" id="frm">
 
                             <!--星星-->
                             <div class="review-item item-star">
@@ -650,54 +740,55 @@
                             <!--图片上传-->
                             <div class="review-item item-photo" style="border:1px solid white;position: relative;top:-50px;">
                                 <div class="label" style="color:black;">上传照片</div>
-                                <form id="frm" enctype="multipart/form-data" type="post">
+                                <form type="post" enctype="multipart/form-data" id="form1">
                                     <input type="file" name="img" id="selectFile" onchange="Filechange(this)" style="margin-top:5%;"/>
                                 </form>
-                                <div style="width:100%;height:auto;margin-top:20px;" id="imgs">
+                                <div style="width:100%;height:auto;margin-top:20px;" id="pics">
                                 </div>
                                 <div class="huixian" style="width:20%;height:150px;border:1px solid #EFEFEF;text-align: center;position:absolute;top:0;left:30%;background:white;display:none;">
                                     <img src="/images/gugong1.jpg" id="huixian" width="100px" height="100px" />
                                     <div id="subImg" style="margin-left:25%;margin-top:3%;width:50%;height:auto;padding: 8px 0;text-align:center;border-radius:3px;background:#FFA800;color:white;">提交</div>
                                 </div>
                                 <input type="hidden" id="imgs"/>
+
                             </div>
                             <script>
-                                    function Filechange(obj){
-                                        var selectFile=$("#selectFile").val();
-                                        if(selectFile!=""){ //文件不能为空
-                                            var fileType=selectFile.substring(selectFile.lastIndexOf("."));
-                                            //文件类型必须为图片
-                                            if(fileType==".jpg"||fileType==".png"||fileType==".gif"||fileType==".jpeg"||fileType==".JPG"||fileType==".PNG"||fileType==".GIF"||fileType==".JPEG"){
-                                                //图片回显
-                                                var file = obj.files;
-                                                for(var i=0;i<file.length;i++){
-                                                    var freader = new FileReader();
-                                                    freader.readAsDataURL(file[i]); //将文件读取为DataUrl，存储在result中
-                                                    freader.onload = function (e) { //文件读取成功时触发
-                                                        $("#huixian").attr("src", e.target.result);
-                                                        $(".huixian").css("display","block");
-                                                    }
+                                function Filechange(obj){
+                                    var selectFile=$("#selectFile").val();
+                                    if(selectFile!=""){ //文件不能为空
+                                        var fileType=selectFile.substring(selectFile.lastIndexOf("."));
+                                        //文件类型必须为图片
+                                        if(fileType==".jpg"||fileType==".png"||fileType==".gif"||fileType==".jpeg"||fileType==".JPG"||fileType==".PNG"||fileType==".GIF"||fileType==".JPEG"){
+                                            //图片回显
+                                            var file = obj.files;
+                                            for(var i=0;i<file.length;i++){
+                                                var freader = new FileReader();
+                                                freader.readAsDataURL(file[i]); //将文件读取为DataUrl，存储在result中
+                                                freader.onload = function (e) { //文件读取成功时触发
+                                                    $("#huixian").attr("src", e.target.result);
+                                                    $(".huixian").css("display","block");
                                                 }
-                                            }else{
-                                                $(this).val("");
                                             }
+                                        }else{
+                                            $(obj).val("");
                                         }
-                                    };
+                                    }
+                                };
 
                                 $("#subImg").click(function(){
-                                    var formdata=new FormData($("#frm")[0]);
+                                    var formdata=new FormData($("#form1")[0]);
                                     $.ajax({
                                         url:'/scenicspotController/comment',
                                         type:'post',
-                                        async:"true",
+                                        async:"false",
                                         data:formdata,
                                         processData: false, //不转换数据类型
                                         contentType: false,
                                         dataType:'text',
                                         success:function(data){
                                             $("#imgs").val($("#imgs").val()+","+data);
-                                            $("#imgs").append("<img src='"+data+"' width=\"100px\" height=\"100px\" />&nbsp;");
-                                            $(".huixian").css("display","none");
+                                            $("#pics").append("<img src='"+data+"' width=\"100px\" height=\"100px\" />&nbsp;");
+                                                $(".huixian").css("display","none");
                                         }
                                     })
                                 });
@@ -706,12 +797,11 @@
                             <!--图片上传-->
 
                             <!--提交按钮-->
-                            <div class="review-item item-action">
-                                <a class="btn-large _j_submit" title="提交点评" id="subComment">提交点评</a>
+                            <div class="review-item item-action" style="position:relative;top:50px;left:0.5%;">
+                                <a class="btn-large _j_submit" title="提交点评" id="subComment"  style="margin-top:-100px;margin-left:-20px;">提交点评</a>
                             </div>
                             <!--提交按钮-->
 
-                        </form>
                     </div>
                 </div>
                 <script th:inline="javascript">
@@ -732,8 +822,25 @@
                     $("#subComment").click(function(){
                         var rank=$("#rank").val(); //星星数
                         var content=$("#content").val(); //评论内容
-                        alert($("#imgs").val());
-
+                        var imgs=$("#imgs").val();
+                        imgs=imgs.substr(1);
+                        if(rank>0&&content.length>14&&content.length<=1000){
+                            $.ajax({
+                                url:'/scenicSpotCommentController/scenicSpotAddComment',
+                                type:'post',
+                                data:{
+                                    rank:rank,
+                                    content:content,
+                                    imgs:imgs,
+                                    scenicSpotId:[[${scenicspot.scenicSpotId}]]
+                                },
+                                dataType:'text',
+                                success:function(data){
+                                    loadComment();
+                                    $("#comment_20181004083747").css("display","none");
+                                }
+                            });
+                        }
                     });
 
                 </script>
@@ -741,7 +848,9 @@
         </div>
 
     </div>
+
 </div>
+
 
 
 
