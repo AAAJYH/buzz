@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/icon.css">
+
+    <script th:inline="none">
+
+        $(function(){
+
+            //初始化datagrid数据表格
+            $('#dg').datagrid({
+                url:'/modelList',
+                columns:[[
+                    {field:'id',title:'模型id',width:50},
+                    {field:'name',title:'模型名称',width:70},
+                    {field:'metaInfo',title:'描述',width:100,formatter:metaInfoFormatter},
+                    {field:'createTime',title:'创建时间',width:100},
+                    {field:'lastUpdateTime',title:'最后更新时间',width:100},
+                    {field:'a',title:'操作',width:100,formatter:operationFormatter}
+                ]],
+                fitColumns:true,
+                rownumbers:true,
+                pagination:true,
+                singleSelect:true,
+                pageNumber:1,
+                pageSize:15,
+                pageList:[5,10,15,20],
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    text:'ADD',
+                    handler: function(){
+                        window.location.href='/create';
+                    }
+                },'-',{
+                    iconCls: 'icon-remove',
+                    text:'DELETE',
+                    handler: function(){
+                        var row=$("#dg").datagrid("getSelected");
+                        if(row!=null){
+                            $.messager.confirm('确认对话框', '您确认要删除 id:'+row.id+' 这条记录吗？', function(r){
+                                if (r){
+                                   $.ajax({
+                                       url:'/byIdDelModel',
+                                       type:'post',
+                                       data:{
+                                           id:row.id
+                                       },
+                                       dataType:'text',
+                                       success:function(data){
+                                           if(data=="ok"){
+                                               $.messager.show({
+                                                   title:'我的消息',
+                                                   msg:'id:'+row.id+' 删除成功，消息将在2秒后关闭。',
+                                                   timeout:2000,
+                                                   showType:'slide'
+                                               });
+                                           }else{
+                                               alert("删除失败，请重新删除");
+                                           }
+                                           $("#dg").datagrid("reload");
+                                       }
+                                   });
+                                }
+                            });
+                        }else{
+                            alert("请选择要删除的模型");
+                        }
+                    }
+                },'-',{
+                    iconCls: 'icon-edit',
+                    text:'EDIT',
+                    handler: function(){
+                        var row=$("#dg").datagrid("getSelected");
+                        if(row!=null){
+                            window.location.href='/model/edit/'+row.id+'';
+                        }else{
+                            alert("请选择要修改的模型");
+                        }
+                    }
+                }]
+
+            });
+
+        });
+
+        //格式化元信息
+        function metaInfoFormatter(value,row,index){
+            return JSON.parse(value).description; //JSON.parse()将制定字符串转成JSON对象
+        }
+
+        //格式化操作
+        function operationFormatter(value,row,index){
+            return "<button onclick='ModelConvertProcess("+row.id+")'>模型转流程</button>";
+        }
+
+        //模型转换为流程
+        function ModelConvertProcess(id){
+            $.ajax({
+                url:'/deploy',
+                type:'post',
+                data:{
+                    modelId:id
+                },
+                dataType:'text',
+                success:function(data){
+                    alert(data);
+                    $("#dg").datagrid("reload");
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <table id="dg"></table>
+
+</body>
+</html>

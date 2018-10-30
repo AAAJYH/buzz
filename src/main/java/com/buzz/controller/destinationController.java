@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ public class destinationController {
 
     //目的地页面
     @RequestMapping("/destinationIndex")
-    public String destinationIndex(){
+    public String destinationIndex() {
         return "front_desk/Destination";
     }
 

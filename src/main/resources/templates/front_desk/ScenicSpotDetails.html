@@ -479,14 +479,14 @@
             border:1px solid #FF9D00;
             color:black;
         }
-        #huifu{
+        .replyBtn{
             width:50px;
             padding:5px 10px;
             background:#FF9D00;
             color:white;
             margin-left:94.2%;
         }
-        .huifu1:hover,.huifu2:hover,#huifu:hover {
+        .huifu1:hover,.huifu2:hover,.replyBtn:hover {
             cursor:pointer;
         }
     </style>
@@ -545,7 +545,7 @@
                                 }
                             }
                             //拼接评论时间
-                            content+="<div class=\"one1\"><span style=\"float:left;\">"+comment.commentTime+"</span>";
+                            content+="<div class=\"one1\"><span style=\"float:left;\">"+comment.commentTime+"</span><br/>";
                             if($("#userId").val()!=comment.userId){
                                 content+="<span style=\"float:right;\" class=\"huifu1\">回复</span></div>";
                             }
@@ -565,7 +565,7 @@
                             //拼接回复框
                             content+="<div style=\"display:none;\" class=\"three\">\n" +
                                 "<textarea class=\"reply\"></textarea>\n" +
-                                "<div id=\"huifu\">回复</div>\n" +
+                                "<div class=\"replyBtn\">回复</div>\n" +
                                 "</div>\n" +
                                 "</div>\n" +
                                 "</div>";
@@ -593,7 +593,7 @@
                         $(".reply").attr("placeholder","回复"+replayUserName);
                     });
                     //回复提交事件
-                    $("#huifu").click(function(){
+                    $(".replyBtn").click(function(){
                         if([[${session.user}]]!=null){
                             var content=$(this).prev().val();
                             $.ajax({

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/icon.css">
+
+    <script th:inline="none">
+
+        var url=""; //save时要执行的url
+        var myArray=new Array(); //提交时的menuId
+
+        $(function(){
+
+            //初始化datagrid数据表格
+            $('#dg').datagrid({
+                url:'/pagingQueryAll',
+                columns:[[
+                    {field:'id',title:'id',width:100},
+                    {field:'rname',title:'角色昵称',width:100},
+                    {field:'remark',title:'备注',width:100}
+                ]],
+                fitColumns:true,
+                rownumbers:true,
+                singleSelect:true,
+                pagination:true,
+                pageNumber:1,
+                pageSize:10,
+                pageList:[5,10,15,20],
+                toolbar: [{
+                        iconCls: 'icon-add',
+                        handler: function(){
+                            $("#dd").dialog({title:'AddRole'});
+                            $("#dd").dialog("open");
+                            url="/addRole";
+                        }
+                    },'-',{
+                        iconCls: 'icon-remove',
+                        handler: function(){
+                            var row=$("#dg").datagrid("getSelected");
+                            if(row==null){
+                                alert("请选择要删除的角色");
+                            }else{
+                                $.messager.confirm('确认对话框', '您确定要删除吗？', function(r){
+                                    if (r){
+                                        $.ajax({
+                                            url:'/byIdRemoveRole',
+                                            type:'post',
+                                            data:{
+                                                id:row.id
+                                            },
+                                            dataType:'text',
+                                            success:function(data){
+                                                if(data){
+                                                    handlerOk();
+                                                }else{
+                                                    alert("删除失败");
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    },'-',{
+                        iconCls: 'icon-edit',
+                        handler: function(){
+                            var row=$("#dg").datagrid("getSelected");
+                            if(row==null){
+                                alert("请选择要修改的角色");
+                            }else{
+                                url="/EditRole";
+                                //根据rid查询对应的mid
+                                $.ajax({
+                                    url:'/byRidQueryMid',
+                                    type:'post',
+                                    data:{
+                                        rid:row.id
+                                    },
+                                    dataType:'json',
+                                    success:function(data){
+                                        if(data!=null){
+                                            alert(data);
+                                            //遍历mid根据mid默认选中菜单
+                                            for(var i=0;i<data.length;i++){
+                                                var findMid=$('#tt').tree('find', data[i].mid); //find:根据菜单id查找指定节点并返回节点对象
+                                                $("#tt").tree("check",findMid.target); //check：选中目标对象
+                                            }
+                                        }
+                                    }
+                                })
+                                $("#ff").form("load",row);
+                                $("#dd").dialog({title:'Edit'});
+                                $("#dd").dialog("open");
+                            }
+                        }
+                    }
+                ]
+            });
+
+            //初始化dialog对话框
+            $('#dd').dialog({
+                width: 400,
+                height: "auto",
+                closed:true,
+                top:120
+            });
+
+            //初始化tree树菜单
+            $('#tt').tree({
+                url:'/queryAllMenu',
+                checkbox:true
+            });
+
+            //tree树菜单绑定事件
+            $("#tt").tree({
+               //数据加载成功后触发
+               onLoadSuccess:function(){
+                $("#tt").tree("collapseAll");//折叠所有节点
+               },
+                //节点展开后触发
+                onExpand:function() {
+                    $("#tt").tree("collapseAll"); //折叠所有
+                }
+            });
+
+            //点击保存事件
+            $("#save").click(function(){
+                if($("#ff").form("validate")){ //如果所有form组件校验成功返回true
+                    //获取选中的菜单root的id并设置为ul的value
+                    var checkedMenu=$("#tt").tree("getChecked");
+                    for(var i=0;i<checkedMenu.length;i++){
+                        if(checkedMenu[i].parentId==0){ //之选择头结点，叶子忽略
+                            myArray.push(checkedMenu[i].id); //追加数据
+                        }
+                    }
+                    $("#mid").textbox({value:myArray}); //设置ul的value为mid集合
+                    $("#ff").form("submit",{
+                        url:url,
+                        success:function(data){
+                            if(data=="true"){
+                                handlerOk();
+                            }else{
+                                alert("操作失败");
+                            }
+                            $("#dd").dialog("close");
+                        }
+                    });
+                }else{
+                    alert("请输入完整");
+                }
+            });
+
+            //dialog对话框关闭后清空textbox值，并重新加载tree即清除选中项
+            $("#dd").dialog({
+                onClose:function () {
+                    $("#ff").form("clear");
+                    $("#tt").tree("reload"); //重新加载tree
+                }
+            })
+
+            //点击取消关闭dialog
+            $("#cancel").click(function(){
+                $("#dd").dialog("close");
+            });
+
+        });
+
+        //操作成功后调用此方法，提示操作成功
+        function handlerOk(){
+            $("#dg").datagrid("reload");
+            $.messager.show({
+                title:'提示',
+                msg:'操作成功，消息将在2秒后关闭。',
+                timeout:2000,
+                showType:'slide'
+            });
+        }
+
+    </script>
+
+</head>
+
+</html>
+<body>
+
+    <!-- datagrid数据网格 -->
+    <table id="dg"></table>
+
+    <!-- dialog对话框 -->
+    <div id="dd">
+        <form id="ff" method="post" align="center">
+            <input type="hidden" name="id">
+            <p><input id="rname" name="rname" class="easyui-validatebox easyui-textbox" data-options="required:true,prompt:'请输入',buttonText:'角色昵称',buttonAlign:'left',width:200" /></p>
+            <p><input id="remark" name="remark" class="easyui-validatebox easyui-textbox" data-options="required:true,prompt:'请输入',buttonText:'角色备注',buttonAlign:'left',width:200" /></p>
+            <!-- tree树菜单 -->
+            <p><ul id="tt"></ul> </p>
+            <input type="hidden" id="mid" name="mid">
+            <p>
+                <a id="save" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+        </form>
+    </div>
+
+</body>
