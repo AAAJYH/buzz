@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/icon.css">
+
+    <style type="text/css">
+
+        a{
+            text-decoration:none;
+            color:blue;
+        }
+
+    </style>
+
+    <script th:inline="none">
+
+        $(function(){
+
+            //初始化datagrid数据表
+            $('#dg').datagrid({
+                url:'/processDefinitionList',
+                columns:[[
+                    {field:'id',title:'编号',width:60},
+                    {field:'deployment_id',title:'部署编号',width:40},
+                    {field:'name',title:'流程名称',width:60},
+                    {field:'resource',title:'流程XML',width:30,formatter:xmlFormatter},
+                    {field:'diagram',title:'流程DIAGRAM',width:30,formatter:diagramFormatter},
+                    {field:'a',title:'操作',width:70,formatter:operationFormatter}
+                ]],
+                fitColumns:true,
+                rownumbers:true,
+                pagination:true,
+                singleSelect:true,
+                pageNumber:1,
+                pageSize:15,
+                pageList:[5,10,15,20],
+                toolbar: [
+                    {
+                        iconCls: 'icon-remove',
+                        text:'REMOVE',
+                        handler: function(){
+                            var row=$("#dg").datagrid("getSelected");
+                            if(row!=null){
+                                $.messager.confirm('确认对话框', '您想要删除 id：'+row.id+"？", function(r){
+                                    if (r){
+                                        $.ajax({
+                                            url:'/deleteProcessDeployment',
+                                            type:'post',
+                                            data:{
+                                                id:row.id
+                                            },
+                                            dataType:'text',
+                                            success:function(data){
+                                                if(data=="SUCCESS"){
+                                                    $.messager.show({
+                                                        title:'我的消息',
+                                                        msg:'id：'+row.id+' 删除成功，消息将在2秒后关闭。',
+                                                        timeout:2000,
+                                                        showType:'slide'
+                                                    });
+
+                                                }
+                                                $("#dg").datagrid("reload");
+                                            }
+                                        });
+                                    }
+                                });
+                            }else{
+                                alert("请选择要删除的流程");
+                            }
+                        }
+                    }
+                ]
+
+            });
+        });
+
+        //xml格式化
+        function xmlFormatter(value,row,index){
+            return "<a href='/resource/read/"+row.resource+"/"+row.id+"' target=\"_blank\"\">XML</a>";
+        }
+
+        //diagram格式化
+        function diagramFormatter(value,row,index){
+            return "<a href='/resource/read/"+row.diagram+"/"+row.id+"' target=\"_blank\"\">PNG</a>";
+        }
+
+        function operationFormatter(value,row,index) {
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <table id="dg"></table>
+
+    </a>
+
+</body>
+</html>
