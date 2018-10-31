@@ -49,7 +49,7 @@
             </style>
 
             <span th:if="${session.user!=null}">
-                <img th:src="@{'/images/userPhoto/'+${session.user.photo}}" class="photo">
+                <img th:src="${'/'+session.user.photo}" class="photo">
             </span>
 
             <div th:if="${session.user==null}" class="login_register" id="login">

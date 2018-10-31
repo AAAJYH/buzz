@@ -13,7 +13,8 @@ import java.sql.Timestamp;
 @Data
 public class city {
 
-    private String cityId; //uuid
+    private String cityId; //城市编号
+    private String cityPhoto;//城市图片
     private String cityName; //城市名称
     private String citySituation; //城市景点情况
     private String provinceId; //province外键

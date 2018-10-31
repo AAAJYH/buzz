@@ -23,7 +23,8 @@ public class travelNotes
     private users user;
     private Timestamp releaseTime;
     private long browsingHistory;
-    private long likeNumber;
     private String cityId;
+    private city city;
     private String stateId;
+    private String oldstateId;
 }

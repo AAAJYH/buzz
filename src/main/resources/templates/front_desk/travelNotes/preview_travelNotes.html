@@ -199,8 +199,8 @@
                 </div>
             </div>
             <div class=" music_botton">
-                <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="http://mp3file.mafengwo.net/201810230856/463b7c90be545982113b5d326735f4a2/s10/M00/F8/55/wKgBZ1ngEbqAO933AIxZ5LD3gmI625.mp3"></audio></div>
-                <a href="javascript:void(0);" rel="nofollow" title="播放" class="control _j_m_control pause">
+                <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src=""></audio></div>
+                <a rel="nofollow" title="播放" class="control _j_m_control pause">
                     <i></i>
                     <i></i>
                     <i></i>
@@ -341,12 +341,6 @@
     var music_auto_play = 1;
     var music_url = '';
 </script>
-<!--<script language="javascript" src="js/js+common+widgets_js+jquery.lazyload_js+jquery.jplayer_js+M+module+Cookie_js+note+APreview_js+common+jquery.plugins_js+m.sns.share_js+cvideo+swfobject_js+cvideo+moment.min_js+M+module+dialog+Layer_js+M+module+dialog+Dial.js" type="text/javascript" crossorigin="anonymous"></script>-->
-<!--<script language="javascript" type="text/javascript">
-    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
-        M.loadResource("js/js+Dropdown_js+pageletcommon+pageHeadUserInfoWWWNormal_js+jquery.tmpl_js+M+module+InputListener_js+M+module+SuggestionXHR_js+M+module+DropList_js+M+module+Suggestion_js+M+module+MesSearchEvent_js+SiteSearch_js+AHeader_js+.js");
-    }
-</script>-->
 <script>
     $().ready(
         function()
@@ -381,7 +375,7 @@
                             $("#jp_audio_0").prop("src",data.backgroundMusic);
                             var music=$("#jp_audio_0")[0];
                             music.play();
-                            if(music.pause)
+                            if(music.paused)
                                 $("._j_m_control").attr("class","control _j_m_control pause");
                             else
                                 $("._j_m_control").attr("class","control _j_m_control play");
@@ -437,6 +431,10 @@
         var r = window.location.search.substr(1).match(reg);
         if(r!=null)return  unescape(r[2]); return null;
     }
+    //页面大小变更时游记头图大小更改
+    $(window).resize(function() {
+        $('#_j_cover_box').height($(window).width()/3);
+    });
 </script>
 </body>
 </html>

@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("usersController")
@@ -33,6 +35,7 @@ public class usersController {
     private usersService usersservice;
     @Resource
     private emailService emailservice;
+
     /**
      * 显示登录页面
      *
@@ -227,7 +230,7 @@ public class usersController {
     @RequestMapping("register_user")
     public String register_user(Model model, users user, String password, String mobile) {
         user.setUserId(Encryption.getUUID());
-        user.setPhoto("wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
+        user.setPhoto("images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
         user.setUserPassword(Encryption.encryption_md5(password));
         user.setSex("男");
         user.setStateId("0ee26211-3ae8-48b7-973f-8488bfe837d6");
@@ -407,7 +410,11 @@ public class usersController {
             if(null!=user&&user.getBindPhone().equals(passport))
             {
                 model.addAttribute("user",user);
-                return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
+                    return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                }else{
+                    return "redirect:/destinationController/queryAllDestination";
+                }
             }
             else
             {
@@ -419,12 +426,31 @@ public class usersController {
         {
             users user= (users) session.getAttribute("user");
             if(null!=user&&!"".equals(user.getBindPhone()))
-                return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
+                    return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                }else{
+                    return "redirect:/destinationController/queryAllDestination";
+                }
             else
             {
                 model.addAttribute("danger_message","账号或密码错误,请重试!");
                 return "front_desk/login";
             }
         }
+    }
+    @ResponseBody
+    @RequestMapping("getCurrentLoginUser")
+    public Map<String,Object> getCurrentLoginUser(HttpSession session)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user=(users) session.getAttribute("user");
+        if(null!=user)
+        {
+            map.put("loginState",true);
+            map.put("currentUser",user);
+        }
+        else
+            map.put("loginState",false);
+        return map;
     }
 }

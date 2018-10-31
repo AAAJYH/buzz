@@ -154,7 +154,9 @@
     <div data-pagelet id="pagelet-block-2e45b644c927e980b6da626ea10b8476" class="content" data-controller="/js/note/ControllerEditContent" data-controller_data="{&quot;id&quot;:&quot;383336678&quot;}">
         <div class="block-loading loading_backward"></div>
         <div class="_j_content_box">
-            <div class='textarea_placeholder _j_plc_item' id="travelNotesContent"></div>
+            <div class='textarea_placeholder _j_plc_item' id="travelNotesContent">
+                <textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>
+            </div>
         </div>
         <div class="block-loading loading_forward"></div>
     </div>
@@ -349,6 +351,20 @@
             {
                 $("#cropContainerModal").css("background-image","url("+travelNotesheadPhoto+")");
             }
+            var width=$(window).width();
+            var height=$(window).height();
+            var width1=width/2-350;
+            var height1=height/2-250;
+            if(width1<=0)
+            {
+                width1=0;
+            }
+            if(height1<=0)
+            {
+                height1=0;
+            }
+            if(("#popup_container2").length>0)
+                $("#popup_container2").css({"left":width1+"px","top":height1+"px"});
             loadtravelNotesContent();
             bodyjs();
             $(".textarea_placeholder textarea").focus();//首个textarea获取光标
@@ -387,11 +403,16 @@
                 if(null!=data)
                 {
                     var i=0;
-                    if(data.travelNotesContents[0].type=="textarea")
+                    if(data.travelNotesContents.length>0)
                     {
-                        var value=data.travelNotesContents[i].value.replace(/\<br\/>/g,'\n');
-                        insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'>"+value+"</textarea>";
-                        i=i+1;
+                        if(data.travelNotesContents[0].type=="textarea")
+                        {
+                            var value=data.travelNotesContents[i].value.replace(/\<br\/>/g,'\n');
+                            insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'>"+value+"</textarea>";
+                            i=i+1;
+                        }
+                        else
+                            insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>";
                     }
                     else
                         insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>";
@@ -431,6 +452,7 @@
             }
         });
     }
+    //滚动条移动右侧工具栏移动
     $(document).scroll(
         function()
         {
@@ -488,24 +510,120 @@
         var height=$(window).height();
         width=width/2-210;
         height=height/2-130;
-        var width1=width/2-700;
-        var height1=height/2-500;
+        var width1=$(window).width()/2-350;
+        var height1=$(window).height()/2-250;
         if(width1<=0)
-        {
             width1=0;
-        }
         if(height1<=0)
-        {
             height1=0;
-        }
         $("#popup_container").css({"left":width+"px","top":height+"px"});
         $("#popup_container1").css({"left":width+"px","top":height+"px"});
         if(("#popup_container2").length>0)
             $("#popup_container2").css({"left":width1+"px","top":height1+"px"});
     }
+    //点击查询的城市,显示选择的城市
+    function selectedCity(data)
+    {
+        $(".pl-schlist").css("display","none");
+        $(".suggest-list").children().remove();
+        $(".input_mddname_panel").children().remove();
+        var cityId=$(data).attr("data-id");
+        var cityName=$(data).attr("data-mddname");
+        $(".input_mddname_panel").append("<a class='pl-tag cur input_mddname' role='button' data-id='"+cityId+"'>"+cityName+"</a>");
+    }
+    //点击选择城市完成按钮
+    function cityDoneButton()
+    {
+        var defaultCityClass=$("#defaultCity").attr("class");
+        var input_mddname_panelChildrenElementNum=$(".input_mddname_panel").children().length;
+        var cityId=null;
+        if("pl-tag cur"==defaultCityClass)
+            cityId=$("#defaultCity").attr("data-id");
+        else if(0<input_mddname_panelChildrenElementNum)
+            cityId=$(".input_mddname_panel").children().attr("data-id");
+        if(null!=cityId&&0<cityId.length)
+        {
+            var travelNotesId=$("#travelNotesId").val();
+            $.ajax({
+                url:"travelNotesController/update_travelNotes_cityId",
+                type:"post",
+                dataType:"json",
+                data:{travelNotesId:travelNotesId,cityId:cityId},
+                success:function(data)
+                {
+                    if(data)
+                        window.location.href="front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId;
+                    else
+                        showalert("抱歉,修改游记所属城市失败");
+                }
+            });
+        }
+        $("#_j_layer_2").remove();//关闭选择城市模态框
+    }
     //在js中进行操作需要进行加载的方法
     function bodyjs()
     {
+        //点击默认城市隐藏搜索目的地
+        $("#defaultCity").click(
+            function ()
+            {
+                $(".input_mddname_panel").children().remove();
+                $(this).addClass("cur");
+            }
+        );
+        //点击关闭选择游记所在地址模态框
+        $(".close-btn").click(
+            function()
+            {
+                if(("#_j_layer_2").length>0)
+                {
+                    $("#_j_layer_2").remove();
+
+                    window.location.href="front_desk/travelNotes/audittravelNotes.html?travelNotesId="+$("#travelNotesId").val();
+                }
+            }
+        );
+        //搜索目的地文本框获取焦点,默认地点取消选择
+        $(".search-input").focus(
+            function()
+            {
+                $("#defaultCity").removeClass("cur");
+            }
+        );
+        //搜索目的地按下键之后获取内容,并搜索目的地
+        $(".search-input").keyup(
+            function()
+            {
+                var cityName=$(this).val();
+                if(null!=cityName&&0<cityName.length)
+                {
+                    $.ajax({
+                        url:"cityController/find_cityBykeyUp",
+                        type:"post",
+                        dataType:"json",
+                        data:{cityName:cityName},
+                        success:function(data)
+                        {
+                            $(".suggest-list").children().remove();
+                            if(null!=data&&0<data.length)
+                            {
+                                $(".pl-schlist").css("display","block");
+                                for(var i=0;i<data.length;i++)
+                                {
+                                    $(".suggest-list").append("<li data-mddname='"+data[i].cityName+"' data-id='"+data[i].cityId+"' onclick='selectedCity(this)'>"+data[i].cityName+"</li>");
+                                }
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    $(".pl-schlist").css("display","none");
+                    $(".suggest-list").children().remove();
+                }
+            }
+        );
+        //获取当前获取焦点的textarea
         $(".textarea_placeholder textarea").focus(
             function()
             {
@@ -663,9 +781,11 @@
                      {
                          if(data.result)
                          {
+                             $("#File_backgroundMusic").val("");
                              $("#backgroundMusic").attr("src",data.url);
                              var backgroundMusic=document.getElementById("backgroundMusic");
                              backgroundMusic.play();
+                             $("._j_music_visible").attr("class","_j_music_visible play");
                              $("._j_music_name_input").val(data.musicname);
                              $("._j_music_name").text("已上传    -     "+data.musicname);
                              $("._j_m_name").text(data.musicname);
@@ -1220,7 +1340,6 @@
                     var src=img.attr("src");
                     var width=img.attr("width");
                     var height=img.attr("height");
-                    //var imageproperty="<img src='"+src+"' width='"+width+"' height='"+height+"' />";
                     json+="{\"type\":\"img\",\"value\":\""+src+"\",\"width\":\""+width+"\",\"height\":\""+height+"\"}";
                 }
                 else if("textarea_placeholder _j_plc_item _j_inited"==currentChildrenClass)//判断是否为普通textarea
@@ -1315,19 +1434,19 @@
                 var travelNotesContent=gettravelNotesContent();
                 var travelNotesId=$("#travelNotesId").val();
                 $.ajax({
-                    url:"travelNotesController/insert_travelNotes_draft",
+                    url:"travelNotesController/publish_travelNotes",
                     type:"post",
                     dataType:"json",
                     data:{travelNotesId:travelNotesId,travelNotesheadline:travelNotesheadline,travelNotesContent:travelNotesContent},
                     success:function(data)
                     {
-                        if(data.result)
+                        if(data)
                         {
-                            $("body").append("<div id='_j_layer_2' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10004;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div class='popup-box layer_dialog _j_dialog pop_no_margin pub-last' id='popup_container2' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; left: 348.5px; top: 208.444px;'><div class='dialog_title' style='display:none'><div class='_j_title title'></div></div><div class='dialog_body _j_content'><a role='button' class='close-btn'><i></i></a><div class='pl-head'><img src='"+data.travelNotesheadPhoto+"'><div class='pl-msg'><h3>第"+data.travelNotesNum+"篇大作发表成功!</h3><p>你已在马蜂窝留下了"+data.fontNum+"字,"+data.imageNum+"张图片<br>世界游记任你写</p></div></div><div class='pl-body'><div class='pl-subtit'>系统检测到你的游记中提及了以下目的地，请选择和你游记最有关联的目的地</div><div class='pl-tags' style='overflow:auto'><a class='pl-tag' name='info_tag'>北京</a> <!--pl-tag cur--></div><div class='pl-subtit'>如果都不理想，那就为你的游记添加一个目的地吧</div><div class='pl-add'><div class='pl-search'><div name='mdd-search-form'><div class='pl-schbar'><input autocomplete='off' class='search-input' type='text' name='q' placeholder='搜索目的地'><i></i></div></div><div class='pl-schlist hide' style='display: none;'><ul class='suggest-list'><li data-mddname='河南'>河南</li><li data-mddname='河南蒙古族自治县'>河南蒙古族自治县<span class=''>青海</span></li><li data-mddname='河南市'>河南市<span class=''>韩国</span></li></ul></div></div><div class='input_mddname_panel hide' style='display: block;'><a class='pl-tag cur input_mddname' role='button'>河南蒙古族自治县</a></div></div><div class='pl-action'><a class='btn-done'>完成</a></div></div></div><a id='popup_close' class='close-btn _j_close'><i></i></a></div></div></div>");
+                            $("body").append("<div id='_j_layer_2' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10004;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div class='popup-box layer_dialog _j_dialog pop_no_margin pub-last' id='popup_container2' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; left: 348.5px; top: 208.444px;'><div class='dialog_title' style='display:none'><div class='_j_title title'></div></div><div class='dialog_body _j_content'><a role='button' class='close-btn'><i></i></a><div class='pl-head'><img src='"+data.travelNotesheadPhoto+"'><div class='pl-msg'><h3>第"+data.travelNotesNum+"篇大作发表成功!</h3><p>你已在马蜂窝留下了"+data.fontNum+"字,"+data.imageNum+"张图片<br>世界游记任你写</p></div></div><div class='pl-body'><div class='pl-subtit'>系统检测到你的游记中提及了以下目的地，请选择和你游记最有关联的目的地</div><div class='pl-tags' style='overflow:auto'><a class='pl-tag' id='defaultCity' name='info_tag' data-id='"+data.Beijing+"'>北京</a> <!--pl-tag cur--></div><div class='pl-subtit'>如果都不理想，那就为你的游记添加一个目的地吧</div><div class='pl-add'><div class='pl-search'><div name='mdd-search-form'><div class='pl-schbar'><input autocomplete='off' class='search-input' type='text' name='q' placeholder='搜索目的地'><i></i></div></div><div class='pl-schlist hide' style='display: none;'><ul class='suggest-list'></ul></div></div><div class='input_mddname_panel hide' style='display: block;'></div></div><div class='pl-action'><a class='btn-done' onclick='cityDoneButton()'>完成</a></div></div></div><a id='popup_close' class='close-btn _j_close'><i></i></a></div></div></div>");
                             var width=$(window).width();
                             var height=$(window).height();
-                            var width1=width/2-700;
-                            var height1=height/2-500;
+                            var width1=width/2-350;
+                            var height1=height/2-250;
                             if(width1<=0)
                             {
                                 width1=0;
@@ -1338,12 +1457,11 @@
                             }
                             if(("#popup_container2").length>0)
                                 $("#popup_container2").css({"left":width1+"px","top":height1+"px"});
+                            bodyjs();
                         }
                         else
-                        {
-                            $("._j_btn_publish").removeClass("n_loading");
                             showalert("发表游记出错");
-                        }
+                        $("._j_btn_publish").removeClass("n_loading");
                     }
                 });
             }
@@ -1351,6 +1469,10 @@
                 showalert("游记标题不能为空")
         }
     );
+    //页面大小变更时游记头图大小更改
+    $(window).resize(function() {
+        $('#_j_cover_box').height($(window).width()/3);
+    });
 </script>
 </body>
 </html>

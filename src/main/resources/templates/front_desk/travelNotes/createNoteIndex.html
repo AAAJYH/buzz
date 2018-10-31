@@ -177,13 +177,12 @@
 <div class="wrapper">
     <ul class="btns clearfix">
         <li class="btn1" data-cs-p="new">
-            <a class="btn _jump" data-url="front_desk/travelNotes/createtravelNotes.html"><div class="icon"><i></i></div>新版游记</a>
+            <a class="btn _jump" data-url="insert"><div class="icon"><i></i></div>新版游记</a>
             <div class="context">所见即所得、工具栏整合、边写边听音乐<br>全新的游记书写体验</div>
             <div class="agreement"><i class="on _j_agree_checkbox"></i>我已阅读并同意《<a href="front_desk/agreement.html" target="_blank">嗡嗡嗡游记协议</a>》</div>
-            <div class="qa"><a href="http://www.mafengwo.cn/i/5317220.html" target="_blank">游记常见问题及解答</a></div>
         </li>
         <li class="btn2" data-cs-p="old">
-            <a data-url="/ginfo/create.php" class="btn _jump"><div class="icon"><i></i></div>经典游记</a>
+            <a data-url="" class="btn _jump"><div class="icon"><i></i></div>我的游记</a>
             <div class="draftbox "  id="_j_draftbox" data-cs-p="draft">
                 <div class="bubble _j_tip_container" ><i><b class="_j_roughcount">0</b></i><span class="close _j_tip_close"></span></div>
                 <div class="bubble bubble1 _j_tip_container" style="display: none"><span class="close _j_tip_close"></span></div>
@@ -244,7 +243,8 @@
                     while (win != win.top){
                         win = win.top;
                     }
-                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
                 }
             }
     });
@@ -263,14 +263,19 @@
                         for(var i=0;i<data.length;i++)
                         {
                             var travelNotesheadline=data[i].travelNotesheadline;
-                            if(travelNotesheadline.length<=0)
+                            var travelNotesheadPhoto=data[i].travelNotesheadPhoto;
+                            if(null==travelNotesheadline||travelNotesheadline.length<=0)
                             {
                                 travelNotesheadline="未命名草稿";
+                            }
+                            if(null==travelNotesheadPhoto||travelNotesheadPhoto.length<=0)
+                            {
+                                travelNotesheadPhoto="images/home_new2015/default.jpg";
                             }
                             var releaseTime=data[i].releaseTime;
                             releaseTime=releaseTime.replace("T"," ");
                             releaseTime=releaseTime.substring(0,releaseTime.lastIndexOf("."));
-                            $(".bd .clearfix").append("<li><span class='img'><img src='"+data[i].travelNotesheadPhoto+"' style='height: 100px;width: 150px;'></span><div class='detail'><div class='title'><a href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' >"+travelNotesheadline+"</a></div><span class='time'>"+releaseTime+"</span><div class='action'><a class='btn-continue' href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' ><i class='icon-write'></i>继续写</a><a class='i-delete _j_del_rough' data-rid='"+data[i].travelNotesId+"'>删除</a></div></div></li>");
+                            $(".bd .clearfix").append("<li><span class='img'><img src='"+travelNotesheadPhoto+"' style='height: 100px;width: 150px;'></span><div class='detail'><div class='title'><a href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' >"+travelNotesheadline+"</a></div><span class='time'>"+releaseTime+"</span><div class='action'><a class='btn-continue' href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' ><i class='icon-write'></i>继续写</a><a class='i-delete _j_del_rough' data-rid='"+data[i].travelNotesId+"'>删除</a></div></div></li>");
                         }
                     }
                 }
@@ -297,8 +302,23 @@
             var url = $(this).data('url');
             $.get('travelNotesController/check_travelNotesNumber', function (data)
             {
-                if (data) {
-                    location.href = url;
+                if (data)
+                {
+                    if(url=="insert")
+                    {
+                        $.ajax({
+                            url:"travelNotesController/insert_travelNotes",
+                            dataType:"json",
+                            type:"post",
+                            success:function (data)
+                            {
+                                if(data.result)
+                                {
+                                    window.location.href="travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data.travelNotesId;
+                                }
+                            }
+                        });
+                    }
                 } else {
                     Alert.pop('草稿箱已满，请优先处理未完成草稿');
                 }
@@ -308,10 +328,21 @@
 
             Confirm.pop('确认删除该草稿吗？', function () {
                 var target = $(ev.currentTarget),
-                    rid = target.data('rid');
-                target.closest('li').remove();
-                roughCountDOM.text((+roughCountFDOM.text()) - 1);
-                $.post('/ajax/ajax_rough.php', {'action': 'delete_rough', 'id': rid});
+                    travelNotesId = target.data('rid');
+                $.ajax({
+                    url:"travelNotesController/update_travelNotes_stateId_BytravelNotesId",
+                    type:"post",
+                    dataType:"json",
+                    data:{travelNotesId:travelNotesId},
+                    success:function (data)
+                    {
+                        if(data)
+                        {
+                            target.closest('li').remove();
+                            roughCountDOM.text((+roughCountFDOM.text()) - 1);
+                        }
+                    }
+                });
             });
         });
         $("._j_show_pop").live("click", function(){

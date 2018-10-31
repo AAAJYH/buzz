@@ -25,6 +25,11 @@ public class WebConfig implements WebMvcConfigurer
     {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/travelNotesController/find_travelNotes_ByuserId")
-                .addPathPatterns("/travelNotesController/check_travelNotesNumber");
+                .addPathPatterns("/travelNotesController/check_travelNotesNumber")
+                .addPathPatterns("/travelNotesController/publish_travelNotes")
+                .addPathPatterns("/travelNotesController/preview_travelNotes")
+                .addPathPatterns("/travelCollectionController/insert_travelCollectionBytravelNotesId")
+                .addPathPatterns("/travelNotesController/insert_travelNotes")
+                .addPathPatterns("/travelNotesReplyController/insert_travelNotesReply");
     }
 }

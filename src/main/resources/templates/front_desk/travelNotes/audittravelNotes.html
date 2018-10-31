@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="http://localhost/">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/css+jquery-ui-1.8.18.custom_css+new_notes+new_notes_css+new_notes+schedule_info_css+new_notes+step_css+new_notes+sideview_css+new_notes+notes_comments_css+mfw_comment^YlNV^1524648540.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+<div id="header">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="http://www.mafengwo.cn/">首页</a></li>
+                <li class="head-nav-place" data-cs-p="mdd"><a href="http://www.mafengwo.cn/mdd/" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="http://www.mafengwo.cn/gonglve/" title="旅游攻略">旅游攻略</a></li>
+                <li class="head-nav-sales head-nav-dropdown _j_sales_nav_show" id="_j_nav_sales" data-cs-p="sales">
+                    <a class="drop-toggle" href="http://www.mafengwo.cn/sales/" style="cursor: pointer;display: block;border-bottom:0 none;" data-sales-nav="旅行商城">
+                        <span>旅行商城<i class="icon-caret-down"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-sales hide _j_sales_top" id="_j_sales_panel" data-cs-t="sales_nav">
+                        <ul>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/" data-sales-nav="机票＋酒店">自由行<i class="i-hot">hot</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4" data-sales-nav="跟团游">跟团游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/localdeals/" data-sales-nav="当地游">当地游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/flight/" data-sales-nav="国内机票">国内机票<i class="i-new">new</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/visa/" data-sales-nav="签证">签证</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/insure/" data-sales-nav="保险">保险</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="head-nav-hotel" data-cs-p="hotel"><a href="http://www.mafengwo.cn/hotel/" title="酒店">酒店</a></li>
+                <li class="head-nav-community head-nav-dropdown _j_shequ_nav_show" id="_j_nav_community" data-cs-p="community">
+                    <div class="drop-toggle"><span>社区<i class="icon-caret-down"></i></span></div>
+                    <!-- 社区下拉面板 begin -->
+                    <div class="dropdown-panel dropdown-community hide _j_shequ_top no-image" id="_j_community_panel" data-cs-t="community_nav">
+                        <div class="panel-wrapper">
+                            <ul class="nav-list clearfix">
+                                <li class="h"><a href="http://www.mafengwo.cn/wenda/" target="_blank" title="问答" data-cs-p="wenda">问答<i class="i-hot">hot</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/things.php" target="_blank" title="嗡嗡嗡周边" data-cs-p="things">嗡嗡嗡周边<i class="i-new">new</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/club/" target="_blank" title="蜂首俱乐部" data-cs-p="club">蜂首俱乐部</a></li>
+                                <li><a href="http://www.mafengwo.cn/together/" target="_blank" title="结伴" data-cs-p="together">结伴</a></li>
+                            </ul>
+                            <ul class="nav-list-sub clearfix">
+
+                                <li><a href="http://www.mafengwo.cn/group/" target="_blank" title="嗡嗡嗡旅行家" data-cs-p="group">小组论坛</a></li>
+                                <li><a href="http://www.mafengwo.cn/rudder/" target="_blank" title="分舵同城" data-cs-p="rudder">分舵同城</a></li>
+                                <li><a href="http://www.mafengwo.cn/auction/" target="_blank" title="嗡嗡嗡拍卖行" data-cs-p="paimai">嗡嗡嗡拍卖行</a></li>
+                                <!--<li><a href="http://www.mafengwo.cn/postal/" target="_blank" title="游记纪念工厂" data-cs-p="postal">游记纪念工厂</a></li>-->
+                                <li><a href="http://www.mafengwo.cn/photo_pk/prev.php" target="_blank" title="照片PK" data-cs-p="photo_pk">照片PK</a></li>
+                                <li><a href="http://www.mafengwo.cn/focus/" target="_blank" title="真人兽" data-cs-p="focus">真人兽</a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/virtual_goods.php" target="_blank" title="道具商店" data-cs-p="virtual">道具商店</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 社区下拉面板 end -->
+                </li>
+                <li class="head-nav-app" data-cs-p="app"><a href="http://www.mafengwo.cn/app/intro/gonglve.php" title="APP">APP</a></li>
+            </ul>
+            <div class="head-search" data-online="1">
+                <div class="head-search-wrapper">
+                    <div class="head-searchform">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off">
+                        <a role="button" href="javascript:" class="icon-search" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+            <div data-pagelet id="pagelet-block-44e9abffdcbac8401013580561ab89a0" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+    <!-- 新自由行菜单 begin -->
+    <div class="dropdown-bar" style="display: none">
+        <div class="content">
+            <ul class="clearfix ul-dropdown-bar" id="Js_middleNav">
+                <li data-type="sales"><a href="http://www.mafengwo.cn/sales/">自由行</a></li>
+                <li data-type="freewalker"><a href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4">跟团游</a></li>
+                <li data-type="localdeals"><a href="http://www.mafengwo.cn/localdeals/">当地游</a></li>
+                <li data-type="flight"><a href="http://www.mafengwo.cn/flight/">国内机票</a></li>
+                <li data-type="visa"><a href="http://www.mafengwo.cn/sales/visa/">签证</a></li>
+                <li data-type="wifi"><a href="http://www.mafengwo.cn/localdeals/0-0-0-21-0-0-0-0.html">全球WiFi</a></li>
+                <li data-type="cruise"><a href="http://www.mafengwo.cn/sales/0-0-0-5-0-0-0-0.html">邮轮</a></li>
+                <li data-type="insurance"><a href="http://www.mafengwo.cn/insurance/">旅游保险</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 新自由行菜单 end -->
+</div>
+<div class="main">
+    <input type="hidden" id="travelNotesId" name="travelNotesId">
+    <input type="hidden" id="userId" name="userId">
+    <div class="notes_notice hide">文章正在审核中……</div>
+    <div class="set_index" id="_j_cover_box" style="height: 630px;">
+        <div class="fully_loading">
+        </div>
+        <div class="_j_titlebg">
+            <div class="title_bg"></div>
+            <div class="view_info" data-length="2">
+                <div class="vi_con">
+                    <h1 data-length="2" class="headtext lh80"></h1>
+                </div>
+            </div>
+        </div>
+        <span class="no_pic">还没有添加游记头图</span>
+    </div>
+    <div class="view_title clearfix">
+        <div class="vt_center">
+            <div class="person">
+                <a href="usersController/login_user" target="_blank" class="per_pic"><img src="" /></a>
+                <strong><a href="usersController/login_user" target="_blank" class="per_name"></a></strong>
+                <div class="vc_time">
+                    <span class="time"></span>
+                </div>
+                <div class="person-edit hide">
+                    <a title="编辑">编辑</a>|
+                    <a title="删除">删除</a>
+                </div>
+            </div>
+            <div class="music_botton">
+                <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" loop preload="metadata" src=""></audio></div>
+                <a href="javascript:void(0);" rel="nofollow" title="播放" class="control _j_m_control pause">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <img src="images/post/new_notes/nn_v2/music.gif" alt="">
+                </a>
+            </div>
+            <div class="bar_share _j_share_father _j_top_share_group">
+                <div class="bs_collect">
+                    <a rel="nofollow" title="收藏" class="bs_btn _j_do_fav" data-flag="true" onclick="insert_travelCollection(this)"><i></i><span>0</span><strong>收藏</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="view clearfix" style="position:relative;">
+        <div class="view_con">
+            <div class="activity_style_notes aNotice aNoticeM hide">
+                <i class="asn_ico"></i>
+                <strong class="noticeDes"></strong>
+                <a href="" title="去看看" class="noticeUrl" target="_blank">去看看&gt;</a>
+                <a href="javascript:;" class="close noticeClose" title="不再显示">不再显示</a>
+            </div>
+            <div class="vc_article">
+                <div class="va_con _j_master_content" data-cs-t="ginfo_kw_hotel"></div>
+                <div class="vc_total _j_help_total">
+                    本篇游记共含<span>0</span>个文字，<span>0</span>张图片。帮助了<b class="_j_total_person" style="font-weight:inherit"></b>名游客。
+                </div>
+            </div>
+            <a name="replylist"></a>
+            <div id="note-reply-bottomReplyApi" data-api=":note:pagelet:bottomReplyApi" data-controller="/js/note/ControllerReply" data-params="{&quot;iid&quot;:10898234,&quot;page&quot;:1}" class="">
+                <div class="mfw-cmt-wrap" id="_j_reply_list"></div>
+            <div class="page-hotel">
+                <span class="count">共<span>5</span>页 / <span>432</span>条</span>
+                <span class="this-page">1</span>
+                <a href="/note/r.php?iId=10919674&amp;iPage=2&amp;sAction=page#replylist" class="ti">2</a>
+                <a href="/note/r.php?iId=10919674&amp;iPage=3&amp;sAction=page#replylist" class="ti">3</a>
+                <a href="/note/r.php?iId=10919674&amp;iPage=4&amp;sAction=page#replylist" class="ti">4</a>
+                <a href="/note/r.php?iId=10919674&amp;iPage=5&amp;sAction=page#replylist" class="ti">5</a>
+                <a class="ti next" href="/note/r.php?iId=10919674&amp;iPage=2&amp;sAction=page#replylist">后一页</a>
+                <a class="ti last" href="/note/r.php?iId=10919674&amp;iPage=5&amp;sAction=page#replylist">末页</a>
+            </div>
+                <a name="note_publish_reply"></a>
+                <div class="mcmt-reply-wrap _j_replywrap">
+                    <div class="mcmt-tab">
+                        <ul class="_j_replytab">
+                            <li class="on _j_publish_tab" data-mode="article">回复游记<i></i></li>
+                        </ul>
+                    </div>
+                    <div class="mcmt-tab-con">
+                        <div class="photo-con">
+                            <a href="/u/52028572.html" target="_blank" title="抽象°"><img src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90" alt="抽象°"></a>
+                        </div>
+                        <div class="reply-con clearfix _j_article_mode _j_editor" id="_j_editor">
+                            <dl>
+                                <dt>
+                                    <!--已选择的举牌-->
+                                    <i class="show-selected-give-sign" id="_js_selectedGiveSign">
+                                        <!--已选则的牌子-->
+                                        <!--<i class="selected-give-sign"></i>-->
+                                        <span class="close-selected-give-sign" id="_js_deleteShowGiveSign"></span>
+                                    </i>
+                                    <!-- 各种选项 -->
+                                    <div class="reply-choice">
+                                        <a role="button" class="expression" id="_j_replyfacetrigger" title="选择表情"></a>
+                                        <a role="button" class="at" id="_j_replyattrigger" title="@他/她"></a>
+                                        <a role="button" class="give_sign_btn _bottom_give_sign_btn" style="display: none;" title="举牌"></a>
+                                        <div class="clear"></div>
+                                        <div class="art_pop art_newpop _j_face_pop hide" id="_js_replyExpression">
+                                            <div class="art_newtab">
+                                                <div class="newtab-nav">
+                                                    <ul class="_j_switch_container">
+                                                        <li class="cur _j_face_tab" data-type="brands">小嗡嗡嗡</li>
+                                                        <li class="_j_face_tab" data-type="golden">常用表情</li>
+                                                        <li class="_j_face_tab" data-type="character">人物心情</li>
+                                                        <li class="_j_face_tab" data-type="travel">旅行相关</li>
+                                                        <li class="_j_face_tab" data-type="apparel">服饰运动</li>
+                                                        <li class="_j_face_tab" data-type="food">食物节日</li>
+                                                        <li class="_j_face_tab" data-type="animal">动物植物</li>
+                                                        <li class="_j_face_tab" data-type="tool">工具及其他</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="newtab-pagin" data-page="1">
+                                                    <a class="newtab-prev disabled _j_face_switch" data-type="prev"><i><i></i></i></a>
+                                                    <a class="newtab-next _j_face_switch" data-type="next"><i><i></i></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="art_newface art_newface1 _j_emojilist" data-emotion="brands">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="愤怒小蜂"><img src="images/i/face/brands_v3/38@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="害羞小蜂"><img src="images/i/face/brands_v3/39@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="白眼小蜂"><img src="images/i/face/brands_v3/40@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="机智小蜂"><img src="images/i/face/brands_v3/41@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="奸笑小蜂"><img src="images/i/face/brands_v3/42@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="扮酷小蚂"><img src="images/i/face/brands_v3/2@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="大哭小蜂"><img src="images/i/face/brands_v3/4@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="大笑小蜂"><img src="images/i/face/brands_v3/5@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="得意小蜂"><img src="images/i/face/brands_v3/6@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="犯色相小蚂"><img src="images/i/face/brands_v3/7@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="害羞小蚂"><img src="images/i/face/brands_v3/9@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="尴尬小蜂"><img src="images/i/face/brands_v3/10@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="哼小蚂"><img src="images/i/face/brands_v3/11@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="坏笑小蜂"><img src="images/i/face/brands_v3/12@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="可怜哭小蜂"><img src="images/i/face/brands_v3/13@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="困小蜂"><img src="images/i/face/brands_v3/15@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="流汗小蚂"><img src="images/i/face/brands_v3/16@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="么么哒小蚂"><img src="images/i/face/brands_v3/17@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="晕小蜂"><img src="images/i/face/brands_v3/18@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="爱心小蜂"><img src="images/i/face/brands_v3/20@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="偷笑小蚂"><img src="images/i/face/brands_v3/21@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="微笑小蚂"><img src="images/i/face/brands_v3/23@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="心碎小蜂"><img src="images/i/face/brands_v3/24@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="再见小蜂"><img src="images/i/face/brands_v3/28@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="赞小蜂"><img src="images/i/face/brands_v3/29@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="抓狂小蚂"><img src="images/i/face/brands_v3/31@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="捂脸小蜂"><img src="images/i/face/brands_v3/36@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="笑哭"><img src="images/i/face/brands_v3/37@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="golden">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="大笑"><img src="images/i/face/daily_v2/1@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="微笑"><img src="images/i/face/daily_v2/2@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="亲亲"><img src="images/i/face/daily_v2/3@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="色色"><img src="images/i/face/daily_v2/5@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="笑cry"><img src="images/i/face/daily_v2/79@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="无奈"><img src="images/i/face/daily_v2/6@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="睡觉"><img src="images/i/face/daily_v2/19@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="害羞"><img src="images/i/face/daily_v2/8@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="酷"><img src="images/i/face/daily_v2/9@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="鬼脸"><img src="images/i/face/daily_v2/12@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="大哭"><img src="images/i/face/daily_v2/21@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="生气"><img src="images/i/face/daily_v2/27@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="抓狂"><img src="images/i/face/daily_v2/52@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="汗"><img src="images/i/face/daily_v2/54@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="惊悚"><img src="images/i/face/daily_v2/83@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="生病"><img src="images/i/face/daily_v2/47@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="闭嘴"><img src="images/i/face/daily_v2/25@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="精灵"><img src="images/i/face/daily_v2/44@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="邪恶"><img src="images/i/face/daily_v2/85@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="魅力四射"><img src="images/i/face/daily_v2/30@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="吻"><img src="images/i/face/daily_v2/33@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="爱心"><img src="images/i/face/daily_v2/32@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="心碎"><img src="images/i/face/daily_v2/31@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="剪刀手"><img src="images/i/face/daily_v2/88@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="再见"><img src="images/i/face/daily_v2/20@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="赞"><img src="images/i/face/daily_v2/28@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="鼓掌"><img src="images/i/face/daily_v2/96@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="祈祷"><img src="images/i/face/daily_v2/78@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="甜蜜"><img src="images/i/face/daily_v2/104@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="太阳"><img src="images/i/face/daily_v2/72@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="下雨"><img src="images/i/face/daily_v2/67@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="闪电"><img src="images/i/face/daily_v2/110@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="雪"><img src="images/i/face/daily_v2/112@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="星星"><img src="images/i/face/daily_v2/43@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="月亮"><img src="images/i/face/daily_v2/62@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="飞机"><img src="images/i/face/daily_v2/114@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="自行车"><img src="images/i/face/daily_v2/132@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="人民币"><img src="images/i/face/daily_v2/56@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="王冠"><img src="images/i/face/daily_v2/162@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="足球"><img src="images/i/face/daily_v2/41@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="苹果"><img src="images/i/face/daily_v2/38@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="香蕉"><img src="images/i/face/daily_v2/184@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="西瓜"><img src="images/i/face/daily_v2/39@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="糖果"><img src="images/i/face/daily_v2/196@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蜂蜜"><img src="images/i/face/daily_v2/197@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="餐厅"><img src="images/i/face/daily_v2/64@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="咖啡"><img src="images/i/face/daily_v2/40@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="干杯"><img src="images/i/face/daily_v2/16@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蝴蝶结"><img src="images/i/face/daily_v2/201@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="礼物"><img src="images/i/face/daily_v2/37@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="生日蛋糕"><img src="images/i/face/daily_v2/36@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="庆祝"><img src="images/i/face/daily_v2/207@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蚂蚁"><img src="images/i/face/daily_v2/211@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蜜蜂"><img src="images/i/face/daily_v2/212@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="狗狗"><img src="images/i/face/daily_v2/69@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="猫猫"><img src="images/i/face/daily_v2/68@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="兔子"><img src="images/i/face/daily_v2/215@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="樱花"><img src="images/i/face/daily_v2/232@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="玫瑰"><img src="images/i/face/daily_v2/35@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="时钟"><img src="images/i/face/daily_v2/235@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="放大镜"><img src="images/i/face/daily_v2/237@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="注意"><img src="images/i/face/daily_v2/51@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="铅笔"><img src="images/i/face/daily_v2/240@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="信"><img src="images/i/face/daily_v2/73@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="灯泡"><img src="images/i/face/daily_v2/243@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="对话"><img src="images/i/face/daily_v2/245@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="图钉"><img src="images/i/face/daily_v2/246@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="喇叭"><img src="images/i/face/daily_v2/247@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="音乐"><img src="images/i/face/daily_v2/63@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="置顶"><img src="images/i/face/daily_v2/258@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="character">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="大笑"><img src="images/i/face/daily_v2/1@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="微笑"><img src="images/i/face/daily_v2/2@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="亲亲"><img src="images/i/face/daily_v2/3@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="色色"><img src="images/i/face/daily_v2/5@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="笑cry"><img src="images/i/face/daily_v2/79@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="无奈"><img src="images/i/face/daily_v2/6@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="睡觉"><img src="images/i/face/daily_v2/19@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="害羞"><img src="images/i/face/daily_v2/8@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="酷"><img src="images/i/face/daily_v2/9@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="晕倒"><img src="images/i/face/daily_v2/10@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="眨眼"><img src="images/i/face/daily_v2/11@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="鬼脸"><img src="images/i/face/daily_v2/12@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="大哭"><img src="images/i/face/daily_v2/21@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="大怒"><img src="images/i/face/daily_v2/46@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="生气"><img src="images/i/face/daily_v2/27@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="不爽"><img src="images/i/face/daily_v2/53@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="尴尬"><img src="images/i/face/daily_v2/80@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="嘴馋"><img src="images/i/face/daily_v2/50@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="呵呵"><img src="images/i/face/daily_v2/81@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="冷漠"><img src="images/i/face/daily_v2/131@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="失落"><img src="images/i/face/daily_v2/34@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="困惑"><img src="images/i/face/daily_v2/17@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="吃惊"><img src="images/i/face/daily_v2/14@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="抓狂"><img src="images/i/face/daily_v2/52@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="汗"><img src="images/i/face/daily_v2/54@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="焦虑"><img src="images/i/face/daily_v2/82@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="惊悚"><img src="images/i/face/daily_v2/83@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="生病"><img src="images/i/face/daily_v2/47@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="药丸"><img src="images/i/face/daily_v2/76@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="闭嘴"><img src="images/i/face/daily_v2/25@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="小丑"><img src="images/i/face/daily_v2/45@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="精灵"><img src="images/i/face/daily_v2/44@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="天使"><img src="images/i/face/daily_v2/84@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="邪恶"><img src="images/i/face/daily_v2/85@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="骷髅"><img src="images/i/face/daily_v2/70@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="魅力四射"><img src="images/i/face/daily_v2/30@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="吻"><img src="images/i/face/daily_v2/33@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="爱心"><img src="images/i/face/daily_v2/32@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="心碎"><img src="images/i/face/daily_v2/31@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="看"><img src="images/i/face/daily_v2/86@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="嘴唇"><img src="images/i/face/daily_v2/87@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="剪刀手"><img src="images/i/face/daily_v2/88@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="击掌"><img src="images/i/face/daily_v2/89@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="上"><img src="images/i/face/daily_v2/90@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="下"><img src="images/i/face/daily_v2/91@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="左"><img src="images/i/face/daily_v2/92@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="右"><img src="images/i/face/daily_v2/93@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="再见"><img src="images/i/face/daily_v2/20@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="OK"><img src="images/i/face/daily_v2/94@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="赞"><img src="images/i/face/daily_v2/28@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="加油"><img src="images/i/face/daily_v2/95@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="鼓掌"><img src="images/i/face/daily_v2/96@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="祈祷"><img src="images/i/face/daily_v2/78@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="举手"><img src="images/i/face/daily_v2/97@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="不行"><img src="images/i/face/daily_v2/98@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="狼狈"><img src="images/i/face/daily_v2/130@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="男孩"><img src="images/i/face/daily_v2/74@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="女孩"><img src="images/i/face/daily_v2/75@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="男人"><img src="images/i/face/daily_v2/99@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="女人"><img src="images/i/face/daily_v2/100@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="爷爷"><img src="images/i/face/daily_v2/101@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="奶奶"><img src="images/i/face/daily_v2/102@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="宝宝"><img src="images/i/face/daily_v2/103@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="甜蜜"><img src="images/i/face/daily_v2/104@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="家庭"><img src="images/i/face/daily_v2/105@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="情侣"><img src="images/i/face/daily_v2/106@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="基友"><img src="images/i/face/daily_v2/107@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="闺蜜"><img src="images/i/face/daily_v2/108@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="travel">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="太阳"><img src="images/i/face/daily_v2/72@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="云"><img src="images/i/face/daily_v2/109@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="下雨"><img src="images/i/face/daily_v2/67@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="闪电"><img src="images/i/face/daily_v2/110@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="多云"><img src="images/i/face/daily_v2/111@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="雪"><img src="images/i/face/daily_v2/112@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="星星"><img src="images/i/face/daily_v2/43@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="月亮"><img src="images/i/face/daily_v2/62@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="地球"><img src="images/i/face/daily_v2/113@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="飞机"><img src="images/i/face/daily_v2/114@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="火箭"><img src="images/i/face/daily_v2/115@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="直升机"><img src="images/i/face/daily_v2/116@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="火车"><img src="images/i/face/daily_v2/117@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="电车"><img src="images/i/face/daily_v2/118@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="高铁"><img src="images/i/face/daily_v2/119@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="地铁"><img src="images/i/face/daily_v2/120@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="火车站"><img src="images/i/face/daily_v2/121@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="巴士"><img src="images/i/face/daily_v2/122@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="出租车"><img src="images/i/face/daily_v2/123@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="汽车"><img src="images/i/face/daily_v2/124@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="加油站"><img src="images/i/face/daily_v2/125@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="码头"><img src="images/i/face/daily_v2/126@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="游轮"><img src="images/i/face/daily_v2/127@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="帆船"><img src="images/i/face/daily_v2/128@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="缆车"><img src="images/i/face/daily_v2/129@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="自行车"><img src="images/i/face/daily_v2/132@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="红绿灯"><img src="images/i/face/daily_v2/133@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="路障"><img src="images/i/face/daily_v2/134@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="停车场"><img src="images/i/face/daily_v2/135@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="残疾人专用"><img src="images/i/face/daily_v2/136@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="ATM"><img src="images/i/face/daily_v2/137@2x.png">
+                                                    </li>
+                                                    <li class="_j_emojiitem" title="换钱"><img src="images/i/face/daily_v2/138@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="银行卡"><img src="images/i/face/daily_v2/139@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="人民币"><img src="images/i/face/daily_v2/56@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="美元"><img src="images/i/face/daily_v2/140@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="欧元"><img src="images/i/face/daily_v2/141@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="中国"><img src="images/i/face/daily_v2/142@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="德国"><img src="images/i/face/daily_v2/143@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="英国"><img src="images/i/face/daily_v2/144@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="美国"><img src="images/i/face/daily_v2/145@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="俄罗斯"><img src="images/i/face/daily_v2/146@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="西班牙"><img src="images/i/face/daily_v2/147@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="意大利"><img src="images/i/face/daily_v2/148@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="法国"><img src="images/i/face/daily_v2/149@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="日本"><img src="images/i/face/daily_v2/150@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="韩国"><img src="images/i/face/daily_v2/151@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="日出"><img src="images/i/face/daily_v2/152@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="夜景"><img src="images/i/face/daily_v2/153@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="露营"><img src="images/i/face/daily_v2/154@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="星空"><img src="images/i/face/daily_v2/155@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="火山"><img src="images/i/face/daily_v2/156@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="彩虹"><img src="images/i/face/daily_v2/157@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="游乐园"><img src="images/i/face/daily_v2/158@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="海浪"><img src="images/i/face/daily_v2/159@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="房子"><img src="images/i/face/daily_v2/160@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="足迹"><img src="images/i/face/daily_v2/161@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="apparel">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="王冠"><img src="images/i/face/daily_v2/162@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="草帽"><img src="images/i/face/daily_v2/163@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="零钱包"><img src="images/i/face/daily_v2/164@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="眼镜"><img src="images/i/face/daily_v2/165@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="女装"><img src="images/i/face/daily_v2/166@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="男装"><img src="images/i/face/daily_v2/167@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="裤子"><img src="images/i/face/daily_v2/168@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="裙子"><img src="images/i/face/daily_v2/169@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="比基尼"><img src="images/i/face/daily_v2/170@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="和服"><img src="images/i/face/daily_v2/171@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="跳舞"><img src="images/i/face/daily_v2/172@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="走路"><img src="images/i/face/daily_v2/173@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="跑步"><img src="images/i/face/daily_v2/174@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="冲浪"><img src="images/i/face/daily_v2/175@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="滑雪"><img src="images/i/face/daily_v2/176@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="游泳"><img src="images/i/face/daily_v2/177@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="钓鱼"><img src="images/i/face/daily_v2/178@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="足球"><img src="images/i/face/daily_v2/41@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="篮球"><img src="images/i/face/daily_v2/179@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="赛车"><img src="images/i/face/daily_v2/180@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="冠军"><img src="images/i/face/daily_v2/181@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="food">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="苹果"><img src="images/i/face/daily_v2/38@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="西瓜"><img src="images/i/face/daily_v2/39@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="柠檬"><img src="images/i/face/daily_v2/182@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="葡萄"><img src="images/i/face/daily_v2/183@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="香蕉"><img src="images/i/face/daily_v2/184@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="橙子"><img src="images/i/face/daily_v2/185@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="菠萝"><img src="images/i/face/daily_v2/186@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="樱桃"><img src="images/i/face/daily_v2/187@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="草莓"><img src="images/i/face/daily_v2/188@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="汉堡"><img src="images/i/face/daily_v2/189@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="肉"><img src="images/i/face/daily_v2/190@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="面条"><img src="images/i/face/daily_v2/191@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="快餐"><img src="images/i/face/daily_v2/192@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="寿司"><img src="images/i/face/daily_v2/193@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="冰淇淋"><img src="images/i/face/daily_v2/194@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="巧克力"><img src="images/i/face/daily_v2/195@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="糖果"><img src="images/i/face/daily_v2/196@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蜂蜜"><img src="images/i/face/daily_v2/197@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="餐厅"><img src="images/i/face/daily_v2/64@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="咖啡"><img src="images/i/face/daily_v2/40@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="红酒"><img src="images/i/face/daily_v2/198@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="果汁"><img src="images/i/face/daily_v2/199@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="啤酒"><img src="images/i/face/daily_v2/200@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="干杯"><img src="images/i/face/daily_v2/16@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蝴蝶结"><img src="images/i/face/daily_v2/201@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="礼物"><img src="images/i/face/daily_v2/37@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="生日蛋糕"><img src="images/i/face/daily_v2/36@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="万圣节"><img src="images/i/face/daily_v2/202@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="圣诞节"><img src="images/i/face/daily_v2/203@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="圣诞老人"><img src="images/i/face/daily_v2/204@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="雪人"><img src="images/i/face/daily_v2/205@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="铃铛"><img src="images/i/face/daily_v2/206@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="庆祝"><img src="images/i/face/daily_v2/207@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="气球"><img src="images/i/face/daily_v2/208@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="风铃"><img src="images/i/face/daily_v2/209@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="灯笼"><img src="images/i/face/daily_v2/210@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="animal">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="蚂蚁"><img src="images/i/face/daily_v2/211@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="蜜蜂"><img src="images/i/face/daily_v2/212@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="瓢虫"><img src="images/i/face/daily_v2/213@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="狗狗"><img src="images/i/face/daily_v2/69@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="猫猫"><img src="images/i/face/daily_v2/68@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="牛"><img src="images/i/face/daily_v2/214@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="虎"><img src="images/i/face/daily_v2/263@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="兔子"><img src="images/i/face/daily_v2/215@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="熊猫"><img src="images/i/face/daily_v2/216@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="熊"><img src="images/i/face/daily_v2/285@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="考拉"><img src="images/i/face/daily_v2/217@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="猴子"><img src="images/i/face/daily_v2/218@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="猪头"><img src="images/i/face/daily_v2/60@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="青蛙"><img src="images/i/face/daily_v2/219@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="仓鼠"><img src="images/i/face/daily_v2/220@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="鸡"><img src="images/i/face/daily_v2/221@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="企鹅"><img src="images/i/face/daily_v2/222@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="章鱼"><img src="images/i/face/daily_v2/223@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="海豚"><img src="images/i/face/daily_v2/224@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="鱼"><img src="images/i/face/daily_v2/225@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="马"><img src="images/i/face/daily_v2/226@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="羊"><img src="images/i/face/daily_v2/227@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="大象"><img src="images/i/face/daily_v2/228@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="骆驼"><img src="images/i/face/daily_v2/229@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="仙人掌"><img src="images/i/face/daily_v2/230@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="椰子树"><img src="images/i/face/daily_v2/231@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="樱花"><img src="images/i/face/daily_v2/232@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="玫瑰"><img src="images/i/face/daily_v2/35@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="向日葵"><img src="images/i/face/daily_v2/233@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="枫叶"><img src="images/i/face/daily_v2/234@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="art_newface art_newface2 _j_emojilist hide" data-emotion="tool">
+                                                <ul>
+                                                    <li class="_j_emojiitem" title="时钟"><img src="images/i/face/daily_v2/235@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="倒计时"><img src="images/i/face/daily_v2/236@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="放大镜"><img src="images/i/face/daily_v2/237@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="环保"><img src="images/i/face/daily_v2/238@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="注意"><img src="images/i/face/daily_v2/51@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="停止"><img src="images/i/face/daily_v2/239@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="铅笔"><img src="images/i/face/daily_v2/240@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="信"><img src="images/i/face/daily_v2/73@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="邮筒"><img src="images/i/face/daily_v2/241@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="书"><img src="images/i/face/daily_v2/242@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="灯泡"><img src="images/i/face/daily_v2/243@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="火"><img src="images/i/face/daily_v2/244@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="对话"><img src="images/i/face/daily_v2/245@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="图钉"><img src="images/i/face/daily_v2/246@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="喇叭"><img src="images/i/face/daily_v2/247@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="电话"><img src="images/i/face/daily_v2/248@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="手机"><img src="images/i/face/daily_v2/249@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="信号"><img src="images/i/face/daily_v2/250@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="电池"><img src="images/i/face/daily_v2/251@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="插头"><img src="images/i/face/daily_v2/252@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="照相机"><img src="images/i/face/daily_v2/253@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="录像机"><img src="images/i/face/daily_v2/254@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="票"><img src="images/i/face/daily_v2/255@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="音乐"><img src="images/i/face/daily_v2/63@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="绘画"><img src="images/i/face/daily_v2/256@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="锁"><img src="images/i/face/daily_v2/257@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="置顶"><img src="images/i/face/daily_v2/258@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="十八禁"><img src="images/i/face/daily_v2/259@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="秘密"><img src="images/i/face/daily_v2/260@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="正确"><img src="images/i/face/daily_v2/261@2x.png"></li>
+                                                    <li class="_j_emojiitem" title="错误"><img src="images/i/face/daily_v2/262@2x.png"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="art_pop _j_at_pop hide" id="_js_replyAt">
+                                            <div class="art_pop_title"></div>
+                                            <div class="art_pop_box art_at _j_at_pop_box">
+                                                <div class="art_search clearfix _j_at_inner">
+                                                    <input placeholder="请输入用户名号" class="_j_at_txt" type="text">
+                                                    <ul class="result hide"></ul>
+                                                </div>
+                                                <div class="art_opt">
+                                                    <a href="#" class="art_submit">确定</a>
+                                                </div>
+                                            </div>
+                                            <i class="art_arrow"></i>
+                                        </div>
+                                        <!-- 举牌 -->
+                                        <div class="art_pop _j_at_pop give-sign-details" style="display: none;" id="_js_giveSign">
+                                            <p class="give-sign-details-title-section">
+                                                <span class="title">举牌子</span>
+                                                <span class="about-amount">
+                                    <label>金币 : </label>
+                                    <span class="amount"></span>
+                                    <span class="need-amount"></span>
+                                </span>
+                                            </p>
+                                            <ul class="give-sign-details-list-section">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dt>
+                                <dd>
+                                    <div class="reply-text">
+                                        <textarea class="_j_replyarea" name="reply_content" cols="30" rows="10"></textarea>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <div class="reply-submit">
+                                <!-- 有loading状态 -->
+                                <a role="button" class="_j_publish_reply" title="发表回复">发表回复</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view_side">
+            <div class="relations _j_stas_content"></div>
+            <div></div>
+            <div class="side_sticky _j_sticky_block">
+                <div class="pagelet-block" data-api=":note:pagelet:rightBottomCatalogApi" data-params="{&quot;id&quot;:&quot;10898234&quot;}" data-async="1"><div class="notes_catalog">
+                    <div class="side_title" id="_j_catalogtitle">游记目录</div>
+                    <div class="pagelet-block" data-controller="/js/note/ControllerCatalogDirectory" data-controller_data="{&quot;init_show&quot;:true}">
+                        <div style="position: relative; height: 144px;"><div id="_j_catalogList" style="position: relative; overflow-y: hidden; max-height: 144px;">
+                            <ul class="catalog_content"></ul>
+                        </div><div class="scrollbar" style="height: auto; opacity: 0; display: none;"></div></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-bar hide" style="display: block;">
+        <div class="content">
+            <div class="bar-main" data-cs-t="ginfo_nav">
+                <div class="bread-nav" data-cs-t="schedule">
+                    <a data-cs-p="index" href="" class="circle_bar _support_canvas" title="首页">
+                        <i id="_js_circle_forLowBrowser"></i>
+                        <canvas id="canvas_circle1" width="36" height="36"></canvas>
+                        <canvas id="canvas_circle2" width="36" height="36"></canvas>
+                    </a>
+                    <div class="bread-con"></div>
+                </div>
+                <div class="activity_style_notes aNotice aNoticeH hide">
+                    <i class="asn_ico"></i>
+                    <strong class="noticeDes"></strong>
+                    <a href="" title="去看看" class="noticeUrl" target="_blank">去看看&gt;</a>
+                    <a href="javascript:;" class="close noticeClose"  title="不再显示">不再显示</a>
+                </div>
+            </div>
+            <div class="bar_share _j_float_right">
+                <div class="bs_collect ">
+                    <a rel="nofollow" title="收藏" class="bs_btn _j_do_fav" data-flag="true" onclick="insert_travelCollection(this)"><i></i><span>0</span><strong>收藏</strong></a>
+                </div>
+                <div class="music_botton quick_music">
+                    <a rel="nofollow" title="播放" class="control _j_m_control pause">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <img src="images/post/new_notes/nn_v2/music.gif">
+                    </a>
+                </div>
+                <div class="post-up"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="quick_reply_box _j_qr_box hide">
+                <div class="vc_reply">
+                    <div class="reply_con _j_article_mode _j_editor" id="_j_editor_quick" data-flag="0" data-objid="0" data-link="" data-ajax="1" data-quick="1" data-quote="">
+                        <dl>
+                            <dt>
+                                <!--已选择的举牌-->
+                                <i class="show-selected-give-sign" id="_js_quickSelectedGiveSign">
+                                    <!--显示选择的牌子-->
+                                    <!--<i class="selected-give-sign"></i>-->
+                                    <span class="close-selected-give-sign" id="_js_quickDeleteShowGiveSign"></span>
+                                </i>
+                                <div class="art_title reply_choice">
+                                    <a href="javascript:void(0);" class="expression _j_show_expression" title="选择表情"></a>
+                                    <a href="javascript:void(0);" class="at _j_show_at" title="@他/她"></a>
+                                    <a href="javascript:void(0);" class="give_sign_btn _quick_give_sign_btn" style="display: none;" title="举牌"></a>
+                                    <div class="clear"></div>
+                                    <div class="art_pop hide">
+                                        <div class="art_pop_title"></div>
+                                        <a href="#" class="exp_close">×</a>
+                                        <i class="art_arrow"></i>
+                                    </div>
+                                    <div class="art_pop _j_face_pop hide">
+                                        <div class="art_pop_box art_face">
+                                            <ul class="clearfix">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="art_pop mark_tags _j_tags_pop _j_quick_card_ch give-sign-details small-sign hide" id="_js_QuickGiveSign">
+                                        <p class="give-sign-details-title-section">
+                                            <span class="title">举牌子</span>
+                                            <span class="about-amount">
+                                <label>金币 : </label>
+                                <span class="amount"></span>
+                                <span class="need-amount"></span>
+                            </span>
+                                        </p>
+                                        <ul class="give-sign-details-list-section small-sign">
+                                            <!--<li class="give-sign-single small-sign limit-time">
+                                                <a class="give-sign-single-icon small-sign give-sign-icon-propid-20"></a>
+                                            </li>
+                                            <li class="give-sign-single small-sign limit-time disabled">
+                                                <a class="give-sign-single-icon small-sign give-sign-icon-propid-23"></a>
+                                            </li>-->
+                                        </ul>
+                                    </div>
+
+                                    <div class="art_pop _j_at_pop at_pop hide">
+                                        <div class="at_someone _j_at_pop_box">
+                                            <div class="art_search at_input _j_at_inner">
+                                                <input type="text" placeholder="请输入用户名号" class="_j_at_txt" value="" />
+                                                <ul class="result hide"></ul>
+                                            </div>
+                                            <div class="art_opt">
+                                                <a href="javascript:void(0);" class="art_submit" title="确定">确定</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </dt>
+                            <dd>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div data-pagelet id="pagelet-block-406e905b073539b54d435938f8d11d91" class="" data-api=":note:pagelet:ExpandApi" data-params="{&quot;iid&quot;:&quot;11020662&quot;}" data-async="1" data-controller="/js/note/ControllerExpand"></div>
+<link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+    </div>
+</div>
+<link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+
+
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<script language="javascript" type="text/javascript" src="js/jquery.scrollTo.js"></script>
+<script>
+    $().ready(
+        function()
+        {
+            //获取当前登录用户
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        if(data.loginState)
+                        {
+                            $("#userId").val(data.currentUser.userId);
+                        }
+                    }
+                }
+            });
+            var travelNotesId=GetQueryString("travelNotesId");
+            $("#travelNotesId").val(travelNotesId);
+            if(null!=travelNotesId&&0<travelNotesId.length)
+            {
+                load_travelNotesReply(1,travelNotesId);//加载游记回复
+                $.ajax({
+                    url:"travelCollectionController/find_travelCollectionBytravelNotesId",
+                    type:"post",
+                    dataType:"json",
+                    data:{travelNotesId:travelNotesId},
+                    success:function(data)
+                    {
+                        if(null!=data)
+                        {
+                            $(".bs_collect").children("a").children("span").text(data.length);
+                            if (0 < data.length)
+                            {
+                                var userId=$("#userId").val();
+                                if(null!=userId)//判断登录用户是否登录
+                                {
+                                    for(var i=0;i<data.length;i++)
+                                    {
+                                        if(data[i].userId==userId)
+                                        {
+                                            $(".bs_collect").children("a").attr("data-flag",false);
+                                            $(".bs_collect").addClass("collected");
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                    $(".bs_collect").children("a").attr("data-flag",true);
+                            }
+                            else
+                            {
+                                $(".bs_collect").children("a").attr("data-flag",true);
+                            }
+                        }
+                    }
+                });
+            }
+            if(null!=travelNotesId&&0<travelNotesId.length)
+            {
+                //加载游记
+                $.ajax({
+                    url: "travelNotesController/show_travelNotes",
+                    type: "post",
+                    dataType: "json",
+                    data: {travelNotesId: travelNotesId},
+                    success: function (data)
+                    {
+                        if(null!=data)
+                        {
+                            var userId=$("#userId").val();
+                            if(null!=userId&&userId==data.travelNotes.userId)//判断登录用户是否为游记所属用户,如果是则显示编辑和删除操作
+                            {
+                                $(".person-edit").removeClass("hide");
+                                $($(".person-edit").children("a")[0]).attr("href","travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+travelNotesId);
+                                $($(".person-edit").children("a")[1]).attr("onclick","showdelete_travelNotes_Model()");
+                            }
+                            if("30d3e6ed-f7b4-43cd-95e5-5ac428f15245"==data.travelNotes.stateId)//判断是否正在审核
+                                $(".notes_notice").removeClass("hide");
+                            if("ac618998-ffe3-4300-a391-cd581f74078c"==data.travelNotes.stateId)//判断是否游记被删除
+                            {
+                                $(".set_index").html("<div class='post-deleted'><i class='icon'></i><p>本篇游记已被删除</p></div>");
+                                if(null!=userId&&userId==data.travelNotes.userId)//判断登录用户是否为游记所属用户,如果是则显示编辑和删除操作
+                                    $("body").append("<div class='pagelet-block' ><div class='layer_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.7; z-index: 88;'></div><div class='notes-deled-pop'><div class='msg'>亲爱的蜂蜂，你的游记已经被删除。<br>但，马蜂窝专为你提供一颗永不过期的后悔药。<br>你可以在任何时间恢复你的记忆。</div><div><a class='btn btn-recover _j_restore' onclick='restore_travelNotes()'>恢复游记</a></div></div></div>");
+                                else
+                                    $("body").append("<div class='pagelet-block'><div class='layer_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.7; z-index: 88;'></div><div class='notes-deled-pop'><div class='msg'>亲爱的蜂蜂，此游记已经被删除。<br>需要次游记作者吃下后悔药<br>恢复他的记忆,您才可继续观看</div></div></div>");
+                            }
+                            else
+                            {
+                                if(null!=data.travelNotes.travelNotesheadPhoto&&data.travelNotes.travelNotesheadPhoto.length>0)
+                                {
+                                    $(".set_index").html("<div class='set_bg _j_load_cover' style='z-index: 1;opacity: 1;background-image: url("+data.travelNotes.travelNotesheadPhoto+");'><img src='"+data.travelNotes.travelNotesheadPhoto+"' style='display: none'></div><div class='_j_titlebg'><div class='title_bg'></div><div class='view_info' data-length='0'><div class='vi_con'><h1 data-length='0' class='headtext lh80'></h1></div></div></div>");
+                                }
+                            }
+                            var titletext="";
+                            $(".per_pic").children("img").prop("src",data.travelNotes.user.photo);
+                            var per_name=data.travelNotes.user.userName;
+                            if(null!=data.travelNotes.user.address&&data.travelNotes.user.address.length>0)
+                            {
+                                per_name+="("+data.travelNotes.user.address+")";
+                            }
+                            $(".per_name").text(per_name);
+                            $(".headtext").text(data.travelNotes.travelNotesheadline);
+                            if(null!=data.travelNotes.backgroundMusic&&data.travelNotes.backgroundMusic.length>0)
+                            {
+                                $("#jp_audio_0").prop("src",data.travelNotes.backgroundMusic);
+                                var music=$("#jp_audio_0")[0];
+                                music.play();
+                                if(music.paused)
+                                    $("._j_m_control").attr("class","control _j_m_control pause");
+                                else
+                                    $("._j_m_control").attr("class","control _j_m_control play");
+                            }
+                            else
+                            {
+                                $("._j_m_control").attr("class","control _j_m_control pause");
+                                $(".music_botton").css("display","none");
+                            }
+                            titletext=data.travelNotes.travelNotesheadline;
+                            var bread_conInsertHtml="";
+                            if(null!=data.travelNotes.cityId&&0<data.travelNotes.cityId.length)
+                            {
+                                $("._j_stas_content").html("<div class='pagelet-block' data-api=':note:pagelet:rightMddApi' data-params='{&quot;iid&quot;:&quot;10898234&quot;}' data-async='1' data-controller=''><div class='relation_mdd'>相关目的地:</div><div class='its_others'><div class='mdd_info'><a href='scenicspotController/byCityIdQueryScenicspot?cityId="+data.travelNotes.city.cityId+"' title='"+data.travelNotes.city.cityName+"' class='_j_mdd_stas' target='_blank'><img width='240px' src='"+data.travelNotes.city.cityPhoto+"' alt='"+data.travelNotes.city.cityName+"'><i></i><strong>"+data.travelNotes.city.cityName+"</strong></a></div></div></div>");
+                                titletext+="-"+data.travelNotes.city.cityName+"旅游攻略";
+                                bread_conInsertHtml+="<a data-cs-p='mdd' href='scenicspotController/byCityIdQueryScenicspot?cityId="+data.travelNotes.city.cityId+"'>"+data.travelNotes.city.cityName+"旅游攻略</a>&nbsp;/&nbsp;";
+                            }
+                            bread_conInsertHtml+="<a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId+"'>"+data.travelNotes.travelNotesheadline+"</a>";
+                            $(".bread-con").html(bread_conInsertHtml);
+                            var insertHtml="<p id='_j_paragraph_0'></p>";
+                            var fontNum=0;
+                            var imgNum=0;
+                            var insertParagraph="<li class='catalog_city'><span class='catalog_num'>01/</span><a role='button' data-index='0' title='默认段落' class='catalog_line _j_cataloglink' onclick='paragraphClick(this)'>默认段落</a></li>";//添加段落目录
+                            var paragraphIndex=1;
+                            for(var i=0;i<data.travelNotes.travelNotesContents.length;i++)
+                            {
+                                if("textarea"==data.travelNotes.travelNotesContents[i].type)
+                                {
+                                    insertHtml+="<p class='_j_note_content _j_seqitem'>"+data.travelNotes.travelNotesContents[i].value+"</p>";
+                                    fontNum+=data.travelNotes.travelNotesContents[i].value.length;
+                                }
+                                else if("img"==data.travelNotes.travelNotesContents[i].type)
+                                {
+                                    insertHtml+="<div id='_j_photo_390561227' class='add_pic _j_anchorcnt _j_seqitem' style='width:680px'><a target='_blank' style='display: block' href='"+data.travelNotes.travelNotesContents[i].value+"'><img class='_j_lazyload' src='"+data.travelNotes.travelNotesContents[i].value+"' style='background-color:white; display: inline;' height='"+data.travelNotes.travelNotesContents[i].height+"'px width='"+data.travelNotes.travelNotesContents[i].width+"'px></a></div>";
+                                    imgNum+=1;
+                                }
+                                else if("h2"==data.travelNotes.travelNotesContents[i].type)
+                                {
+                                    var paragraphIndexs=paragraphIndex+1;
+                                    if(paragraphIndexs<10)
+                                        paragraphIndexs="0"+paragraphIndexs;
+                                    insertHtml+="<div id='_j_paragraph_"+paragraphIndex+"' class='article_title _j_anchorcnt _j_seqitem'><h2 class='t9'><span class='_j_anchor'>"+data.travelNotes.travelNotesContents[i].value+"</span></h2></div>";
+                                    insertParagraph+="<li class='catalog_city'><span class='catalog_num'>"+paragraphIndexs+"/</span><a role='button' data-index='"+paragraphIndex+"' title='"+data.travelNotes.travelNotesContents[i].value+"' class='catalog_line _j_cataloglink' onclick='paragraphClick(this)'>"+data.travelNotes.travelNotesContents[i].value+"</a></li>";
+                                    fontNum+=data.travelNotes.travelNotesContents[i].value.length;
+                                    paragraphIndex++;
+                                }
+                            }
+                            $("title").text(titletext);
+                            $(".catalog_content").html(insertParagraph);
+                            $($("._j_help_total").children("span")[0]).text(fontNum);
+                            $($("._j_help_total").children("span")[1]).text(imgNum);
+                            $($("._j_help_total").children("b")[0]).text(data.travelNotes.browsingHistory);
+                            $("._j_master_content").html(insertHtml);
+                        }
+                    }
+                });
+            }
+        }
+    );
+    function paragraphClick(obj)
+    {
+        var index=$(obj).attr("data-index");
+        $.scrollTo("#_j_paragraph_"+index,1000);
+    }
+    $(".music_botton").click(
+        function()
+        {
+            playMusic();
+        }
+    );
+    //播放或暂停音乐
+    function playMusic()
+    {
+        var player = $("audio")[0];
+        if (player.paused)
+        { /*如果已经暂停*/
+            $("._j_m_control").attr("class","control _j_m_control play");
+            player.play(); /*播放*/
+        }else
+        {
+            $("._j_m_control").attr("class","control _j_m_control pause");
+            player.pause();/*暂停*/
+        }
+    }
+    //获取地址栏中的参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    //滚动条移动右侧工具栏移动
+    $(document).scroll(
+        function()
+        {
+            var distance = $(document).scrollTop();
+            if(1119<=distance)
+            {
+
+                $(".side_sticky").prev().css({"display":"block","height":distance-1119+200+"px"});
+                $(".side_sticky").addClass("_j_fix_block_fix_1");
+                $(".side_sticky").addClass("sticky_mode_fix");
+            }
+            else
+            {
+                $(".side_sticky").prev().css("display","none");
+                $(".side_sticky").removeClass("_j_fix_block_fix_1");
+                $(".side_sticky").removeClass("sticky_mode_fix");
+            }
+        }
+    );
+    //页面大小变更时游记头图大小更改
+    $(window).resize(function() {
+        $('#_j_cover_box').height($(window).width()/3);
+    });
+    //显示删除游记模态框
+    function showdelete_travelNotes_Model()
+    {
+        $("body").append("<div class='_j_delete_tip'><div class='layer_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.7; z-index: 500;'></div><div class='notes-del-confirm'><div class='msg'><i class='icon-msg'></i><br>游记是记忆的资产，<br>你确定要删除这份珍贵的回忆吗？呜呜<i class='icon-cry'></i></div><div><a class='btn btn-keep _j_delete_tip_close' onclick='close_delete_travelNotesModel()'>我要留着</a><a class='btn _j_delete_note' onclick='delete_travelNotes()'>删除</a></div></div></div>");
+    }
+    //关闭删除游记模态框
+    function close_delete_travelNotesModel()
+    {
+        if($("._j_delete_tip").length>0)
+            $("._j_delete_tip").remove();
+    }
+    //修改游记状态为删除
+    function delete_travelNotes()
+    {
+        var travelNotesId=$("#travelNotesId").val();
+        if(null!=travelNotesId&&0<travelNotesId.length)
+        {
+            $.ajax({
+                url:"travelNotesController/delete_travelNotesBytravelNotesId",
+                type:"post",
+                dataType:"json",
+                data:{travelNotesId:travelNotesId},
+                success:function(data)
+                {
+                    if(data)
+                        window.location.href="front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId;
+                }
+            });
+        }
+    }
+    //恢复游记状态为审核通过
+    function restore_travelNotes()
+    {
+        var travelNotesId=$("#travelNotesId").val();
+        if(null!=travelNotesId&&0<travelNotesId.length)
+        {
+            $.ajax({
+                url:"travelNotesController/restore_travelNotesBytravelNotesId",
+                type:"post",
+                dataType:"json",
+                data:{travelNotesId:travelNotesId},
+                success:function(data)
+                {
+                    if(data)
+                        window.location.href="front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId;
+                }
+            });
+        }
+    }
+    function insert_travelCollection(obj)
+    {
+        var data_flag=$(obj).attr("data-flag");
+        var travelNotesId=$("#travelNotesId").val();
+        if(null!=travelNotesId&&0<travelNotesId.length)
+        {
+            if(data_flag==true||data_flag=="true")
+            {
+                $.ajax({
+                    url:"travelCollectionController/insert_travelCollectionBytravelNotesId",
+                    dataType:"json",
+                    type:"post",
+                    data:{travelNotesId:travelNotesId},
+                    success:function(data)
+                    {
+                        if(data.result)
+                        {
+                            $(obj).attr("data-flag",false);
+                            $(".bs_collect").children("a").children("span").text(data.travelCollection.length);
+                            $(".bs_collect").addClass("collected");
+                        }
+                    }
+                });
+            }
+            else
+                showover_message("该文章您已经收藏过了！");
+        }
+    }
+    //显示5秒钟消息提示
+    function showover_message(msg)
+    {
+        $("body").append("<div id='over_container'><div id='over_message'>"+msg+"</div></div>");
+        var over_container_setInterval=setInterval(function(){
+            if($("#over_container").length>0)
+            {
+                $("#over_container").remove();
+                window.clearInterval(over_container_setInterval);
+            }
+        },5000);
+    }
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
+    });
+    //表情标签前后按钮点击事件
+    $("._j_face_switch ").click(
+        function()
+        {
+            var data_type=$(this).attr("data-type");
+            $("._j_face_switch").removeClass("disabled");
+            $(this).addClass("disabled");
+            if(data_type=="prev")
+                $("._j_switch_container").css("left","0px");
+            else
+                $("._j_switch_container").css("left","-324px");
+        }
+    );
+    //表情标签点击
+    $("._j_face_tab").click(
+        function()
+        {
+            var data_type=$(this).attr("data-type");
+            $("._j_face_tab").removeClass("cur");
+            $(this).addClass("cur");
+            $(".art_newface").addClass("hide");
+            $(".art_newface").each(
+                function()
+                {
+                    if($(this).attr("data-emotion")==data_type)
+                        $(this).removeClass("hide");
+                }
+            );
+        }
+    );
+    //点击显示表情按钮
+    $("#_j_replyfacetrigger").click(
+        function()
+        {
+            $("#_js_replyExpression").removeClass("hide");
+        }
+    );
+    //当点击不是表情模态框关闭模态框
+    $(document).mousedown(
+        function(e)
+        {
+            if("art_pop art_newpop _j_face_pop"==$("#_js_replyExpression").attr("class"))
+            {
+                if($(e.target).parents("#_js_replyExpression").length==0)
+                {
+                    $("#_js_replyExpression").addClass("hide");
+                }
+            }
+        }
+    );
+    //获取评论文本框的当前位置
+    var cursorPosition = {
+        get: function (textarea) {
+            var rangeData = {text: "", start: 0, end: 0 };
+            if (textarea.setSelectionRange) { // W3C
+                textarea.focus();
+                rangeData.start= textarea.selectionStart;
+                rangeData.end = textarea.selectionEnd;
+                rangeData.text = (rangeData.start != rangeData.end) ? textarea.value.substring(rangeData.start, rangeData.end): "";
+            } else if (document.selection) { // IE
+                textarea.focus();
+                var i,
+                    oS = document.selection.createRange(),
+                    // Don't: oR = textarea.createTextRange()
+                    oR = document.body.createTextRange();
+                oR.moveToElementText(textarea);
+
+                rangeData.text = oS.text;
+                rangeData.bookmark = oS.getBookmark();
+                for (i = 0; oR.compareEndPoints('StartToStart', oS) < 0 && oS.moveStart("character", -1) !== 0; i ++) {
+                    // Why? You can alert(textarea.value.length)
+                    if (textarea.value.charAt(i) == '\r' ) {
+                        i ++;
+                    }
+                }
+                rangeData.start = i;
+                rangeData.end = rangeData.text.length + rangeData.start;
+            }
+            return rangeData;
+        }
+    }
+    var expressions=new Array();
+    //获取表情
+    $("._j_emojiitem").click(
+        function()
+        {
+            var insertvalue="("+$(this).attr("title")+")";
+            var src=$(this).children("img").attr("src");
+            var _j_replyarea=$("._j_replyarea");
+            var value=_j_replyarea.val();
+            var pos=cursorPosition.get(_j_replyarea[0]);
+            //alert(pos.start);
+            if(value.length<=0)
+                _j_replyarea.val(insertvalue);
+            else
+            {
+                if(0==pos.start)
+                    _j_replyarea.val(insertvalue+value);
+                else
+                {
+                    var prevvalue=value.substring(0,pos.start);
+                    var nextvalue=value.substring(pos.start);
+                    _j_replyarea.val(prevvalue+insertvalue+nextvalue);
+                }
+            }
+            var map=new Map();
+            map.set("value",insertvalue);
+            map.set("src",src);
+            expressions.push(map);
+            $("#_js_replyExpression").addClass("hide");
+        }
+    );
+    //获取textarea中内容,将换行替换为<br/>
+    function getTextareaValue(obj)
+    {
+        var value=$(obj).val();
+        //浏览器换行符不一致,所以要进行多次replace
+        return value.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+    }
+    var travelNotesReplyIdReply=null;//被回复游记编号
+    //点击发表回复
+    $("._j_publish_reply").click(
+        function()
+        {
+            var value=getTextareaValue($("._j_replyarea"));
+            for(var i=0;i<expressions.length;i++)
+            {
+                value=value.replace(expressions[i].get("value"),"<img src='"+expressions[i].get("src")+"' style='width:28px;'/>");
+            }
+            if(null!=value&&0<value.length)
+            {
+                var travelNotesId=$("#travelNotesId").val();
+                if(null!=travelNotesId&&0<travelNotesId.length)
+                {
+                    $.ajax({
+                        url:"travelNotesReplyController/insert_travelNotesReply",
+                        dataType:"json",
+                        type:"post",
+                        data:{travelNotesId:travelNotesId,travelNotesReplyIdReply:travelNotesReplyIdReply,replyContent:value},
+                        success:function(data)
+                        {
+                            if(null!=data)
+                            {
+                                if(data.result)
+                                {
+                                    var insertPageHtml="";
+                                    var insertTravelNotesReplyHtml="";
+                                    currentIndex=data.currentIndex;
+                                    travelNotesReplyCount=data.travelNotesReplyCount;
+                                    var totalPages=0;
+                                    if(null!=travelNotesReplyCount&&travelNotesReplyCount>0)
+                                    {
+                                        if(travelNotesReplyCount%100>0)
+                                            totalPages=parseInt(travelNotesReplyCount/100,0)+1;
+                                        else
+                                            totalPages=parseInt(travelNotesReplyCount/100);
+                                        insertPageHtml+="<span class='count'>共<span>"+totalPages+"</span>页 / <span>"+travelNotesReplyCount+"</span>条</span>";
+                                        if(currentIndex>1)
+                                            insertPageHtml+="<a class='ti first' data-index='1' onclick='find_travelNotesReplyByPageIndex(this)'>首页</a><a class='ti prev' data-index='"+(currentIndex-1)+"' onclick='find_travelNotesReplyByPageIndex(this)'>前一页</a>";
+                                        if(totalPages>5)//判断总页数是否大于5
+                                        {
+                                            var index=0;
+                                            if(currentIndex%5>0)//把总页数分页
+                                                index=currentIndex/5+1;
+                                            else
+                                                index=currentIndex/5;
+                                            var i=index*5;
+                                            for(i;i<index*5+5;i++)
+                                            {
+                                                if(i<=totalPages)
+                                                {
+                                                    if(i==currentIndex)
+                                                        insertPageHtml+="<span class='this-page'>"+i+"</span>";
+                                                    else
+                                                        insertPageHtml+="<a class='ti' data-index='"+i+"' onclick='find_travelNotesReplyByPageIndex(this)'>"+i+"</a>";
+                                                }
+                                                else
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for(var i=1;i<=totalPages;i++)
+                                            {
+                                                if(i==currentIndex)
+                                                    insertPageHtml+="<span class='this-page'>"+i+"</span>";
+                                                else
+                                                    insertPageHtml+="<a class='ti' data-index='"+i+"' onclick='find_travelNotesReplyByPageIndex(this)'>"+i+"</a>";
+                                            }
+                                        }
+                                        if(currentIndex<totalPages)
+                                            insertPageHtml+="<a class='ti next' data-index='"+(currentIndex+1)+"' onclick='find_travelNotesReplyByPageIndex(this)'>后一页</a><a class='ti last' data-index='"+totalPages+"' onclick='find_travelNotesReplyByPageIndex(this)'>末页</a>";
+                                        for(var i=0;i<data.travelNotesReply.length;i++)
+                                        {
+                                            var mcmt_quoteHtml="";//引用回复
+                                            var _j_reply_content="";
+                                            var optionHtml="";
+                                            if(null!=data.travelNotesReply[i].travelNotesReplyIdReply&&0<data.travelNotesReply[i].travelNotesReplyIdReply.length)
+                                            {
+                                                mcmt_quoteHtml+="<p>引用 "+data.travelNotesReply[i].travelNotesReplyReply.user.userName+" 发表于 "+format_time(data.travelNotesReply[i].travelNotesReplyReply.replyTime)+" 的回复：</p>"
+                                                mcmt_quoteHtml+="<p>"+data.travelNotesReply[i].travelNotesReplyReply.replyContent+"</p>";
+                                                _j_reply_content+="回复"+data.travelNotesReply[i].travelNotesReplyReply.user.userName+":";
+                                            }
+                                            _j_reply_content+=data.travelNotesReply[i].replyContent;
+                                            var userId=$("#userId").val();
+                                            if(null!=userId&&0<userId.length)
+                                            {
+                                                if(userId==data.travelNotesReply[i].user.userId)
+                                                    optionHtml="<a role='button' class='_j_delete_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='delete_travelNotesReply(this)'>删除</a>";
+                                                else
+                                                    optionHtml="<a role='button' class='reply-report' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='report_travelNotesReply(this)'>举报</a><a role='button' class='_j_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' data-userName='"+data.travelNotesReply[i].user.userName+"' onclick='reply_travelNotesReply(this)'>回复</a>";
+                                            }
+                                            else
+                                                optionHtml="<a role='button' class='reply-report' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='report_travelNotesReply(this)'>举报</a><a role='button' class='_j_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' data-userName='"+data.travelNotesReply[i].user.userName+"' onclick='reply_travelNotesReply(this)'>回复</a>";
+                                            var mcmt_user=data.travelNotesReply[i].user.userName;
+                                            if(null!=data.travelNotesReply[i].user.address&&0<data.travelNotesReply[i].user.address.length)
+                                                mcmt_user+="("+data.travelNotesReply[i].user.address+")";
+                                            var floor=(currentIndex-1)*100;
+                                            floor+=i+1;
+                                            insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='/u/19514877.html' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='/u/19514877.html' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
+                                        }
+                                    }
+                                    $(".page-hotel").html(insertPageHtml);
+                                    $("#_j_reply_list").html(insertTravelNotesReplyHtml);
+                                    $("._j_replyarea").val("");
+                                }
+                                else
+                                    showalert("评论游记失败");
+                            }
+                        }
+                    });
+                }
+            }
+            else
+                showalert("请输入内容");
+            expressions=new Array();
+        }
+    );
+    var currentIndex=1;//当前页
+    var travelNotesReplyCount=0;//游记回复总数
+    function load_travelNotesReply(pageIndex,travelNotesId)
+    {
+        $.ajax({
+            url:"travelNotesReplyController/find_travelNotesReplyByPaging",
+            dataType:"json",
+            type:"post",
+            data:{pageIndex:pageIndex,travelNotesId:travelNotesId},
+            success:function(data)
+            {
+                var insertPageHtml="";
+                var insertTravelNotesReplyHtml="";
+                if(null!=data)
+                {
+                    currentIndex=data.currentIndex;
+                    travelNotesReplyCount=data.travelNotesReplyCount;
+                    var totalPages=0;
+                    if(null!=travelNotesReplyCount&&travelNotesReplyCount>0)
+                    {
+                        if(travelNotesReplyCount%100>0)
+                            totalPages=parseInt(travelNotesReplyCount/100,0)+1;
+                        else
+                            totalPages=parseInt(travelNotesReplyCount/100);
+                        insertPageHtml+="<span class='count'>共<span>"+totalPages+"</span>页 / <span>"+travelNotesReplyCount+"</span>条</span>";
+                        if(currentIndex>1)
+                            insertPageHtml+="<a class='ti first' data-index='1' onclick='find_travelNotesReplyByPageIndex(this)'>首页</a><a class='ti prev' data-index='"+(currentIndex-1)+"' onclick='find_travelNotesReplyByPageIndex(this)'>前一页</a>";
+                        if(totalPages>5)//判断总页数是否大于5
+                        {
+                            var index=0;
+                            if(currentIndex%5>0)//把总页数分页
+                                index=currentIndex/5+1;
+                            else
+                                index=currentIndex/5;
+                            var i=index*5;
+                            for(i;i<index*5+5;i++)
+                            {
+                                if(i<=totalPages)
+                                {
+                                    if(i==currentIndex)
+                                        insertPageHtml+="<span class='this-page'>"+i+"</span>";
+                                    else
+                                        insertPageHtml+="<a class='ti' data-index='"+i+"' onclick='find_travelNotesReplyByPageIndex(this)'>"+i+"</a>";
+                                }
+                                else
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            for(var i=1;i<=totalPages;i++)
+                            {
+                                if(i==currentIndex)
+                                    insertPageHtml+="<span class='this-page'>"+i+"</span>";
+                                else
+                                    insertPageHtml+="<a class='ti' data-index='"+i+"' onclick='find_travelNotesReplyByPageIndex(this)'>"+i+"</a>";
+                            }
+                        }
+                        if(currentIndex<totalPages)
+                            insertPageHtml+="<a class='ti next' data-index='"+(currentIndex+1)+"' onclick='find_travelNotesReplyByPageIndex(this)'>后一页</a><a class='ti last' data-index='"+totalPages+"' onclick='find_travelNotesReplyByPageIndex(this)'>末页</a>";
+                        for(var i=0;i<data.travelNotesReply.length;i++)
+                        {
+                            var mcmt_quoteHtml="";//引用回复
+                            var _j_reply_content="";
+                            var optionHtml="";
+                            if(null!=data.travelNotesReply[i].travelNotesReplyIdReply&&0<data.travelNotesReply[i].travelNotesReplyIdReply.length)
+                            {
+                                mcmt_quoteHtml+="<p>引用 "+data.travelNotesReply[i].travelNotesReplyReply.user.userName+" 发表于 "+format_time(data.travelNotesReply[i].travelNotesReplyReply.replyTime)+" 的回复：</p>"
+                                mcmt_quoteHtml+="<p>"+data.travelNotesReply[i].travelNotesReplyReply.replyContent+"</p>";
+                                _j_reply_content+="回复"+data.travelNotesReply[i].travelNotesReplyReply.user.userName+":";
+                            }
+                            _j_reply_content+=data.travelNotesReply[i].replyContent;
+                            var userId=$("#userId").val();
+                            if(null!=userId&&0<userId.length)
+                            {
+                                if(userId==data.travelNotesReply[i].user.userId)
+                                    optionHtml="<a role='button' class='_j_delete_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='delete_travelNotesReply(this)'>删除</a>";
+                                else
+                                    optionHtml="<a role='button' class='reply-report' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='report_travelNotesReply(this)'>举报</a><a role='button' class='_j_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' data-userName='"+data.travelNotesReply[i].user.userName+"' onclick='reply_travelNotesReply(this)'>回复</a>";
+                            }
+                            else
+                                optionHtml="<a role='button' class='reply-report' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='report_travelNotesReply(this)'>举报</a><a role='button' class='_j_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' data-userName='"+data.travelNotesReply[i].user.userName+"' onclick='reply_travelNotesReply(this)'>回复</a>";
+                            var mcmt_user=data.travelNotesReply[i].user.userName;
+                            if(null!=data.travelNotesReply[i].user.address&&0<data.travelNotesReply[i].user.address.length)
+                                mcmt_user+="("+data.travelNotesReply[i].user.address+")";
+                            var floor=(currentIndex-1)*100;
+                            floor+=i+1;
+                            insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='/u/19514877.html' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='/u/19514877.html' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
+                        }
+                    }
+                }
+                $(".page-hotel").html(insertPageHtml);
+                $("#_j_reply_list").html(insertTravelNotesReplyHtml);
+            }
+        });
+    }
+    //显示具有确认按钮模态框
+    function showalert(msg)
+    {
+        //popup_container1
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_0' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7;z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px;z-index: 0; overflow: hidden;'><div id='popup_container1' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left: "+left+"px; top:"+top+"px;'><a class='close-btn _j_close' onclick='closeModel(this)' data-id='_j_layer_0'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i1'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' onclick='closeModel(this)' data-id='_j_layer_0'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    //关闭模态框
+    function closeModel(obj)
+    {
+        var data_id=$(obj).attr("data-id");
+        $("#"+data_id).remove();
+    }
+    //页面大小变更,更改模态框在页面显示的位置
+    window.onresize = function(){
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        var width1=$(window).width()/2-350;
+        var height1=$(window).height()/2-250;
+        if(width1<=0)
+            width1=0;
+        if(height1<=0)
+            height1=0;
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
+        $("#popup_container2").css({"left":width+"px","top":height+"px"});
+        if(("#popup_container3").length>0)
+            $("#popup_container3").css({"left":width1+"px","top":height1+"px"});
+    }
+    //根据页数查询游记回复
+    function find_travelNotesReplyByPageIndex(obj)
+    {
+        var pageIndex=$(obj).attr("data-index");
+        var travelNotesId=$("#travelNotesId").val();
+        if(null!=travelNotesId&&0<travelNotesId.length)
+            load_travelNotesReply(pageIndex,travelNotesId);
+    }
+    //回复游记评论
+    function reply_travelNotesReply(obj)
+    {
+        var travelNotesReplyId=$(obj).attr("data-travelNotesReplyId");
+        var userName=$(obj).attr("data-userName");
+        travelNotesReplyIdReply=travelNotesReplyId;
+        $("._j_replyarea").attr("placeholder","回复"+userName+": ");
+        $.scrollTo("._j_replyarea",1000);
+    }
+    //删除游记评论
+    function delete_travelNotesReply(obj)
+    {
+        var travelNotesReplyId=$(obj).attr("data-travelNotesReplyId");
+        $.ajax({
+            url:"travelNotesReplyController/delete_travelNotesReplyBytravelNotesReplyId",
+            dataType:"json",
+            type:"post",
+            data:{travelNotesReplyId:travelNotesReplyId},
+            success:function(data)
+            {
+                if(data)
+                    $(obj).parent().parent().parent().remove();
+                else
+                    showalert("删除游记评论失败");
+            }
+        });
+    }
+    //举报游记评论
+    function report_travelNotesReply(obj)
+    {
+        var travelNotesReplyId=$(obj).attr("data-travelNotesReplyId");
+        showalert("该功能暂未开放");
+    }
+    //转换日期
+    function format_time(replyTime)
+    {
+        return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+    }
+</script>
+</body>
+</html>

@@ -22,22 +22,22 @@ public class travelNotesService {
      * 根据用户编号查询和状态查询游记
      *
      * @param userId  用户编号
-     * @param stateId 状态
+     * @param stateIds 状态
      * @return 数量
      */
-    public int find_travelNotes_NumberByuserId(String userId, String stateId) {
-        return travelnotesdao.find_travelNotes_NumberByuserId(userId, stateId);
+    public int find_travelNotes_NumberByuserId(String userId, String... stateIds) {
+        return travelnotesdao.find_travelNotes_NumberByuserId(userId, stateIds);
     }
 
     /**
      * 根据用户编号和查询游记
      *
      * @param userId  用户编号
-     * @param stateId 状态编号
+     * @param stateIds 状态编号
      * @return 数据集合
      */
-    public List<travelNotes> find_travelNotes_ByuserId(String userId, String stateId) {
-        return travelnotesdao.find_travelNotes_ByuserId(userId, stateId);
+    public List<travelNotes> find_travelNotes_ByuserId(String userId, String... stateIds) {
+        return travelnotesdao.find_travelNotes_ByuserId(userId, stateIds);
     }
 
     /**
@@ -144,5 +144,44 @@ public class travelNotesService {
                 }
             }
         }
+    }
+    /**
+     * 根据游记编号修改游记所属城市
+     * @param travelNotesId 游记编号
+     * @param cityId 所属城市
+     * @return 受影响行数
+     */
+    public int update_travelNotes_cityId_BytravelNotesId(String travelNotesId,String cityId)
+    {
+        return travelnotesdao.update_travelNotes_cityId_BytravelNotesId(travelNotesId,cityId);
+    }
+    /**
+     * 根据游记编号修改状态
+     * @param travelNotesId 游记编号
+     * @param stateId 状态编号
+     * @return 受影响行数
+     */
+    public int update_travelNotes_stateId_BytravelNotesId(String travelNotesId,String stateId)
+    {
+        return travelnotesdao.update_travelNotes_stateId_BytravelNotesId(travelNotesId,stateId);
+    }
+
+    /**
+     * 根据游记编号修改状态,修改旧的状态
+     * @param travelNotesId 游记编号
+     * @param stateId 状态编号
+     * @return 受影响行数
+     */
+    public int update_travelNotes_stateId_oldstateId_BytravelNotesId(String travelNotesId,String stateId)
+    {
+        return travelnotesdao.update_travelNotes_stateId_oldstateId_BytravelNotesId(travelNotesId,stateId);
+    }
+    /**
+     * 添加新的游记
+     * @return 受影响行数
+     */
+    public int insert_travelNotes(travelNotes t)
+    {
+        return travelnotesdao.insert_travelNotes(t);
     }
 }
