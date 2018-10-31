@@ -31,9 +31,7 @@ public class Realm extends AuthorizingRealm{
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println(authenticationToken.getCredentials().toString());
         String adName=(String) authenticationToken.getPrincipal();
-        System.out.println(adName);
         Admin admin=as.byAdNameQuery(adName);
         if(admin==null){
             throw new UnknownAccountException();

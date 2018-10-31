@@ -43,8 +43,8 @@ public class ShiroConfiguration {
         filterChain.put("/favicon.ico","anon");//解决登录成功之后跳转/favicon.ico问题
         filterChain.put("/logout", "logout");
 
-        //拦截所有url
-        filterChain.put("/**","authc");
+        filterChain.put("/successLogin","authc"); //拦截后台页面
+        filterChain.put("/login","authc"); //拦截登录url
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChain);
         return shiroFilterFactoryBean;
     }
