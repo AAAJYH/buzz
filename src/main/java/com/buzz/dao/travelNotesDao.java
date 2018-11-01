@@ -115,4 +115,12 @@ public interface travelNotesDao
      */
     @Insert("insert into travelNotes(travelNotesId,userId,browsingHistory,stateId) values(#{travelNotesId},#{userId},#{browsingHistory},#{stateId})")
     public int insert_travelNotes(travelNotes t);
+
+    /**
+     * 添加浏览记录
+     * @param travelNotesId
+     * @return
+     */
+    @Update("update travelNotes set browsingHistory=browsingHistory+1 where travelNotesId=#{travelNotesId}")
+    public Integer add_travelNotes_browsingHistoryBytravelNotesId(@Param("travelNotesId") String travelNotesId);
 }

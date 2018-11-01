@@ -593,4 +593,13 @@ public class travelNotesController {
         else
             return false;
     }
+    @ResponseBody
+    @RequestMapping("add_travelNotes_browsingHistoryBytravelNotesId")
+    public boolean add_travelNotes_browsingHistoryBytravelNotesId(String travelNotesId)
+    {
+        if(0<travelnotesservice.add_travelNotes_browsingHistoryBytravelNotesId(travelNotesId))
+            return true;
+        else
+            return false;
+    }
 }

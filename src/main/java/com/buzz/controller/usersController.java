@@ -453,4 +453,16 @@ public class usersController {
             map.put("loginState",false);
         return map;
     }
+
+    /**
+     * 根据用户编号获取用户
+     * @param userId 用户编号
+     * @return users实体
+     */
+    @ResponseBody
+    @RequestMapping("find_userByuserId")
+    public users find_userByuserId(String userId)
+    {
+        return usersservice.find_userByuseruserId(userId);
+    }
 }

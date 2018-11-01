@@ -184,4 +184,14 @@ public class travelNotesService {
     {
         return travelnotesdao.insert_travelNotes(t);
     }
+
+    /**
+     * 添加浏览记录
+     * @param travelNotesId
+     * @return
+     */
+    public Integer add_travelNotes_browsingHistoryBytravelNotesId(String travelNotesId)
+    {
+        return travelnotesdao.add_travelNotes_browsingHistoryBytravelNotesId(travelNotesId);
+    }
 }

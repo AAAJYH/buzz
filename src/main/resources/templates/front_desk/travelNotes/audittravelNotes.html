@@ -936,6 +936,8 @@
                                 $($(".person-edit").children("a")[0]).attr("href","travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+travelNotesId);
                                 $($(".person-edit").children("a")[1]).attr("onclick","showdelete_travelNotes_Model()");
                             }
+                            else//当登录用户不是游记所属用户添加点赞数量
+                                add_travelNotes_browsingHistoryBytravelNotesId();
                             if("30d3e6ed-f7b4-43cd-95e5-5ac428f15245"==data.travelNotes.stateId)//判断是否正在审核
                                 $(".notes_notice").removeClass("hide");
                             if("ac618998-ffe3-4300-a391-cd581f74078c"==data.travelNotes.stateId)//判断是否游记被删除
@@ -1601,6 +1603,24 @@
     function format_time(replyTime)
     {
         return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+    }
+    function add_travelNotes_browsingHistoryBytravelNotesId()
+    {
+        var travelNotesId=$("#travelNotesId").val();
+        if(null!=travelNotesId&&0<travelNotesId.length)
+        {
+            $.ajax({
+                url:"travelNotesController/add_travelNotes_browsingHistoryBytravelNotesId",
+                dataType:"json",
+                type:"post",
+                data:{travelNotesId:travelNotesId},
+                success:function(data)
+                {
+                    if(!data)
+                        showalert("新增浏览记录错误");
+                }
+            });
+        }
     }
 </script>
 </body>
