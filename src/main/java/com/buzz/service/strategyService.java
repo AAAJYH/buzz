@@ -24,4 +24,9 @@ public class strategyService {
         return strategyDao.queryCityStrategy(cityId);
     }
 
+    //攻略下载次数加1
+    public int updateCityStrategyDownloadNumber(String strategyId){
+        return strategyDao.updateCityStrategyDownloadNumber(strategyId);
+    }
+
 }

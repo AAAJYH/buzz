@@ -7,6 +7,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.Servlet;
@@ -42,5 +43,17 @@ public class strategyController {
         model.addAttribute("strategy",strategy);
         return "/front_desk/Strategy";
     }
+
+    /**
+     * 下载次数加一
+     * @param strategyId
+     * @return
+     */
+    @RequestMapping("/updateCityStrategyDownloadNumber")
+    @ResponseBody
+    public int updateCityStrategyDownloadNumber(String strategyId){
+        return strategyService.updateCityStrategyDownloadNumber(strategyId);
+    }
+
 
 }

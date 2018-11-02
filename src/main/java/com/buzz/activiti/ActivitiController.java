@@ -46,6 +46,11 @@ public class ActivitiController {
     @Autowired
     ObjectMapper objectMapper;
 
+    @RequestMapping("/aaa")
+    public String aaa(){
+        return "front_desk/1";
+    }
+
     /**
      * 访问模型管理页面
      * @return

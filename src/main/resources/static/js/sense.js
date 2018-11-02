@@ -1,4 +1,4 @@
-z9BB.t3N = 7;
+9BB.t3N = 7;
 z9BB.i3N = function() {
 	return typeof z9BB.j3N.J3N === 'function' ? z9BB.j3N.J3N.apply(z9BB.j3N, arguments) : z9BB.j3N.J3N;
 };
