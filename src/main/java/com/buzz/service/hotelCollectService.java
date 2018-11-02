@@ -3,6 +3,7 @@ package com.buzz.service;
 import com.buzz.dao.hotelCollectDao;
 import com.buzz.entity.hotelCollect;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -25,6 +26,7 @@ public class hotelCollectService {
 
 
     //用户收藏酒店
+    @Transactional
     public int addHotelCollect(String hotelCollectId,String userid,String hotelId){
         return hotelCollectDao.addHotelCollect(hotelCollectId,userid,hotelId);
     }

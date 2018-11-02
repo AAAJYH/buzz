@@ -4,6 +4,7 @@ import com.buzz.entity.city;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,5 +29,9 @@ public interface cityDao {
     //根据城市名模糊查询
     @Select("select * from city where cityName like concat('%',#{cityName},'%')")
     public List<city> byCityNameQuery(@Param("cityName") String cityName);
+
+    //城市查询次数加一
+    @Update("update city set searchNumber=searchNumber+1 where cityId=#{cityId}")
+    public int SearchNumberAddOne(@Param("cityId") String cityId);
 
 }

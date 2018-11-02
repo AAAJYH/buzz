@@ -3,6 +3,7 @@ package com.buzz.service;
 import com.buzz.dao.strategyDao;
 import com.buzz.entity.strategy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,6 +26,7 @@ public class strategyService {
     }
 
     //攻略下载次数加1
+    @Transactional
     public int updateCityStrategyDownloadNumber(String strategyId){
         return strategyDao.updateCityStrategyDownloadNumber(strategyId);
     }

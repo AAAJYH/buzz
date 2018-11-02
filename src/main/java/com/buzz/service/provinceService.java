@@ -25,9 +25,4 @@ public class provinceService {
         return provinceDao.queryAllProvince();
     }
 
-//    //查询城市
-//    public province byProvinceIdQuery(String provinceId){
-//        return provinceDao.byProvinceIdQuery(provinceId);
-//    }
-
 }
