@@ -60,7 +60,7 @@
             </style>
 
             <span th:if="${session.user!=null}">
-                <img th:src="@{'/images/userPhoto/'+${session.user.photo}}" class="photo">
+                <img th:src="@{'/'+${session.user.photo}}" class="photo">
             </span>
 
             <div th:if="${session.user==null}" class="login_register" id="login">
@@ -540,7 +540,7 @@
                             //拼接评论头像，用户名称，评论内容
                             var content="";
                             content+="<div class=\"one\">\n" +
-                                "<img src='/images/userPhoto/"+comment.userPicture+"' class=\"userPicture\">\n" +
+                                "<img src='/"+comment.userPicture+"' class=\"userPicture\">\n" +
                                 "<input type='hidden' value="+comment.scenicSpotCommentId+"><input type='hidden' value='"+comment.userId+"'><div class=\"userName\">"+comment.userName+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                                 ""+str+"</div>\n" +
                                 "<div class=\"content\">"+comment.content+"<br/>";
