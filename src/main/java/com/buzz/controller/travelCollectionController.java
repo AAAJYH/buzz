@@ -49,11 +49,16 @@ public class travelCollectionController
         t.setTravelCollectionId(Encryption.getUUID());
         t.setTravelNotesId(travelNotesId);
         t.setUserId(user.getUserId());
-        if(0<travelcollectionservice.insert_travelCollectionBytravelNotesId(t))
-            map.put("result",true);
+        if(0<travelcollectionservice.find_find_travelCollectionCountBytravelNotesIdAnduserId(travelNotesId,user.getUserId()))
+            map.put("result","exist");//如果已经点赞,则反悔exist;
         else
-            map.put("result",false);
-        map.put("travelCollection",travelcollectionservice.find_travelCollectionBytravelNotesId(travelNotesId));
+        {
+            if(0<travelcollectionservice.insert_travelCollectionBytravelNotesId(t))
+                map.put("result",true);
+            else
+                map.put("result",false);
+            map.put("travelCollection",travelcollectionservice.find_travelCollectionBytravelNotesId(travelNotesId));
+        }
         return map;
     }
 }

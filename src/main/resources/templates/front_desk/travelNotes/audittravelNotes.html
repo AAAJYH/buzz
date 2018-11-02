@@ -109,8 +109,8 @@
     <div class="view_title clearfix">
         <div class="vt_center">
             <div class="person">
-                <a href="usersController/login_user" target="_blank" class="per_pic"><img src="" /></a>
-                <strong><a href="usersController/login_user" target="_blank" class="per_name"></a></strong>
+                <a target="_blank" class="per_pic"><img src="" /></a>
+                <strong><a target="_blank" class="per_name"></a></strong>
                 <div class="vc_time">
                     <span class="time"></span>
                 </div>
@@ -173,7 +173,7 @@
                     </div>
                     <div class="mcmt-tab-con">
                         <div class="photo-con">
-                            <a href="/u/52028572.html" target="_blank" title="抽象°"><img src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90" alt="抽象°"></a>
+                            <a target="_blank"><img></a>
                         </div>
                         <div class="reply-con clearfix _j_article_mode _j_editor" id="_j_editor">
                             <dl>
@@ -872,6 +872,8 @@
                         if(data.loginState)
                         {
                             $("#userId").val(data.currentUser.userId);
+                            $(".photo-con").children("a").attr({"href":"front_desk/users/personalSpace.html?userId="+data.currentUser.userId,"title":data.currentUser.userName});
+                            $(".photo-con").children("a").children("img").attr("src",data.currentUser.photo);
                         }
                     }
                 }
@@ -956,7 +958,9 @@
                                 }
                             }
                             var titletext="";
+                            $(".per_pic").attr("href","front_desk/users/personalSpace.html?userId="+data.travelNotes.user.userId);
                             $(".per_pic").children("img").prop("src",data.travelNotes.user.photo);
+                            $(".per_name").attr("href","front_desk/users/personalSpace.html?userId="+data.travelNotes.user.userId);
                             var per_name=data.travelNotes.user.userName;
                             if(null!=data.travelNotes.user.address&&data.travelNotes.user.address.length>0)
                             {
@@ -1134,6 +1138,7 @@
             });
         }
     }
+    //添加游记收藏
     function insert_travelCollection(obj)
     {
         var data_flag=$(obj).attr("data-flag");
@@ -1149,17 +1154,22 @@
                     data:{travelNotesId:travelNotesId},
                     success:function(data)
                     {
-                        if(data.result)
+                        if(data.result=="exist")
+                            showover_message("该文章您已经收藏过了");
+                        else
                         {
-                            $(obj).attr("data-flag",false);
-                            $(".bs_collect").children("a").children("span").text(data.travelCollection.length);
-                            $(".bs_collect").addClass("collected");
+                            if(data.result)
+                            {
+                                $(obj).attr("data-flag",false);
+                                $(".bs_collect").children("a").children("span").text(data.travelCollection.length);
+                                $(".bs_collect").addClass("collected");
+                            }
                         }
                     }
                 });
             }
             else
-                showover_message("该文章您已经收藏过了！");
+                showover_message("该文章您已经收藏过了");
         }
     }
     //显示5秒钟消息提示
@@ -1410,7 +1420,7 @@
                                                 mcmt_user+="("+data.travelNotesReply[i].user.address+")";
                                             var floor=(currentIndex-1)*100;
                                             floor+=i+1;
-                                            insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='/u/19514877.html' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='/u/19514877.html' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
+                                            insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
                                         }
                                     }
                                     $(".page-hotel").html(insertPageHtml);
@@ -1516,7 +1526,7 @@
                                 mcmt_user+="("+data.travelNotesReply[i].user.address+")";
                             var floor=(currentIndex-1)*100;
                             floor+=i+1;
-                            insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='/u/19514877.html' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='/u/19514877.html' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
+                            insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
                         }
                     }
                 }
