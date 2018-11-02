@@ -35,4 +35,9 @@ public class cityService {
         return cityDao.byCityNameQuery(cityName);
     }
 
+    //城市查询次数加一
+    public int SearchNumberAddOne(String cityId){
+        return cityDao.SearchNumberAddOne(cityId);
+    }
+
 }

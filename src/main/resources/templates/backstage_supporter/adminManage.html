@@ -34,19 +34,14 @@
             $('#dg').datagrid({
                 url:'/pagingQueryAdmin',
                 columns:[[
-<<<<<<< HEAD
-                    {field:'id',title:'编号',width:100},
-                    {field:'adname',title:'账号',width:100},
-=======
-                    {field:'id',title:'代码',width:100},
-                    {field:'adname',title:'名称',width:100},
->>>>>>> f5a813c7c765fc367d0d0e72216f87cfa17dcfe7
-                    {field:'state',title:'价格',width:100,formatter:formatterState}
+                    {field:'id',title:'编号',width:50},
+                    {field:'adname',title:'账号',width:50},
+                    {field:'state',title:'价格',width:50,formatter:formatterState}
                 ]],
                 pagination:true,
                 pageNumber:1,
                 pageSize:10,
-                    pageList:[10,15,20,25],
+                pageList:[10,15,20,25],
                 rownumbers:true,
                 singleSelect:true,
                 fitColumns:true,
