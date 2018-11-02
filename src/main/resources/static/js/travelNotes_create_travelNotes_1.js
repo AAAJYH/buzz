@@ -24,10 +24,8 @@ $("textarea").keyup(
 	}
 );
 var croppicHeaderOptions = {
-    //uploadUrl:'img_save_to_file.php',
     cropData:{
-        "dummyData":1,
-        "dummyData2":"asdas"
+        "travelNotesId":$("#travelNotesId").val()
     },
     cropUrl:'travelNotesController/uploadPhotos',
     customUploadButtonId:'_j_upload_toppic',
@@ -39,20 +37,13 @@ var croppicHeaderOptions = {
         //隐藏设置游记头图
         $(".set_page").css("display","none");
     },
-    onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
-    onImgDrag: function(){ console.log('onImgDrag') },
-    onImgZoom: function(){ console.log('onImgZoom') },
-    onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
-    onAfterImgCrop:function(){
-        console.log('onAfterImgCrop')
-    },
     onReset:function(){
         //如果关闭剪切图片,显示设置游记头图按钮
         $(".set_page").css("display","block");
     },
     onError:function(errormessage){
         //当上传出现错误时
-        alert(errormessage);
+        showalert(errormessage);
     }
 }
 var croppic = new Croppic('cropContainerModal', croppicHeaderOptions);

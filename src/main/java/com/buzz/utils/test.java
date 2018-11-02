@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class test {
 
-    @Test
+    //@Test
     public void a() {
         for (int i = 0; i < 20; i++) {
             System.out.println(UUID.randomUUID());
@@ -24,8 +24,16 @@ public class test {
         int h = 114;
         System.out.println(w / 1.252 + "  " + h / 1.25);
     }
-
     @Test
+    public void getuuid()
+    {
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+    }
+
+    //@Test
     public void b() throws Exception {
         String path = "http://apitest.99263.com/Hotel/HotelDetail?Data={'HId':71720}";
         URL url = new URL(path);
@@ -54,7 +62,7 @@ public class test {
         return output.toByteArray();
     }
 
-    @Test
+    //@Test
     public void c(){
         System.out.println(new Timestamp(System.currentTimeMillis()));
     }

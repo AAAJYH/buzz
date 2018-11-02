@@ -1,5 +1,6 @@
 package com.buzz.configuration;
 
+import com.buzz.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -14,9 +15,21 @@ public class WebConfig implements WebMvcConfigurer
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:E:/IntelliJ IDEA/FilePath/buzz/src/main/resources/static/images/");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/images/");
         registry.addResourceHandler("/music/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/music/");
         registry.addResourceHandler("/upload/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/upload/");
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry)
+    {
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/travelNotesController/find_travelNotes_ByuserId")
+                .addPathPatterns("/travelNotesController/check_travelNotesNumber")
+                .addPathPatterns("/travelNotesController/publish_travelNotes")
+                .addPathPatterns("/travelNotesController/preview_travelNotes")
+                .addPathPatterns("/travelCollectionController/insert_travelCollectionBytravelNotesId")
+                .addPathPatterns("/travelNotesController/insert_travelNotes")
+                .addPathPatterns("/travelNotesReplyController/insert_travelNotesReply");
+    }
 }

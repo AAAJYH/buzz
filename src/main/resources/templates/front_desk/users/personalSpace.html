@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost/">
+    <title></title>
+    <meta name="renderer" content="webkit" />
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1%5EalI%5E1509971336.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css">
+    <link href="http://css.mafengwo.net/css/cv/css+mfw-index.2015:css+jquery-ui-1.9.1.custom.min:css+hotel+datepicker-range^ZFM^1525846268.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+<div class="topBar">
+    <div class="topBarC">
+        <div class="logo"><a title="嗡嗡嗡自由行" href="/">嗡嗡嗡自由行</a></div>
+        <div class="t_nav">
+            <ul id="pnl_nav" data-cs-t="headnav_wo">
+                <li data-cs-p="index">
+                    <strong class="t"><a href="/">首页</a></strong>
+                </li>
+                <li data-cs-t="wenda" data-cs-p="wenda">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                </li>
+                <li data-cs-t="things" data-cs-p="things">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">嗡嗡嗡周边</a></strong>
+                </li>
+                <li data-cs-p="together">
+                    <strong class="t"><a href="/together/">结伴</a></strong>
+                </li>
+                <li data-cs-p="group">
+                    <strong class="t"><a href="/group/">小组</a></strong>
+                </li>
+                <li data-cs-p="mall">
+                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
+                </li>
+                <li class="drop" data-cs-p="other">
+                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
+                    <div class="c">
+                        <a href="/focus/" target="_blank">真人兽</a>
+                        <a href="/school/" target="_blank">嗡嗡嗡高校</a>
+                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
+                        <a href="/auction/" target="_blank">嗡嗡嗡拍卖行</a>
+                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
+                        <a href="/radio/" target="_blank">旅行电台</a>
+                        <a href="/club/" target="_blank">蜂首聚乐部</a>
+                        <a href="/home/vip_show.php" target="_blank">VIP</a>
+                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="t_search">
+            <form method="GET" action="/search/s.php" name="search">
+                <input type="text" class="key" value="" name="q" id="word">
+                <input type="submit" value="" class="btn">
+            </form>
+        </div>
+
+        <div class="t_info">
+            <div data-pagelet id="pagelet-block-ab780daabf9bf0dbdcc3c6537dbd2046" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+        </div>
+    </div>
+</div>
+<style>
+    ._j_coverpic_wrap{display:none}
+    .cover_with_pic ._j_coverpic_wrap{display:block}
+    .cover_with_pic .maps-container{display:none}
+    .MUsersBehavior {margin-top:0}
+    .map_default_start .btn-addPath {position:static}
+    .hold_cat {
+        user-select:none;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select: none;
+        -khtml-user-select: none;
+    }
+</style>
+<div class="main">
+    <input type="hidden" id="userId" name="userId">
+    <input type="hidden" id="currentuserId" name="currentuserId">
+    <div class="banner">
+        <style>
+            .invisible {opacity:0.01; filter: alpha(opacity=1);}
+            .invisible .maps-container {opacity:0.01; filter: alpha(opacity=1);}
+        </style>
+        <div class="mfw-focus" style="margin:0px;" id="_j_mfw_focus">
+            <div class="show-slider" id="_j_top_pic_container" style="height:600px;">
+                <ul class="show-image">
+                    <li class="first" style="display: none;">
+                        <a href="/i/10927758.html" target="_blank" class="show-pic"><img height="600px" src="https://p4-q.mafengwo.net/s12/M00/33/AE/wKgED1vZkFqAe5XHAANxv9_2IsQ34.jpeg?imageMogr2%2Finterlace%2F1"></a>
+                        <a href="/i/10927758.html" target="_blank" class="show-title dark">
+                            <div class="date">
+                                <span class="day">1</span>/Nov.2018
+                            </div>
+                            <h3>悲喜交加，“美食之都”顺德现实打卡指南</h3>
+                        </a>
+                    </li>
+                    <li style="display: none;">
+                        <a href="/i/11045150.html" target="_blank" class="show-pic"><img height="600px" src="https://b2-q.mafengwo.net/s12/M00/45/21/wKgED1vYhkCALEGcAAaLdNXIm7M07.jpeg?imageMogr2%2Finterlace%2F1"></a>
+                        <a href="/i/11045150.html" target="_blank" class="show-title dark">
+                            <div class="date">
+                                <span class="day">31</span>/Oct.2018
+                            </div>
+                            <h3>米兰时尚新旅行——买手店、古着店、奢侈品扫货合集</h3>
+                        </a>
+                    </li>
+                    <li style="display: none;">
+                        <a href="/i/10827646.html" target="_blank" class="show-pic"><img height="600px" src="https://p3-q.mafengwo.net/s12/M00/97/2F/wKgED1vW6Y6AYXtjAAaadTwmmzM50.jpeg?imageMogr2%2Finterlace%2F1"></a>
+                        <a href="/i/10827646.html" target="_blank" class="show-title dark">
+                            <div class="date">
+                                <span class="day">30</span>/Oct.2018
+                            </div>
+                            <h3>4场徒步、3次冒险、数场落日星空【南北岛自驾全纪录】</h3>
+                        </a>
+                    </li>
+                    <li style="display: none;">
+                        <a href="/i/9725053.html" target="_blank" class="show-pic"><img height="600px" src="https://n3-q.mafengwo.net/s12/M00/F7/31/wKgED1vWcrGAU7j_AAi894OsVWg43.jpeg?imageMogr2%2Finterlace%2F1"></a>
+                        <a href="/i/9725053.html" target="_blank" class="show-title dark">
+                            <div class="date">
+                                <span class="day">29</span>/Oct.2018
+                            </div>
+                            <h3>独行英国，玩转文艺伦敦与最美乡村</h3>
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="/i/10012226.html" target="_blank" class="show-pic"><img height="600px" src="https://n4-q.mafengwo.net/s12/M00/54/72/wKgED1vS-TuANRU_AAb_IYlP8Kk78.jpeg?imageMogr2%2Finterlace%2F1"></a>
+                        <a href="/i/10012226.html" target="_blank" class="show-title dark">
+                            <div class="date">
+                                <span class="day">28</span>/Oct.2018
+                            </div>
+                            <h3>苍山洱海旁，牵手大笑的我们</h3>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="show-nav">
+                    <li class=""><a href="javascript:"><img src="https://b2-q.mafengwo.net/s12/M00/33/A3/wKgED1vZkFCAIZY2AANxcxBiX7Y81.jpeg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90" height="62" width="110"><span></span></a></li>
+                    <li class=""><a href="javascript:"><img src="https://b4-q.mafengwo.net/s12/M00/08/3F/wKgED1vYVuWAFp6OAAIqZE6kqcI01.jpeg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90" height="62" width="110"><span></span></a></li>
+                    <li class=""><a href="javascript:"><img src="https://n3-q.mafengwo.net/s12/M00/97/21/wKgED1vW6YCAKMhCAAMRfQovpgQ05.jpeg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90" height="62" width="110"><span></span></a></li>
+                    <li class=""><a href="javascript:"><img src="https://b4-q.mafengwo.net/s12/M00/F7/0B/wKgED1vWcp-AFOq3AAPmghX3HWk57.jpeg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90" height="62" width="110"><span></span></a></li>
+                    <li class="active"><a href="javascript:"><img src="https://p1-q.mafengwo.net/s12/M00/54/6A/wKgED1vS-S-ACLURAAY1Q-In2ak41.jpeg?imageMogr2%2Fthumbnail%2F%21108x67r%2Fgravity%2FCenter%2Fcrop%2F%21108x67%2Fquality%2F90" height="62" width="110"><span></span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tags_bar">
+            <div class="center clearfix">
+                <ul class="flt2" id="titleBar">
+                    <li class='on'><a class='tags_link' href='/u/52028572.html' title='我的窝'>我的窝</a></li>
+                    <li><a class='tags_link' href='/u/52028572/note.html' title='我的游记'>我的游记</a></li>
+                    <li><a class='tags_link' href='/wenda/u/52028572/answer.html' title='我的问答'>我的问答</a></li>
+                    <li id='_j_pathnav'><a class='tags_link' href='/path/52028572.html' title='我的足迹'>我的足迹</a></li>
+                    <li><a class='tags_link' href='/u/52028572/review.html' title='我的点评'>我的点评</a></li>
+                    <li><a class='tags_link' href='/u/52028572/together.html' title='我的结伴'>我的结伴</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <style>
+        .flow_path_maps{
+            overflow:hidden;
+            position:absolute;
+            top:75px;
+            width:100%;
+            bottom:0;
+        }
+        .flow_path_maps ._j_mapsizi {
+            height:100%;
+        }
+        .flow_path_maps .flowsmall{
+            width: 140px;
+            height: 68px;
+            position: absolute;
+            right: 5%;
+            bottom: 100px;
+            z-index:10;
+        }
+        .flow_path_maps .flowsmall ._j_bg {
+            width:140px;
+            height:68px;
+            background:#000;
+            opacity:0.3;
+            filter:alpha(opacity=30);
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:-1;
+        }
+        .flow_path_maps .flowsmall .jvectormap-marker {
+            display: none;
+        }
+        .maps-content { width:100%; height:100% }
+        .flow_path_maps .jvectormap-zoomin, .flow_path_maps .jvectormap-zoomout {display:none}
+    </style>
+    <div class="up_bar hide" id="_j_toppic_progressbar" style="position:fixed; z-index:100000"></div>
+    <div class="center clearfix">
+        <div class="side_bar flt1">
+            <style>
+                .MProfile pre {
+                    white-space: pre-wrap;
+                    word-break: break-word;
+                    word-wrap: break-word;
+                }
+            </style>
+            <div class="MAvatar">
+                <div class="MAvaImg hasAva">
+                    <img height="120" width="120"><a class="MAvaUp"><i class="Mphoto"></i></a></input>
+                </div>
+                <div class="MAvaName"></div>
+                <div class="MAvaInfo clearfix MAvaMyInfo"></div>
+                <div id="_j_profilearea" class="MAvaProfile"></div>
+            </div>
+            <div class="placehold76" id="_j_music_placeholder">
+                <div class="music_block clearfix music_fixed" id="_j_musiccnt">
+                    <div class="music_bar"><span class="process _j_progress" style="width: 60.6838%;"></span></div>
+                    <div class="music_botton" id="music">
+                        <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="http://mp3file.mafengwo.net/201811021136/571e4d9d0e983ab4c6bf2e61a12d1084/s11/M00/32/A8/wKgBEFtMLIKARbKQAM3J6pPBuz0314.mp3"></audio></div>
+                        <a role="button" class="_j_m_control play">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <img src="http://images.mafengwo.net/images/post/new_notes/nn_v2/music.gif">
+                        </a>
+                        <span class="ico_slide prev _j_prev"></span>
+                        <span class="ico_slide next _j_next"></span>
+                    </div>
+                    <div class="music_info">
+                        <div data-music="{&quot;music_k&quot;:&quot;10961722&quot;,&quot;music_title&quot;:&quot;George,\uac15\ud61c\uc778 - Something&quot;,&quot;music_topiid&quot;:&quot;10961722&quot;,&quot;music_topiname&quot;:&quot;\u5728\u91dc\u5c71\u6389\u8fdb\u97e9\u5267...&quot;,&quot;music_url&quot;:&quot;http:\/\/mp3file1.mafengwo.net\/201811021136\/e47341b56e5d1ede1f892bfd1cba3a12\/s12\/M00\/B1\/01\/wKgED1vIkG-AQNJfAJVHFcDM1ys876.mp3&quot;}" class="_j_musicitem hide">
+                            <span class="name" title="George,강혜인 - Something">George,강혜인 - Something</span>
+                            <span>来自</span>
+                            <a href="/i/10961722.html" title="《在釜山掉进韩剧...》">《<strong>在釜山掉进韩剧...</strong>》</a>
+                        </div>
+                        <div data-music="{&quot;music_k&quot;:&quot;9850938&quot;,&quot;music_title&quot;:&quot;Tschaikovsky \u67f4\u53ef\u592b\u65af\u57fa\uff1aJune Barcarolle Op.37 No.6 \u516d\u6708\u8239\u6b4c - Various Artists&quot;,&quot;music_topiid&quot;:&quot;9850938&quot;,&quot;music_topiname&quot;:&quot;\u62e5\u62b1\u4f60\u7684\u70c8\u65e5\u66b4...&quot;,&quot;music_url&quot;:&quot;http:\/\/mp3file.mafengwo.net\/201811021136\/571e4d9d0e983ab4c6bf2e61a12d1084\/s11\/M00\/32\/A8\/wKgBEFtMLIKARbKQAM3J6pPBuz0314.mp3&quot;}" class="_j_musicitem">
+                            <span class="name" title="Tschaikovsky 柴可夫斯基：June Barcarolle Op.37 No.6 六月船歌 - Various Artists">Tschaikovsky 柴可夫斯基：June Barc..</span>
+                            <span>来自</span>
+                            <a href="/i/9850938.html" title="《拥抱你的烈日暴...》">《<strong>拥抱你的烈日暴...</strong>》</a>
+                        </div>
+                        <div data-music="{&quot;music_k&quot;:&quot;9808973&quot;,&quot;music_title&quot;:&quot;\u624b\u5d8c\u8475 - What Is A Youth \uff1f&quot;,&quot;music_topiid&quot;:&quot;9808973&quot;,&quot;music_topiname&quot;:&quot;\u6211\u4eec\u4e00\u5bb6\u4eba\u7684\u65c5...&quot;,&quot;music_url&quot;:&quot;http:\/\/mp3file.mafengwo.net\/201811021136\/9c230b83ec028f34a436e1b313daf3b0\/s11\/M00\/17\/89\/wKgBEFtEQW2ATyjtAJxQpGHnnoE520.mp3&quot;}" class="_j_musicitem hide">
+                            <span class="name" title="手嶌葵 - What Is A Youth ？">手嶌葵 - What Is A Youth ？</span>
+                            <span>来自</span>
+                            <a href="/i/9808973.html" title="《我们一家人的旅...》">《<strong>我们一家人的旅...</strong>》</a>
+                        </div>
+                        <div data-music="{&quot;music_k&quot;:&quot;9743701&quot;,&quot;music_title&quot;:&quot;Rapha\u00ebl Beau - Dernier Vol&quot;,&quot;music_topiid&quot;:&quot;9743701&quot;,&quot;music_topiname&quot;:&quot;\u4e2d\u5c71\u56e0\u4f60\u800c\u4f1f\u5927...&quot;,&quot;music_url&quot;:&quot;http:\/\/mp3file.mafengwo.net\/201811021136\/784178f210e7d317fb21f652ab9e14d7\/s11\/M00\/4A\/55\/wKgBEFs8PkKATd65AEMYRtrRS-c508.mp3&quot;}" class="_j_musicitem hide">
+                            <span class="name" title="Raphaël Beau - Dernier Vol">Raphaël Beau - Dernier Vol</span>
+                            <span>来自</span>
+                            <a href="/i/9743701.html" title="《中山因你而伟大...》">《<strong>中山因你而伟大...</strong>》</a>
+                        </div>
+                        <div data-music="{&quot;music_k&quot;:&quot;9725053&quot;,&quot;music_title&quot;:&quot;John Lennon - Imagine&quot;,&quot;music_topiid&quot;:&quot;9725053&quot;,&quot;music_topiname&quot;:&quot;\u98de\u8dc38800\u516c\u91cc\u7684...&quot;,&quot;music_url&quot;:&quot;http:\/\/mp3file1.mafengwo.net\/201811021136\/bcf029297995fbf42018e246973faf45\/s11\/M00\/53\/16\/wKgBEFrkIrqAPXDTAHQXPN9_bDQ168.mp3&quot;}" class="_j_musicitem hide">
+                            <span class="name" title="John Lennon - Imagine">John Lennon - Imagine</span>
+                            <span>来自</span>
+                            <a href="/i/9725053.html" title="《飞跃8800公里的...》">《<strong>飞跃8800公里的...</strong>》</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content flt2">
+            <div class="common_block main_links">
+                <ul class="clearfix">
+                    <li><a href="front_desk/travelNotes/createNoteIndex.html" target="_blank"><i class="write_note"></i><span>写游记</span></a></li>
+                    <li><a href="/wenda/" target="_blank"><i class="ask_expert"></i><span>问达人</span></a></li>
+                    <li><a href="/path/" target="_blank"><i class="add_footprint"></i><span>添加足迹</span></a></li>
+                    <li class="last"><a href="/together/" target="_blank"><i class="invite_friends"></i><span>发布结伴</span></a></li>
+                </ul>
+                <div class="open_corner">
+                    <a role="button" id="_j_profile_setting"><span><i></i></span></a>
+                </div>
+            </div>
+            <div class="common_block my_notes" id="my_travelNotes">
+                <div class="common_title clearfix">
+                    <h2>我的游记</h2>
+                </div>
+                <div class="notes_default_v2">
+                    <div class="notes_dcon">
+                    </div>
+                    <a href="front_desk/travelNotes/createNoteIndex.html" title="写游记" class="btn_write"><i></i>写游记</a>
+                </div>
+                <div class="more_notes">
+                    <a class="btn_deleted" href="/u/note/delete.html"><i></i>已删除游记</a>
+                </div>
+            </div>
+            <div class="common_block my_notes">
+                <div class="common_title clearfix">
+                    <h2>我的回答</h2>
+                </div>
+                <div class="notes_default ask_default">
+                    <i class="ico_notes"></i>
+                    <div class="notes_default_detail">
+                        <p>嗡嗡嗡问答是一个所有人帮所有人的平台，<br>用你的旅行经验，去帮助其他蜂蜂。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="common_block my_notes">
+                <div class="common_title clearfix">
+                    <h2>我的点评</h2>
+                </div>
+                <div class="notes_default dp_default">
+                    <i class="ico_notes"></i>
+                    <div class="notes_default_detail">
+                        <p>点评，不仅是旅途记忆，<br>更是帮助他人的宝贵财富。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+
+
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<script>
+$().ready(
+    function()
+    {
+        var userId=GetQueryString("userId");//获取地址栏中的userId
+        $("#userId").val(userId);
+        if(null!=userId&&0<userId.length)
+        {
+            //获取当前登录用户
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        if(data.loginState)
+                        {
+                            $("#currentuserId").val(data.currentUser.userId);
+                            if(data.currentUser.userId!=userId)//如果当前用户是本网页用户
+                            {
+                                var titleBarHtml="";
+                                titleBarHtml+="<li class='on'><a class='tags_link' href='/u/52028572.html' title='TA的窝'>TA的窝</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/note.html' title='TA的游记'>TA的游记</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='/wenda/u/52028572/answer.html' title='TA的问答'>TA的问答</a></li>";
+                                titleBarHtml+="<li id='_j_pathnav'><a class='tags_link' href='/path/52028572.html' title='TA的足迹'>TA的足迹</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/review.html' title='TA的点评'>TA的点评</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/together.html' title='TA的结伴'>TA的结伴</a></li>";
+                                $("#titleBar").html(titleBarHtml);
+                            }
+                        }
+                    }
+                }
+            });
+            $.ajax({
+                url:"usersController/find_userByuserId",
+                dataType:"json",
+                type:"post",
+                data:{userId:userId},
+                success:function(data)
+                {
+                    var currentuserId=$("#currentuserId").val();
+                    var MAvaInfoHtml="";
+                    $(".MAvaImg").children("img").attr("src",data.photo);
+                    if(null!=data.address&&0<data.address.length)
+                        MAvaInfoHtml+="<span class='MAvaPlace flt1' title=''>现居:"+data.address+"</span>";
+                    var MAvaNameHtml="";
+                    MAvaNameHtml+=data.userName;
+                    if(data.sex=="男")
+                        MAvaNameHtml+="<i class='MGenderMale'></i>";
+                    else
+                        MAvaNameHtml+="<i class='MGenderFemale'></i>";
+                    $(".MAvaName").html(MAvaNameHtml);
+                    if(currentuserId==userId)//如果当前用户是本网页用户
+                    {
+                        $(".MAvaUp").attr("href","个人信息设置");
+                        MAvaInfoHtml+="<span class='MAvaSet'><a title='设置' href='个人信息设置'  target='_blank'></a></span>";
+                        $("#_j_profilearea").html("<a role='button' class='addBtn _j_showintrobox'>填写个人简介</a><div class='MAvaInput hide _j_inputarea'><textarea id='_j_introarea' placeholder='例：摄影师/旅居澳洲/潜水爱好者' maxlength='100'></textarea><a role='button' id='_j_introsaver' class='MAvaBtn' title='保存'>保存</a></div>");
+                    }
+                    else
+                    {
+                        $("#_j_profilearea").html("<span>"+data.individualResume+"</span>")
+                    }
+                    $(".MAvaInfo").html(MAvaInfoHtml);
+                }
+            });
+        }
+    }
+);
+//获取地址栏中的参数
+function GetQueryString(name)
+{
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  unescape(r[2]); return null;
+}
+</script>
+</body>
+</html>

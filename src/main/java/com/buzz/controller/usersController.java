@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("usersController")
@@ -33,6 +35,7 @@ public class usersController {
     private usersService usersservice;
     @Resource
     private emailService emailservice;
+
     /**
      * 显示登录页面
      *
@@ -227,7 +230,7 @@ public class usersController {
     @RequestMapping("register_user")
     public String register_user(Model model, users user, String password, String mobile) {
         user.setUserId(Encryption.getUUID());
-        user.setPhoto("wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
+        user.setPhoto("images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
         user.setUserPassword(Encryption.encryption_md5(password));
         user.setSex("男");
         user.setStateId("0ee26211-3ae8-48b7-973f-8488bfe837d6");
@@ -428,12 +431,38 @@ public class usersController {
                 }else{
                     return "redirect:/destinationController/queryAllDestination";
                 }
-             else
+            else
             {
                 model.addAttribute("danger_message","账号或密码错误,请重试!");
                 return "front_desk/login";
             }
         }
     }
+    @ResponseBody
+    @RequestMapping("getCurrentLoginUser")
+    public Map<String,Object> getCurrentLoginUser(HttpSession session)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user=(users) session.getAttribute("user");
+        if(null!=user)
+        {
+            map.put("loginState",true);
+            map.put("currentUser",user);
+        }
+        else
+            map.put("loginState",false);
+        return map;
+    }
 
+    /**
+     * 根据用户编号获取用户
+     * @param userId 用户编号
+     * @return users实体
+     */
+    @ResponseBody
+    @RequestMapping("find_userByuserId")
+    public users find_userByuserId(String userId)
+    {
+        return usersservice.find_userByuseruserId(userId);
+    }
 }
