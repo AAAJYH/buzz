@@ -5,14 +5,12 @@ import com.buzz.entity.travelNotes;
 import com.buzz.entity.travelNotesContent;
 import com.buzz.entity.travelNotesReply;
 import com.buzz.entity.users;
-import com.buzz.service.cityService;
-import com.buzz.service.travelNotesReplyService;
-import com.buzz.service.travelNotesService;
-import com.buzz.service.usersService;
+import com.buzz.service.*;
 import com.buzz.utils.Encryption;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,9 +37,9 @@ public class travelNotesController {
     @Resource
     private usersService usersservice;
     @Resource
-    private travelNotesReplyService travelnotesreplyservice;
-    @Resource
     private cityService cityservice;
+    @Resource
+    private travelCollectionService travelcollectionservice;
     /**
      * 根据用户编号和状态查询游记
      *
@@ -564,7 +562,7 @@ public class travelNotesController {
     }
 
     /**
-     * 根据游记编号修改游记状态为删除
+     * 根据游记编号修改游记状态为删除,并将当前游记状态保存在oldstateId中
      * @param travelNotesId 游记编号
      * @return
      */
@@ -572,7 +570,7 @@ public class travelNotesController {
     @RequestMapping("delete_travelNotesBytravelNotesId")
     public boolean delete_travelNotesBytravelNotesId(String travelNotesId)
     {
-        if(0<travelnotesservice.update_travelNotes_stateId_BytravelNotesId(travelNotesId,"ac618998-ffe3-4300-a391-cd581f74078c"))
+        if(0<travelnotesservice.update_travelNotes_stateId_oldstateId_BytravelNotesId(travelNotesId,"ac618998-ffe3-4300-a391-cd581f74078c"))
             return true;
         else
             return false;
@@ -593,6 +591,12 @@ public class travelNotesController {
         else
             return false;
     }
+
+    /**
+     * 添加游记访问数量
+     * @param travelNotesId
+     * @return
+     */
     @ResponseBody
     @RequestMapping("add_travelNotes_browsingHistoryBytravelNotesId")
     public boolean add_travelNotes_browsingHistoryBytravelNotesId(String travelNotesId)
@@ -601,5 +605,27 @@ public class travelNotesController {
             return true;
         else
             return false;
+    }
+
+    /**
+     * 根据用户编号查询游记
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotesByuserId")
+    public List<travelNotes> find_travelNotesByuserId(String userId)
+    {
+        List<travelNotes> list=travelnotesservice.find_travelNotes_ByuserId(userId,"b45b8bd7-4ce2-407a-9622-3040573f6710","30d3e6ed-f7b4-43cd-95e5-5ac428f15245");
+        if(null!=list&&0<list.size())
+        {
+            for(travelNotes t:list)
+            {
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+                if(null!=t&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+            }
+        }
+        return list;
     }
 }

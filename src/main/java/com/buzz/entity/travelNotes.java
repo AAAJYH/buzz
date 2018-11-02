@@ -23,6 +23,7 @@ public class travelNotes
     private users user;
     private Timestamp releaseTime;
     private long browsingHistory;
+    private long collectionNumber;//收藏数量,数据库中不存在,只存在于实体类中
     private String cityId;
     private city city;
     private String stateId;
