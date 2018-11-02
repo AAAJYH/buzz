@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>后台管理</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/icon.css"/>
+
+    <script>
+
+       $(function(){
+
+           //加载菜单集合
+           $('#tree').tree({
+               url: '/byAdNameQuerMenu'
+           });
+
+           //初始化选项卡
+           $("#tabs").tabs({
+               fit:true, //tab铺满行
+               justified:true, //生成等宽度tab
+               pill:true, //tab样式为气泡
+               closable:true,
+               tools:[{ //工具栏
+                   iconCls:'icon-no', //关闭全部tab
+                   handler:function(){
+                       var tabs=$("#tabs").tabs("tabs"); //获取全部tab对象
+                       var tabsLength=tabs.length; //获取tab对象
+                       for(var i=0;i<tabsLength;i++){ //遍历删除index为0的tab
+                           $("#tabs").tabs("close",tabs[0].title);
+                       }
+                   }
+               }]
+
+           });
+
+           //点击菜单添加选项卡
+           $("#tree").tree({
+               onClick:function() {
+               var currentMenu=$("#tree").tree("getSelected");//获取点中的菜单
+               var title=currentMenu.text;//当前菜单名称作为tabs的title
+                if(currentMenu.children==null){//如果当前菜单没有字菜单添加选项
+                    if($("#tabs").tabs("exists",title)){ //如果已打开此tab提示请勿打开
+                        $("#tabs").tabs("close",title) //根据tab标题关闭已打开的tab
+                    }
+                    //添加tab
+                    $('#tabs').tabs('add',{
+                        title:title,
+                        content:"<iframe src="+currentMenu.url+" frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe>",
+                        closable:true,
+                        tools:[ //工具栏
+                            { //刷新
+                            iconCls:'icon-reload',
+                            handler:function(){
+                                var currentTab = $('#tabs').tabs('getSelected');
+                                RefreshTab(currentTab);
+                            }
+                        },""]
+                    });
+                }
+               }
+           });
+
+       });
+
+       //刷新当前标签Tabs
+            function RefreshTab(currentTab) {
+                $('#tabs').tabs('update', { //更新选项卡面板的内容
+                    tab: currentTab,//tab还为当前tab
+                    options: { //属性中的href为当前页面的内容
+                        href: currentTab.content
+                    }
+                });
+              }
+
+    </script>
+
+</head>
+
+<body class="easyui-layout">
+
+    <!--上-->
+    <style type="text/css">
+        #top{
+            font-size:75%;
+            height:55px;
+<<<<<<< HEAD
+            padding:7px 10px;
+=======
+            padding:5px 10px;
+>>>>>>> f5a813c7c765fc367d0d0e72216f87cfa17dcfe7
+            background:white;
+        }
+        #top div{
+            float:left;
+<<<<<<< HEAD
+            margin-left:2%;
+=======
+            margin-left:1%;
+>>>>>>> f5a813c7c765fc367d0d0e72216f87cfa17dcfe7
+        }
+        #top #sy_time{
+            font-weight:600;
+            color:#1467CE;
+        }
+        #top #right{
+            float:right;
+        }
+        #top #logout{
+            text-align:center;
+        }
+        #top #logout:hover{
+            cursor:pointer;
+        }
+        #top #logout{
+            font-size:70%;
+            background: #F03A17;
+            border:none;
+            color:white;
+            border-radius:3px;
+            padding-top:3px;
+            padding-bottom:3px;
+        }
+<<<<<<< HEAD
+        #top .left{
+            font-size:110%;
+        }
+    </style>
+    <div id="top" data-options="region:'north',title:'嗡&nbsp;嗡&nbsp;嗡&nbsp;后&nbsp;台&nbsp;系&nbsp;统',split:true">
+        <div class="left">👨账号：admin1</div>&nbsp;&nbsp;
+=======
+    </style>
+    <div id="top" data-options="region:'north',title:'嗡&nbsp;嗡&nbsp;嗡&nbsp;后&nbsp;台&nbsp;系&nbsp;统',split:true">
+        <div>👨用户名：admin1</div>&nbsp;&nbsp;
+>>>>>>> f5a813c7c765fc367d0d0e72216f87cfa17dcfe7
+        <button id="logout" title="退出登录">退出登录</button>
+        <div id="right">⏰系统时间：<span id = "sy_time"></span></div> <!-- 当前时间 -->
+    </div>
+    <script>
+        function getTime(){
+            var p = $("#sy_time");
+            var time = new Date();
+            var year = time.getFullYear();
+            var month = time.getMonth() + 1;
+            var day = time.getDate();
+            var hour = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            var getday=time.getDay();
+            var xingqi="";
+            if(getday==1){
+                xingqi="星期一";
+            }else if(getday==2){
+                xingqi="星期二";
+            }else if(getday==3){
+                xingqi="星期三";
+            }else if(getday==4){
+                xingqi="星期四";
+            }else if(getday==5){
+                xingqi="星期五";
+            }else if(getday==6){
+                xingqi="星期六";
+            }else if(getday==7){
+                xingqi="星期日";
+            }
+            var str = year +"-"+ month +"-"+ day + " "+xingqi+" "+hour+":"+minutes+":"+seconds;
+            p.text(str);
+            setTimeout(getTime,1000);
+        }
+        $(function(){
+            //时间
+            getTime();
+
+
+            //注销
+            $("#logout").click(function(){
+                $.messager.confirm('确认对话框', '您想要退出该系统吗？', function(r){
+                    if (r){
+
+                        $.ajax({
+                            url:'/logout',
+                            type:'post',
+                            dataType:'text',
+                            success:function(data){
+                               window.location.href="/login";
+                            }
+                        });
+
+                    }
+            });
+
+        });
+
+        });
+    </script>
+
+    <!--左-->
+    <div data-options="region:'west',title:'MENU',split:true" style="width:270px;">
+
+        <!-- 菜单树 -->
+        <ul id="tree"></ul>
+
+    </div>
+
+    <!--中-->
+    <div data-options="region:'center',title:'SHOW',split:true" style="padding:5px;background:#eee;">
+
+        <!-- 选项卡 -->
+        <div id="tabs" style="width:500px;height:250px;"></div>
+
+    </div>
+
+</body>
+
+</html>

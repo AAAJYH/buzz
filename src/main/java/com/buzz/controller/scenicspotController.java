@@ -1,18 +1,15 @@
 package com.buzz.controller;
 
-import com.buzz.dao.scenicspotCollectDao;
-import com.buzz.entity.city;
-import com.buzz.entity.scenicspot;
-import com.buzz.entity.scenicspotCollect;
-import com.buzz.entity.users;
-import com.buzz.service.cityService;
-import com.buzz.service.scenicspotService;
+import com.buzz.entity.*;
+import com.buzz.service.*;
+import com.buzz.utils.Upload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -34,7 +31,9 @@ public class scenicspotController {
     cityService cityService;
 
     @Resource
-    scenicspotCollectDao scenicspotCollectDao;
+    scenicspotCollectService scenicspotCollectService;
+
+
 
     /**
      * 查询城市的全部景点
@@ -65,15 +64,18 @@ public class scenicspotController {
      */
     @RequestMapping("/byScenicSpotIdQueryScenicSpot")
     public String byScenicSpotIdQueryScenicSpot(String scenicSpotId, Model model, HttpServletRequest request, HttpSession session){
+
         //景点对象
         scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicSpotId);
         model.addAttribute("scenicspot",scenicspot);
+
         //城市对象
         city city=cityService.byCityIdQuery(scenicspot.getCityId());
         model.addAttribute("city",city);
+
         //当前用户是否收藏
         if(session.getAttribute("user")!=null){ //是否登录
-            scenicspotCollect scenicspotCollect=scenicspotCollectDao.byUseridAndScenicspotIdQuery(scenicspot.getScenicSpotId(),((users)session.getAttribute("user")).getUserId());
+            scenicspotCollect scenicspotCollect=scenicspotCollectService.byUseridAndScenicspotIdQuery(scenicspot.getScenicSpotId(),((users)session.getAttribute("user")).getUserId());
             if(scenicspotCollect!=null){
                 model.addAttribute("state","已收藏");
             }else{
@@ -82,7 +84,16 @@ public class scenicspotController {
         }else{
             model.addAttribute("state","未收藏");
         }
+
         return "front_desk/ScenicSpotDetails";
+    }
+
+    @RequestMapping("/comment")
+    @ResponseBody
+    public String comment(MultipartFile img) throws Exception {
+        String path= ResourceUtils.getURL("src/main/resources/static/images/upload/").getPath(); //获取当前项目文件的绝对路径
+        String imgName=Upload.upload(img,path);
+        return "/images/upload/"+imgName;
     }
 
 }

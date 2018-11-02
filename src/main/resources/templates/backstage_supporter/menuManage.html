@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>菜单管理</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="Easyui/themes/icon.css">
+
+    <script th:inline="none">
+
+        var url="";
+
+        $(function(){
+
+            //初始化树形表格
+            $('#tg').treegrid({
+                url:'/queryAllMenu',
+                idField:'id',
+                treeField:'text',
+                columns:[[
+                    {title:'id',field:'id',width:30},
+                    {field:'text',title:'text',width:100},
+                    {field:'url',title:'url',width:80},
+                    {field:'icon',title:'icon',width:100},
+                    {field:'state',title:'state',width:50,formatter:forrmatterState}
+                ]],
+                animate:true, //展开或折叠时是否显示动画
+                fitColumns:true, //铺满
+                rownumbers:true, //显示行号
+                toolbar: [{ //工具栏
+                        iconCls: 'icon-add',
+                        text:'AddRoot',
+                        handler: function(){
+                            url="/addMenu"; //设置保存要去的url
+                            $("#pid").val(0); //设置此菜单的parnetId
+                            $("#dd").dialog({title:'AddRoot'});
+                            $("#dd").dialog("open");
+                 //禁用下拉项，默认为open，因为添加的是叶子结点，如果状态为closed就会被认为不是叶子结点，该叶子结点还有加载其他数据
+                            $("#st").combo("readonly");
+                        }
+                    },'-',{
+                        iconCls: 'icon-add',
+                        text:'AddChild',
+                        handler: function(){
+                            var row=$("#tg").treegrid("getSelected");
+                            if(row==null){
+                                alert("请选择要添加子菜单的菜单");
+                            }else{
+                                url="/addMenu"; //设置保存要去的url
+                                $("#pid").val(row.id); //设置此菜单的parnetId
+                                $("#dd").dialog({title:'AddChildren'});
+                                $("#dd").dialog("open");
+                                $("#st").combo("readonly");
+                            }
+                        }
+                    },'-',{
+                        iconCls: 'icon-remove',
+                        text:'Remove',
+                        handler: function(){
+                            var row=$("#tg").treegrid("getSelected");
+                            if(row==null){
+                                alert("请选择要删除的菜单");
+                            }else{
+                                $.messager.confirm('确认','您确认想要删除此菜单以及所有子菜单吗？',function(r){
+                                    if (r){
+                                        $.ajax({
+                                            url:'/byIdDelMenuAndChildrenMenu',
+                                            type:'post',
+                                            data:{
+                                                id:row.id
+                                            },
+                                            dataType:'text',
+                                            success:function(data){
+                                                if(data){
+                                                    handlerOk();
+                                                }else{
+                                                    alert("操作失败");
+                                                }
+                                            }
+                                        })
+                                    }
+                                });
+                            }
+                        }
+                    },'-',{
+                        iconCls: 'icon-edit',
+                        text:'Edit',
+                        handler: function(){
+                           var row= $("#tg").treegrid("getSelected");
+                           if(row==null){
+                               alert("请选择要修改的菜单");
+                           }else{
+                               url="/byIdEditMenu";
+                               $("#dd").dialog({title:'Edit'});
+                               $("#ff").form("load",row);
+                               $("#dd").dialog("open");
+                               if(row.children==null){
+                                   $("#st").combo("readonly");
+                               }else{
+                                   $("#st").combo("readonly",false);
+                               }
+                           }
+                        }
+                    }
+                ]
+            });
+
+            //初始化dialog对话框
+            $('#dd').dialog({
+                width: 400,
+                height: 300,
+                closed: true,
+            });
+
+            //保存按钮点击事件
+            $("#save").click(function(){
+                if($("#ff").form("validate")){ //如果表单字段都有效返回true
+                    $('#ff').form('submit', {
+                        url: url,
+                        success:function(data){
+                            if(data=="true"){
+                                handlerOk();
+                            }else{
+                                alert("操作失败");
+                            }
+                            $("#dd").dialog("close");
+                        }
+                    });
+                }else{
+                    alert("请输入完整");
+                }
+            });
+
+            //点击取消关闭dialog
+            $("#cancel").click(function(){
+               $("#dd").dialog("close");
+            });
+
+            //dialog:onclose事件，关闭dialog后除状态外全部组件清空val
+            $("#dd").dialog({
+                onClose:function(){
+                    formClear();
+                    $("#st").combobox({"value":"展开"}); //设置下拉框默认为展开
+                }
+            });
+
+        });
+
+        //操作成功后调用此方法，提示操作成功
+        function handlerOk(){
+            $("#tg").treegrid("reload");
+            $.messager.show({
+                title:'提示',
+                msg:'操作成功，消息将在2秒后关闭。',
+                timeout:2000,
+                showType:'slide'
+            });
+        }
+
+        //格式化state字段
+        function forrmatterState(value,row,index){
+            if(value=="closed"){
+                return "折叠";
+            }else{
+                return "展开";
+            }
+        }
+
+        //除状态外全部组件清空val
+        function formClear(){
+            $("#txt").textbox({value:''});
+            $("#ul").textbox({value:''});
+            $("#ic").textbox({value:''});
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <!--treegrid属性表格 -->
+    <table id="tg"></table>
+
+    <!-- dialog对话框 -->
+    <div id="dd">
+        <form method="post" align="center" id="ff">
+            <input type="hidden" name="id" id="id"> <!-- id：修改时需要用到 -->
+            <input type="hidden" name="parentId" id="pid"> <!-- parentId：添加AddRoot和AdChild需要用到 -->
+            <p> <input name="text" id="txt" class="easyui-validatebox easyui-textbox" data-options="required:true,prompt:'请输入',buttonText:'名称',width:200" /></p>
+            <p> <input name="url" id="ul" class="easyui-validatebox easyui-textbox" data-options="prompt:'请输入',buttonText:'地址',width:200" /></p>
+            <p> <input name="icon" id="ic" class="easyui-validatebox easyui-textbox" data-options="prompt:'请输入',buttonText:'图标',width:200" /></p>
+            <p>
+                <select name="state" id="st" class="easyui-combobox easyui-validatebox" data-options="prompt:'请输入',buttonText:'状态',limitToList:true,width:200,required:true,panelHeight:80">
+                    <option value="closed">折叠</option>
+                    <option value="open" selected>展开</option>
+                </select>
+            </p>
+            <p>
+                <a id="save" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+        </form>
+    </div>
+
+</body>
+</html>
