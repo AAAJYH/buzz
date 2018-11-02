@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!--suppress ALL-->
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>攻略 - 嗡嗡嗡</title>
     <script type="text/javascript">
@@ -13,7 +12,15 @@
     <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
     <script language="javascript" src="/js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
     <script language="javascript" src="/js/m.sns.share.js" type="text/javascript" crossorigin="anonymous"></script>
-    <script th:src="@{js/jquery-1.11.0.min.js}" type="text/javascript"></script>
+    <script th:src="@{'js/jquery-1.11.0.min.js'}" type="text/javascript"></script>
+
+    <!--JSZip-->
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
+
+    <!--jspdf-->
+    <script type="text/javascript" src="/js/jspdf.min.js"></script>
+
 </head>
 <body th:if="${strategy}!=null">
 
@@ -117,7 +124,7 @@
 
     <!-- 标题图片 -->
     <div class="mdd_img" style="cursor: pointer">
-        <img th:src="@{'/images/'+${strategy.strategyPhoto.split(',')[0]}}" width="228px" height="324px" alt=""/>
+        <img th:src="@{'/images/gonglve/'+${strategy.strategyPhoto.split(',')[0]}}" width="228px" height="324px" alt=""/>
     </div>
 
     <div class="middle_de">
@@ -142,15 +149,108 @@
     <!-- 下载攻略 -->
     <div class="down_glb" style="position:relative;top:30px;">
 
-        <span style="font-size:120%;color:#222222;" th:text="${strategy.downloadNumber}">4693036</span><span>次下载</span></h2>
+        <span style="font-size:120%;color:#222222;" th:text="${strategy.downloadNumber}" id="downloadNumber">4693036</span><span>次下载</span></h2>
 
         <div class="down_p">
-            <a data-bookid="24" href="javascript:;">下载PDF版本</a>
+            <script th:inline="javascript">
+
+                //当前攻略下载次数加一
+                function updateDownLoadNumber(){
+                    $.ajax({
+                        url:'/strategyController/updateCityStrategyDownloadNumber',
+                        type:'post',
+                        data:{
+                            strategyId:[[${strategy.strategyId}]]
+                        },
+                        dataType:'text',
+                        success:function(data){
+                            if(data>0){
+                                $("#downloadNumber").text(parseInt($("#downloadNumber").text())+1);
+                            }
+                        }
+                    });
+                }
+
+                function getBase64(img) {
+                    //将图片转成Base64
+                    var canvas = document.createElement("canvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                    var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+                    var dataURL = canvas.toDataURL("image/" + ext);
+                    return dataURL;
+                }
+                function downLoadPdf(){
+                    var doc = new jsPDF();
+                    var imgs=[[${strategy.strategyPhoto.split(',')}]];
+                    if(imgs.length>0){
+                        for(var i=0;i<imgs.length;i++){
+                            var image = new Image();
+                            image.src = "/images/gonglve/"+imgs[i];
+                            var bs64 = getBase64(image);
+                            doc.addImage(bs64,'JPEG', 10,40,180,180);
+                            doc.addPage();
+                        }
+                    }
+                    doc.save('嗡嗡攻略'+[[${application.city.cityName}]]+'.pdf');
+                    //修改下载次数
+                    updateDownLoadNumber()
+                };
+            </script>
+            <a href="javascript:;" onclick="downLoadPdf()">下载PDF版本</a>
             <p>文件大小 9.96 MB</p>
         </div>
 
         <div class="down_p down_p1">
-            <a data-bookid="24" href="javascript:;">下载JPG版本</a>
+
+            <script th:inline="javascript">
+
+                //将图片转成JSZip的图片格式
+                function getBase64Image(img) {
+                    //将图片转成Base64
+                    var canvas = document.createElement("canvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                    var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+                    var dataURL = canvas.toDataURL("image/" + ext);
+                    var bytes=window.atob(dataURL.split(',')[1]);        //去掉url的头，并转换为byte
+
+                    //处理异常,将ascii码小于0的转换为大于0
+                    var ab = new ArrayBuffer(bytes.length);
+                    var ia = new Uint8Array(ab);
+                    for (var i = 0; i < bytes.length; i++) {
+                        ia[i] = bytes.charCodeAt(i);
+                    }
+                    return new Blob( [ab] , {type : 'image/png'});
+                }
+
+                function downloadJPGClick(){
+                    //JSZip实例化
+                    var zip=new JSZip();
+                    zip.folder("嗡嗡嗡攻略"+[[${application.city.cityName}]]);
+                    var currentZip=zip.folder("嗡嗡嗡攻略"+[[${application.city.cityName}]]);
+                    var imgs=[[${strategy.strategyPhoto.split(',')}]];
+                    if(imgs.length>0){
+                        for(var i=0;i<imgs.length;i++){
+                            var image = new Image();
+                            image.src = "/images/gonglve/"+imgs[i];
+                            var bs64 = getBase64Image(image);
+                            currentZip.file(imgs[i],bs64, {base64: true});
+                        }
+                    }
+                    zip.generateAsync({type:"blob"}).then(function(content) {
+                        saveAs(content, "嗡嗡嗡.zip");
+                        //修改下载次数
+                        updateDownLoadNumber()
+                    });
+                };
+
+            </script>
+            <a id="downloadJPG" onclick="downloadJPGClick()">下载JPG版本</a>
             <p>文件大小 18.20 MB</p>
         </div>
 
@@ -166,7 +266,7 @@
             <ul class="scroll-content">
                 <li class="scroll-content-item" th:each="str,status:${strategy.strategyPhoto.split(',')}">
                     <a href="javascript:void(0);" class="on_fous preview_btn" data-paper_num="0">
-                        <img th:src="@{'/images/'+${str}+''}" width="138" height="195">
+                        <img th:src="@{'/images/gonglve/'+${str}+''}" width="138" height="195">
                         <span>点击<br/>预览</span>
                     </a>
                 </li>
@@ -185,7 +285,7 @@
     <div class="pop_w" style="display:none;">
         <div class="popdiv">
             <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
-                <img th:src="@{'/images/'+${str}+''}" th:width="605px" th:height="800px"/>
+                <img th:src="@{'/images/gonglve/'+${str}+''}" th:width="605px" th:height="800px"/>
             </p>
             <a style="display: block; position: fixed" href="javascript:;" class="fangda">放大</a>
             <span style="display: block; position: fixed">关闭</span>
@@ -200,7 +300,7 @@
                 <div class="slideLayer">
                     <div class="slideBox">
                         <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
-                            <img th:src="@{'/images/'+${str}+''}"/>
+                            <img th:src="@{'/images/gonglve/'+${str}+''}"/>
                         </p>
                         <img class="book_paper_img" src="">
                     </div>

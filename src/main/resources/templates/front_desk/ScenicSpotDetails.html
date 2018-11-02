@@ -494,6 +494,13 @@
     </div>
     <input th:if="${session.user}!=null" type="hidden" th:value="${session.user.userId}" id="userId">
     <script th:inline="javascript">
+
+        //时间转换
+        function format_time(replyTime)
+        {
+            return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+        }
+
         function loadComment(){
             $.ajax({
                 url:'/scenicSpotCommentController/queryScenicsPotComment',
@@ -545,7 +552,8 @@
                                 }
                             }
                             //拼接评论时间
-                            content+="<div class=\"one1\"><span style=\"float:left;\">"+comment.commentTime+"</span><br/>";
+                            //转换日期
+                            content+="<div class=\"one1\"><span style=\"float:left;\">"+format_time(comment.commentTime)+"</span><br/>";
                             if($("#userId").val()!=comment.userId){
                                 content+="<span style=\"float:right;\" class=\"huifu1\">回复</span></div>";
                             }
@@ -559,7 +567,7 @@
                                         if($("#userId").val()!=commentReply[j].userId){
                                                 content+="<span class=\"huifu2\">回复</span>";
                                         }
-                                    content+="<br/><span style=\"color:black;\">"+commentReply[j].replyTime+"</span></div>";
+                                    content+="<br/><span style=\"color:black;\">"+format_time(commentReply[j].replyTime)+"</span></div>";
                                 }
                             }
                             //拼接回复框

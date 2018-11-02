@@ -4,6 +4,7 @@ import com.buzz.entity.strategy;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,5 +20,9 @@ public interface strategyDao {
     //查询城市攻略
     @Select("select * from strategy where cityId=#{cityId}")
     public strategy queryCityStrategy(@Param("cityId") String cityId);
+
+    //攻略下载次数加1
+    @Update("update strategy set downloadNumber=downloadNumber+1 where strategyId=#{strategyId}")
+    public int updateCityStrategyDownloadNumber(String strategyId);
 
 }
