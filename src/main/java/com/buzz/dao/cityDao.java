@@ -34,4 +34,8 @@ public interface cityDao {
     @Update("update city set searchNumber=searchNumber+1 where cityId=#{cityId}")
     public int SearchNumberAddOne(@Param("cityId") String cityId);
 
+    //查询全部
+    @Select("select * from city order by uptime desc")
+    public List<city> queryCityAll();
+
 }

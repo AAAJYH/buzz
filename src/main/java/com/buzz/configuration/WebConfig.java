@@ -15,9 +15,9 @@ public class WebConfig implements WebMvcConfigurer
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/images/");
-        registry.addResourceHandler("/music/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/music/");
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/upload/");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:/E:\\IntelliJ IDEA\\FilePath\\buzz\\src\\main\\resources\\static\\images/");
+        registry.addResourceHandler("/music/**").addResourceLocations("file:/E:/IntelliJ IDEA FilePath/buzz/src/main/resources/static/music");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:/E:/IntelliJ IDEA FilePath/buzz/src/main/resources/static/upload");
     }
 
     @Override

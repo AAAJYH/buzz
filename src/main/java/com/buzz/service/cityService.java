@@ -1,7 +1,9 @@
 package com.buzz.service;
 
 import com.buzz.dao.cityDao;
+import com.buzz.entity.Paging;
 import com.buzz.entity.city;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,14 @@ public class cityService {
     //城市查询次数加一
     public int SearchNumberAddOne(String cityId){
         return cityDao.SearchNumberAddOne(cityId);
+    }
+
+    //分页查询全部
+    public Paging<city> PagingQueryAll(Integer pageSize, Integer rows){
+        Integer total=cityDao.queryCityAll().size();
+        PageHelper.startPage(pageSize,rows);
+        List<city> cityList=cityDao.queryCityAll();
+        return new Paging<city>(cityList,total);
     }
 
 }

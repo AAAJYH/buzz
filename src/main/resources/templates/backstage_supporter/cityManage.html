@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>城市管理</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <style type="text/css">
+        .show-image{
+            position:absolute;
+            top:20%;
+            left:30%;
+            width: 300px;
+            height: 300px;
+            display: none;
+        }
+        .look_image{
+            color:blue;
+        }
+        .look_image:hover{
+            cursor:pointer;
+        }
+    </style>
+
+    <script th:inline="none">
+alert(1);
+
+        $(function(){
+            alert(2);
+            //初始化datagrid数据表格
+            $('#dg').datagrid({
+                url:'/cityController/pagingQueryCity',
+                columns:[[
+                    {field:'cityId',title:'编号',width:120},
+                    {field:'cityPhoto',title:'图片',width:50,formatter:formatPhoto},
+                    {field:'cityName',title:'名称',width:50},
+                    {field:'citySituation',title:'景点概括',width:100,formatter:formatSituation},
+                    {field:'provinceId',title:'城市外键',width:100},
+                    {field:'stateId',title:'状态id',width:30},
+                    {field:'searchNumber',title:'搜索次数',width:40},
+                    {field:'uptime',title:'修改时间',width:100,formatter:format_time}
+                ]],
+                fitColumns:true,
+                rownumbers:true ,
+                singleSelect:true,
+                pagination:true,
+                pageNumber:1,
+                pageSize:15,
+                pageList:[5,10,15,20]
+            });
+
+            //时间转换
+            function format_time(value,row,index) {
+                return value.substring(0,value.lastIndexOf(".")).replace("T"," ");
+            }
+
+            //格式化景点概括
+            function formatSituation(value,row,index){
+                return "<a title='"+value+"'>"+value+"</a>";
+            }
+
+            //格式化图片
+            function formatPhoto(value,row,index){
+                if(value==null){
+                    return "";
+                }else{
+                    return "<span class='look_image'>查看图片</span><input type='hidden' value="+value+"/>";
+                }
+            }
+
+            //查看图片点击事件
+            $(".look_image").click(function(){
+                alert("fsd");
+                var img=$(this).next().val();
+                alert(img);
+                $(".show_image").attr("src",'/'+img);
+                $(".show_image").css("display","block");
+            });
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <!--datagrid数据表格-->
+    <table id="dg"></table>
+
+    <img src="/images/gugong1.jpg" class="show-image"/>
+
+</body>
+</html>

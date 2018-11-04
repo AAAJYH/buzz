@@ -62,7 +62,6 @@
                         "                </div>",{width:200, height:110});
                     marker.addEventListener("click",function(){ //添加点击事件
                         marker.openInfoWindow(infoWindow); //打开信息窗
-
                     });
                 }
 
@@ -71,7 +70,7 @@
             <!-- 右菜单栏 -->
             <style type="text/css">
                 .type{
-                    width:400px;
+                    width:199px;
                     padding-top:16px;
                     padding-bottom:15px;
                     text-align:center;
@@ -79,6 +78,7 @@
                     font-size:120%;
                     color:#222222;
                     border-bottom:1px solid #EAEAEA;
+                    border-right:1px solid white;
                 }
                 .type:hover{
                     cursor:pointer;
@@ -86,38 +86,113 @@
                 }
             </style>
             <div class="mdd_chwl">
-                <div class="type" style="background:#FF9D00;color:#fff;">景点列表</div>
+                <div class="type" style="background:#FF9D00;color:#fff;" id="scenicSpotList">景点列表</div>
+                <div class="type" style="background:#FF9D00;color:#fff;" id="nearHotelList">附近酒店列表</div>
 
                 <div class="bd_wrapper" style="position: absolute;z-index:10;top:50px;width:400px;">
-                    <div class="attra_list J_list"><div class="J_poilist"><div class="total">
-                        <span class="J_name" th:text="${application.city.cityName}">北京</span>共 <span class="J_total" th:text="${total}">6389</span>个<span class="J_channel">景点</span></div>
-                        <div class="list" style="overflow: auto; height: 719px;">
-                        <ul>
-                            <li class="clearfix" th:if="${scenicspotList}!=null" th:each="obj,status:${scenicspotList}">
-                                <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" style="text-decoration:none;">
-                                    <span class="serial_num" th:text="${status.count}">1</span>
-                                    <img class="attra_img" th:src="@{'/images/'+${obj.photo.split(',')[0]}}" width="60" height="60">
-                                    <div class="attra_info">
-                                        <h3 th:text="${obj.chineseName}">故宫</h3>
-                                        <span class="en_name" th:text="${obj.englishName}">The Palace Museum</span>
-                                    </div>
-                                    <div class="comments">
-                                        <div class="comments_num comments_num2"><span>12128</span> 条点评</div>
-                                    </div>
-                                    <span class="star_num star_numdj" data-pid="3474" data-ptype="3"></span>
-                                    <div class="ckzw_wrapper clearfix">
-                                        <div class="ckzw_hotel">
-                                            <a th:href="@{'/hotelController/hotelIndex?scenicspotId='+${obj.scenicSpotId}}" target="_blank" style="color:#FF9D00;text-decoration:underline;">查看景点周边酒店</a>
-                                        </div>
-                                    </div>
-                                </a>
-                             </li>
-                        </ul>
-                  </div>
-            </div>
+                    <div class="attra_list J_list">
+                        <div class="J_poilist">
+                            <div class="total">
+                              <span class="J_name" th:text="${application.city.cityName}">北京</span>共
+                                <span class="J_total" th:text="${total}">6389</span>个
+                                <span class="J_channel">景点</span>
+                            </div>
+                                <div class="list" style="overflow: auto; height: 719px;">
+                                    <ul id="content">
+                                        <!--右侧景点信息集合-->
+                                    </ul>
+                                    <script th:inline="javascript">
+                                        //加载右侧景点信息
+                                        function loadScenicSpotList(){
+                                            var scenicSpotList=[[${scenicspotList}]];
+                                            $(".total").html("<span class=\"J_name\" th:text=\"${application.city.cityName}\">北京</span>共\n" +
+                                                "<span class=\"J_total\" th:text=\"${total}\">"+scenicSpotList.length+"</span>个\n" +
+                                                "<span class=\"J_channel\">景点</span>");
+                                            if(scenicspotList.length>0){
+                                                $("#content").empty();
+                                                for(var i=0;i<scenicspotList.length;i++){
+                                                    $("#content").append("<li class=\"clearfix\">\n" +
+                                                        "                                            <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration:none;\">\n" +
+                                                        "                                                <span class=\"serial_num\">"+(i+1)+"</span>\n" +
+                                                        "                                                <img class=\"attra_img\" src=\"/images/"+scenicspotList[i].photo.split(',')[0]+"\" width=\"60\" height=\"60\">\n" +
+                                                        "                                                <div class=\"attra_info\">\n" +
+                                                        "                                                    <h3>"+scenicspotList[i].chineseName+"</h3>\n" +
+                                                        "                                                    <span class=\"en_name\">"+scenicspotList[i].englishName+"</span>\n" +
+                                                        "                                                </div>\n" +
+                                                        "                                                <div class=\"comments\">\n" +
+                                                        "                                                    <div class=\"comments_num comments_num2\"><span>12128</span> 条点评</div>\n" +
+                                                        "                                                </div>\n" +
+                                                        "                                                <span class=\"star_num star_numdj\" data-pid=\"3474\" data-ptype=\"3\"></span>\n" +
+                                                        "                                                <div class=\"ckzw_wrapper clearfix\">\n" +
+                                                        "                                                    <div class=\"ckzw_hotel\">\n" +
+                                                        "                                                        <a href=\"/hotelController/hotelIndex?scenicspotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"color:#FF9D00;text-decoration:underline;\">查看景点周边酒店</a>\n" +
+                                                        "                                                    </div>\n" +
+                                                        "                                                </div>\n" +
+                                                        "                                            </a>\n" +
+                                                        "                                         </li>");
+                                                }
+                                            }
+                                        }
+                                        loadScenicSpotList();
 
-        </div>
-    </div>
+                                        //景点列表点击事件
+                                        $("#scenicSpotList").click(function(){
+                                            loadScenicSpotList();
+                                        });
+
+                                        //附近酒店点击事件
+                                        $("#nearHotelList").click(function(){
+                                            $(".total").html("<span class=\"J_name\" th:text=\"${application.city.cityName}\">北京附近 Top10</span>\n" +
+                                                "<span class=\"J_channel\">酒店</span>");
+                                            var scenicSpotList=[[${scenicspotList}]]; //获取景点集合
+                                            $("#content").empty();
+                                            //异步获取酒店集合
+                                            $.ajax({
+                                                url:'http://apitest.99263.com/Hotel/SearchHotelList',
+                                                type:'post',
+                                                data:{
+                                                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                                                    "Timestamp": "2017/10/01 00:00:00",
+                                                    "Data": {
+                                                        "PageSize": 10,
+                                                        "PageIndex": 1,
+                                                        "CityName":[[${application.city.cityName}]]
+                                                    }
+                                                },
+                                                dataType:'json',
+                                                success:function(data) {
+                                                    $("#HotelContent").empty();
+                                                    //酒店以标注点形式在地图上显示
+                                                    var hotelData = data.Data.DataHotel;
+                                                    if(hotelData!=null){
+                                                        for (var i = 0; i < hotelData.length; i++) {
+                                                            $("#content").append("<li class=\"clearfix\">\n" +
+                                                                "                                            <a href='/hotelController/hotelDetailsIndex?hotelId=" + hotelData[i].HotelId + "' target=\"_blank\" style=\"text-decoration:none;\">\n" +
+                                                                "                                                <span class=\"serial_num\">"+(i+1)+"</span>\n" +
+                                                                "                                                <img class=\"attra_img\" src="+hotelData[i].DefaultPicture+" width=\"60\" height=\"60\">\n" +
+                                                                "                                                <div class=\"attra_info\">\n" +
+                                                                "                                                    <h3>"+hotelData[i].HotelName+"</h3>\n" +
+                                                                "                                                    <span class=\"en_name\">"+hotelData[i].Address+"</span>\n" +
+                                                                "                                                </div>\n" +
+                                                                "                                                <div class=\"comments\">\n" +
+                                                                "                                                    <div class=\"comments_num comments_num2\"><span>"+hotelData[i].CommentNum.split("$")[0]+"</span> 条好评</div>\n" +
+                                                                "                                                </div>\n" +
+                                                                "                                                <span class=\"star_num star_numdj\" data-pid=\"3474\" data-ptype=\"3\"></span>\n" +
+                                                                "                                                <div class=\"ckzw_wrapper clearfix\">\n" +
+                                                                "                                                    <div class=\"ckzw_hotel\">"+hotelData[i].Service.substr(0,30)+'...'+"</div>\n" +
+                                                                "                                                </div>\n" +
+                                                                "                                            </a>\n" +
+                                                                "                                         </li>");
+                                                        }
+                                                    }
+                                            }
+                                        });
+                                     });
+                                    </script>
+                                </div>
+                        </div>
+                  </div>
+          </div>
 </div>
             </div>
     </div>
