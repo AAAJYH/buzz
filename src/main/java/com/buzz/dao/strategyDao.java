@@ -25,4 +25,17 @@ public interface strategyDao {
     @Update("update strategy set downloadNumber=downloadNumber+1 where strategyId=#{strategyId}")
     public int updateCityStrategyDownloadNumber(String strategyId);
 
+    /**
+     * 通过下载数量倒序查询五条旅游攻略
+     * @return
+     */
+    @Select("select * from strategy order by downloadNumber desc LIMIT 0,5")
+    public List<strategy> find_strategyHot5();
+
+    /**
+     * 根据旅游攻略编号查询
+     * @return
+     */
+    @Select("select * from strategy where strategyId=#{strategyId}")
+    public strategy find_strategyBystrategyId(@Param("strategyId") String strategyId);
 }

@@ -22,6 +22,10 @@ public interface cityDao {
     @Select("select * from city where provinceId=#{pid} order by searchNumber desc LIMIT 0,5")
     public List<city> byProvinceIdQueryHot(@Param("pid") String provinceId);
 
+    //根据搜索次数查询热门城市
+    @Select("select * from city order by searchNumber desc LIMIT 0,1")
+    public city find_cityHot1();
+
     //查询城市
     @Select("select * from city where cityId=#{cid}")
     public city byCityIdQuery(@Param("cid") String cityId);
@@ -34,4 +38,11 @@ public interface cityDao {
     @Update("update city set searchNumber=searchNumber+1 where cityId=#{cityId}")
     public int SearchNumberAddOne(@Param("cityId") String cityId);
 
+    /**
+     * 查询城市热门的前几条数据
+     * @param num
+     * @return
+     */
+    @Select("select * from city order by searchNumber desc LIMIT 0,#{num}")
+    public List<city> find_cityByLIMIT(@Param("num")Integer num);
 }

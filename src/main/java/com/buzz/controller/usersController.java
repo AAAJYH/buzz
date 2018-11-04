@@ -14,6 +14,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -464,5 +465,23 @@ public class usersController {
     public users find_userByuserId(String userId)
     {
         return usersservice.find_userByuseruserId(userId);
+    }
+
+    /**
+     * 退出当前登录用户
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("loginOut")
+    public boolean loginOut(HttpSession session,SessionStatus sessionstatus)
+    {
+        session.removeAttribute("user");
+        sessionstatus.setComplete();
+        users user= (users) session.getAttribute("user");
+        if(null!=user)
+            return false;
+        else
+            return true;
     }
 }

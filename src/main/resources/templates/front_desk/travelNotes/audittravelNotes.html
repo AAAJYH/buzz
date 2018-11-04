@@ -113,6 +113,7 @@
                 <strong><a target="_blank" class="per_name"></a></strong>
                 <div class="vc_time">
                     <span class="time"></span>
+                    <span><i class="ico_view"></i>2685/15</span>
                 </div>
                 <div class="person-edit hide">
                     <a title="编辑">编辑</a>|
@@ -647,7 +648,7 @@
             <div class="bar-main" data-cs-t="ginfo_nav">
                 <div class="bread-nav" data-cs-t="schedule">
                     <a data-cs-p="index" href="" class="circle_bar _support_canvas" title="首页">
-                        <i id="_js_circle_forLowBrowser"></i>
+                        <i id="_js_circle_forLowBrowser" class="circle_per16"></i>
                         <canvas id="canvas_circle1" width="36" height="36"></canvas>
                         <canvas id="canvas_circle2" width="36" height="36"></canvas>
                     </a>
@@ -966,8 +967,13 @@
                             {
                                 per_name+="("+data.travelNotes.user.address+")";
                             }
+                            var vc_timeHtml="<span class='time'>"+format_time(data.travelNotes.releaseTime)+"</span><span><i class='ico_view'></i>"+data.travelNotes.browsingHistory+"</span>";
+                            $(".vc_time").html(vc_timeHtml);
                             $(".per_name").text(per_name);
-                            $(".headtext").text(data.travelNotes.travelNotesheadline);
+                            var travelNotesheadline=data.travelNotes.travelNotesheadline;
+                            if(null==travelNotesheadline||""==travelNotesheadline)
+                                travelNotesheadline="未命名游记标题";
+                            $(".headtext").text(travelNotesheadline);
                             if(null!=data.travelNotes.backgroundMusic&&data.travelNotes.backgroundMusic.length>0)
                             {
                                 $("#jp_audio_0").prop("src",data.travelNotes.backgroundMusic);
@@ -983,7 +989,7 @@
                                 $("._j_m_control").attr("class","control _j_m_control pause");
                                 $(".music_botton").css("display","none");
                             }
-                            titletext=data.travelNotes.travelNotesheadline;
+                            titletext=travelNotesheadline;
                             var bread_conInsertHtml="";
                             if(null!=data.travelNotes.cityId&&0<data.travelNotes.cityId.length)
                             {
@@ -991,34 +997,37 @@
                                 titletext+="-"+data.travelNotes.city.cityName+"旅游攻略";
                                 bread_conInsertHtml+="<a data-cs-p='mdd' href='scenicspotController/byCityIdQueryScenicspot?cityId="+data.travelNotes.city.cityId+"'>"+data.travelNotes.city.cityName+"旅游攻略</a>&nbsp;/&nbsp;";
                             }
-                            bread_conInsertHtml+="<a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId+"'>"+data.travelNotes.travelNotesheadline+"</a>";
+                            bread_conInsertHtml+="<a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId+"'>"+travelNotesheadline+"</a>";
                             $(".bread-con").html(bread_conInsertHtml);
                             var insertHtml="<p id='_j_paragraph_0'></p>";
                             var fontNum=0;
                             var imgNum=0;
                             var insertParagraph="<li class='catalog_city'><span class='catalog_num'>01/</span><a role='button' data-index='0' title='默认段落' class='catalog_line _j_cataloglink' onclick='paragraphClick(this)'>默认段落</a></li>";//添加段落目录
                             var paragraphIndex=1;
-                            for(var i=0;i<data.travelNotes.travelNotesContents.length;i++)
+                            if(null!=data.travelNotes.travelNotesContents)
                             {
-                                if("textarea"==data.travelNotes.travelNotesContents[i].type)
+                                for(var i=0;i<data.travelNotes.travelNotesContents.length;i++)
                                 {
-                                    insertHtml+="<p class='_j_note_content _j_seqitem'>"+data.travelNotes.travelNotesContents[i].value+"</p>";
-                                    fontNum+=data.travelNotes.travelNotesContents[i].value.length;
-                                }
-                                else if("img"==data.travelNotes.travelNotesContents[i].type)
-                                {
-                                    insertHtml+="<div id='_j_photo_390561227' class='add_pic _j_anchorcnt _j_seqitem' style='width:680px'><a target='_blank' style='display: block' href='"+data.travelNotes.travelNotesContents[i].value+"'><img class='_j_lazyload' src='"+data.travelNotes.travelNotesContents[i].value+"' style='background-color:white; display: inline;' height='"+data.travelNotes.travelNotesContents[i].height+"'px width='"+data.travelNotes.travelNotesContents[i].width+"'px></a></div>";
-                                    imgNum+=1;
-                                }
-                                else if("h2"==data.travelNotes.travelNotesContents[i].type)
-                                {
-                                    var paragraphIndexs=paragraphIndex+1;
-                                    if(paragraphIndexs<10)
-                                        paragraphIndexs="0"+paragraphIndexs;
-                                    insertHtml+="<div id='_j_paragraph_"+paragraphIndex+"' class='article_title _j_anchorcnt _j_seqitem'><h2 class='t9'><span class='_j_anchor'>"+data.travelNotes.travelNotesContents[i].value+"</span></h2></div>";
-                                    insertParagraph+="<li class='catalog_city'><span class='catalog_num'>"+paragraphIndexs+"/</span><a role='button' data-index='"+paragraphIndex+"' title='"+data.travelNotes.travelNotesContents[i].value+"' class='catalog_line _j_cataloglink' onclick='paragraphClick(this)'>"+data.travelNotes.travelNotesContents[i].value+"</a></li>";
-                                    fontNum+=data.travelNotes.travelNotesContents[i].value.length;
-                                    paragraphIndex++;
+                                    if("textarea"==data.travelNotes.travelNotesContents[i].type)
+                                    {
+                                        insertHtml+="<p class='_j_note_content _j_seqitem'>"+data.travelNotes.travelNotesContents[i].value+"</p>";
+                                        fontNum+=data.travelNotes.travelNotesContents[i].value.length;
+                                    }
+                                    else if("img"==data.travelNotes.travelNotesContents[i].type)
+                                    {
+                                        insertHtml+="<div id='_j_photo_390561227' class='add_pic _j_anchorcnt _j_seqitem' style='width:680px'><a target='_blank' style='display: block' href='"+data.travelNotes.travelNotesContents[i].value+"'><img class='_j_lazyload' src='"+data.travelNotes.travelNotesContents[i].value+"' style='background-color:white; display: inline;' height='"+data.travelNotes.travelNotesContents[i].height+"'px width='"+data.travelNotes.travelNotesContents[i].width+"'px></a></div>";
+                                        imgNum+=1;
+                                    }
+                                    else if("h2"==data.travelNotes.travelNotesContents[i].type)
+                                    {
+                                        var paragraphIndexs=paragraphIndex+1;
+                                        if(paragraphIndexs<10)
+                                            paragraphIndexs="0"+paragraphIndexs;
+                                        insertHtml+="<div id='_j_paragraph_"+paragraphIndex+"' class='article_title _j_anchorcnt _j_seqitem'><h2 class='t9'><span class='_j_anchor'>"+data.travelNotes.travelNotesContents[i].value+"</span></h2></div>";
+                                        insertParagraph+="<li class='catalog_city'><span class='catalog_num'>"+paragraphIndexs+"/</span><a role='button' data-index='"+paragraphIndex+"' title='"+data.travelNotes.travelNotesContents[i].value+"' class='catalog_line _j_cataloglink' onclick='paragraphClick(this)'>"+data.travelNotes.travelNotesContents[i].value+"</a></li>";
+                                        fontNum+=data.travelNotes.travelNotesContents[i].value.length;
+                                        paragraphIndex++;
+                                    }
                                 }
                             }
                             $("title").text(titletext);

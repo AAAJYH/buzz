@@ -22,5 +22,21 @@ public class cityController
         return cityservice.byCityNameQuery(cityName);
     }
 
+    /**
+     * 查询城市的前几条数据
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_cityByLIMIT")
+    public List<city> find_cityByLIMIT()
+    {
+        return cityservice.find_cityByLIMIT(8);
+    }
 
+    @ResponseBody
+    @RequestMapping("find_cityHot1")
+    public city find_cityHot1()
+    {
+        return cityservice.find_cityHot1();
+    }
 }

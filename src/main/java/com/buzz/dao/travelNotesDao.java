@@ -123,4 +123,38 @@ public interface travelNotesDao
      */
     @Update("update travelNotes set browsingHistory=browsingHistory+1 where travelNotesId=#{travelNotesId}")
     public Integer add_travelNotes_browsingHistoryBytravelNotesId(@Param("travelNotesId") String travelNotesId);
+
+    /**
+     * 根据城市编号查询游记
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test='null != cityId'> and cityId=#{cityId}</if></script>"})
+    public List<travelNotes> find_travelNotesBycityId(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 根据城市编号查询游记按照时间倒序
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test='null != cityId'> and cityId=#{cityId}</if> order by releaseTime desc</script>"})
+    public List<travelNotes> find_travelNotesBycityIdAndreleaseTimedesc(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 根据城市编号查询游记总数
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select count(travelNotesId) from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test='null != cityId'> and cityId=#{cityId}</if></script>"})
+    public Integer find_travelNotesCountBycityIdAndstaticId(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 根据点赞获取热门游记
+     * @return
+     */
+    @Select("select tn.* from travelNotes tn left join(select travelNotesId,count(travelNotesId) as count1 from travelCollection GROUP BY travelNotesId) tc on tc.travelNotesId=tn.travelNotesId where tc.count1=(select count(travelNotesId) from travelCollection GROUP BY travelNotesId ORDER BY count(travelNotesId) desc LIMIT 0,1) LIMIT 0,1")
+    public travelNotes find_travelNotesByHot();
 }

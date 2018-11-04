@@ -6,6 +6,7 @@ import com.buzz.service.strategyService;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -55,5 +56,28 @@ public class strategyController {
         return strategyService.updateCityStrategyDownloadNumber(strategyId);
     }
 
+    /**
+     * 获取下载数量最多的五个旅游攻略
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_strategyHot5")
+    public List<strategy> find_strategyHot5()
+    {
+        return strategyService.find_strategyHot5();
+    }
 
+    /**
+     * 根据旅游攻略编号查询
+     * @param model
+     * @param
+     * @return
+     */
+    @RequestMapping("find_strategyBystrategyId")
+    public String find_strategyBystrategyId(Model model,String strategyId)
+    {
+        strategy strategy=strategyService.find_strategyBystrategyId(strategyId);
+        model.addAttribute("strategy",strategy);
+        return "/front_desk/Strategy";
+    }
 }

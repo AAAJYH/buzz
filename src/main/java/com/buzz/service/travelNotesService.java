@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.buzz.dao.travelNotesDao;
 import com.buzz.entity.travelNotes;
 import com.buzz.entity.travelNotesContent;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -193,5 +194,45 @@ public class travelNotesService {
     public Integer add_travelNotes_browsingHistoryBytravelNotesId(String travelNotesId)
     {
         return travelnotesdao.add_travelNotes_browsingHistoryBytravelNotesId(travelNotesId);
+    }
+
+    /**
+     * 根据城市编号查询游记
+     * @param cityId
+     * @return
+     */
+    public List<travelNotes> find_travelNotesBycityIdAndstaticId(Integer pageIndex,String cityId,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,10);
+        return travelnotesdao.find_travelNotesBycityId(cityId,stateIds);
+    }
+    /**
+     * 根据城市编号查询游记
+     * @param cityId
+     * @return
+     */
+    public List<travelNotes> find_travelNotesBycityIdAndstaticIdAndreleaseTimedesc(Integer pageIndex,String cityId,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,10);
+        return travelnotesdao.find_travelNotesBycityIdAndreleaseTimedesc(cityId,stateIds);
+    }
+    /**
+     * 根据城市编号查询游记总数
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    public Integer find_travelNotesCountBycityIdAndstaticId(String cityId,String...stateIds)
+    {
+        return travelnotesdao.find_travelNotesCountBycityIdAndstaticId(cityId,stateIds);
+    }
+
+    /**
+     * 根据点赞获取热门游记
+     * @return
+     */
+    public travelNotes find_travelNotesByHot()
+    {
+        return travelnotesdao.find_travelNotesByHot();
     }
 }

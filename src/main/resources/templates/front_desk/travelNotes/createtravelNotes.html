@@ -403,7 +403,7 @@
                 if(null!=data)
                 {
                     var i=0;
-                    if(data.travelNotesContents.length>0)
+                    if(null!=data.travelNotesContents&&data.travelNotesContents.length>0)
                     {
                         if(data.travelNotesContents[0].type=="textarea")
                         {
@@ -425,7 +425,7 @@
                         }
                         else if(data.travelNotesContents[i].type=="img")
                         {
-                            insertHtml+="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+data.travelNotesContents[i].value+"' width='680' height='453'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+data.travelNotesContents[i].value+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                            insertHtml+="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+data.travelNotesContents[i].value+"' width='"+data.travelNotesContents[i].width+"' height='"+data.travelNotesContents[i].height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+data.travelNotesContents[i].value+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
                         }
                         else if(data.travelNotesContents[i].type=="h2")
                         {
@@ -537,13 +537,13 @@
         var defaultCityClass=$("#defaultCity").attr("class");
         var input_mddname_panelChildrenElementNum=$(".input_mddname_panel").children().length;
         var cityId=null;
+        var travelNotesId=$("#travelNotesId").val();
         if("pl-tag cur"==defaultCityClass)
             cityId=$("#defaultCity").attr("data-id");
         else if(0<input_mddname_panelChildrenElementNum)
             cityId=$(".input_mddname_panel").children().attr("data-id");
         if(null!=cityId&&0<cityId.length)
         {
-            var travelNotesId=$("#travelNotesId").val();
             $.ajax({
                 url:"travelNotesController/update_travelNotes_cityId",
                 type:"post",
@@ -558,6 +558,8 @@
                 }
             });
         }
+        else
+            window.location.href="front_desk/travelNotes/audittravelNotes.html?travelNotesId="+travelNotesId;
         $("#_j_layer_2").remove();//关闭选择城市模态框
     }
     //在js中进行操作需要进行加载的方法
@@ -1466,12 +1468,32 @@
                 });
             }
             else
-                showalert("游记标题不能为空")
+            {
+                showalert("游记标题不能为空");
+                $("._j_btn_publish").removeClass("n_loading");
+            }
         }
     );
     //页面大小变更时游记头图大小更改
     $(window).resize(function() {
         $('#_j_cover_box').height($(window).width()/3);
+    });
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
     });
 </script>
 </body>

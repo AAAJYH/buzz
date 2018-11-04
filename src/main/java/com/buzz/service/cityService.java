@@ -40,4 +40,19 @@ public class cityService {
         return cityDao.SearchNumberAddOne(cityId);
     }
 
+    /**
+     * 查询城市热门的前几条数据
+     * @param num
+     * @return
+     */
+    public List<city> find_cityByLIMIT(Integer num)
+    {
+        return cityDao.find_cityByLIMIT(num);
+    }
+
+    //根据搜索次数查询热门城市
+    public city find_cityHot1()
+    {
+        return cityDao.find_cityHot1();
+    }
 }

@@ -31,4 +31,21 @@ public class strategyService {
         return strategyDao.updateCityStrategyDownloadNumber(strategyId);
     }
 
+    /**
+     * 通过下载数量倒序查询五条旅游攻略
+     * @return
+     */
+    public List<strategy> find_strategyHot5()
+    {
+        return strategyDao.find_strategyHot5();
+    }
+
+    /**
+     * 根据旅游攻略编号查询
+     * @return
+     */
+    public strategy find_strategyBystrategyId(String strategyId)
+    {
+        return strategyDao.find_strategyBystrategyId(strategyId);
+    }
 }

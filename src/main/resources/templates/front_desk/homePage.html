@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost/">
+    <title>旅游攻略,自由行,自助游攻略,旅游社交分享网站 - 嗡嗡嗡</title>
+    <meta name="keywords" content="自由行,旅游攻略,自助游" />
+    <meta name="description" content="嗡嗡嗡!靠谱的旅游攻略,自由行,自助游分享社区,海量旅游景点图片、游记、交通、美食、购物等自由行旅游攻略信息,嗡嗡嗡旅游网获取自由行,自助游攻略信息更全面" />
+    <meta name="author" content="嗡嗡嗡" />
+    <meta name="renderer" content="webkit" />
+    <meta property="qc:admins" content="1571256654651656777636" />
+    <!--<script type="text/javascript">
+        window.Env = {"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":52028572,"CSTK":"7a404b97386b38ed627a67a5421d60db_fff4a1febd99454848b65af6d7bcfa6d","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
+    </script>-->
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+mfw-index.2015:css+jquery-ui-1.9.1.custom.min:css+hotel+datepicker-range^ZFM^1525846268.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="http://www.mafengwo.cn/">首页</a></li>
+                <li class="head-nav-place" data-cs-p="mdd"><a href="http://www.mafengwo.cn/mdd/" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="http://www.mafengwo.cn/gonglve/" title="旅游攻略">旅游攻略</a></li>
+                <li class="head-nav-sales head-nav-dropdown _j_sales_nav_show" id="_j_nav_sales" data-cs-p="sales">
+                    <a class="drop-toggle" href="http://www.mafengwo.cn/sales/" style="cursor: pointer;display: block;border-bottom:0 none;" data-sales-nav="旅行商城">
+                        <span>旅行商城<i class="icon-caret-down"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-sales hide _j_sales_top" id="_j_sales_panel" data-cs-t="sales_nav">
+                        <ul>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/" data-sales-nav="机票＋酒店">自由行<i class="i-hot">hot</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4" data-sales-nav="跟团游">跟团游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/localdeals/" data-sales-nav="当地游">当地游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/flight/" data-sales-nav="国内机票">国内机票<i class="i-new">new</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/visa/" data-sales-nav="签证">签证</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/insure/" data-sales-nav="保险">保险</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="head-nav-hotel" data-cs-p="hotel"><a href="http://www.mafengwo.cn/hotel/" title="酒店">酒店</a></li>
+                <li class="head-nav-community head-nav-dropdown _j_shequ_nav_show" id="_j_nav_community" data-cs-p="community">
+                    <div class="drop-toggle"><span>社区<i class="icon-caret-down"></i></span></div>
+                    <!-- 社区下拉面板 begin -->
+                    <div class="dropdown-panel dropdown-community hide _j_shequ_top no-image" id="_j_community_panel" data-cs-t="community_nav">
+                        <div class="panel-wrapper">
+                            <ul class="nav-list clearfix">
+                                <li class="h"><a href="http://www.mafengwo.cn/wenda/" target="_blank" title="问答" data-cs-p="wenda">问答<i class="i-hot">hot</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/things.php" target="_blank" title="嗡嗡嗡周边" data-cs-p="things">嗡嗡嗡周边<i class="i-new">new</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/club/" target="_blank" title="蜂首俱乐部" data-cs-p="club">蜂首俱乐部</a></li>
+                                <li><a href="http://www.mafengwo.cn/together/" target="_blank" title="结伴" data-cs-p="together">结伴</a></li>
+                            </ul>
+                            <ul class="nav-list-sub clearfix">
+
+                                <li><a href="http://www.mafengwo.cn/group/" target="_blank" title="嗡嗡嗡旅行家" data-cs-p="group">小组论坛</a></li>
+                                <li><a href="http://www.mafengwo.cn/rudder/" target="_blank" title="分舵同城" data-cs-p="rudder">分舵同城</a></li>
+                                <li><a href="http://www.mafengwo.cn/auction/" target="_blank" title="嗡嗡嗡拍卖行" data-cs-p="paimai">嗡嗡嗡拍卖行</a></li>
+                                <!--<li><a href="http://www.mafengwo.cn/postal/" target="_blank" title="游记纪念工厂" data-cs-p="postal">游记纪念工厂</a></li>-->
+                                <li><a href="http://www.mafengwo.cn/photo_pk/prev.php" target="_blank" title="照片PK" data-cs-p="photo_pk">照片PK</a></li>
+                                <li><a href="http://www.mafengwo.cn/focus/" target="_blank" title="真人兽" data-cs-p="focus">真人兽</a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/virtual_goods.php" target="_blank" title="道具商店" data-cs-p="virtual">道具商店</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 社区下拉面板 end -->
+                </li>
+                <li class="head-nav-app" data-cs-p="app"><a href="http://www.mafengwo.cn/app/intro/gonglve.php" title="APP">APP</a></li>
+            </ul>
+            <div class="head-search" data-online="1">
+                <div class="head-search-wrapper">
+                    <div class="head-searchform">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off">
+                        <a role="button" href="javascript:" class="icon-search" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+            <div id="login_box" class="pagelet-block">
+                <div class='login-out'>
+                    <a id='_j_showlogin' title='登录马蜂窝' href='usersController/show_login_html' rel='nofollow'>登录</a>
+                    <span class='split'>|</span>
+                    <a href='usersController/show_login_html' title='注册帐号' rel='nofollow'>注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <!-- 新自由行菜单 begin -->
+    <div class="dropdown-bar" style="display: none">
+        <div class="content">
+            <ul class="clearfix ul-dropdown-bar" id="Js_middleNav">
+                <li data-type="sales"><a href="http://www.mafengwo.cn/sales/">自由行</a></li>
+                <li data-type="freewalker"><a href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4">跟团游</a></li>
+                <li data-type="localdeals"><a href="http://www.mafengwo.cn/localdeals/">当地游</a></li>
+                <li data-type="flight"><a href="http://www.mafengwo.cn/flight/">国内机票</a></li>
+                <li data-type="visa"><a href="http://www.mafengwo.cn/sales/visa/">签证</a></li>
+                <li data-type="wifi"><a href="http://www.mafengwo.cn/localdeals/0-0-0-21-0-0-0-0.html">全球WiFi</a></li>
+                <li data-type="cruise"><a href="http://www.mafengwo.cn/sales/0-0-0-5-0-0-0-0.html">邮轮</a></li>
+
+                <li data-type="insurance"><a href="http://www.mafengwo.cn/insurance/">旅游保险</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 新自由行菜单 end -->
+</div>
+<!-- zhangchu123 -->
+<div class="mfw-focus" id="_j_mfw_focus">
+    <div class="show-slider" id="_j_top_pic_container">
+        <ul class="show-image">
+            <li style='display:list-item;'>
+                <a class='show-pic'><img height='600px' src='images/wKgED1vGvU6AR--jAAbh7MaFNzc14.jpeg' style='height: 630px;'></a>
+            </li>
+        </ul>
+        <ul class="show-nav"></ul>
+    </div>
+    <div class="search-container" id="_j_index_search">
+        <div class="search-group">
+            <div class="searchtab" id="_j_index_search_tab">
+                <ul class="clearfix">
+                    <li class="tab-selected" data-index="0"><i></i>全部</li>
+                    <li data-index="1"><i></i>酒店</li>
+                    <li data-index="2"><i></i>目的地</li>
+                    <li data-index="3"><i></i>旅行商城</li>
+                </ul>
+            </div>
+            <!-- 全部 begin -->
+            <div class="searchbar" id="_j_index_search_bar_all">
+                <div class="search-wrapper">
+                    <div class="search-input">
+                        <input name="q" type="text" placeholder="搜目的地/攻略/酒店/旅行特价" id="_j_index_search_input_all" autocomplete="off">
+                    </div>
+                </div>
+                <div class="search-button" id="_j_index_search_btn_all">
+                    <a role="button" href="javascript:"><i class="icon-search"></i></a>
+                </div>
+            </div>
+            <!-- 全部 end -->
+            <!-- 酒店 begin -->
+            <div class="searchbar searchbar-hotel hide" id="_j_index_search_bar_hotel">
+                <div class="search-wrapper">
+                    <form action="/hotel/s.php" method="get">
+                        <div class="search-input">
+                            <input name="keyword" type="text" placeholder="请输入国家、地区、城市名称" id="_j_index_search_input_hotel" autocomplete="off">
+                        </div>
+                    </form>
+                    <div class="search-date" id="_j_check_in">
+                        <input type="text" readonly="readonly">
+                        <span></span>
+                        <i class="icon-cal"></i>
+                    </div>
+                    <div class="search-date" id="_j_check_out">
+                        <input type="text" readonly="readonly">
+                        <span></span>
+                        <i class="icon-cal"></i>
+                    </div>
+                </div>
+                <div class="search-button" id="_j_index_search_btn_hotel">
+                    <a role="button" href="javascript:"><i class="icon-search"></i></a>
+                </div>
+            </div>
+            <!-- 酒店 end -->
+            <!-- 目的地 begin -->
+            <div class="searchbar hide" id="_j_index_search_bar_mdd">
+                <form action="/search/s.php" method="get">
+                    <div class="search-wrapper">
+                        <div class="search-input">
+                            <input name="q" type="text" placeholder="我要去..."  id="_j_index_search_input_mdd" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="search-button" id="_j_index_search_btn_mdd">
+                        <a role="button" href="javascript:"><i class="icon-search"></i></a>
+                    </div>
+                </form>
+            </div>
+            <!-- 目的地 end -->
+            <!-- 出行服务 begin -->
+            <div class="searchbar hide" id="_j_index_search_bar_sales">
+                <div class="search-wrapper">
+                    <div class="search-input">
+                        <input type="text" placeholder="产品名称/目的地/优惠" id="_j_index_search_input_sales" autocomplete="off">
+                    </div>
+                </div>
+                <div class="search-button" id="_j_index_search_btn_sales">
+                    <a role="button" href="javascript:"><i class="icon-search"></i></a>
+                </div>
+            </div>
+            <!-- 出行服务 end -->
+            <!-- 目的地suggest begin -->
+            <div class="search-suggest-panel search-suggest-place hide" id="_j_index_suggest_list_mdd">
+                <ul class="suggest-list"></ul>
+            </div>
+            <!-- 目的地suggest end -->
+            <!-- 酒店suggest begin -->
+            <div class="search-suggest-panel search-suggest-hotel hide" id="_j_index_suggest_list_hotel">
+            </div>
+            <!-- 酒店suggest end -->
+        </div>
+    </div>
+</div>
+<div class="mfw-container clearfix" id="_j_mfw_container">
+    <div class="mfw-wrapper">
+        <div class="mfw-travelnotes" id="_j_tn">
+            <div class="navbar clearfix">
+                <ul class="tn-nav" id="_j_tn_nav">
+                    <li class="active _j_gs_tab tn-nav-hot">
+                        <a href="javascript:void(0);" data-type="0" data-objid="0">热门游记</a>
+                        <span class="tn-menu _j_open_search" onclick="show_j_gs_container()"><i class="tn-menu-icon"></i>筛选</span></li>
+                    <li class="_j_gs_tab tn-nav-new">
+                        <a href="javascript:void(0);" data-type="3">最新发表</a>
+                    </li>
+                </ul>
+                <div class="tn-write"><a class="btn-add" href="front_desk/travelNotes/createNoteIndex.html" target="_blank" rel="nofollow"><i></i>写游记</a>
+                </div>
+            </div>
+            <div class="tn-dropdown-pop _j_gs_container" style="display:none;">
+                <span class="underline"></span>
+                <a class="close _j_close" onclick="close_j_gs_container()">×</a>
+                <div class="section clearfix">
+                    <div class="label">目的地</div>
+                    <div class="section-cont">
+                        <div class="mui-search">
+                            <input class="mui-search-inp _j_gs_input" type="text" placeholder="输入你想查看的目的地">
+                            <div class="m-search-suggest tn-search-suggest hide _j_sr_container">
+                            </div>
+                        </div>
+                        <div class="hot-place"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tn-selected _j_tag_choose_container"></div>
+            <!--主页游记-->
+            <div  class="pagelet-block">
+                <div id="_j_tn_contents" style="display: block;">
+                    <div id="_j_tn_content"></div>
+                </div>
+            </div>
+            </div>
+            </div>
+    <div class="mfw-aside">
+        <div class="asidebox box-traveller">
+            <div class="asidebox-hd">
+                <h2 class="hd-title">热门游记</h2>
+            </div>
+            <div class="asidebox-bd" id="_j_traveller_slide"></div>
+        </div>
+
+        <div class="asidebox box-gonglve">
+            <div class="asidebox-hd">
+                <h2 class="hd-title">热门城市</h2>
+            </div>
+            <div class="asidebox-bd" id="hot_City"></div>
+        </div>
+        <div class="asidebox box-gowild"></div>
+        <div class="asidebox box-traveller box-activity"></div>
+    </div>
+  </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var $topPicContainer = $('#_j_top_pic_container'),
+        topPicSlideCnt = $topPicContainer.find('.show-image');
+    function respondTopPicSize(ev) {
+        var clientWidth = $(window).width(),
+            picHeight = Math.round(clientWidth / 3);
+        $topPicContainer.height(picHeight);
+        topPicSlideCnt.find('img').each(function(idx, ele) {
+            var $img = $(ele),
+                imgHeight = parseInt($img.css('height'), 10);
+            if(imgHeight > picHeight) {
+                $img.css('marginTop', -Math.round((imgHeight - picHeight) / 2));
+            }
+        });
+    }
+    $(window).on('resize', respondTopPicSize).trigger('resize');
+</script>
+<script>
+    $(function () {
+        if(!(location.href.match(/www\.mafengwo\.cn\/hotel/g) ||
+                location.href.match(/www\.mafengwo\.cn\/mdd\/$/g)||
+                location.href.match(/www\.mafengwo\.cn\/gonglve\/$/g)||
+                location.href.match(/www\.mafengwo\.cn\/sales\/$/g)
+            )){
+            if(getCookie('all_ad')!=='1'){
+                $("#ad1").animate({ left:0,},1500,'swing');
+                setTimeout(function () {
+                    $("#ad1").animate({ left:-window.innerWidth,},1500,'swing');
+                }, 1500);
+                setTimeout(function () {
+                    $("#ad2").animate({ left:0,},500,'swing');
+                    $("#ad1").hide();
+                }, 3000);
+                add_cookie('all_ad');
+            }else{
+                if(getCookie('ad_hide')!=='1')
+                    $("#ad2").animate({ left:0,},1000,'swing');
+            }
+        }
+    });
+
+    $('#ad2 img').click(function (){
+        $("#ad2").animate({ left:-200,},500,'swing');
+        setTimeout(function () {
+            $("#ad1").show();
+            $("#ad1").css('width','100%');
+            $("#ad1").animate({ left:0,},1000,'swing');
+        }, 800);
+    });
+    $('#close').click(function () {
+        $("#ad1").animate({ left:-window.innerWidth,},1000,'swing');
+        setTimeout(function () {
+            $("#ad2").animate({ left:0,},800,'swing');
+            $("#ad1").hide();
+        }, 1000);
+    });
+    $("#ad2 div").click(function () {
+        $("#ad1").animate({ left:-window.innerWidth,},1000,'swing');
+        setTimeout(function () {
+            $("#ad2").animate({ left:-200,},800,'swing');
+            $("#ad1").hide();
+        }, 1000);
+        add_cookie('ad_hide');
+    });
+
+    function add_cookie(name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 60*1000*60);
+        document.cookie=name+'=1;expires='+exp.toGMTString()+';path=/';
+    }
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+
+        return "";
+    }
+</script>
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="ft-links">
+            <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+            <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
+        </div>
+
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+
+
+
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+
+
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<script>
+    $().ready(
+        function()
+        {
+            //获取当前登录用户
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        var login_boxHtml="";
+                        if(data.loginState)
+                        {
+                            login_boxHtml+="<div class='login-info'><div class='head-user' id='_j_head_user'><a class='drop-trigger' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' title='"+data.currentUser.userName+"的窝' rel='nofollow'><div class='user-image'><img src='"+data.currentUser.photo+"' height='32' width='32'></div><i class='icon-caret-down'></i></a></div><div class='head-msg' id='_j_head_msg'><a class='drop-trigger' href='javascript:' rel='nofollow'><i class='icon-msg'></i>消息<i class='icon-caret-down'></i><span class='head-msg-new hide' style='display: none;'></span></a></div></div><div class='dropdown-group'><div class='dropdown-menu dropdown-msg hide' id='_j_msg_panel' style='z-index: 10; display: none;'><ul><li><a href='http://www.mafengwo.cn/msg/sms/index' target='_blank' rel='nofollow'>私信</a></li><li><a href='http://www.mafengwo.cn/msg/entry/group' target='_blank' rel='nofollow'>小组消息</a></li><li><a href='http://www.mafengwo.cn/msg/entry/sys' target='_blank' rel='nofollow'>系统通知</a></li><li><a href='http://www.mafengwo.cn/msg/entry/ask' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='http://www.mafengwo.cn/msg/entry/reply' target='_blank' rel='nofollow'>回复消息</a></li><li><a href='http://www.mafengwo.cn/msg/entry/fav' target='_blank' rel='nofollow'>喜欢与收藏</a></li><li><a href='http://www.mafengwo.cn/msg/entry/friends' target='_blank' rel='nofollow'>好友动态</a></li></ul></div><div class='dropdown-menu dropdown-msg hide' id='_j_msg_float_panel' style='display: none;'><ul></ul><a href='javascript:' class='close-newmsg'>×</a></div><div class='dropdown-menu dropdown-user hide' id='_j_user_panel' data-cs-t='user_nav' style='display: none;'><div class='user-info'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><ul><li><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的马蜂窝' ><i class='icon-wo'></i>我的马蜂窝</a></li><li><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'><i class='icon-writenotes'></i>写游记</a></li><li><a href='http://www.mafengwo.cn/plan/fav_type.php' title='我的收藏' target='_blank' rel='nofollow' data-cs-p='collect'><i class='icon-collect'></i>我的收藏</a></li><li><a href='http://www.mafengwo.cn/wenda/u/52028572/answer.html' target='_blank' title='我的问答' rel='nofollow' data-cs-p='wenda'><i class='icon-wenda'></i>我的问答</a></li><li><a href='https://w.mafengwo.cn/activity_reserve_note/index' target='_blank' class='drop-write' title='预约游记' rel='nofollow' data-cs-p='appointnotes'><i class='icon-ordernotes'></i>预约游记</a></li><li data-cs-t='足迹_首页' data-cs-p='页头_我的足迹'><a href='http://www.mafengwo.cn/path/52028572.html' target='_blank' title='我的足迹' rel='nofollow'><i class='icon-path'></i>我的足迹</a></li><li><a href='http://www.mafengwo.cn/friend/index/follow' target='_blank' title='我的好友' rel='nofollow' data-cs-p='friend'><i class='icon-friend'></i>我的好友</a></li><li><a href='http://www.mafengwo.cn/plan/route.php' title='我的路线' target='_blank' rel='nofollow' data-cs-p='route'><i class='icon-route'></i>我的路线</a></li><li><a href='http://www.mafengwo.cn/order_center/' title='我的订单' target='_blank' rel='nofollow' data-cs-p='order'><i class='icon-order'></i>我的订单</a></li><li><a href='http://www.mafengwo.cn/sales/coupon.php' title='我的优惠券' target='_blank' rel='nofollow' data-cs-p='coupon'><i class='icon-coupon'></i>我的优惠券</a></li><li><a href='https://passport.mafengwo.cn/setting/' title='我的设置' target='_blank' rel='nofollow' data-cs-p='settings'><i class='icon-settings'></i>设置</a></li><li><a onclick='logout()' title='退出登录' rel='nofollow'><i class='icon-logout' data-cs-p='logout'></i>退出</a></li></ul></div></div>";
+                        }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='login-out'><a id='_j_showlogin' title='登录马蜂窝' href='usersController/show_login_html?url="+url+"' rel='nofollow'>登录</a><span class='split'>|</span><a href='usersController/show_login_html?url="+url+"' title='注册帐号' rel='nofollow'>注册</a></div>";
+                        }
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#_j_user_panel").length||0<$(e.target).closest("#_j_head_user").length)
+                                    $("#_j_user_panel").css("display","block");
+                                else
+                                    $("#_j_user_panel").css("display","none");
+                                if(0<$(e.target).closest("#_j_head_msg").length||0<$(e.target).closest("#_j_msg_panel").length)
+                                    $("#_j_msg_panel").css("display","block");
+                                else
+                                    $("#_j_msg_panel").css("display","none");
+                            }
+                        );
+                    }
+                }
+            });
+            //获取最热门游记
+            $.ajax({
+                url:"travelNotesController/find_travelNotesByHot",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    var _j_traveller_slideHtml="";
+                    if(null!=data)
+                    {
+                        var travelNotesheadPhoto=data.travelNotesheadPhoto;
+                        var travelNotesheadline=data.travelNotesheadline;
+                        if(null==travelNotesheadPhoto||""==travelNotesheadPhoto)
+                            travelNotesheadPhoto="images/home_new2015/default.jpg";
+                        if(null==travelNotesheadline||""==travelNotesheadline)
+                            travelNotesheadline="未命名游记标题";
+                        var travelNotesContent="";
+                        if(null!=data.travelNotesContents&&0<data.travelNotesContents.length)
+                        {
+                            for(var i=0;i<data.travelNotesContents.length;i++)
+                            {
+                                if(data.travelNotesContents[i].type=="textarea")
+                                    travelNotesContent+=data.travelNotesContents[i].value;
+                            }
+                        }
+                        _j_traveller_slideHtml="<ul class='slide-ul'><li><div class='image'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotesId+"' target='_blank'><img src='"+data.travelNotesheadPhoto+"' height='140' width='260'><span class='mark'>热门城市</span></a></div><h3><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotesId+"' target='_blank'>"+travelNotesheadline+"</a></h3><p>"+travelNotesContent+"</p></li></ul>";
+                    }
+                    $("#_j_traveller_slide").html(_j_traveller_slideHtml);
+                }
+            });
+            //获取热门城市
+            $.ajax({
+                url:"cityController/find_cityHot1",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    var hot_CityHtml="";
+                    if(null!=data)
+                    {
+                        var cityPhoto=data.cityPhoto;
+                        if(null==cityPhoto||""==cityPhoto)
+                            cityPhoto="images/cityPhoto/wKgB6lSgx0KAAtuCAAVoSPI1DUk40.jpeg";
+                        hot_CityHtml="<div class='gonglve-item'><div class='img'><a href='scenicspotController/byCityIdQueryScenicspot?cityId="+data.cityId+"' target='_blank'><img src='"+cityPhoto+"' height='140' width='260'><span class='mark'>热门城市</span></a></div><h3><a href='scenicspotController/byCityIdQueryScenicspot?cityId="+data.cityId+"' target='_blank'>"+data.cityName+"</a></h3></div>";
+                    }
+                    $("#hot_City").html(hot_CityHtml);
+                }
+            });
+            //获取热门旅游攻略
+            $.ajax({
+                url:"strategyController/find_strategyHot5",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    var box_activityHtml="<div class='asidebox-hd'><h2 class='hd-title'>旅游攻略推荐</h2></div>";
+                    if(null!=data)
+                    {
+                        for(var i=0;i<data.length;i++)
+                        {
+                            var strategyPhoto=data[i].strategyPhoto;
+                            strategyPhoto=strategyPhoto.substring(0,strategyPhoto.indexOf(","));
+                            box_activityHtml+="<div class='asidebox-bd'><ul class='slide-ul'><li><div class='image'><a href='strategyController/find_strategyBystrategyId?strategyId="+data[i].strategyId+"' target='_blank' ><img src='"+strategyPhoto+"' height='178' width='260'></a></div><h3><a href='strategyController/find_strategyBystrategyId?strategyId="+data[i].strategyId+"' target='_blank' >"+data[i].strategyHeadline+"</a></h3></li></ul></div>";
+                        }
+                    }
+                    $(".box_activity").html(box_activityHtml);
+                }
+            });
+            load_travelNotes(1,null);
+        }
+    );
+//退出登录
+function logout()
+{
+    $.ajax({
+        url:"usersController/loginOut",
+        dataType:"json",
+        type:"post",
+        success:function (data)
+        {
+            if(data)
+                window.location.href=window.location.href;
+        }
+    });
+}
+//显示筛选模态框
+function show_j_gs_container()
+{
+    $("._j_gs_input").val("");
+    $("._j_sr_container").addClass("hide");
+    $("._j_sr_container").children().remove();
+    $("._j_gs_container").css("display","block");
+    var length=$(".hot-place").children().length;
+    if(length==0)
+    {
+        $.ajax({
+            url:"cityController/find_cityByLIMIT",
+            dataType:"json",
+            type:"post",
+            success:function(data)
+            {
+                var hot_placeHtml="";
+                if(null!=data&&0<data.length)
+                {
+                    for(var i=0;i<data.length;i++)
+                    {
+                        hot_placeHtml+="<a class='_j_gs_item _j_gs_sn_11058_2' data-cityId='"+data[i].cityId+"' data-cityName='"+data[i].cityName+"' onclick='selectedCity(this)'>"+data[i].cityName+"</a>";
+                    }
+                    $(".hot-place").html(hot_placeHtml);
+                }
+            }
+        });
+    }
+}
+//关闭筛选模态框
+function close_j_gs_container()
+{
+    $("._j_gs_container").css("display","none");
+}
+//当点击不是筛选模态框隐藏
+$(document).mousedown(
+        function(e)
+        {
+            if(0>=$(e.target).closest("._j_gs_container").length)
+            {
+                $("._j_gs_container").css("display","none");
+            }
+        }
+);
+//加载最新发表游记内容
+function load_travelNotesByNew(pageIndex,cityId)
+{
+    $.ajax({
+        url:"travelNotesController/load_travelNotesBypageIndexAndcityIdAndreleaseTimedesc",
+        type:"post",
+        dataType:"json",
+        data:{pageIndex:pageIndex,cityId:cityId},
+        success:function(data)
+        {
+            var _j_tn_contentHtml="";
+            var _j_tn_paginationHtml="";
+            var image_first=true;
+            var show_imageHtml="";
+            var show_navHtml="";
+            if(null!=data)
+            {
+                _j_tn_contentHtml="<div class='tn-list'>";
+                if(data.currentPageIndex<data.travelNotes.length)
+                {
+                    _j_tn_paginationHtml="<div align='right' class='m-pagination' id='_j_tn_pagination'><span class='count'>共"+data.totalPageCount+"页 / "+data.totalCount+"条</span>";
+                    if(1!=data.currentPageIndex)
+                        _j_tn_paginationHtml+="<a class='pg-prev _j_pageitem'  data-page='"+(data.currentPageIndex-1)+"' onclick='load_travelNotesBypageIndex(this)'>&lt;&lt; 上一页</a>";
+                    for(var i=data.currentPageIndex-4;i<data.currentPageIndex;i++)
+                    {
+                        if(i>0)
+                            _j_tn_paginationHtml+="<a class='pi _j_pageitem' onclick='load_travelNotesBypageIndex(this)'  data-page='"+i+"' >"+i+"</a>";
+                    }
+                    _j_tn_paginationHtml+="<span class='pg-current'>"+data.currentPageIndex+"</span>";
+                    for(var i=data.currentPageIndex+1;i<=data.totalPageCount;i++)
+                    {
+                        _j_tn_paginationHtml+="<a class='pi _j_pageitem' onclick='load_travelNotesBypageIndex(this)'  data-page='"+i+"' >"+i+"</a>";
+                    }
+                    if(data.totalPageCount!=data.currentPageIndex)
+                        _j_tn_paginationHtml+="<a class='pg-next _j_pageitem' data-page='"+(data.currentPageIndex+1)+"' onclick='load_travelNotesBypageIndex(this)'>下一页 &gt;&gt;</a>";
+                    _j_tn_paginationHtml+="</div>";
+                }
+                for(var i=0;i<data.travelNotes.length;i++)
+                {
+                    var releaseTime=format_time(data.travelNotes[i].releaseTime);
+                    var year=releaseTime.substring(0,4);
+                    var day=releaseTime.substr(8,2);
+                    var travelNotesheadPhoto=data.travelNotes[i].travelNotesheadPhoto;
+                    if(null==travelNotesheadPhoto||""==travelNotesheadPhoto)
+                        travelNotesheadPhoto="images/home_new2015/default.jpg";
+                    var travelNotesContent="";
+                    if(null!=data.travelNotes[i].travelNotesContents)
+                    {
+                        for(var s=0;i<data.travelNotes[i].travelNotesContents.length;s++)
+                        {
+                            if(data.travelNotes[i].travelNotesContents[s].type=="textarea")
+                            {
+                                if(0<data.travelNotes[i].travelNotesContents[s].value.length)
+                                {
+                                    travelNotesContent=data.travelNotes[i].travelNotesContents[s].value;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    var cityId=data.travelNotes[i].cityId;
+                    var tn_place="";
+                    if(null!=cityId&&""!=cityId)
+                        tn_place="<span class='tn-place'><i></i><a class='_j_gs_item' data-cityName='"+data.travelNotes[i].city.cityName+"' data-cityId='"+data.travelNotes[i].city.cityId+"'>"+data.travelNotes[i].city.cityName+"</a>，by</span>";
+                    else
+                        tn_place="<span class='tn-place'>by</span>";
+                    var travelNotesheadline=data.travelNotes[i].travelNotesheadline;
+                    if(null==travelNotesheadline||""==travelNotesheadline)
+                        travelNotesheadline="未命名游记标题";
+                    _j_tn_contentHtml+="<div class='tn-item clearfix'><div class='tn-image'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'><img src='"+travelNotesheadPhoto+"'></a></div><div class='tn-wrapper'><dl><dt><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'>"+travelNotesheadline+"</a></dt><dd><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'>"+travelNotesContent+"</a></dd></dl><div class='tn-extra'><span class='tn-ding'><a class='btn-ding' rel='nofollow' data-travelNotesId='"+data.travelNotes[i].travelNotesId+"' onclick='insert_travelCollection(this)'></a><em>"+data.travelNotes[i].collectionNumber+"</em></span>"+tn_place+"<span class='tn-user'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotes[i].user.userId+"' target='_blank' rel='nofollow'><img src='"+data.travelNotes[i].user.photo+"'>"+data.travelNotes[i].user.userName+"</a></span><span class='tn-nums'><i></i>"+data.travelNotes[i].browsingHistory+"</span></div></div></div>";
+                    if(i<=4)
+                    {
+                        if(image_first)
+                        {
+                            image_first=false;
+                            show_imageHtml+="<li class='first' style='display:list-item;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+travelNotesheadline+"</h3></a></li>";
+                            show_navHtml+="<li class='active'><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
+                        }
+                        else
+                        {
+                            show_imageHtml+="<li style='display:none;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+travelNotesheadline+"</h3></a></li>";
+                            show_navHtml+="<li class=''><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
+                        }
+                    }
+                }
+                _j_tn_contentHtml+="</div>"+_j_tn_paginationHtml;
+            }
+            $("#_j_tn_content").html(_j_tn_contentHtml);
+            if(null!=data.travelNotes&&0<data.travelNotes.length)
+            {
+                $(".show-image").html(show_imageHtml);
+                $(".show-nav").html(show_navHtml);
+                update_travelNotesheadPhoto_setInterval;
+            }
+        }
+    });
+}
+    //加载游记内容
+    function load_travelNotes(pageIndex,cityId)
+    {
+        $.ajax({
+            url:"travelNotesController/load_travelNotesBypageIndexAndcityId",
+            type:"post",
+            dataType:"json",
+            data:{pageIndex:pageIndex,cityId:cityId},
+            success:function(data)
+            {
+                var _j_tn_contentHtml="";
+                var _j_tn_paginationHtml="";
+                var image_first=true;
+                var show_imageHtml="";
+                var show_navHtml="";
+                if(null!=data)
+                {
+                    _j_tn_contentHtml="<div class='tn-list'>";
+                    if(data.currentPageIndex<data.travelNotes.length)
+                    {
+                        _j_tn_paginationHtml="<div align='right' class='m-pagination' id='_j_tn_pagination'><span class='count'>共"+data.totalPageCount+"页 / "+data.totalCount+"条</span>";
+                        if(1!=data.currentPageIndex)
+                            _j_tn_paginationHtml+="<a class='pg-prev _j_pageitem'  data-page='"+(data.currentPageIndex-1)+"' onclick='load_travelNotesBypageIndex(this)'>&lt;&lt; 上一页</a>";
+                        for(var i=data.currentPageIndex-4;i<data.currentPageIndex;i++)
+                        {
+                            if(i>0)
+                                _j_tn_paginationHtml+="<a class='pi _j_pageitem' onclick='load_travelNotesBypageIndex(this)'  data-page='"+i+"' >"+i+"</a>";
+                        }
+                        _j_tn_paginationHtml+="<span class='pg-current'>"+data.currentPageIndex+"</span>";
+                        for(var i=data.currentPageIndex+1;i<=data.totalPageCount;i++)
+                        {
+                            _j_tn_paginationHtml+="<a class='pi _j_pageitem' onclick='load_travelNotesBypageIndex(this)'  data-page='"+i+"' >"+i+"</a>";
+                        }
+                        if(data.totalPageCount!=data.currentPageIndex)
+                            _j_tn_paginationHtml+="<a class='pg-next _j_pageitem' data-page='"+(data.currentPageIndex+1)+"' onclick='load_travelNotesBypageIndex(this)'>下一页 &gt;&gt;</a>";
+                        _j_tn_paginationHtml+="</div>";
+                    }
+                    for(var i=0;i<data.travelNotes.length;i++)
+                    {
+                        var releaseTime=format_time(data.travelNotes[i].releaseTime);
+                        var year=releaseTime.substring(0,4);
+                        var day=releaseTime.substr(8,2);
+                        var travelNotesheadPhoto=data.travelNotes[i].travelNotesheadPhoto;
+                        if(null==travelNotesheadPhoto||""==travelNotesheadPhoto)
+                            travelNotesheadPhoto="images/home_new2015/default.jpg";
+                        var travelNotesContent="";
+                        if(null!=data.travelNotes[i].travelNotesContents)
+                        {
+                            for(var s=0;i<data.travelNotes[i].travelNotesContents.length;s++)
+                            {
+                                if(data.travelNotes[i].travelNotesContents[s].type=="textarea")
+                                {
+                                    if(0<data.travelNotes[i].travelNotesContents[s].value.length)
+                                    {
+                                        travelNotesContent=data.travelNotes[i].travelNotesContents[s].value;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        var cityId=data.travelNotes[i].cityId;
+                        var tn_place="";
+                        if(null!=cityId&&""!=cityId)
+                            tn_place="<span class='tn-place'><i></i><a class='_j_gs_item' data-cityName='"+data.travelNotes[i].city.cityName+"' data-cityId='"+data.travelNotes[i].city.cityId+"'>"+data.travelNotes[i].city.cityName+"</a>，by</span>";
+                        else
+                            tn_place="<span class='tn-place'>by</span>";
+                        var travelNotesheadline=data.travelNotes[i].travelNotesheadline;
+                        if(null==travelNotesheadline||""==travelNotesheadline)
+                            travelNotesheadline="未命名游记标题";
+                        _j_tn_contentHtml+="<div class='tn-item clearfix'><div class='tn-image'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'><img src='"+travelNotesheadPhoto+"'></a></div><div class='tn-wrapper'><dl><dt><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'>"+travelNotesheadline+"</a></dt><dd><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'>"+travelNotesContent+"</a></dd></dl><div class='tn-extra'><span class='tn-ding'><a class='btn-ding' rel='nofollow' data-travelNotesId='"+data.travelNotes[i].travelNotesId+"' onclick='insert_travelCollection(this)'></a><em>"+data.travelNotes[i].collectionNumber+"</em></span>"+tn_place+"<span class='tn-user'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotes[i].user.userId+"' target='_blank' rel='nofollow'><img src='"+data.travelNotes[i].user.photo+"'>"+data.travelNotes[i].user.userName+"</a></span><span class='tn-nums'><i></i>"+data.travelNotes[i].browsingHistory+"</span></div></div></div>";
+                        if(i<=4)
+                        {
+                            if(image_first)
+                            {
+                                image_first=false;
+                                show_imageHtml+="<li class='first' style='display:list-item;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+travelNotesheadline+"</h3></a></li>";
+                                show_navHtml+="<li class='active'><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
+                            }
+                            else
+                            {
+                                show_imageHtml+="<li style='display:none;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+travelNotesheadline+"</h3></a></li>";
+                                show_navHtml+="<li class=''><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
+                            }
+                        }
+                    }
+                    _j_tn_contentHtml+="</div>"+_j_tn_paginationHtml;
+                }
+                $("#_j_tn_content").html(_j_tn_contentHtml);
+                if(null!=data.travelNotes&&0<data.travelNotes.length)
+                {
+                    $(".show-image").html(show_imageHtml);
+                    $(".show-nav").html(show_navHtml);
+                    update_travelNotesheadPhoto_setInterval;
+                }
+            }
+        });
+    }
+    //点击分页按钮
+function load_travelNotesBypageIndex(obj)
+{
+    var cityId=$("._j_gs_tag").attr("data-cityId");
+    var pageIndex=$(obj).attr("data-page");
+    var _j_gs_tab_active=$("#_j_tn_nav").children(".active");
+    if(_j_gs_tab_active.attr("class")=="_j_gs_tab tn-nav-hot active")
+        load_travelNotes(pageIndex,cityId);
+    else
+        load_travelNotesByNew(pageIndex,cityId);
+}
+//赞一赞
+function insert_travelCollection(obj)
+{
+    alert(obj);
+}
+//搜索目的地 按下键之后获取内容,并搜索目的地
+$("._j_gs_input").keyup(
+        function()
+        {
+            var cityName=$(this).val();
+            if(null!=cityName&&0<cityName.length)
+            {
+                $.ajax({
+                    url:"cityController/find_cityBykeyUp",
+                    type:"post",
+                    dataType:"json",
+                    data:{cityName:cityName},
+                    success:function(data)
+                    {
+                        $("._j_sr_container").children().remove();
+                        if(null!=data&&0<data.length)
+                        {
+                            $("._j_sr_container").removeClass("hide");
+                            for(var i=0;i<data.length;i++)
+                            {
+                                $("._j_sr_container").append("<li class='mss-item _j_selectedli_item active' data-cityId='"+data[i].cityId+"' data-cityName='"+data[i].cityName+"' onclick='selectedCity(this)'><div class='mss-title'><span class='mss-cn'><span class='mss-key'>"+data[i].cityName+"</span></span></div></li>");
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $("._j_sr_container").addClass("hide");
+                $("._j_sr_container").children().remove();
+            }
+        }
+    );
+//选择城市
+function selectedCity(obj)
+{
+    $("._j_gs_container").css("display","none");
+    var cityName=$(obj).attr("data-cityName");
+    var cityId=$(obj).attr("data-cityId");
+    load_travelNotes(1,cityId);
+    $("._j_tag_choose_container").html("<a class='tn-tag _j_gs_tag' data-cityId='"+cityId+"' onclick='_j_gs_tagRemove(this)'>"+cityName+"<i></i></a>");
+}
+//转换日期
+function format_time(replyTime)
+{
+    return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+}
+//城市按钮删除
+function _j_gs_tagRemove(obj)
+{
+    $(obj).remove();
+    load_travelNotes(1,null);
+}
+    //实时更换显示头图
+    var update_travelNotesheadPhoto_setInterval=setInterval(function()
+    {
+        var image_count=$(".show-nav").children().length;
+        if(image_count!=0)
+        {
+            $(".show-image").children("li").css("display","none");
+            var currentShowImage=$(".show-nav").children("li[class='active']");//获取当前正在显示的头图
+            $(".show-nav").children("li").removeClass("active");
+            var index=currentShowImage.children("a").attr("data-index");//获取下个节点
+            var nextIndex=parseInt(index)+1;
+            var nextShowImage=$($(".show-nav").children("li")[nextIndex]).children("a");
+            if(null==nextShowImage||null==nextShowImage.attr("data-index")||"undefined"==nextShowImage.attr("data-index"))//如果下个节点为空则获取第一个节点
+                nextShowImage=$($(".show-nav").children("li")[0]).children("a");
+            nextIndex=nextShowImage.attr("data-index");
+            nextShowImage.parent().addClass("active");
+            $($(".show-image").children("li")[nextIndex]).css("display","list-item");
+
+        }
+        else
+            window.clearInterval(over_container_setInterval);
+    },10000);
+    //切换显示头图
+    function switcTravelNotesheadPhoto(obj)
+    {
+        var index=$(obj).attr("data-index");
+        $(".show-image").children("li").css("display","none");
+        $(".show-nav").children("li").removeClass("active");
+        $(obj).parent().addClass("active");
+        var image=$(".show-image").children("li")[index];
+        $(image).css("display","list-item");
+    }
+    //热门游记按钮点击
+    $(".tn-nav-hot").click(
+        function()
+        {
+            $("._j_gs_tab").removeClass("active");
+            $(this).addClass("active");
+            load_travelNotes(1,null);
+        }
+    );
+    //最新发表游记点击
+    $(".tn-nav-new").click(
+        function()
+        {
+            $("._j_gs_tab").removeClass("active");
+            $(this).addClass("active");
+            load_travelNotesByNew(1,null);
+        }
+    );
+</script>
+</body>
+</html>

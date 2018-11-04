@@ -450,12 +450,15 @@ public class travelNotesController {
                             travelNotesNum = list.size();
                             for (travelNotes t : list) {
                                 t = travelnotesservice.format_travelNotesContents(t, path);
-                                for (travelNotesContent travelnotescontent : t.getTravelNotesContents()) {
-                                    if (travelnotescontent.getType().equals("img")) {
-                                        imageNum += 1;
-                                    } else if (travelnotescontent.getType().equals("h2") || travelnotescontent.getType().equals("textarea")) {
-                                        if (null != travelnotescontent.getValue()) {
-                                            fontNum += travelnotescontent.getValue().length();
+                                if(null!=t&&null!=t.getTravelNotesContents()&&0<t.getTravelNotesContents().size())
+                                {
+                                    for (travelNotesContent travelnotescontent : t.getTravelNotesContents()) {
+                                        if (travelnotescontent.getType().equals("img")) {
+                                            imageNum += 1;
+                                        } else if (travelnotescontent.getType().equals("h2") || travelnotescontent.getType().equals("textarea")) {
+                                            if (null != travelnotescontent.getValue()) {
+                                                fontNum += travelnotescontent.getValue().length();
+                                            }
                                         }
                                     }
                                 }
@@ -627,5 +630,104 @@ public class travelNotesController {
             }
         }
         return list;
+    }
+    @ResponseBody
+    @RequestMapping("load_travelNotesBypageIndexAndcityId")
+    public Map<String,Object> load_travelNotesBypageIndexAndcityId(Integer pageIndex,String cityId) throws IOException {
+        if(null==cityId||cityId.equals(""))
+            cityId=null;
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("currentPageIndex",pageIndex);
+        Integer totalCount=travelnotesservice.find_travelNotesCountBycityIdAndstaticId(cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        map.put("totalCount",totalCount);
+        if(totalCount%10>0)
+            map.put("totalPageCount",totalCount/10+1);
+        else
+            map.put("totalPageCount",totalCount/10);
+        List <travelNotes>list=travelnotesservice.find_travelNotesBycityIdAndstaticId(pageIndex,cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        if(null!=list&&0<list.size())
+        {
+            for(travelNotes t:list)
+            {
+                if(null!=t.getTravelNotesContent()&&!"".equals(t.getTravelNotesContent()))
+                {
+                    String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+                    path = path.replace("%20", " ");
+                    travelnotesservice.format_travelNotesContents(t,path);
+                }
+                if(null!=t.getCityId()&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                if(null!=t.getUserId()&&!"".equals(t.getUserId()))
+                    t.setUser(usersservice.find_userByuseruserId(t.getUserId()));
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+        }
+        map.put("travelNotes",list);
+        return map;
+    }
+
+    /**
+     * 根据发布时间倒序获取游记
+     * @param pageIndex
+     * @param cityId
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping("load_travelNotesBypageIndexAndcityIdAndreleaseTimedesc")
+    public Map<String,Object> load_travelNotesBypageIndexAndcityIdAndreleaseTimedesc(Integer pageIndex,String cityId) throws IOException
+    {
+        if(null==cityId||cityId.equals(""))
+            cityId=null;
+        Map<String,Object> map=new HashMap<String,Object>();
+        Integer totalCount=travelnotesservice.find_travelNotesCountBycityIdAndstaticId(cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        map.put("totalCount",totalCount);
+        map.put("currentPageIndex",pageIndex);
+        if(totalCount%10>0)
+            map.put("totalPageCount",totalCount/10+1);
+        else
+            map.put("totalPageCount",totalCount/10);
+        List <travelNotes>list=travelnotesservice.find_travelNotesBycityIdAndstaticIdAndreleaseTimedesc(pageIndex,cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        if(null!=list&&0<list.size())
+        {
+            for(travelNotes t:list)
+            {
+                if(null!=t.getUserId()&&!"".equals(t.getUserId()))
+                    t.setUser(usersservice.find_userByuseruserId(t.getUserId()));
+                if(null!=t.getCityId()&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                if(null!=t.getTravelNotesContent()&&!"".equals(t.getTravelNotesContent()))
+                {
+                    String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+                    path = path.replace("%20", " ");
+                    travelnotesservice.format_travelNotesContents(t,path);
+                }
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+        }
+        map.put("travelNotes",list);
+        return map;
+    }
+
+    /**
+     * 获取热门游记
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotesByHot")
+    public travelNotes find_travelNotesByHot() throws IOException
+    {
+        travelNotes t=travelnotesservice.find_travelNotesByHot();
+        if(null!=t)
+        {
+            if(null!=t.getTravelNotesContent()&&!"".equals(t.getTravelNotesContent()))
+            {
+                String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+                path = path.replace("%20", " ");
+                travelnotesservice.format_travelNotesContents(t,path);
+            }
+        }
+        return t;
     }
 }
