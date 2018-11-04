@@ -29,10 +29,8 @@
     </style>
 
     <script th:inline="none">
-alert(1);
 
         $(function(){
-            alert(2);
             //初始化datagrid数据表格
             $('#dg').datagrid({
                 url:'/cityController/pagingQueryCity',
@@ -70,19 +68,19 @@ alert(1);
                 if(value==null){
                     return "";
                 }else{
-                    return "<span class='look_image'>查看图片</span><input type='hidden' value="+value+"/>";
+                    return "<h2 class='look_image'>查看图片</h2><input type='hidden' value="+value+"/>";
                 }
             }
 
-            //查看图片点击事件
-            $(".look_image").click(function(){
-                alert("fsd");
-                var img=$(this).next().val();
-                alert(img);
-                $(".show_image").attr("src",'/'+img);
-                $(".show_image").css("display","block");
-            });
+        });
 
+        //查看图片点击事件
+        $(".look_image").click(function(){
+            alert("fsd");
+            var img=$(this).next().val();
+            alert(img);
+            $(".show_image").attr("src",'/'+img);
+            $(".show_image").css("display","block");
         });
 
     </script>
