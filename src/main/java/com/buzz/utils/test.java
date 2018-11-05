@@ -67,4 +67,10 @@ public class test {
         System.out.println(new Timestamp(System.currentTimeMillis()));
     }
 
+    @Test
+    public void aa(){
+        File file=new File("E:\\IntelliJ IDEA\\FilePath\\buzz\\src\\main\\resources\\static\\images\\cityPhoto\\562d9899-923a-4486-8e08-7d2bd9d5a030.jpg");
+        file.delete();
+    }
+
 }

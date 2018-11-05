@@ -6,8 +6,10 @@ import com.buzz.entity.city;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -38,6 +40,7 @@ public class cityService {
     }
 
     //城市查询次数加一
+    @Transactional
     public int SearchNumberAddOne(String cityId){
         return cityDao.SearchNumberAddOne(cityId);
     }
@@ -49,5 +52,30 @@ public class cityService {
         List<city> cityList=cityDao.queryCityAll();
         return new Paging<city>(cityList,total);
     }
+
+    //修改城市状态
+    @Transactional
+    public int byCityIdUpdateState(String cityId,String stateId){
+        return cityDao.byCityIdUpdateState(cityId,stateId);
+    }
+
+    //添加城市
+    @Transactional
+    public int addCity(Integer searchNumber,String cityId,String cityName,String citySituation,String provinceId,String stateId,Timestamp uptime){
+        return cityDao.addCity(cityId,cityName,citySituation,provinceId,stateId,uptime,searchNumber);
+    }
+
+    //修改城市
+    @Transactional
+    public int byCityIdUpdateInfo(String cityName,String citySituation,String provinceId,String stateId,Timestamp uptime,String cityId){
+        return cityDao.byCityIdUpdateInfo(cityName,citySituation,provinceId,stateId,uptime,cityId);
+    }
+
+    //修改城市图片
+    @Transactional
+    public int byCityIdUpdateCityPhoto(String CityId,String cityPhoto){
+        return cityDao.byCityIdUpdateCityPhoto(CityId,cityPhoto);
+    }
+
 
 }

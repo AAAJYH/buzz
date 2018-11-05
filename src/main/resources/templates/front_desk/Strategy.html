@@ -124,7 +124,7 @@
 
     <!-- 标题图片 -->
     <div class="mdd_img" style="cursor: pointer">
-        <img th:src="@{'/images/gonglve/'+${strategy.strategyPhoto.split(',')[0]}}" width="228px" height="324px" alt=""/>
+        <img th:src="@{'/'+${strategy.strategyPhoto.split(',')[0]}}" width="228px" height="324px" alt=""/>
     </div>
 
     <div class="middle_de">
@@ -188,7 +188,7 @@
                     if(imgs.length>0){
                         for(var i=0;i<imgs.length;i++){
                             var image = new Image();
-                            image.src = "/images/gonglve/"+imgs[i];
+                            image.src = "/"+imgs[i];
                             var bs64 = getBase64(image);
                             doc.addImage(bs64,'JPEG', 10,40,180,180);
                             doc.addPage();
@@ -237,7 +237,7 @@
                     if(imgs.length>0){
                         for(var i=0;i<imgs.length;i++){
                             var image = new Image();
-                            image.src = "/images/gonglve/"+imgs[i];
+                            image.src = "/"+imgs[i];
                             var bs64 = getBase64Image(image);
                             currentZip.file(imgs[i],bs64, {base64: true});
                         }
@@ -266,7 +266,7 @@
             <ul class="scroll-content">
                 <li class="scroll-content-item" th:each="str,status:${strategy.strategyPhoto.split(',')}">
                     <a href="javascript:void(0);" class="on_fous preview_btn" data-paper_num="0">
-                        <img th:src="@{'/images/gonglve/'+${str}+''}" width="138" height="195">
+                        <img th:src="@{'/'+${str}+''}" width="138" height="195">
                         <span>点击<br/>预览</span>
                     </a>
                 </li>
@@ -285,7 +285,7 @@
     <div class="pop_w" style="display:none;">
         <div class="popdiv">
             <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
-                <img th:src="@{'/images/gonglve/'+${str}+''}" th:width="605px" th:height="800px"/>
+                <img th:src="@{'/'+${str}+''}" th:width="605px" th:height="800px"/>
             </p>
             <a style="display: block; position: fixed" href="javascript:;" class="fangda">放大</a>
             <span style="display: block; position: fixed">关闭</span>
@@ -300,7 +300,7 @@
                 <div class="slideLayer">
                     <div class="slideBox">
                         <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
-                            <img th:src="@{'/images/gonglve/'+${str}+''}"/>
+                            <img th:src="@{'/'+${str}+''}"/>
                         </p>
                         <img class="book_paper_img" src="">
                     </div>

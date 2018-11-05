@@ -2,6 +2,7 @@ package com.buzz.dao;
 
 import com.buzz.entity.province;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public interface provinceDao {
     public List<province> queryAllProvince();
 
     //查询城市
-    @Select("select * from province where provinceId")
-    public province byProvinceIdQuery(String provinceId);
+    @Select("select * from province where provinceId=#{provinceId}")
+    public province byProvinceIdQuery(@Param("provinceId") String provinceId);
 
 }
