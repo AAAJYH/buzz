@@ -77,5 +77,9 @@ public class cityService {
         return cityDao.byCityIdUpdateCityPhoto(CityId,cityPhoto);
     }
 
+    //城市集合写入Excel
+    public List<city> CityListWriteExcel(){
+        return cityDao.CityListWriteExcel();
+    }
 
 }

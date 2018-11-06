@@ -4,6 +4,7 @@ import com.buzz.entity.Paging;
 import com.buzz.entity.city;
 import com.buzz.service.cityService;
 import com.buzz.utils.Upload;
+import com.buzz.utils.WriteExcel;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
@@ -111,6 +114,37 @@ public class cityController {
         }
         //修改城市图片路径
         int rs=cityservice.byCityIdUpdateCityPhoto(CityId,"images/cityPhoto/"+imgName);
+        return rs;
+    }
+
+    /**
+     * 全部城市写入Excel，保存到桌面
+     * @return
+     * @throws IOException
+     * @throws IllegalAccessException
+     */
+    @RequestMapping("/WriteExcel")
+    @ResponseBody
+    public String WriteExcel() throws IOException, IllegalAccessException {
+        String rs="success";
+        try {
+            //城市集合
+            List<city> cityList=cityservice.CityListWriteExcel();
+            //生成桌面路径
+            FileSystemView fsv = FileSystemView.getFileSystemView();
+            String path=fsv.getHomeDirectory().toString()+"\\城市集合.xls";
+            File file=new File(path);
+            if(file.exists()){
+                file.delete();
+            }
+            WriteExcel<city> we=new WriteExcel<city>();
+            we.write(cityList,path,city.class);
+        }catch(Exception e){ //捕捉异常
+            String exceptionToString=e.toString();
+            if(exceptionToString.substring(0,exceptionToString.indexOf(":")).equals("java.io.FileNotFoundException")){
+                rs="另一个程序正在使用此文件，进程无法访问。";
+            }
+        }
         return rs;
     }
 

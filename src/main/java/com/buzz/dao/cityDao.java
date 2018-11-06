@@ -17,7 +17,7 @@ import java.util.List;
 public interface cityDao {
 
     //查询省的热门城市
-    @Select("select * from city where provinceId=#{pid} order by searchNumber desc LIMIT 0,5")
+    @Select("select * from city,state where provinceId=#{pid} and city.stateId=state.stateId and stateName='正常' order by searchNumber desc LIMIT 0,5")
     public List<city> byProvinceIdQueryHot(@Param("pid") String provinceId);
 
     //查询城市
@@ -51,5 +51,9 @@ public interface cityDao {
     //修改城市图片
     @Update("update city set cityPhoto=#{cityPhoto} where cityId=#{cityId}")
     public int byCityIdUpdateCityPhoto(@Param("cityId") String CityId,@Param("cityPhoto") String cityPhoto);
+
+    //城市集合写入Excel
+    @Select("select c.cityId,c.cityPhoto,c.cityName,c.citySituation,p.provinceName provinceId,s.stateName stateId,c.searchNumber,c.uptime from city c,state s,province p where s.stateId=c.stateId and c.provinceId=p.provinceId;\n")
+    public List<city> CityListWriteExcel();
 
 }

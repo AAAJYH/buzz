@@ -113,6 +113,29 @@
                                 alert("请选择要修改的行");
                             }
                         }
+                    },'--',{
+                        iconCls: 'icon-print',
+                        text:'生成Excel表格',
+                        handler: function(){
+                            $.ajax({
+                              url:'/cityController/WriteExcel',
+                              type:'post',
+                              async:false,
+                              dataType:'text',
+                              success:function(data){
+                                  if(data=="success"){
+                                      $.messager.show({
+                                          title:'我的消息',
+                                          msg:'Excel表格成功保存桌面，消息将在2秒后关闭。',
+                                          timeout:2000,
+                                          showType:'slide'
+                                      });
+                                  }else{
+                                      alert(data);
+                                  }
+                              }
+                            })
+                        }
                     }
                 ]
 

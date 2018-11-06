@@ -11,15 +11,15 @@ import java.sql.Timestamp;
 @NoArgsConstructor//没有参数的构造方法
 public class users
 {
-    private String userId;
-    private String userPassword;
-    private String bindEmail;
-    private String bindPhone;
-    private String photo;
-    private String userName;
-    private String sex;
-    private String address;
-    private Timestamp birthDate;
-    private String individualResume;
-    private String stateId;
+    public String userId;
+    public String userPassword;
+    public String bindEmail;
+    public String bindPhone;
+    public String photo;
+    public String userName;
+    public String sex;
+    public String address;
+    public Timestamp birthDate;
+    public String individualResume;
+    public String stateId;
 }
