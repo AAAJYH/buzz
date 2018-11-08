@@ -5,7 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer
+public class
+WebConfig implements WebMvcConfigurer
 {
     /**
      * 配置静态资源(配置server虚拟路径)

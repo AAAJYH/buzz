@@ -51,7 +51,7 @@
                 function addClick(marker){
                     //自定义infoWindow信息
                     var infoWindow=new BMap.InfoWindow("<div style=\"width:200px;height:100px;\">\n" +
-                        "                    <img src=\"/images/"+scenicspotList[i].photo.split(',')[0]+"\" style=\"margin-top:5px;margin-left:5px;width:90px;height:91px;border-radius:3px;\"/>\n" +
+                        "                    <img src=\"/"+scenicspotList[i].photo.split(',')[0]+"\" style=\"margin-top:5px;margin-left:5px;width:90px;height:91px;border-radius:3px;\"/>\n" +
                         "                    <div style=\"width:112px;height:31px;font-weight:bold;color:#222222;font-size:130%;position:relative;top:-90px;left:120px;\">"+scenicspotList[i].chineseName+"</div>\n" +
                         "                    <div style=\"width:112px;height:31px;position:relative;top:-85px;left:120px;color:#999999;font-size:110%;\">\n" +
                         "                        <span style=\"color:#FF9E03;font-weight:bold;\">1230</span>条评价\n" +
@@ -114,7 +114,7 @@
                                                     $("#content").append("<li class=\"clearfix\">\n" +
                                                         "                                            <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration:none;\">\n" +
                                                         "                                                <span class=\"serial_num\">"+(i+1)+"</span>\n" +
-                                                        "                                                <img class=\"attra_img\" src=\"/images/"+scenicspotList[i].photo.split(',')[0]+"\" width=\"60\" height=\"60\">\n" +
+                                                        "                                                <img class=\"attra_img\" src=\"/"+scenicspotList[i].photo.split(',')[0]+"\" width=\"60\" height=\"60\">\n" +
                                                         "                                                <div class=\"attra_info\">\n" +
                                                         "                                                    <h3>"+scenicspotList[i].chineseName+"</h3>\n" +
                                                         "                                                    <span class=\"en_name\">"+scenicspotList[i].englishName+"</span>\n" +

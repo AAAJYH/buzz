@@ -28,5 +28,6 @@ public class scenicspot {
     private String photo; //图片
     private String cityId; //city外键
     private Timestamp uptime; //修改时间
+    private String stateId; //状态id
 
 }

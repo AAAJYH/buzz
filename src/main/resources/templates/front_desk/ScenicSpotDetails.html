@@ -24,7 +24,7 @@
     <div class="mfw-header">
         <div class="header-wrap clearfix">
             <div class="head-logo">
-                <img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/gugong1.jpg"></img>
+                <img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/blue.jpg"></img>
             </div>
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
                 <li class="head-nav-index"><a href="#">首页</a></li>
@@ -256,23 +256,23 @@
                 <a class="photo" data-cs-p="相册" href="javascript:" target="_blank">
                     <div class="bd">
                     <div class="pic-big">
-                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${scenicspot.photo.split(',')[0]}}">
-                            <img th:src="@{'/images/'+${scenicspot.photo.split(',')[0]}}" width="690" height="370" class="img-thumbnail"/>
+                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/'+${scenicspot.photo.split(',')[0]}}">
+                            <img th:src="@{'/'+${scenicspot.photo.split(',')[0]}}" width="690" height="370" class="img-thumbnail"/>
                         </a>
                     </div>
                     <div class="pic-small">
-                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${scenicspot.photo.split(',')[1]}}">
-                            <img th:src="@{'/images/'+${scenicspot.photo.split(',')[1]}}" width="305" height="183" class="img-thumbnail"/>
+                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/'+${scenicspot.photo.split(',')[1]}}">
+                            <img th:src="@{'/'+${scenicspot.photo.split(',')[1]}}" width="305" height="183" class="img-thumbnail"/>
                         </a>
                     </div>
                     <div class="pic-small">
-                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${scenicspot.photo.split(',')[2]}}">
-                            <img th:src="@{'/images/'+${scenicspot.photo.split(',')[2]}}" width="305" height="183" class="img-thumbnail"/>
+                        <a class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/'+${scenicspot.photo.split(',')[2]}}">
+                            <img th:src="@{'/'+${scenicspot.photo.split(',')[2]}}" width="305" height="183" class="img-thumbnail"/>
                         </a>
                     </div>
                     <div class="pic-small" th:each="str,status:${scenicspot.photo.split(',')}">
-                        <a th:if="${status.index>2}" class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/images/'+${str}}">
-                            <img th:src="@{'/images/'+${str}}" width="305" height="183" class="img-thumbnail"/>
+                        <a th:if="${status.index>2}" class="galpop-multiple" data-galpop-group="multiple" th:href="@{'/'+${str}}">
+                            <img th:src="@{'/'+${str}}" width="305" height="183" class="img-thumbnail"/>
                         </a>
                     </div>
                     <span th:text="${'共'+scenicspot.photo.split(',').length+'张图片'}">43197张图片</span>
@@ -330,7 +330,7 @@
                 </li>
                 <li class="item-site">
                     <div class="label">网址</div>
-                    <div class="content"><a th:href="${scenicspot.url}" target="_blank" rel="nofollow">http://www.dpm.org.cn</a></div>
+                    <div class="content"><a th:href="${scenicspot.url}" target="_blank" rel="nofollow"><span th:text="${scenicspot.url}">http://www.dpm.org.cn</span></a></div>
                 </li>
             </ul>
 

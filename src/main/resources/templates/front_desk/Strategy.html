@@ -86,13 +86,13 @@
                 </script>
 
                 <li class="navbar-overview" id="gonglue">
-                    <a class="navbar-btn" href="javascript:;"  data-cs-p="攻略">
+                    <a class="navbar-btn"  data-cs-p="攻略">
                         <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
                 <script th:inline="javascript">
                     $("#gonglue").click(function(){
-                        window.location.href="/strategyController/queryCityStrategy";
+                        window.location.href="/strategyController/queryCityStrategy?strategyId=";
                     });
                 </script>
 
@@ -131,7 +131,7 @@
         <!--攻略标题-->
         <h1 th:text="${strategy.strategyHeadline}">丽江</h1>
         <!--相关景点-->
-        <div class="gl_title">
+        <div class="gl_title" th:if="${strategy.scenicSpot}!=null">
             <span th:each="str,status:${strategy.scenicSpot.split(',')}">
                 <span th:text="${str}"></span>
             </span>
@@ -200,7 +200,6 @@
                 };
             </script>
             <a href="javascript:;" onclick="downLoadPdf()">下载PDF版本</a>
-            <p>文件大小 9.96 MB</p>
         </div>
 
         <div class="down_p down_p1">
@@ -251,7 +250,6 @@
 
             </script>
             <a id="downloadJPG" onclick="downloadJPGClick()">下载JPG版本</a>
-            <p>文件大小 18.20 MB</p>
         </div>
 
         <div class="up_time" style="width:220px;margin-left:-30px;">
@@ -310,6 +308,21 @@
         <a title="缩小" id="mfw_op_minfy_btn" href="javascript:;" class="suoxiao">缩小</a>
         <a title="关闭" id="mfw_op_close_btn" href="javascript:;" style="margin-left: 433px;">关闭</a>
     </div>
+
+    <!-- 其他景点 -->
+    <div th:if="${otherStrategy}!=null" style="overflow: auto;width:100%;height:auto;margin-top:30px;">
+        <h1 style="font-size:130%;font-weight:bold;margin-bottom:10px;">其他攻略</h1>
+        <div th:each="obj,statr:${otherStrategy}" style="float:left;margin-right:20px;">
+            <a th:href="@{'/strategyController/queryCityStrategy?strategyId='+${obj.strategyId}}">
+                <img th:src="@{'/'+${obj.strategyPhoto.split(',')[0]}}" width="150" height="200"/>
+            </a>
+            <div class="down_cout" style="margin-left:8px;">
+                <span></span>
+                <p th:text="${obj.downloadNumber}+'人下载'">219649人下载</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 </div>
 

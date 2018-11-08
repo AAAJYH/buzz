@@ -85,7 +85,6 @@
                                     dataType:'json',
                                     success:function(data){
                                         if(data!=null){
-                                            alert(data);
                                             //遍历mid根据mid默认选中菜单
                                             for(var i=0;i<data.length;i++){
                                                 var findMid=$('#tt').tree('find', data[i].mid); //find:根据菜单id查找指定节点并返回节点对象

@@ -21,7 +21,7 @@ public class strategyService {
     strategyDao strategyDao;
 
     //查询城市攻略
-    public strategy queryCityStrategy(String cityId){
+    public List<strategy> queryCityStrategy(String cityId){
         return strategyDao.queryCityStrategy(cityId);
     }
 
@@ -29,6 +29,16 @@ public class strategyService {
     @Transactional
     public int updateCityStrategyDownloadNumber(String strategyId){
         return strategyDao.updateCityStrategyDownloadNumber(strategyId);
+    }
+
+    //查询其他景点攻略
+    public List<strategy> queryOhterStrategy(String strategyId){
+        return strategyDao.queryOhterStrategy(strategyId);
+    }
+
+    //查询id查询攻略
+    public strategy byStrategyIdQueryStrategy(String strategyId){
+        return strategyDao.byStrategyIdQueryStrategy(strategyId);
     }
 
 }

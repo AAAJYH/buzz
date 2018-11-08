@@ -110,6 +110,7 @@ public class cityController {
         String photo=city.getCityPhoto();
         File file=new File(deletePath.replace("%20"," ")+"/"+photo);
         if(file.exists()){
+            if(!file.getName().equals("wKgB6lSgx0KAAtuCAAVoSPI1DUk40.jpeg")) //默认图片不删除
             file.delete();
         }
         //修改城市图片路径
@@ -146,6 +147,27 @@ public class cityController {
             }
         }
         return rs;
+    }
+
+    /**
+     * 根据城市Id查询城市
+     * @param CityId
+     * @return
+     */
+    @RequestMapping("/ByCityIdQuery")
+    @ResponseBody
+    public city ByCityIdQuery(String CityId){
+        return cityservice.byCityIdQuery(CityId);
+    }
+
+    /**
+     * 查询全部城市
+     * @return
+     */
+    @RequestMapping("/queryAllCity")
+    @ResponseBody
+    public List<city> queryAllCity(){
+        return cityservice.queryAllCity();
     }
 
 }

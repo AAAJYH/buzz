@@ -10,6 +10,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author: aaaJYH
@@ -109,6 +110,11 @@ public class test<T> {
         test<users> t=new test<users>();
         t.writeExcel(userList, "C:\\Users\\jyh\\Desktop\\aaa.xls",users.class);
 
+    }
+
+    @Test
+    public void b(){
+        System.out.println(UUID.randomUUID());
     }
 
 }

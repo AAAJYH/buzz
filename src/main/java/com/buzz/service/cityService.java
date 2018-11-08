@@ -82,4 +82,8 @@ public class cityService {
         return cityDao.CityListWriteExcel();
     }
 
+    public List<city> queryAllCity(){
+        return cityDao.queryCityAll();
+    }
+
 }

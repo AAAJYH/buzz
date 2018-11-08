@@ -3,18 +3,12 @@ package com.buzz.controller;
 import com.buzz.entity.city;
 import com.buzz.entity.strategy;
 import com.buzz.service.strategyService;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -37,10 +31,27 @@ public class strategyController {
      * @return Strategy页面
      */
     @RequestMapping("/queryCityStrategy")
-    public String queryCityStrategy(Model model, HttpServletRequest request){
+    public String queryCityStrategy(Model model, HttpServletRequest request,String strategyId){
+        //保存当前城市对象
         city city=(city) request.getServletContext().getAttribute("city");
-        strategy strategy=strategyService.queryCityStrategy(city.getCityId());
-        model.addAttribute("strategy",strategy);
+        List<strategy> strategyList=strategyService.queryCityStrategy(city.getCityId());
+        if(strategyList.size()>0) {
+            strategy strategy=null;
+            //如果strategyId为空默认查询第一个攻略，不为空根据id查询对象
+            if(strategyId.equals("")){
+                strategy=strategyList.get(0);
+            }else{
+                strategy=strategyService.byStrategyIdQueryStrategy(strategyId);
+            }
+            //保存要看的攻略
+            model.addAttribute("strategy",strategy);
+
+            //保存其他的攻略
+            List<strategy> OtherStrategy=strategyService.queryOhterStrategy(strategy.getStrategyId());
+            model.addAttribute("otherStrategy",OtherStrategy);
+        }else{
+            model.addAttribute("strategy",null);
+        }
         return "/front_desk/Strategy";
     }
 
