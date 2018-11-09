@@ -144,12 +144,17 @@ public class scenicspotController {
     //修改景点图片
     @RequestMapping("/byScenicspotIdUpdatePhoto")
     @ResponseBody
-    public String byScenicspotIdUpdatePhoto(String scenicSpotId,String deleteImage) throws FileNotFoundException {
+    public String byScenicspotIdUpdatePhoto(String id,String deleteImage) throws FileNotFoundException {
             //1.根据景点id查询景点对象
-            scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicSpotId);
+            scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(id);
             if(scenicspot.getPhoto().split(",").length>3){
                 //2.图片字符串移除删除的字符串
-                String photo=scenicspot.getPhoto().replace(","+deleteImage,"");
+                String photo="";
+                if(scenicspot.getPhoto().lastIndexOf(","+deleteImage)>0){
+                    photo=scenicspot.getPhoto().replace(","+deleteImage,"");
+                }else{
+                    photo=scenicspot.getPhoto().replace(deleteImage+",","");
+                }
                 //3.从文件夹中移除删除的文件
                 String deletePath=ResourceUtils.getURL("src/main/resources/static").getPath().replace("%20"," ");
                 deletePath+=deleteImage;
@@ -159,9 +164,9 @@ public class scenicspotController {
                     file.delete();
                 }
                 //修改图片
-                scenicspotService.byScenicspotIdUpdatePhoto(scenicSpotId,photo);
+                scenicspotService.byScenicspotIdUpdatePhoto(id,photo);
                 //重新获取景点图片返回
-                scenicspot scenicspot1=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicSpotId);
+                scenicspot scenicspot1=scenicspotService.byScenicSpotIdQueryScenicSpot(id);
                 return scenicspot1.getPhoto();
             }else{
                 return "景点图片不能少于三张";
@@ -170,15 +175,15 @@ public class scenicspotController {
 
     @RequestMapping("/uploadScenicspotPhoto")
     @ResponseBody
-    public synchronized String handleRequest(@RequestParam("fileList") MultipartFile fileList, String scenicspotId) throws Exception {
+    public synchronized String handleRequest(@RequestParam("fileList") MultipartFile fileList, String id) throws Exception {
         //1.获取项目下指定文件夹的绝对路径
         String path= ResourceUtils.getURL("src/main/resources/static/images/ScenicSpotPhoto/").getPath(); //获取当前项目文件的绝对路径
         //2.上传图片返回图片路径
         String imgName= Upload.upload(fileList,path);
         String photo="images/ScenicSpotPhoto/"+imgName;
         //3.修改数据库photo的值
-        scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(scenicspotId); //先查询Photo值
-        scenicspotService.byScenicspotIdUpdatePhoto(scenicspotId,scenicspot.getPhoto()+","+photo);
+        scenicspot scenicspot=scenicspotService.byScenicSpotIdQueryScenicSpot(id); //先查询Photo值
+        scenicspotService.byScenicspotIdUpdatePhoto(id,scenicspot.getPhoto()+","+photo);
         return "";
     }
 
@@ -189,7 +194,7 @@ public class scenicspotController {
      */
     @RequestMapping("/WriteExcel")
     @ResponseBody
-    public String WriteExcel() throws IOException, IllegalAccessException {
+    public String WriteExcel() {
         String rs="";
         try {
             //查询景点集合

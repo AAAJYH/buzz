@@ -21,5 +21,6 @@ public class strategy {
     private String cityId; //city外键
     private long downloadNumber; //下载数量
     private Timestamp updateTime; //修改时间
+    private String stateId; //状态外键
 
 }

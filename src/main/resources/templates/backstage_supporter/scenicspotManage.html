@@ -138,7 +138,7 @@
             }
 
             function formatContent(value,row,index){
-                return "<a title='"+value+"'>"+value+"</a>";
+                return "<a title='"+value+"' style='color:black;text-decoration:none;'>"+value+"</a>";
             }
 
             function formatImages(value,row,index){
@@ -221,7 +221,8 @@
 
         });
 
-        var scenicspotId="";//要删除景点图片的id
+        var id="";//要删除景点图片的id
+        var uploadUrl="/scenicspotController/uploadScenicspotPhoto";
 
         //删除景点图片时间
         function deleteImage(obj){
@@ -234,7 +235,7 @@
                         type: 'post',
                         async: false,
                         data: {
-                            scenicSpotId: scenicspotId,
+                            id: id,
                             deleteImage: deleteImage
                         },
                         dataType: 'text',
@@ -265,7 +266,7 @@
         //显示图片
         function showImage(obj){
             var imagesArray=$(obj).next().val().split(","); //景点图片
-            scenicspotId =$(obj).next().next().val(); //景点id
+            id =$(obj).next().next().val(); //景点id
             if(imagesArray.length>0){
                 $(".images").empty();
                 for(var i=0;i<imagesArray.length;i++){
