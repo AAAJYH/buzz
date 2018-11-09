@@ -1,9 +1,12 @@
 package com.buzz.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.buzz.entity.replyAskRespond;
 import com.buzz.entity.smsCode;
 import com.buzz.entity.users;
+import com.buzz.service.askRespondService;
 import com.buzz.service.emailService;
+import com.buzz.service.replyAskRespondService;
 import com.buzz.service.usersService;
 import com.buzz.utils.Encryption;
 import com.buzz.utils.SmsVerification;
@@ -21,10 +24,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +36,10 @@ public class usersController {
     private usersService usersservice;
     @Resource
     private emailService emailservice;
-
+    @Resource
+    private replyAskRespondService replyaskrespondservice;
+    @Resource
+    private askRespondService askrespondservice;
     /**
      * 显示登录页面
      *
@@ -455,6 +458,37 @@ public class usersController {
         return map;
     }
 
+    /**
+     * 根据当前登录用户,问答编号,状态编号回复问答
+     * @param askRespondId
+     * @param session
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping("getCurrentLoginUserAndreplyAskRespond")
+    public Map<String,Object>getCurrentLoginUserAndreplyAskRespond(String askRespondId,HttpSession session) throws IOException {
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user=(users) session.getAttribute("user");
+        if(null!=user)
+        {
+            map.put("loginState",true);
+            map.put("currentUser",user);
+            replyAskRespond rask=replyaskrespondservice.find_replyAskRespondByuserIdAndaskRespondIdAndstateId(user.getUserId(),askRespondId,"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+            if(null!=rask)
+            {
+                String path = ResourceUtils.getURL("src/main/resources/static").getPath();
+                path = path.replace("%20", " ");
+                if(null!=rask.getReplyAskRespondContent()&&!"".equals(rask.getReplyAskRespondContent()))
+                    rask.setReplyAskRespondContent(askrespondservice.format_askRespondDetail(path,rask.getReplyAskRespondContent()));
+                rask.setUser(usersservice.find_userByuseruserId(rask.getUserId()));
+            }
+            map.put("replyAskRespond",rask);
+        }
+        else
+            map.put("loginState",false);
+        return map;
+    }
     /**
      * 根据用户编号获取用户
      * @param userId 用户编号

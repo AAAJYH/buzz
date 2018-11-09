@@ -10,6 +10,7 @@
     <link href="css/croppic.css" rel="stylesheet"/>
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="js/croppic.min.js"></script>
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
     <style>
         .icon-close_parent
         {
@@ -416,20 +417,23 @@
                     }
                     else
                         insertHtml="<textarea cols='30' class='textarea _j_textarea _j_textareaplc' data-exclude_class='_j_textarea' tabindex='-1'></textarea>";
-                    for(i;i<data.travelNotesContents.length;i++)
+                    if(null!=data.travelNotesContents)
                     {
-                        if(data.travelNotesContents[i].type=="textarea")
+                        for(i;i<data.travelNotesContents.length;i++)
                         {
-                            var value=data.travelNotesContents[i].value.replace(/\<br\/>/g,'\n');
-                            insertHtml+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='height:54px;overflow-y:hidden;'>"+value+"</textarea></div>";
-                        }
-                        else if(data.travelNotesContents[i].type=="img")
-                        {
-                            insertHtml+="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+data.travelNotesContents[i].value+"' width='"+data.travelNotesContents[i].width+"' height='"+data.travelNotesContents[i].height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+data.travelNotesContents[i].value+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
-                        }
-                        else if(data.travelNotesContents[i].type=="h2")
-                        {
-                            insertHtml+="<div class='article_title _j_data_item'><h2 class='t9'><span>"+data.travelNotesContents[i].value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                            if(data.travelNotesContents[i].type=="textarea")
+                            {
+                                var value=data.travelNotesContents[i].value.replace(/\<br\/>/g,'\n');
+                                insertHtml+="<div class='textarea_placeholder _j_plc_item _j_inited'><textarea class='textarea _j_textarea' data-exclude_class='_j_textarea _j_textareaplc' style='height:54px;overflow-y:hidden;'>"+value+"</textarea></div>";
+                            }
+                            else if(data.travelNotesContents[i].type=="img")
+                            {
+                                insertHtml+="<div class='add_pic _j_data_item'><a role='button' class='pic_edit'><img src='"+data.travelNotesContents[i].value+"' width='"+data.travelNotesContents[i].width+"' height='"+data.travelNotesContents[i].height+"'><span class='loading'></span><span class='turn _j_actionarea'><input type='hidden' value='"+data.travelNotesContents[i].value+"'><i class='close _j_removepic _j_item_remover'></i></span></a></div>";
+                            }
+                            else if(data.travelNotesContents[i].type=="h2")
+                            {
+                                insertHtml+="<div class='article_title _j_data_item'><h2 class='t9'><span>"+data.travelNotesContents[i].value+"</span></h2><span class='handle _j_actionarea'><a role='button' class='edit _j_paragraph_title_edit' title='编辑'>编辑</a><a role='button' class='delete _j_paragraph_title_delete _j_item_remover' title='删除'>删除</a></span></div>";
+                            }
                         }
                     }
                 }
@@ -766,51 +770,56 @@
         function()
         {
             var filename=$("#File_backgroundMusic").val();
-            var filetype=filename.substring(filename.lastIndexOf(".")+1);
-            if("mp3"==filetype)
+            if(null!=filename&&""!=filename)
             {
-                $(".a-btn").addClass("btn-loading");
-                var formdata=new FormData($("#insert_backgroundMusicForm")[0]);
-                formdata.append("travelNotesId",$("#travelNotesId").val());
-                $.ajax({
-                     url:"travelNotesController/insert_backgroundMusic",
-                     type:"post",
-                     dataType:"json",
-                     data:formdata,
-                     processData: false,
-                     contentType : false,
-                     success:function(data)
-                     {
-                         if(data.result)
-                         {
-                             $("#File_backgroundMusic").val("");
-                             $("#backgroundMusic").attr("src",data.url);
-                             var backgroundMusic=document.getElementById("backgroundMusic");
-                             backgroundMusic.play();
-                             $("._j_music_visible").attr("class","_j_music_visible play");
-                             $("._j_music_name_input").val(data.musicname);
-                             $("._j_music_name").text("已上传    -     "+data.musicname);
-                             $("._j_m_name").text(data.musicname);
-                             if($("._j_modify_choice").css("display")!="block")
-                             {
-                                 $("._j_modify_choice").css("display","block");//显示播放音乐
-                                 $("#_j_insert_choice_music").css("display","none");//将添加游记音乐隐藏
-                                 $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_uploaded_mode hide");//修改音乐隐藏块样式
-                             }
-                         }
-                         else
-                             showalert("上传游记音乐失败,请重试");
-                         $(".a-btn").removeClass("btn-loading");
-                     },
-                     error:function()
-                     {
-                         showalert("上传游记音乐失败,请重试");
-                         $(".a-btn").removeClass("btn-loading");
-                     }
-                 });
+                var filetype=filename.substring(filename.lastIndexOf(".")+1);
+                filetype=filetype.toLowerCase();
+                if("mp3"==filetype)
+                {
+                    $(".a-btn").addClass("btn-loading");
+                    var formdata=new FormData($("#insert_backgroundMusicForm")[0]);
+                    formdata.append("travelNotesId",$("#travelNotesId").val());
+                    $.ajax({
+                        url:"travelNotesController/insert_backgroundMusic",
+                        type:"post",
+                        dataType:"json",
+                        data:formdata,
+                        processData: false,
+                        contentType : false,
+                        success:function(data)
+                        {
+                            if(data.result)
+                            {
+                                $("#File_backgroundMusic").val("");
+                                $("#backgroundMusic").attr("src",data.url);
+                                var backgroundMusic=document.getElementById("backgroundMusic");
+                                backgroundMusic.play();
+                                $("._j_music_visible").attr("class","_j_music_visible play");
+                                $("._j_music_name_input").val(data.musicname);
+                                $("._j_music_name").text("已上传    -     "+data.musicname);
+                                $("._j_m_name").text(data.musicname);
+                                if($("._j_modify_choice").css("display")!="block")
+                                {
+                                    $("._j_modify_choice").css("display","block");//显示播放音乐
+                                    $("#_j_insert_choice_music").css("display","none");//将添加游记音乐隐藏
+                                    $("#_j_add_music_box").attr("class","add-panel add-panel-music _j_insert_panel _j_uploaded_mode hide");//修改音乐隐藏块样式
+                                }
+                            }
+                            else
+                                showalert("上传游记音乐失败,请重试");
+                            $(".a-btn").removeClass("btn-loading");
+                        },
+                        error:function()
+                        {
+                            showalert("上传游记音乐失败,请重试");
+                            $(".a-btn").removeClass("btn-loading");
+                        }
+                    });
+                }
+                else
+                    showalert("只能上传mp3格式的音乐");
             }
-            else
-                showalert("只能上传mp3格式的音乐");
+            $("#File_backgroundMusic").val("");
         }
     );
     //显示修改背景音乐块
@@ -1170,31 +1179,36 @@
         function()
         {
             var photo=$(this).val();
-            var photosuffix=photo.substring(photo.indexOf(".")+1);
-            if("jpg"==photosuffix||"jpeg"==photosuffix||"png"==photosuffix)
+            if(null!=photo&&""!=photo)
             {
-                var formData=new FormData($("#insert_travelNotesphotoForm")[0]);
-                $.ajax({
-                    url:"travelNotesController/insert_travelNotesphoto",
-                    dataType:"json",
-                    type:"post",
-                    data:formData,
-                    processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
-                    contentType : false,  //必须false才会自动加上正确的Content-Type
-                    success:function(data)
-                    {
-                        if(data.result)
+                var photosuffix=photo.substring(photo.indexOf(".")+1);
+                photosuffix=photosuffix.toLowerCase();
+                if("jpg"==photosuffix||"jpeg"==photosuffix||"png"==photosuffix||"gif"==photosuffix)
+                {
+                    var formData=new FormData($("#insert_travelNotesphotoForm")[0]);
+                    $.ajax({
+                        url:"travelNotesController/insert_travelNotesphoto",
+                        dataType:"json",
+                        type:"post",
+                        data:formData,
+                        processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
+                        contentType : false,  //必须false才会自动加上正确的Content-Type
+                        success:function(data)
                         {
-                            $("._j_insert_panel").addClass("hide");
-                            addtravelNotesphoto(data.url);
+                            if(data.result)
+                            {
+                                $("._j_insert_panel").addClass("hide");
+                                addtravelNotesphoto(data.url);
+                            }
+                            else
+                                showalert("啊哦,添加图片出现错误,请重试");
                         }
-                        else
-                            showalert("啊哦,添加图片出现错误,请重试");
-                    }
-                });
+                    });
+                }
+                else
+                    showalert("请上传PNG,JPEG,PNG图片格式");
+                $(this).val("");
             }
-            else
-                showalert("请上传PNG,JPEG,PNG图片格式");
         }
     );
     //暂停或播放音乐

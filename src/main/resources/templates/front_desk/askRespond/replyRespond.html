@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost/">
+    <title></title>
+    <meta name="renderer" content="webkit" />
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css">
+    <link href="css/css+mfw-ask+detail_v3_css+mfw-ask+img_pop_css+mfw-ask+detail_answer_foldup_css+mfw-ask+upload_pics_css+mfw-ask+pop_answer_success^Ylda^1537424364.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <!--editor strat -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/froala_editor.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/froala_style.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/code_view.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/colors.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/emoticons.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/image_manager.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/image.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/line_breaker.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/table.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/char_counter.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/video.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/fullscreen.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/file.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/quick_insert.css">
+    <link href="froala_editor_2.9.0/css/themes/gray.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="froala_editor_2.9.0/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+    <script type="text/javascript" src="froala_editor_2.9.0/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/froala_editor.min.js" ></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/char_counter.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/code_beautifier.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/code_view.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/colors.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/draggable.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/emoticons.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/font_family.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/fullscreen.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/image.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/image_manager.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/line_breaker.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/link.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/lists.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/paragraph_format.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/paragraph_style.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/quick_insert.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/table.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/video.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/languages/zh_cn.js"></script>
+    <!--editor end-->
+</head>
+<body>
+<div class="topBar">
+    <div class="topBarC">
+        <div class="logo"><a title="嗡嗡嗡自由行" href="/">嗡嗡嗡自由行</a></div>
+        <div class="t_nav">
+            <ul id="pnl_nav" data-cs-t="headnav_wo">
+                <li data-cs-p="index">
+                    <strong class="t"><a href="/">首页</a></strong>
+                </li>
+                <li data-cs-t="wenda" data-cs-p="wenda">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                </li>
+                <li data-cs-t="things" data-cs-p="things">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">嗡嗡嗡周边</a></strong>
+                </li>
+                <li data-cs-p="together">
+                    <strong class="t"><a href="/together/">结伴</a></strong>
+                </li>
+                <li data-cs-p="group">
+                    <strong class="t"><a href="/group/">小组</a></strong>
+                </li>
+                <li data-cs-p="mall">
+                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
+                </li>
+                <li class="drop" data-cs-p="other">
+                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
+                    <div class="c">
+
+                        <a href="/focus/" target="_blank">真人兽</a>
+
+                        <a href="/school/" target="_blank">嗡嗡嗡高校</a>
+                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
+                        <a href="/auction/" target="_blank">嗡嗡嗡拍卖行</a>
+                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
+                        <a href="/radio/" target="_blank">旅行电台</a>
+                        <a href="/club/" target="_blank">蜂首聚乐部</a>
+                        <a href="/home/vip_show.php" target="_blank">VIP</a>
+                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="t_search">
+            <form method="GET" action="/search/s.php" name="search">
+                <input type="text" class="key" value="" name="q" id="word">
+                <input type="submit" value="" class="btn">
+            </form>
+        </div>
+
+        <div class="t_info">
+            <div data-pagelet id="pagelet-block-95774fb3ed9627db29e34e4c2d5f59aa" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="wrapper" data-qid="14051678" data-uid="58191946" id="_js_wrapper" data-is_answer_detail="0" data-source="1">
+    <div class="detail-wrap clearfix">
+        <!-- 问答主要内容 -->
+        <div class="col-main">
+            <!-- 面包屑导航 -->
+            <div class="crumb">
+                <a href="/wenda/" target="_blank">嗡嗡嗡问答</a> &gt; <span></span>
+            </div>
+            <!-- 搜索区域 -->
+            <div class="search-box">
+                <div class="search-box">
+                    <div class="search-panel" data-cs-t="wenda">
+                        <div class="clearfix _j_suggest_hd">
+                            <div class="sp-input">
+                                <input type="text" id="_j_wenda_seach_input" value="" placeholder="提问前请先搜索，看看你的问题其他蜂蜂是否已经问过">
+                            </div>
+                            <input type="button" id="_j_wenda_seach_button" class="sp-button" data-mddid="0">
+                        </div>
+                        <div class="bd _j_suggest_box hide">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 问题区域 -->
+            <div class="q-detail" id="_js_askDetail">
+                <!-- 问题详情 -->
+                <div class="q-content">
+                    <div class="q-title"></div>
+                    <div class="q-desc"></div>
+                    <div class="q-info1 clearfix">
+                        <div class="q-tags fl"></div>
+                        <div class="pub-bar fr"></div>
+                    </div>
+                    <div class="q-info2 clearfix"></div>
+                </div>
+
+                <div class="q-operate clearfix">
+                    <div class="fl">
+                        <!-- 补充问题 -->
+                        <div class="qt-modify">
+                            <a class="_j_modify _j_pop_hide">补充问题</a>
+                        </div>
+                        <!-- 删除问题 -->
+                        <div class="qt-delete">
+                            <a class="_j_delete">删除问题</a>
+                        </div>
+                    </div>
+                    <div class="fr">
+                        <a class="btn-answer _j_btn_goanswer" rel="nofollow">回答</a>
+                    </div>
+                </div>
+                <!-- 修改问题内容 -->
+                <div id="_js_answerText" style="display: none;">
+                    <div id="askRespondDetailEditor" style="margin-top: 30px;"></div>
+                    <div class="q-modify act-pop ap-modify _j_word _js_editorWrap _js_q_related_block" style="border: 0px;">
+                        <div class="ask_words clearfix">
+                            <input class="btn-smodi _j_do_submit" type="button" value="确定修改">
+                            <input class="btn-cmodi _j_do_cancel" type="button" value="放弃修改">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 回答区域 -->
+            <div class="answer-wrap">
+                <div class="bd _j_pager_box">
+                    <!-- 回答详情页 更多回答 -->
+                </div>
+                <!-- 加载更多 -->
+                <!-- 折叠问题 -->
+                <div class="answer-add clearfix">
+                    <a name="answer"></a>
+                    <div class="aa-hd"></div>
+                    <div class="editor-outer _j_editorOuter _js_editorWrap _js_forFixTitle">
+                        <div class="wysiwyg-container wysiwyg-active" style="width: 700px;margin: 0px;padding: 0px;">
+                            <div class="editor-container wysiwyg-editor" style="width: 700px;margin: 0px;padding: 0px;">
+                                <div id="replyAskRespondEditor"></div>
+                            </div>
+                        </div>
+                        <div class="editor-scroll">
+                            <div class="aa-ft">
+                                <input class="btn-comment _j_submit_answer_btn" type="button" data-loginState='' value="提交回答">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 问答页面侧边栏 -->
+        <div class="col-side" id="_js_right_side">
+            <!-- 我要提问 -->
+            <div class="btn-question">
+                <a href="front_desk/askRespond/question.html" class="btn-ask btn-ask2" target="_blank">我要提问</a>
+            </div>
+            <!-- 广告图片 -->
+            <div class="ad-box" data-cs-t="wenda">
+                <div data-pagelet id="qa_recommend_pagelet" class="" data-api=":qa:pagelet:TopRecommendApi" data-params="{&quot;mddid&quot;:10444,&quot;title&quot;:&quot;\u9752\u5c9b\u9644\u8fd1\u6709\u4ec0\u4e48\u597d\u73a9\u7684\u5730\u65b9\u4e48&quot;}" data-async="1" data-controller="/js/qa/ARecommentQu"></div>
+            </div>
+            <div style="margin-top:0px;margin-bottom: 20px;">
+                <div data-pagelet id="pagelet-block-bdc82da9c43e939fe92802010b77e726" class="" data-api=":qa:pagelet:ads" data-params="{&quot;mddid&quot;:10444,&quot;tags&quot;:[&quot;\u9752\u5c9b&quot;,&quot;\u666f\u70b9&quot;]}" data-async="1" data-controller=""></div>
+            </div>
+            <!-- 相关问题 -->
+            <div data-pagelet id="qa_relation_question_pagelet" class="" data-api=":qa:pagelet:RelationQuestionApi" data-params="{&quot;qid&quot;:14051678}" data-async="1" data-controller=""></div>
+        </div>
+    </div>
+</div>
+<script id="_j_picdialog" type="text/x-jquery-tmpl">
+        <div class="stage-wrap">
+            <div class="aload1 _j_loading1"></div>
+            <div class="aload2 _j_loading2"></div>
+            <img class="_j_img" src="">
+        </div>
+ </script>
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+    </div>
+</div>
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<input type="hidden" id="userId">
+<input type="hidden" id="currentUserId">
+<input type="hidden" id="askRespondId">
+<input type="hidden" id="askRespondDetail">
+<input type="hidden" id="replyHeadPhoto">
+<script>
+    $().ready(
+        function()
+        {
+            var askRespondId=GetQueryString("askRespondId");
+            $("#askRespondId").val(askRespondId);
+            if(null!=askRespondId&&""!=askRespondId)
+            {
+                //获取当前登录用户
+                $.ajax({
+                    url: "usersController/getCurrentLoginUserAndreplyAskRespond",
+                    dataType: "json",
+                    type: "post",
+                    data:{askRespondId:askRespondId},
+                    success:function(data)
+                    {
+                        var aa_hdHtml="";
+                        if(data.loginState)
+                        {
+                            $("#currentUserId").val(data.currentUser.userId);
+                            var currentUserId=data.currentUser.userId;//当前登录用户
+                            var userId=$("#userId").val();//问答所属用户
+                            aa_hdHtml="<a class='aa-avatar' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"'><img src='"+data.currentUser.photo+"' width='50px' height='50px' class='photo'></a><a class='aa-name' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"'>"+data.currentUser.userName+"</a>";
+                            $("._j_submit_answer_btn").attr("data-loginState",true);
+                        }
+                        else
+                        {
+                            var currentHref=window.location.href;
+                            aa_hdHtml="<a class='aa-avatar' href='usersController/show_login_html?url="+currentHref+"'><img src='images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png' width='50px' height='50px' class='photo'></a><a class='aa-name' href='usersController/show_login_html?url="+currentHref+"'>未登录</a>";
+                            $("._j_submit_answer_btn").attr("data-loginState",false);
+                        }
+                        $(".aa-hd").html(aa_hdHtml);
+                    }
+                });
+                //根据问答编号获取
+                $.ajax({
+                    url:"askRespondController/find_askRespondByaskRespondId",
+                    dataType:"json",
+                    type:"post",
+                    data:{askRespondId:askRespondId},
+                    success:function(data)
+                    {
+                        if(null!=data)
+                        {
+                            if(data.result)
+                            {
+                                $("title").text(data.askRespond.askRespondTitle+"  -  嗡嗡嗡");
+                                $(".crumb").children("span").text(data.askRespond.askRespondTitle);
+                                var q_titleHtml="";
+                                if(null!=data.askRespond.cityId&&""!=data.askRespond.cityId)
+                                    q_titleHtml="<a href='/wenda/area-10444.html' target='_blank' class='location'><i></i>"+data.askRespond.city.cityName+"</a><h1>"+data.askRespond.askRespondTitle+"</h1>";
+                                else
+                                    q_titleHtml="<h1>"+data.askRespond.askRespondTitle+"</h1>";
+                                $(".q-title").html(q_titleHtml);
+                                $(".question-title").text(data.askRespond.askRespondTitle);
+                                var q_tagsHtml="";
+                                if(null!=data.askRespond.interestLabelId&&""!=data.askRespond.interestLabelId)
+                                    q_tagsHtml="<a class='a-tag' href='/wenda/tag-1293.html' target='_blank'>"+data.askRespond.interestlabel.interestLabelName+"</a>";
+                                $(".q-tags").html(q_tagsHtml);
+                                $(".q-desc").html(data.askRespond.askRespondDetail);
+                                var pub_barHtml="<a href='front_desk/users/personalSpace.html?userId="+data.askRespond.user.userId+"' class='photo' target='_blank'> <img src='"+data.askRespond.user.photo+"' width='16' height='16'></a><a class='name' href='front_desk/users/personalSpace.html?userId="+data.askRespond.user.userId+"' target='_blank'>"+data.askRespond.user.userName+"</a><span class='time'><span>"+format_time(data.askRespond.releaseTime)+"</span></span>";
+                                $(".pub-bar").html(pub_barHtml);
+                                $("#userId").val(data.askRespond.user.userId);
+                                var currentUserId=$("#currentUserId").val();
+                                //判断当前登录用户是否为该问答所属用户
+                                if(null==currentUserId||""==currentUserId||currentUserId!=data.askRespond.user.userId)
+                                {
+                                    $(".q-info2").css("display","none");//隐藏问答状态
+                                    $(".qt-delete").css("display","none");//隐藏删除问题
+                                    $(".qt-modify").css("display","none");//隐藏补充问题
+                                }
+                                else if(data.askRespond.user.userId==currentUserId)
+                                {
+                                    var step=0;
+                                    if(data.askRespond.stateId=="0ee26211-3ae8-48b7-973f-8488bfe837d6")//当状态等于正常时
+                                    {
+                                        step=1;
+                                        $(".qt-delete").css("display","block");//显示删除问题
+                                        $(".qt-modify").css("display","block");//显示补充问题
+                                        $("#askRespondDetail").val(data.askRespond.askRespondDetail);
+                                        $("#askRespondDetailEditor").children(".show-placeholder").children(".fr-element").html(data.askRespond.askRespondDetail);
+                                    }
+                                    else if(data.askRespond.stateId=="79ce7fee-9393-4ab8-88a0-306d7b2c9d22")
+                                    {
+                                        step=2;
+                                        $(".qt-delete").css("display","none");//隐藏删除问题
+                                        $(".qt-modify").css("display","none");//隐藏补充问题
+                                    }
+                                    else if(data.askRespond.stateId=="2130f38e-48b2-4e7e-a4cf-120aa3a149af")
+                                    {
+                                        step=3;
+                                        $(".qt-delete").css("display","none");//隐藏删除问题
+                                        $(".qt-modify").css("display","none");//隐藏补充问题
+                                    }
+                                    var q_info2Html="<div class='q-step q-step"+step+" fl'><i class='icon icon1'></i><span>提出问题 &gt;</span><i class='icon icon2'></i><span>收到回答 &gt;</span><i class='icon icon3'></i><span>采纳答案</span></div>";
+                                    $(".q-info2").html(q_info2Html);
+                                    $(".q-info2").css("display","block");//显示问答状态
+
+                                }
+                            }
+                            else
+                                showNoCloseAlert("亲爱的蜂蜂,暂无数据或问答已被删除");
+                        }
+                        else
+                            showNoCloseAlert("亲爱的蜂蜂,暂无数据或问答已被删除");
+                    }
+                });
+            }
+            else
+                showNoCloseAlert("亲爱的蜂蜂,不要随便改地址栏中的参数哦");
+        }
+    );
+    //点击补充问题
+    $(".qt-modify").click(
+        function()
+        {
+            var display=$("#_js_answerText").css("display");
+            if(display=="block")
+                $("#_js_answerText").css("display","none");
+            else
+                $("#_js_answerText").css("display","block");
+        }
+    );
+    //点击放弃修改
+    $("._j_do_cancel").click(
+        function()
+        {
+            $("#askRespondDetailEditor").children("div").children(".fr-element").html($("#askRespondDetail").val());
+            $("#_js_answerText").css("display","none");
+        }
+    );
+    $("._j_do_submit").click(
+        function()
+        {
+            var askRespondId=$("#askRespondId").val();
+            var askRespondDetail=$('div#askRespondDetailEditor').froalaEditor('html.get');
+            if(null!=askRespondDetail&&""!=askRespondDetail&&"<p><br></p>"!=askRespondDetail)
+            {
+                $.ajax({
+                    url:"askRespondController/update_askRespondDetailByaskRespondId",
+                    dataType:"json",
+                    type:"post",
+                    data:{askRespondId:askRespondId,askRespondDetail:askRespondDetail},
+                    success:function(data)
+                    {
+                        if(data.result)
+                        {
+                            $(".q-tags").html(data.askRespondDetail);
+                            $("#askRespondDetail").val(data.askRespondDetail);
+                            $("#askRespondDetailEditor").children("div").children(".fr-element").html(data.askRespondDetail);
+                            $("#_js_answerText").css("display","none");
+                            showsucceedalert("修改内容成功");
+                        }
+                        else
+                        {
+                            $("#askRespondDetailEditor").children("div").children(".fr-element").html($("#askRespondDetail").val());
+                            showalert("修改内容失败,已被回复问答或未知错误");
+                        }
+                    }
+                });
+            }
+            else
+                showalert("内容不能为空");
+        }
+    );
+    //点击删除问答
+    $(".qt-delete").click(
+        function()
+        {
+            var askRespondId=$("#askRespondId").val();
+            $.ajax({
+                url:"askRespondController/delete_askRespondByaskRespondId",
+                dataType:"json",
+                type:"post",
+                data:{askRespondId:askRespondId},
+                success:function(data)
+                {
+                    if(data.result)
+                        window.location.href="front_desk/homePage.html";
+                    else
+                        showalert(data.message);
+                }
+            });
+        }
+    );
+    //获取地址栏中的参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    //转换日期
+    function format_time(replyTime)
+    {
+        return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+    }
+    //显示具有确认按钮模态框
+    function showalert(msg)
+    {
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_0' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7;z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px;z-index: 0; overflow: hidden;'><div id='popup_container1' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left: "+left+"px; top:"+top+"px;'><a class='close-btn _j_close' onclick='closeModel(this)' data-id='_j_layer_0'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i1'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' onclick='closeModel(this)' data-id='_j_layer_0'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    <!--显示成功提示框,具有确认按钮-->
+    function showsucceedalert(msg)
+    {
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_4' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div id='popup_container4' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left:"+left+"px; top:"+top+"px;'><a class='close-btn _j_close' onclick='closeModel(this)' data-id='_j_layer_4'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i3'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' onclick='closeModel(this)' data-id='_j_layer_4'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    <!--显示不可关闭弹出框-->
+    function showNoCloseAlert(msg)
+    {
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_5' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div id='popup_container5' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left:"+left+"px; top:"+top+"px;'><a class='close-btn _j_close'  data-id='_j_layer_5'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i5'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' data-id='_j_layer_5'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    //关闭模态框
+    function closeModel(obj)
+    {
+        var data_id=$(obj).attr("data-id");
+        $("#"+data_id).remove();
+        if(data_id=="_j_layer_4")
+        {
+            window.location.href="front_desk/askRespond/replyRespond.html?askRespondId="+$("#askRespondId").val();
+        }
+    }
+    //显示图片模态框
+    function showImagealert(src)
+    {
+        document.documentElement.style.overflowY = 'hidden';//隐藏右边滚动条
+        $("body").append("<div id='_j_layer_6' class='layer _j_layer' onclick='closeImagealert(this)' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 551; display: block;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden auto;'><div class='layer_content _j_content dialog_overflow' style='position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 1; overflow: hidden auto; opacity: 1;'><div class='layer_dialog _j_dialog photo-layer dialog_overflow'><div class='dialog_body _j_content'><div class='stage-wrap' style='line-height: 929px;'><div class='aload1 _j_loading1' style='display: none;'></div><div class='aload2 _j_loading2' style='display: none;'></div><img class='_j_img' src='"+src+"'></div></div></div></div></div></div>")
+    }
+    //关闭显示模态框
+    function closeImagealert(obj)
+    {
+        document.documentElement.style.overflowY = 'auto';//显示右边滚动条
+        $(obj).remove();
+    }
+    //页面大小变更,更改模态框在页面显示的位置
+    window.onresize = function(){
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        var width1=$(window).width()/2-350;
+        var height1=$(window).height()/2-250;
+        if(width1<=0)
+            width1=0;
+        if(height1<=0)
+            height1=0;
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
+        $("#popup_container2").css({"left":width+"px","top":height+"px"});
+        $("#popup_container4").css({"left":width+"px","top":height+"px"});
+        $("#popup_container5").css({"left":width+"px","top":height+"px"});
+        if(("#popup_container3").length>0)
+            $("#popup_container3").css({"left":width1+"px","top":height1+"px"});
+    }
+    $("._j_submit_answer_btn").click(
+        function()
+        {
+            var loginState=$(this).attr("data-loginState");
+            if(loginState==true||loginState=="true")
+            {
+                var replyAskRespondContent=$('div#replyAskRespondEditor').froalaEditor('html.get');
+                if(null!=replyAskRespondContent&&""!=replyAskRespondContent)
+                {
+                    $(this).addClass("loading");
+                    var currentUserId=$("#currentUserId").val();
+                    var askRespondId=$("#askRespondId").val();
+                    var replyHeadPhoto=$("#replyHeadPhoto").val();
+                    $.ajax({
+                        url:"replyAskRespondController/insert_replyAskRespondByaskRespondId",
+                        dataType:"json",
+                        type:"post",
+                        data:{askRespondId:askRespondId,replyHeadPhoto:replyHeadPhoto,replyAskRespondContent:replyAskRespondContent,currentUserId:currentUserId},
+                        success:function(data)
+                        {
+                            if(null!=data)
+                            {
+                                if(data.result)
+                                {
+                                    $(this).removeClass("loading");
+                                }
+                            }
+                            $(this).removeClass("loading");
+                        },
+                        error:function () {
+                            $(this).removeClass("loading");
+                        }
+                    });
+                }
+                else
+                    showalert("内容不能为空");
+            }
+            else
+                showalert("未登录,请先登录");
+        }
+    );
+</script>
+<!--修改问答详细内容Editor开始-->
+<script>
+    $(function(){
+        $.FroalaEditor.DefineIcon('clear', {NAME: 'remove'});
+        $.FroalaEditor.RegisterCommand('clear', {
+            title: '清除所有内容',
+            focus: false,
+            undo: true,
+            refreshAfterCallback: true,
+            callback: function () {
+                this.html.set('');
+                this.events.focus();
+            }
+        });
+        $('#askRespondDetailEditor').froalaEditor({
+            imageDefaultWidth: 0,
+            imageEditButtons: [ 'imageRemove'],
+            language: 'zh_cn',
+            toolbarButtons: ['undo', 'redo' , 'bold','|','insertImage', 'clear',],
+            quickInsertButtons: ['image'],
+            imageUploadURL: 'askRespondController/add_askRespondPhoto',
+            theme: 'gray',
+            charCounterMax: 1000,
+            imageUploadParams: {
+                id: 'askRespondPhoto'
+            }
+        }).on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+            var image = new Image();
+            image.src= $img.attr("src");
+            image.onload=function() {
+                var width = image.width;
+                var height = image.height;
+                if (width > 700)
+                    width = 700;
+                $img.attr("width",width+"px");
+                $img.attr("onclick","showImagealert(this.src)");
+            }
+        });
+    });
+</script>
+<!--修改问答详细内容Editor结束-->
+<!--回复问答内容Editor开始-->
+<script>
+    $(function(){
+        //当删除图片时,后台进行删除图片
+        $('#replyAskRespondEditor').on('froalaEditor.image.removed', function (e, editor, $img){
+            $.ajax({
+                url:"replyAskRespondController/delete_replyAskRespondPhoto",
+                dataType:"json",
+                type:"post",
+                data:{src:$img.attr("src")}
+            })
+        });
+        $('#replyAskRespondEditor').on('froalaEditor.video.removed', function (e, editor, $video){
+            console.log($video.attr("src"));
+            $.ajax({
+                url:"replyAskRespondController/delete_replyAskRespondVideo",
+                dataType:"json",
+                type:"post",
+                data:{src:$video.attr("src")}
+            });
+        });
+        $('#replyAskRespondEditor').on('froalaEditor.video.inserted', function (e, editor, $video){
+            $video.attr("width","700px");
+        });
+        $('#replyAskRespondEditor').froalaEditor({
+            imageDefaultWidth: 0,
+            imageEditButtons: [ 'imageRemove'],
+            videoEditButtons:['videoRemove'],
+            language: 'zh_cn',
+            toolbarButtons: ['bold','paragraphFormat','formatOL','formatUL','|','insertImage','insertVideo','fullscreen','clear','|','undo', 'redo'],
+            quickInsertButtons: ['image'],
+            imageUploadURL: 'replyAskRespondController/add_replyAskRespondPhoto',
+            theme: 'gray',
+            imageUploadParams: {
+                id: 'askRespondPhoto'
+            },
+            videoMaxSize: 1024 * 1024 * 1024,
+            videoInsertButtons: ['videoUpload'],
+            videoUploadURL: 'replyAskRespondController/add_replyAskRespondVideo',
+            videoUploadParams: {
+                id: 'replyAskRespondVideo'
+            },
+            paragraphFormat: {
+                N: '正文',
+                H3: 'H1'
+            },
+            listAdvancedTypes: false
+        }).on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+            var image = new Image();
+            image.src= $img.attr("src");
+            image.onload=function() {
+                var width = image.width;
+                var height = image.height;
+                if (width > 700)
+                {
+                    width = 700;
+                    var replyHeadPhoto=$("#replyHeadPhoto").val();
+                    if(null==replyHeadPhoto||""==replyHeadPhoto)
+                        $("#replyHeadPhoto").val($img.attr("src"));
+                }
+                $img.attr("width",width+"px");
+                $img.attr("onclick","showImagealert(this.src)");
+            }
+        });
+    });
+</script>
+<!--回复问答内容Editor结束-->
+</body>
+</html>

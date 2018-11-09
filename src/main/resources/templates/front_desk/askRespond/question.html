@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost/">
+    <title>发表问题 - 嗡嗡嗡</title>
+    <meta name="renderer" content="webkit" />
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/css+mfw-ask+change_ask_v2_css+mfw-ask+upload_pics^Z1w^1539851449.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <!--editor strat -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/froala_editor.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/froala_style.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/code_view.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/colors.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/emoticons.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/image_manager.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/image.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/line_breaker.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/table.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/char_counter.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/video.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/fullscreen.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/file.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/css/plugins/quick_insert.css">
+    <link rel="stylesheet" href="froala_editor_2.9.0/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+    <script type="text/javascript" src="froala_editor_2.9.0/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/froala_editor.min.js" ></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/char_counter.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/code_beautifier.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/code_view.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/colors.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/draggable.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/emoticons.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/font_family.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/fullscreen.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/image.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/image_manager.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/line_breaker.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/link.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/lists.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/paragraph_format.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/paragraph_style.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/quick_insert.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/table.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/plugins/video.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.0/js/languages/zh_cn.js"></script>
+    <!--editor end-->
+<body>
+<div id="header">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="http://www.mafengwo.cn/">首页</a></li>
+                <li class="head-nav-place" data-cs-p="mdd"><a href="http://www.mafengwo.cn/mdd/" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="http://www.mafengwo.cn/gonglve/" title="旅游攻略">旅游攻略</a></li>
+                <li class="head-nav-sales head-nav-dropdown _j_sales_nav_show" id="_j_nav_sales" data-cs-p="sales">
+                    <a class="drop-toggle" href="http://www.mafengwo.cn/sales/" style="cursor: pointer;display: block;border-bottom:0 none;" data-sales-nav="旅行商城">
+                        <span>旅行商城<i class="icon-caret-down"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-sales hide _j_sales_top" id="_j_sales_panel" data-cs-t="sales_nav">
+                        <ul>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/" data-sales-nav="机票＋酒店">自由行<i class="i-hot">hot</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4" data-sales-nav="跟团游">跟团游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/localdeals/" data-sales-nav="当地游">当地游</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/flight/" data-sales-nav="国内机票">国内机票<i class="i-new">new</i></a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/visa/" data-sales-nav="签证">签证</a></li>
+                            <li><a target="_blank" href="http://www.mafengwo.cn/insure/" data-sales-nav="保险">保险</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="head-nav-hotel" data-cs-p="hotel"><a href="http://www.mafengwo.cn/hotel/" title="酒店">酒店</a></li>
+                <li class="head-nav-community head-nav-dropdown _j_shequ_nav_show" id="_j_nav_community" data-cs-p="community">
+                    <div class="drop-toggle"><span>社区<i class="icon-caret-down"></i></span></div>
+                    <!-- 社区下拉面板 begin -->
+                    <div class="dropdown-panel dropdown-community hide _j_shequ_top no-image" id="_j_community_panel" data-cs-t="community_nav">
+                        <div class="panel-wrapper">
+                            <ul class="nav-list clearfix">
+                                <li class="h"><a href="http://www.mafengwo.cn/wenda/" target="_blank" title="问答" data-cs-p="wenda">问答<i class="i-hot">hot</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/things.php" target="_blank" title="嗡嗡嗡周边" data-cs-p="things">嗡嗡嗡周边<i class="i-new">new</i></a></li>
+                                <li><a href="http://www.mafengwo.cn/club/" target="_blank" title="蜂首俱乐部" data-cs-p="club">蜂首俱乐部</a></li>
+                                <li><a href="http://www.mafengwo.cn/together/" target="_blank" title="结伴" data-cs-p="together">结伴</a></li>
+                            </ul>
+                            <ul class="nav-list-sub clearfix">
+
+                                <li><a href="http://www.mafengwo.cn/group/" target="_blank" title="嗡嗡嗡旅行家" data-cs-p="group">小组论坛</a></li>
+                                <li><a href="http://www.mafengwo.cn/rudder/" target="_blank" title="分舵同城" data-cs-p="rudder">分舵同城</a></li>
+                                <li><a href="http://www.mafengwo.cn/auction/" target="_blank" title="嗡嗡嗡拍卖行" data-cs-p="paimai">嗡嗡嗡拍卖行</a></li>
+
+                                <!--<li><a href="http://www.mafengwo.cn/postal/" target="_blank" title="游记纪念工厂" data-cs-p="postal">游记纪念工厂</a></li>-->
+                                <li><a href="http://www.mafengwo.cn/photo_pk/prev.php" target="_blank" title="照片PK" data-cs-p="photo_pk">照片PK</a></li>
+                                <li><a href="http://www.mafengwo.cn/focus/" target="_blank" title="真人兽" data-cs-p="focus">真人兽</a></li>
+                                <li><a href="http://www.mafengwo.cn/mall/virtual_goods.php" target="_blank" title="道具商店" data-cs-p="virtual">道具商店</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 社区下拉面板 end -->
+                </li>
+                <li class="head-nav-app" data-cs-p="app"><a href="http://www.mafengwo.cn/app/intro/gonglve.php" title="APP">APP</a></li>
+            </ul>
+            <div class="head-search" data-online="1">
+                <div class="head-search-wrapper">
+                    <div class="head-searchform">
+                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off">
+                        <a role="button" href="javascript:" class="icon-search" id="_j_head_search_link"></a>
+                    </div>
+                </div>
+            </div>
+            <div data-pagelet id="pagelet-block-e2b04862cf677658f1708a40e5816eb6" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <!-- 新自由行菜单 begin -->
+    <div class="dropdown-bar" style="display: none">
+        <div class="content">
+            <ul class="clearfix ul-dropdown-bar" id="Js_middleNav">
+                <li data-type="sales"><a href="http://www.mafengwo.cn/sales/">自由行</a></li>
+                <li data-type="freewalker"><a href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4">跟团游</a></li>
+                <li data-type="localdeals"><a href="http://www.mafengwo.cn/localdeals/">当地游</a></li>
+                <li data-type="flight"><a href="http://www.mafengwo.cn/flight/">国内机票</a></li>
+                <li data-type="visa"><a href="http://www.mafengwo.cn/sales/visa/">签证</a></li>
+                <li data-type="wifi"><a href="http://www.mafengwo.cn/localdeals/0-0-0-21-0-0-0-0.html">全球WiFi</a></li>
+                <li data-type="cruise"><a href="http://www.mafengwo.cn/sales/0-0-0-5-0-0-0-0.html">邮轮</a></li>
+
+                <li data-type="insurance"><a href="http://www.mafengwo.cn/insurance/">旅游保险</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 新自由行菜单 end -->
+</div>
+<input type="hidden" id="_j_info" data-tags={"1016":"\u81ea\u9a7e","1052":"\u4eb2\u5b50","1040":"\u6444\u5f71","1036":"\u7f8e\u98df","1044":"\u6ed1\u96ea","1068":"\u8d2d\u7269","1112":"\u5f92\u6b65","1048":"\u6f5c\u6c34","1096":"\u9a91\u884c"} data-bind_mobile=0 data-ask_uid=0>
+<div class="wrapper" id="_js_qa_wrapper" data-is_bind_mobile="0" data-ask_uid="0">
+    <div class="qt-container clearfix">
+        <!-- 提问主要内容 -->
+        <div class="qt-main">
+            <!-- 面包屑导航 -->
+            <div class="crumb">
+                <a href="/wenda/">旅游问答</a> &gt; <span>我要提问</span>
+            </div>
+            <!-- 问题标题 -->
+            <div class="qt-tit">
+                <h5>问题标题</h5>
+                <div class="qt-con">
+                    <input type="text" placeholder="标题不小于10字哦" class="_j_title" id="askRespondTitle">
+                    <span class="count"><span class="_j_title_num">0</span>/80 字</span>
+                    <span class="_j_min_num hide">10</span>
+                    <span class="error err-tips _j_title_error hide"></span>
+                </div>
+            </div>
+            <!-- 问题详细内容 -->
+            <div class="qt-details" id="_qa_detail">
+                <h5><a title="添加问答内容" class="icon" id="_j_show_content"></a>问题详细内容</h5>
+                <div id="editor" style="display: none;">
+                    <div id='edit' style="margin-top: 30px;"></div>
+                </div>
+            </div>
+            <!-- 选择目的地 -->
+            <div class="qt-mdd _qa_block" id="_qa_mdd">
+                <h5>选择目的地</h5>
+                <div class="qt-con _qa_select" id="_qa_select_mdds">
+                    <input type="text" class="_j_mdd" id="cityId" data-cityId="">
+                    <ul class="mdds_search_list _j_mdd_option _qa_mdds_search_list hide"></ul>
+                    <div class="qt-mdd-option _j_mdd_list_div">
+                        <div class="tabs">
+                            <ul class="_j_mdd_tap_ul">
+                                <li class="on _j_mdd_tap" data-id="_qa_hot"><a>热门</a></li>
+                                <li class="_j_mdd_tap" data-id="_qa_china"><a>国内</a></li>
+                                <li class="_j_mdd_tap" data-id="_qa_international"><a>国际</a></li>
+                            </ul>
+                            <div class="location hide _qa_mddselect_position">
+                                <a data-id=""></a><span>&gt;</span><a data-id=""></a><span>&gt;</span><span class="_qa_loc3"></span>
+                            </div>
+                        </div>
+
+                        <div class="qt-place" id="_qa_select_mdds_list"></div>
+
+                        <div class="ajax_loading hide _qa_ajax_loading">
+                            <i class="i1"></i>
+                            <i class="i2"></i>
+                            <i class="i3"></i>
+                        </div>
+
+                    </div>
+                    <div class="qt-error"><span class="_j_mdd_error">请选择目的地！</span></div>
+                </div>
+            </div>
+
+            <div class="qt-interest _qa_block" id="_qa_interest">
+                <h5>选择兴趣标签</h5>
+                <div class="qt-con _j_interest_list">
+                    <dl class="interest-description">
+                        <dt><i></i><span>什么是兴趣标签</span></dt>
+                        <dd>兴趣标签是一个问题的类型，它有助于为你的问题匹配擅长该类问题的蜂蜂回答。目前仅开放了以下几个话题，更多类型我们会逐步开放。</dd>
+                    </dl>
+                    <div class="interest-tags"></div>
+                </div>
+            </div>
+            <!-- 发布按钮 -->
+            <div class="publish_question">
+                <a class="qt-post-btn _j_publish" title="发布问题">发布问题</a>
+            </div>
+
+        </div>
+
+        <!-- 提问侧边栏 -->
+        <div class="qt-sider">
+            <div class="qts-tit">提问的正确姿势</div>
+            <div class="qts-con">
+                <p>1.问题要【具体】【真实】【诚恳】，问题较多，需全面阐述时，可以添加问题补充。结伴/交易/与旅行无关的提问将被删除。</p>
+                <p>2.给问题添加目的地，并打上正确的标签将有助于更快地获得回答。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+<link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<input type="hidden" id="userId">
+<input type="hidden" id="askRespondId">
+<script type="text/javascript">
+    $().ready(
+        function()
+        {
+            //获取当前登录用户
+            $.ajax({
+                url: "usersController/getCurrentLoginUser",
+                dataType: "json",
+                type: "post",
+                success:function(data)
+                {
+                    if(!data.loginState)
+                    {
+                        var currentHref=window.location.href;
+                        window.location.href= "usersController/show_login_html?url="+currentHref;
+                    }
+                    else
+                        $("#userId").val(data.currentUser.userId);
+                }
+            });
+            //查询兴趣标签
+            $.ajax({
+                url:"interestLabelController/find_interestLabelBystateId",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    var interest_tagsHtml="";
+                    if(null!=data)
+                    {
+                        for(var i=0;i<data.length;i++)
+                        {
+                            interest_tagsHtml+="<a class='btn-interest _j_interest' onclick='interestclick(this)' data-interestLabelId='"+data[i].interestLabelId+"'><i></i>"+data[i].interestLabelName+"</a>";
+                        }
+                    }
+                    $(".interest-tags").html(interest_tagsHtml);
+                }
+            });
+        }
+    );
+    //兴趣标签点击
+    function interestclick(obj)
+    {
+        if($(obj).attr("class")=="btn-interest _j_interest")
+        {
+            $(".interest-tags a").removeClass("on");
+            $(obj).addClass("on");
+        }
+        else
+            $(".interest-tags a").removeClass("on");
+    }
+    //显示或隐藏详细内容
+    $("#_j_show_content").click(
+       function()
+       {
+
+            var display=$("#editor").css("display");
+            if(display=="block")
+            {
+                $("#_j_show_content").addClass("active");
+                $("#editor").css("display","none");
+            }
+            else
+            {
+                $("#_j_show_content").removeClass("active");
+                $("#editor").css("display","block");
+            }
+       }
+    );
+    //显示问题标题多少字
+    $("._j_title").keyup(
+        function()
+        {
+            var value=$(this).val();
+            if(value.length>80)
+                value=value.substring(0,80);
+            $("._j_title_num").text(value.length);
+        }
+    );
+    //搜索目的地 按下键之后获取内容,并搜索目的地
+    $("._j_mdd").keyup(
+        function(e)
+        {
+            var cityName=$(this).val();
+            if(e.keyCode==8)
+            {
+                $(this).attr("data-cityId","");
+            }
+            if(null!=cityName&&0<cityName.length)
+            {
+                $.ajax({
+                    url:"cityController/find_cityBykeyUp",
+                    type:"post",
+                    dataType:"json",
+                    data:{cityName:cityName},
+                    success:function(data)
+                    {
+                        $(".mdds_search_list").children().remove();
+                        if(null!=data&&0<data.length)
+                        {
+                            $(".mdds_search_list").removeClass("hide");
+                            for(var i=0;i<data.length;i++)
+                            {
+                                $(".mdds_search_list").append("<li data-cityId='"+data[i].cityId+"' data-cityName='"+data[i].cityName+"' onclick='cityClick(this)' class='_j_mdd_item on'><span>"+data[i].cityName+"</span>&nbsp;&nbsp;</li>");
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $(".mdds_search_list").addClass("hide");
+                $(".mdds_search_list").children().remove();
+            }
+        }
+    );
+    //城市搜索节点点击
+    function cityClick(obj)
+    {
+        $("._j_mdd").attr("data-cityId",$(obj).attr("data-cityId"));
+        $("._j_mdd").val($(obj).attr("data-cityName"));
+    }
+    //判断点击文档隐藏目的地搜索下拉框
+    $(document).click(
+        function(e)
+        {
+            if(0<=$(e.target).closest(".mdds_search_list").length)
+                $(".mdds_search_list").addClass("hide");
+        }
+    );
+    //显示具有确认按钮模态框
+    function showalert(msg)
+    {
+        //popup_container1
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_0' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7;z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px;z-index: 0; overflow: hidden;'><div id='popup_container1' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left: "+left+"px; top:"+top+"px;'><a class='close-btn _j_close' onclick='closeModel(this)' data-id='_j_layer_0'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i1'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' onclick='closeModel(this)' data-id='_j_layer_0'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    <!--显示成功提示框,具有确认按钮-->
+    function showsucceedalert(msg)
+    {
+        //popup_container1
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_4' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div id='popup_container4' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left:"+left+"px; top:"+top+"px;'><a class='close-btn _j_close' onclick='closeModel(this)' data-id='_j_layer_4'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i3'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' onclick='closeModel(this)' data-id='_j_layer_4'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    //关闭模态框
+    function closeModel(obj)
+    {
+        var data_id=$(obj).attr("data-id");
+        $("#"+data_id).remove();
+        if(data_id=="_j_layer_4")
+        {
+            window.location.href="front_desk/askRespond/replyRespond.html?askRespondId="+$("#askRespondId").val();
+        }
+    }
+    //页面大小变更,更改模态框在页面显示的位置
+    window.onresize = function(){
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        var width1=$(window).width()/2-350;
+        var height1=$(window).height()/2-250;
+        if(width1<=0)
+            width1=0;
+        if(height1<=0)
+            height1=0;
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
+        $("#popup_container2").css({"left":width+"px","top":height+"px"});
+        $("#popup_container4").css({"left":width+"px","top":height+"px"});
+        if(("#popup_container3").length>0)
+            $("#popup_container3").css({"left":width1+"px","top":height1+"px"});
+    }
+    //问答标题焦点移除事件
+    $("#askRespondTitle").blur(
+        function()
+        {
+            if(checkaskRespondTitlelength())
+                $("._j_title_error").addClass("hide");
+            else
+            {
+                $("._j_title_error").removeClass("hide");
+                $("._j_title_error").text("标题不能少于10字");
+            }
+        }
+    );
+    //检测问答标题长度是否小于10
+    function checkaskRespondTitlelength()
+    {
+        var value=$("#askRespondTitle").val();
+        if(null!==value&&9<value.length)
+            return true;
+        else
+            return false;
+    }
+    //点击发布问题
+    $("._j_publish").click(
+        function()
+        {
+            if(!checkaskRespondTitlelength())//判断问答标题是否小于10
+                showalert("问答标题不能小于10字");
+            else
+            {
+                var askRespondDetail=$(".fr-element").html();
+                var askRespondTitle=$("#askRespondTitle").val();
+                var interestLabel=$(".interest-tags").children("a[class='btn-interest _j_interest on']");
+                var interestLabelId=$(interestLabel).attr("data-interestLabelId");
+                if(""==interestLabelId||"undefined"==interestLabelId)
+                    interestLabelId=null;
+                var cityId=$("#cityId").attr("data-cityId");
+                var userId=$("#userId").val();
+                $.ajax({
+                    url:"askRespondController/insert_askRespond",
+                    dataType:"json",
+                    type:"post",
+                    data:{askRespondTitle:askRespondTitle,interestLabelId:interestLabelId,askRespondDetail:askRespondDetail,cityId:cityId,userId:userId},
+                    success:function(data)
+                    {
+                        if(data.result)
+                        {
+                            $("#askRespondId").val(data.askRespondId);
+                            showsucceedalert("发表问题成功!");
+                        }
+                        else
+                            showalert("发表问题失败")
+                    }
+                });
+            }
+        }
+    );
+</script>
+<!--Editor开始-->
+<script>
+    $(function(){
+
+        $.FroalaEditor.DefineIcon('clear', {NAME: 'remove'});
+        $.FroalaEditor.RegisterCommand('clear', {
+            title: '清除所有内容',
+            focus: false,
+            undo: true,
+            refreshAfterCallback: true,
+            callback: function () {
+                this.html.set('');
+                this.events.focus();
+            }
+        });
+        //当删除图片时,后台进行删除图片
+        $('#edit').on('froalaEditor.image.removed', function (e, editor, $img){
+            $.ajax({
+                url:"askRespondController/delete_askRespondPhoto",
+                dataType:"json",
+                type:"post",
+                data:{src:$img.attr("src")}
+            });
+        });
+        $('#edit').froalaEditor({
+            imageDefaultWidth: 0,
+            imageEditButtons: [ 'imageRemove'],
+            language: 'zh_cn',
+            toolbarButtons: ['undo', 'redo' , 'bold','|','insertImage', 'clear',],
+            quickInsertButtons: ['image'],
+            imageUploadURL: 'askRespondController/add_askRespondPhoto',
+            charCounterMax: 1000,
+            imageUploadParams: {
+                id: 'askRespondPhoto'
+            }
+        }).on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+            var image = new Image();
+            image.src= $img.attr("src");
+            image.onload=function() {
+                var width = image.width;
+                var height = image.height;
+                if (width > 700)
+                    width = 700;
+                $img.attr("width",width+"px");
+                $img.attr("onclick","showImagealert(this.src)");
+            }
+            });
+    });
+</script>
+<!--Editor结束-->
+</body>
+</html>

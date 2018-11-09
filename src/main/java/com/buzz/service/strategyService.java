@@ -25,6 +25,16 @@ public class strategyService {
         return strategyDao.queryCityStrategy(cityId);
     }
 
+    /**
+     * 根据城市编号查询多个攻略
+     * @param cityId
+     * @return
+     */
+    public List<strategy> find_strategyBycityId( String cityId)
+    {
+        return strategyDao.find_strategyBycityId(cityId);
+    }
+
     //攻略下载次数加1
     @Transactional
     public int updateCityStrategyDownloadNumber(String strategyId){
@@ -47,5 +57,15 @@ public class strategyService {
     public strategy find_strategyBystrategyId(String strategyId)
     {
         return strategyDao.find_strategyBystrategyId(strategyId);
+    }
+
+    /**
+     * 根据城市编号查询多个攻略,只返回五条数据
+     * @param cityId
+     * @return
+     */
+    public List<strategy> find_strategyBycityIdR5(String cityId)
+    {
+        return strategyDao.find_strategyBycityId(cityId);
     }
 }
