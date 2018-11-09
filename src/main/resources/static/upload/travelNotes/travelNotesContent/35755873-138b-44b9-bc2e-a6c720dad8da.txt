@@ -1,0 +1,1 @@
+[,{"type":"img","value":"images/travelNotesphoto/25d4b412-e977-48b5-b283-3da1a23c618d.gif","width":"18","height":"18"},{"type":"textarea","value":"撒大范德萨发的是"}]
