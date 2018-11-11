@@ -408,9 +408,9 @@
                                            if([[${session.user}]]!=null){
                                                var productName=$(this).parent().prev().prev().text();
                                                var price=$(this).parent().prev().text();
-                                               var productName=$(this).parent().prev().prev().prev().prev().text();
+                                               var roomName=$(this).parent().prev().prev().prev().prev().text();
                                                var bedType=$(this).parent().prev().prev().prev().text();
-                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+productName+"&bedType="+bedType;
+                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+roomName+"&bedType="+bedType;
                                            }else{
                                                alert("请先登录");
                                                window.location.href="#login";

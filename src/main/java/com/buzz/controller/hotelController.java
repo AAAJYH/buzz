@@ -4,6 +4,7 @@ import com.buzz.entity.*;
 import com.buzz.service.hotelCollectService;
 import com.buzz.service.hotelOrdersService;
 import com.buzz.service.scenicspotService;
+import com.buzz.utils.WriteExcel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -185,6 +188,54 @@ public class hotelController {
     @ResponseBody
     public int UpdateHotelOrderState(String HotelOrderId){
         int rs=hotelOrdersService.byHotelOrderIdUpdateState(HotelOrderId,"超时未支付");
+        return rs;
+    }
+
+    /**
+     * 后台酒店管理页面
+     * @return
+     */
+    @RequestMapping("/hotelOrderManageIndex")
+    public String hotelOrderManageIndex(){
+        return "backstage_supporter/hotelOrderManage";
+    }
+
+    /**
+     * 后台分页查询
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/PagingQueryAllHotelOrders")
+    @ResponseBody
+    public Paging<hotelorders> PagingQueryAllHotelOrders(Integer page,Integer rows,String state){
+        return hotelOrdersService.PagingQueryHotelOrders(page,rows,state);
+    }
+
+    //查询写Excel
+    @RequestMapping("/HotelOrderWriteExcel")
+    @ResponseBody
+    public String HotelOrderWriteExcel(){
+        String rs="success";
+        try {
+            //城市集合
+            List<hotelorders> hotelordersList=hotelOrdersService.HotelOrderWriteExcel();
+            System.out.println(hotelordersList);
+            //生成桌面路径
+            FileSystemView fsv = FileSystemView.getFileSystemView();
+            String path=fsv.getHomeDirectory().toString()+"\\酒店订单集合.xls";
+            File file=new File(path);
+            if(file.exists()){
+                file.delete();
+            }
+            WriteExcel<hotelorders> we=new WriteExcel<hotelorders>();
+            we.write(hotelordersList,path,hotelorders.class);
+        }catch(Exception e){ //捕捉异常
+            String exceptionToString=e.toString();
+            if(exceptionToString.substring(0,exceptionToString.indexOf(":")).equals("java.io.FileNotFoundException")){
+                rs="另一个程序正在使用此文件，进程无法访问。";
+            }
+        }
         return rs;
     }
 

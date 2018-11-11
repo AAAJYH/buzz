@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <style>
+        #cc{
+           background:#fafdfe;
+           height:28px;
+           width:180px;
+           line-height:28px;
+           border:1px solid #9bc0dd;
+           -moz-border-radius:2px;
+           -webkit-border-radius:2px;
+           border-radius:2px;
+        }
+
+    </style>
+
+    <script th:inline="none">
+
+        $(function(){
+            $('#dg').datagrid({
+                url:'/hotelController/PagingQueryAllHotelOrders?state=',
+                columns:[[
+                    {field:'orderId',title:'编码',width:60,formatter:formatContext},
+                    {field:'hid',title:'酒店',width:100,formatter:formatHotel},
+                    {field:'roomName',title:'房间名称',width:100,formatter:formatContext},
+                    {field:'bedType',title:'床型',width:100,formatter:formatContext},
+                    {field:'inDate',title:'入住日期',width:100,formatter:formatContext},
+                    {field:'outDate',title:'离开日期',width:100,formatter:formatContext},
+                    {field:'lastTime',title:'最晚到店时间',width:130,formatter:formatContext},
+                    {field:'productName',title:'套餐',width:80,formatter:formatContext},
+                    {field:'orderAmout',title:'总金额',width:110,formatter:formatContext},
+                    {field:'passengers',title:'入住人',width:80,formatter:formatContext},
+                    {field:'contactName',title:'联系人',width:80,formatter:formatContext},
+                    {field:'contactMobile',title:'联系电话',width:100,formatter:formatContext},
+                    {field:'email',title:'邮箱',width:100,formatter:formatContext},
+                    {field:'Remark',title:'备注',width:80,formatter:formatContext},
+                    {field:'userId',title:'用户',width:80,formatter:formatUser},
+                    {field:'state',title:'状态',width:110,formatter:formatContext},
+                    {field:'subTime',title:'提交时间',width:100,formatter:formatContext},
+                ]],
+                fitColumns:true,
+                rownumbers:true,
+                singleSelect:true,
+                pagination:true,
+                pageNumber:1,
+                pageSize:14,
+                pageList:[5,14,20,25],
+                toolbar: ['-',{
+                    text:'<select id="cc" style="width:200px;">   \n' +
+                    '<option value="">全部</option>\n' +
+                    '<option value="已付款">已付款</option>\n' +
+                    '<option value="未付款">未付款</option>\n' +
+                    '<option value="超时未支付">超时未支付</option>\n' +
+                    '</select>  ',
+                    handler: function(){
+
+                    }
+                },'--',{
+                    iconCls: 'icon-print',
+                    text:'生成Excel表格',
+                    handler: function(){
+                        $.ajax({
+                            url:'/hotelController/HotelOrderWriteExcel',
+                            type:'post',
+                            async:false,
+                            dataType:'text',
+                            success:function(data){
+                                if(data=="success"){
+                                    $.messager.show({
+                                        title:'我的消息',
+                                        msg:'Excel表格成功保存桌面，消息将在2秒后关闭。',
+                                        timeout:2000,
+                                        showType:'slide'
+                                    });
+                                }else{
+                                    alert(data);
+                                }
+                            }
+                        })
+                    }
+                }]
+            });
+
+            //格式化用户id
+            function formatUser(value,row,index){
+                var rs="";
+                $.ajax({
+                    url:'/usersController/find_userByuserId',
+                    type:'post',
+                    async:false,
+                    data:{
+                        userId:value
+                    },
+                    dataType:'JSON',
+                    success:function(data){
+                        rs=data.userName;
+                    }
+                });
+                return rs;
+            }
+
+            //格式化酒店
+            function formatHotel(value,row,index){
+                var rs="";
+                $.ajax({
+                    url: 'http://apitest.99263.com/Hotel/HotelDetail',
+                    type: 'post',
+                    async:false,
+                    data: {
+                        "Data": {
+                            "HId": value
+                        },
+                        "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                        "Sign": "11111111111111111111",
+                        "Timestamp": "2017/10/01 00:00:00"
+                    },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        rs=data.Data.HotelDetails.HotelName;
+                    }
+                });
+                return rs;
+            }
+
+            function formatContext(value,row,index){
+                if(value==null){
+                    return "";
+                }else{
+                    return "<a title="+value+" style='color:black;text-decoration:none;'>"+value+"</a>";
+                }
+            }
+
+            //下拉框选择事件
+            $("#cc").change(function(){
+                var state=$(this).val();
+                //重新设置datagrid的url属性
+                $('#dg').datagrid('options').url="/hotelController/PagingQueryAllHotelOrders?state="+state;
+                $("#dg").datagrid("reload");
+            });
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <table id="dg"></table>
+
+</body>
+</html>

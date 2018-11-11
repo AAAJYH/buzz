@@ -15,7 +15,7 @@ import java.util.List;
 public interface hotelOrdersDao {
 
     //查询全部订单
-    @Select("select * from hotelorders")
+    @Select("select * from hotelorders order by subTime desc")
     public List<hotelorders> hotelordersList();
 
     //添加酒店订单
@@ -29,5 +29,13 @@ public interface hotelOrdersDao {
     //修改订单状态
     @Update("update hotelorders set state=#{s} where orderId=#{h}")
     public int byHotelOrderIdUpdateState(@Param("h") String hotelOrderId,@Param("s") String state);
+
+    //查询写Excel
+    @Select("select h.orderId,h.hid,h.roomName,h.bedType,h.inDate,h.lastTime,h.outDate,h.productName,h.orderAmout,h.passengers,h.contactName,h.contactMobile,h.email,h.Remark,h.state,h.subTime,u.userName FROM hotelorders h,users u where h.userId=u.userId ")
+    public List<hotelorders> HotelOrderWriteExcel();
+
+    //根据状态查询全部订单
+    @Select("<script>select * from hotelorders <if test=\"state!=''\">where state=#{state} </if> order by subTime desc</script>")
+    public List<hotelorders> byStateQueryHotelOrders(@Param("state") String state);
 
 }

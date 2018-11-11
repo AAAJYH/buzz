@@ -1,7 +1,9 @@
 package com.buzz.service;
 
 import com.buzz.dao.hotelOrdersDao;
+import com.buzz.entity.Paging;
 import com.buzz.entity.hotelorders;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,5 +44,17 @@ public class hotelOrdersService {
         return hotelOrdersDao.byHotelOrderIdUpdateState(hotelOrderId,state);
     }
 
+    //后台根据状态分页查询全部订单
+    public Paging<hotelorders> PagingQueryHotelOrders(Integer page,Integer rows,String state){
+            Integer total=hotelOrdersDao.byStateQueryHotelOrders(state).size();
+            PageHelper.startPage(page,rows);
+            List<hotelorders> hotelordersList=hotelOrdersDao.byStateQueryHotelOrders(state);
+            return new Paging<hotelorders>(hotelordersList,total);
+    }
+
+    //查询写Excel
+    public List<hotelorders> HotelOrderWriteExcel(){
+        return hotelOrdersDao.HotelOrderWriteExcel();
+    }
 
 }
