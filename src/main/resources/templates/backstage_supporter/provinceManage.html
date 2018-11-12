@@ -16,7 +16,7 @@
         var url="";
         $(function(){
             $('#dg').datagrid({
-                url:'/ProvinceController/PagingQueryProvince',
+                url:'/ProvinceController/PagingQueryProvince?provinceName=',
                 columns:[[
                     {field:'provinceId',title:'编号',width:130},
                     {field:'provinceName',title:'名称',width:100},
@@ -74,7 +74,23 @@
                             }
                         })
                     }
+                },'--',{
+                    text:'<input id="ss">\n' +
+                    '<div id="mm">\n' +
+                    '<div data-options="name:\'provinceName\'">省市名称</div> \n' +
+                    '</div> ',
+                    handler: function(){}
                 }]
+            });
+
+            $('#ss').searchbox({
+                searcher:function(value,name){
+                    var url=$("#dg").datagrid("options").url="/ProvinceController/PagingQueryProvince?provinceName="+value;
+                    $("#dg").datagrid("reload");
+                },
+                menu:'#mm',
+                prompt:'请输入值',
+                width:250
             });
 
             //时间转换

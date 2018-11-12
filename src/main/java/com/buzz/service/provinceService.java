@@ -34,10 +34,10 @@ public class provinceService {
     }
 
     //分页查询
-    public Paging<province> PagingQueryProvince(Integer page,Integer rows){
-        Integer total=provinceDao.queryAllProvince().size();
+    public Paging<province> PagingQueryProvince(Integer page,Integer rows,String provinceName){
+        Integer total=provinceDao.ByProvcinceNameQueryAllProvince(provinceName).size();
         PageHelper.startPage(page,rows);
-        List<province> provinceList=provinceDao.queryAllProvince();
+        List<province> provinceList=provinceDao.ByProvcinceNameQueryAllProvince(provinceName);
         return new Paging<province>(provinceList,total);
     }
 

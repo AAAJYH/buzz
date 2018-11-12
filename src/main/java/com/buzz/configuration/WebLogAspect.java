@@ -84,13 +84,12 @@ public class WebLogAspect {
      */
     @AfterReturning(returning = "object",pointcut = "webLog()")
     public void doAfterReturning(Object object){
-        response=object.toString();
         endDate=new Date();
         String logId= UUID.randomUUID().toString(); //日志id
         long totalTime=endDate.getTime()-startDate.getTime(); //用时
         Timestamp currentTime=new Timestamp(System.currentTimeMillis()); //当前时间戳
         //添加日志
-        logService.addLog(logId,url,requestType,response,totalTime,ip,currentTime,params);
+        logService.addLog(logId,url,requestType,totalTime,ip,currentTime,params);
     }
 
 }

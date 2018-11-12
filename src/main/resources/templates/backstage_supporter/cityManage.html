@@ -39,7 +39,7 @@
             //初始化datagrid数据表格
             $('#dg').datagrid({
 
-                url:'/cityController/pagingQueryCity',
+                url:'/cityController/pagingQueryCity?type=&val=',
                 columns:[[
                     {field:'cityId',title:'编号',width:130},
                     {field:'cityPhoto',title:'图片',width:40,formatter:formatPhoto},
@@ -136,9 +136,26 @@
                               }
                             })
                         }
+                    },'--',{
+                        text:'<input id="ss">\n' +
+                        '<div id="mm">\n' +
+                        '<div data-options="name:\'provinceName\'">省市名称</div> \n' +
+                        '<div data-options="name:\'cityName\'">城市名称</div> \n' +
+                        '</div> ',
+                        handler: function(){}
                     }
                 ]
 
+            });
+
+            $('#ss').searchbox({
+                searcher:function(value,name){
+                    var url=$("#dg").datagrid("options").url="/cityController/pagingQueryCity?type="+name+"&val="+value;
+                    $("#dg").datagrid("reload");
+                    },
+                menu:'#mm',
+                prompt:'请输入值',
+                width:250
             });
 
             //时间转换

@@ -53,7 +53,10 @@ public interface cityDao {
     public int byCityIdUpdateCityPhoto(@Param("cityId") String CityId,@Param("cityPhoto") String cityPhoto);
 
     //城市集合写入Excel
-    @Select("select c.cityId,c.cityPhoto,c.cityName,c.citySituation,p.provinceName provinceId,s.stateName stateId,c.searchNumber,c.uptime from city c,state s,province p where s.stateId=c.stateId and c.provinceId=p.provinceId;\n")
+    @Select("select c.cityId,c.cityPhoto,c.cityName,c.citySituation,p.provinceName provinceId,s.stateName stateId,c.searchNumber,c.uptime from city c,state s,province p where s.stateId=c.stateId and c.provinceId=p.provinceId;")
     public List<city> CityListWriteExcel();
+
+    @Select("select o.cityId,o.cityPhoto,o.cityName,o.citySituation,o.stateId,o.searchNumber,o.uptime,o.provinceId from city o,province p where o.provinceId=p.provinceId and ${sql} order by o.uptime desc")
+    public List<city> byTypeQuery(@Param("sql") String sql);
 
 }

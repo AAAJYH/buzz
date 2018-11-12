@@ -41,4 +41,8 @@ public interface provinceDao {
     @Select("select p.provinceId,p.provinceName,s.stateName stateId,p.uptime from province p,state s where p.stateId=s.stateId")
     public List<province> ProvinceListWriteExcel();
 
+    //查询全部数据
+    @Select("<script>select * from province <if test=\"provinceName!=''\">where provinceName=#{provinceName}</if> order by uptime desc</script>")
+    public List<province> ByProvcinceNameQueryAllProvince(@Param("provinceName") String provinceName);
+
 }

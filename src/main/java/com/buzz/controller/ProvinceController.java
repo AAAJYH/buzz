@@ -69,8 +69,8 @@ public class ProvinceController {
      */
     @RequestMapping("/PagingQueryProvince")
     @ResponseBody
-    public Paging<province> PagingQueryProvince(Integer page, Integer rows){
-        Paging<province> paging=provinceService.PagingQueryProvince(page,rows);
+    public Paging<province> PagingQueryProvince(Integer page, Integer rows,String provinceName){
+        Paging<province> paging=provinceService.PagingQueryProvince(page,rows,provinceName);
         return paging;
     }
 

@@ -50,8 +50,8 @@ public class cityController {
      */
     @RequestMapping("/pagingQueryCity")
     @ResponseBody
-    public Paging<city> pagingQueryCity(Integer page,Integer rows){
-        return cityservice.PagingQueryAll(page,rows);
+    public Paging<city> pagingQueryCity(Integer page,Integer rows,String type,String val){
+        return cityservice.PagingQueryAll(page,rows,type,val);
     }
 
     /**

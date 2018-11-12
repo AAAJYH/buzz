@@ -46,10 +46,17 @@ public class cityService {
     }
 
     //分页查询全部
-    public Paging<city> PagingQueryAll(Integer pageSize, Integer rows){
-        Integer total=cityDao.queryCityAll().size();
+    public Paging<city> PagingQueryAll(Integer pageSize, Integer rows,String type,String val){
+        String sql="";
+        if(type.equals("")||val.equals("")){
+            sql=" 1=1";
+        }else{
+            sql=" "+type+"='"+val+"'";
+        }
+        System.out.println(sql);
+        Integer total=cityDao.byTypeQuery(sql).size();
         PageHelper.startPage(pageSize,rows);
-        List<city> cityList=cityDao.queryCityAll();
+        List<city> cityList=cityDao.byTypeQuery(sql);
         return new Paging<city>(cityList,total);
     }
 

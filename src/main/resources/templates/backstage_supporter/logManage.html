@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <script th:inline="none">
+
+        $(function(){
+
+            $('#dg').datagrid({
+                url:'/LogController/queryAll',
+                columns:[[
+                    {field:'logId',title:'编号',width:120,formatter:formatContent},
+                    {field:'requestUrl',title:'请求地址',width:150,formatter:formatContent},
+                    {field:'requestParam',title:'请求参数',width:100,formatter:formatContent},
+                    {field:'requestType',title:'请求类型',width:50},
+                    {field:'totalTime',title:'用时(毫秒)',width:50},
+                    {field:'ip',title:'ip',width:60},
+                    {field:'createSubtime',title:'创建时间',width:100,formatter:formatContent},
+
+                ]],
+                fitColumns: true,
+                rownumbers: true,
+                singleSelect: true,
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 14,
+                pageList: [5, 10, 14, 20]
+            });
+
+            function formatContent(value,row,index){
+                return "<a title='"+value+"' style='color:black;text-decoration:none;'>"+value+"</a>";
+            }
+
+        });
+
+    </script>
+
+</head>
+<body>
+<input class="easyui-datetimebox" name="birthday"
+       data-options="required:true,showSeconds:false,editable:false" value="3/4/2010 2:3" style="width:150px">
+
+    <table id="dg"></table>
+
+</body>
+</html>
