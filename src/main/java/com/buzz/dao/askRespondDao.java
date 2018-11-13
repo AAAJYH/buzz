@@ -3,6 +3,8 @@ package com.buzz.dao;
 import com.buzz.entity.askRespond;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface askRespondDao
 {
@@ -19,8 +21,8 @@ public interface askRespondDao
      * @param askRespondId
      * @return
      */
-    @Select("select * from askRespond where askRespondId=#{askRespondId}")
-    public askRespond find_askRespondByaskRespondId(@Param("askRespondId") String askRespondId);
+    @Select({"<script>select * from askRespond where askRespondId=#{askRespondId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public askRespond find_askRespondByaskRespondId(@Param("askRespondId") String askRespondId,@Param("stateIds")String...stateIds);
 
     /**
      * 通过问答编号修改问答详细内容
@@ -39,4 +41,56 @@ public interface askRespondDao
      */
     @Update("update askRespond set stateId=#{stateId} where askRespondId=#{askRespondId}")
     public int update_stateIdByaskRespondId(@Param("askRespondId")String askRespondId,@Param("stateId")String stateId);
+
+    /**
+     * 通过兴趣标签和状态查询问答
+     * @param interestLabelId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from askRespond where interestLabelId=#{interestLabelId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondByinterestLabelIdAndstateId(@Param("interestLabelId") String interestLabelId,@Param("stateIds") String... stateIds);
+
+    /**
+     * 通过城市和状态查询问答
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from askRespond where cityId=#{cityId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondBycityIdAndstateId(@Param("cityId") String cityId,@Param("stateIds") String... stateIds);
+
+    /**
+     * 通过问答标题和状态查询问答
+     * @param askRespondTitle
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from askRespond where askRespondTitle like concat('%',#{askRespondTitle},'%') and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondByaskRespondTitleAndstateId(@Param("askRespondTitle") String askRespondTitle,@Param("stateIds") String... stateIds);
+
+    /**
+     * 通过模糊搜索城市名称和状态编号查询
+     * @param cityName
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>SELECT ask.* FROM askrespond ask left join city c on c.cityId=ask.cityId where c.cityName like concat('%',#{cityName},'%') and ask.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondBycityNameAndstateId(@Param("cityName")String cityName,@Param("stateIds")String...stateIds);
+
+    /**
+     * 通过模糊搜索兴趣编号和状态编号查询
+     * @param interestLabelName
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>SELECT ask.* FROM askrespond ask left join interestLabel i on i.interestLabelId=ask.interestLabelId where i.interestLabelName like concat('%',#{interestLabelName},'%') and ask.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondByinterestLabelNameAndstateId(@Param("interestLabelName") String interestLabelName,@Param("stateIds")String... stateIds);
+    /**
+     * 通过状态查询问答
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from askRespond where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondBystateId(@Param("stateIds") String... stateIds);
 }

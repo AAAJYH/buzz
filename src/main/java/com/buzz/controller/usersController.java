@@ -2,12 +2,10 @@ package com.buzz.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.buzz.entity.replyAskRespond;
+import com.buzz.entity.replyAskRespondComment;
 import com.buzz.entity.smsCode;
 import com.buzz.entity.users;
-import com.buzz.service.askRespondService;
-import com.buzz.service.emailService;
-import com.buzz.service.replyAskRespondService;
-import com.buzz.service.usersService;
+import com.buzz.service.*;
 import com.buzz.utils.Encryption;
 import com.buzz.utils.SmsVerification;
 import com.buzz.utils.verifyCodeUtils;
@@ -26,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -40,6 +39,8 @@ public class usersController {
     private replyAskRespondService replyaskrespondservice;
     @Resource
     private askRespondService askrespondservice;
+    @Resource
+    private replyAskRespondCommentService replyaskrespondcommentservice;
     /**
      * 显示登录页面
      *
@@ -474,16 +475,6 @@ public class usersController {
         {
             map.put("loginState",true);
             map.put("currentUser",user);
-            replyAskRespond rask=replyaskrespondservice.find_replyAskRespondByuserIdAndaskRespondIdAndstateId(user.getUserId(),askRespondId,"0ee26211-3ae8-48b7-973f-8488bfe837d6");
-            if(null!=rask)
-            {
-                String path = ResourceUtils.getURL("src/main/resources/static").getPath();
-                path = path.replace("%20", " ");
-                if(null!=rask.getReplyAskRespondContent()&&!"".equals(rask.getReplyAskRespondContent()))
-                    rask.setReplyAskRespondContent(askrespondservice.format_askRespondDetail(path,rask.getReplyAskRespondContent()));
-                rask.setUser(usersservice.find_userByuseruserId(rask.getUserId()));
-            }
-            map.put("replyAskRespond",rask);
         }
         else
             map.put("loginState",false);
@@ -517,5 +508,37 @@ public class usersController {
             return false;
         else
             return true;
+    }
+    /**
+     * 查询所有用户的被采纳答案数量
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_user_optimumAnswerNum")
+    public List<users> find_user_optimumAnswerNum() {
+        return usersservice.find_user_optimumAnswerNum(1,"true");
+    }
+
+    /**
+     * 查询所有用户的回复问答数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_user_replyAskRespondNum")
+    public List<users> find_user_replyAskRespondNum()
+    {
+        return usersservice.find_user_replyAskRespondNum(1,"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+    }
+
+    /**
+     * 查询所有用户的被顶数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_user_replyAskRespondTopNum")
+    public List<users> find_user_replyAskRespondTopNum()
+    {
+        return usersservice.find_user_replyAskRespondTopNum(1);
     }
 }

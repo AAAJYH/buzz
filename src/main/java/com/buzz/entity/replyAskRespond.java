@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,10 +16,13 @@ public class replyAskRespond
     private String replyHeadPhoto;
     private String replyBrief;
     private String askRespondId;
+    private List<replyAskRespondComment> replyaskrespondcomments;
     private askRespond askrespond;
     private String replyAskRespondContent;
     private String userId;
     private users user;
     private Timestamp releaseTime;
+    private String optimumAnswer;
     private String stateId;
+    private Integer replyAskRespondTopNum;//点赞数量不存在数据库
 }

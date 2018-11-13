@@ -22,4 +22,5 @@ public class users
     private Timestamp birthDate;
     private String individualResume;
     private String stateId;
+    private Integer nums;//不存在数据库,用来存在回复问答数量,被顶数量,被采纳数量
 }

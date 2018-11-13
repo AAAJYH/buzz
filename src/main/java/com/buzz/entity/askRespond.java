@@ -22,4 +22,6 @@ public class askRespond
     private users user;
     private Timestamp releaseTime;
     private String stateId;
+    private Integer replyAskRespondNum;
+    private replyAskRespond replyaskrespond;
 }

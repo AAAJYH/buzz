@@ -1,0 +1,1 @@
+<p><strong>上传个图片高兴高兴</strong></p><p><img src="images\askRespond\photo/3c871f14-808f-414e-9910-06338736b6af.jpeg" class="fr-fic fr-dib fr-draggable" width="700px" onclick="showImagealert(this.src)"></p><p>上传图片成功</p>

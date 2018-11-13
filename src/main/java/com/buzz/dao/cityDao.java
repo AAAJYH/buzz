@@ -45,4 +45,12 @@ public interface cityDao {
      */
     @Select("select * from city order by searchNumber desc LIMIT 0,#{num}")
     public List<city> find_cityByLIMIT(@Param("num")Integer num);
+
+    /**
+     * 查询每个城市,并且每个城市有多少问答
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select c.*,(select count(a.askRespondId) from askRespond a where c.cityId=a.cityId <if test='null!=stateIds'> and a.stateId in<foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></if>) askRespondNum from city c</script>"})
+    public List<city> find_city_askRespondNum(@Param("stateIds") String...stateIds);
 }

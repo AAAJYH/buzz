@@ -82,4 +82,15 @@ public class cityController
         map.put("strategys",strategys);
         return map;
     }
+
+    /**
+     * 查询每个城市有多少问答
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_city_askRespondNum")
+    public List<city> find_city_askRespondNum()
+    {
+        return cityservice.find_city_askRespondNum("0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af");
+    }
 }
