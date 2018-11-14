@@ -59,4 +59,8 @@ public interface cityDao {
     @Select("select o.cityId,o.cityPhoto,o.cityName,o.citySituation,o.stateId,o.searchNumber,o.uptime,o.provinceId from city o,province p where o.provinceId=p.provinceId and ${sql} order by o.uptime desc")
     public List<city> byTypeQuery(@Param("sql") String sql);
 
+    //根据城市名称查询城市
+    @Select("select * from city where cityName=#{c}")
+    public city byCityNameQueryCity(@Param("c") String cityName);
+
 }

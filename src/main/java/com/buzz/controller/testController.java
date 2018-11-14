@@ -25,7 +25,7 @@ public class testController {
 
     @RequestMapping("/a")
     public String a() {
-        return "backstage_supporter/index";
+        return "backstage_supporter/test";
     }
 
 }

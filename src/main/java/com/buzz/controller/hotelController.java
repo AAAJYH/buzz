@@ -1,9 +1,7 @@
 package com.buzz.controller;
 
 import com.buzz.entity.*;
-import com.buzz.service.hotelCollectService;
-import com.buzz.service.hotelOrdersService;
-import com.buzz.service.scenicspotService;
+import com.buzz.service.*;
 import com.buzz.utils.WriteExcel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +16,10 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: aaaJYH
@@ -40,6 +40,12 @@ public class hotelController {
     @Resource
     hotelOrdersService hotelOrdersService;
 
+    @Resource
+    cityService cityService;
+
+    @Resource
+    provinceService provinceService;
+
     /**
      * 查看城市酒店
      * @param model 景点集合
@@ -48,9 +54,14 @@ public class hotelController {
      * @return 酒店页面
      */
     @RequestMapping("/hotelIndex")
-    public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId){
-        //获取上下文city对象
-        city city=(city) request.getServletContext().getAttribute("city");
+    public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId,String cityName){
+        city city=null;
+        if(cityName.equals("")){
+            city=(city) request.getServletContext().getAttribute("city");
+        }else{
+            city=cityService.byCityNameQueryCity(cityName);
+            request.getServletContext().setAttribute("city",city);
+        }
         //保存景点集合
         List<scenicspot> scenicspotList=scenicspotService.byCityIdQueryScenicspot(city.getCityId());
         model.addAttribute("scenicspotList",scenicspotList);
@@ -237,6 +248,28 @@ public class hotelController {
             }
         }
         return rs;
+    }
+
+    @RequestMapping("/hotel2Index")
+    public String hotel2Index(Model model){
+        //查询热门省
+        List<Map<String,Object>> provinceMap=provinceService.queryHotProvince();
+        //转换成省集合
+        List<province> provinceList=new ArrayList<province>();
+        if(provinceMap.size()>0){
+            for (Map map:provinceMap) {
+                provinceList.add(provinceService.byProvinceIdQuery((String) map.get("provinceId")));
+            }
+        }
+        System.out.println(provinceList);
+        model.addAttribute("provinceList",provinceList); //存省集合
+        List list=new ArrayList();
+        for (province p:provinceList) {
+            list.add(cityService.byProvinceIdQueryHot(p.getProvinceId()));
+        }
+        System.out.println(list);
+        model.addAttribute("cityList",list);
+        return "front_desk/hotel2";
     }
 
 }

@@ -47,7 +47,7 @@
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
                 <li class="head-nav-index"><a href="#">首页</a></li>
                 <li class="head-nav-index"><a href="/destinationController/queryAllDestination">目的地</a></li>
-                <li class="head-nav-index"><a href="#">酒店</a></li>
+                <li class="head-nav-index"><a href="/hotelController/hotel2Index" target="_blank">酒店</a></li>
                 <li class="head-nav-index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
                 <li class="head-nav-index"><a href="#">游记</a></li>
                 <li class="head-nav-index"><a href="#">问答</a></li>
@@ -86,7 +86,7 @@
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityName='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>

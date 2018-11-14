@@ -6,6 +6,7 @@ import com.buzz.service.cityService;
 import com.buzz.utils.Upload;
 import com.buzz.utils.WriteExcel;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -168,6 +169,17 @@ public class cityController {
     @ResponseBody
     public List<city> queryAllCity(){
         return cityservice.queryAllCity();
+    }
+
+    /**
+     * 酒店页面模糊查询
+     * @param cityName
+     * @return
+     */
+    @RequestMapping("/byCityNameQuery")
+    @ResponseBody
+    public List<city> byCityNameQuery(String cityName){
+        return cityservice.byCityNameQuery(cityName);
     }
 
 }

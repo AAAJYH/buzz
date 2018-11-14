@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: aaaJYH
@@ -55,4 +56,10 @@ public class provinceService {
     public List<province> ProvinceListWriteExcel(){
         return provinceDao.ProvinceListWriteExcel();
     }
+
+    //查询热门省
+    public List<Map<String,Object>> queryHotProvince(){
+        return provinceDao.queryHotProvince();
+    }
+
 }

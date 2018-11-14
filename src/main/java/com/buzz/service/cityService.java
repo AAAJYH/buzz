@@ -53,7 +53,6 @@ public class cityService {
         }else{
             sql=" "+type+"='"+val+"'";
         }
-        System.out.println(sql);
         Integer total=cityDao.byTypeQuery(sql).size();
         PageHelper.startPage(pageSize,rows);
         List<city> cityList=cityDao.byTypeQuery(sql);
@@ -91,6 +90,11 @@ public class cityService {
 
     public List<city> queryAllCity(){
         return cityDao.queryCityAll();
+    }
+
+    //根据城市名称查询城市
+    public city byCityNameQueryCity(String cityName){
+        return cityDao.byCityNameQueryCity(cityName);
     }
 
 }
