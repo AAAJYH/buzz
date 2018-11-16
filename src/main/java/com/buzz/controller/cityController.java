@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -180,6 +181,37 @@ public class cityController {
     @ResponseBody
     public List<city> byCityNameQuery(String cityName){
         return cityservice.byCityNameQuery(cityName);
+    }
+
+    /**
+     * 城市搜索次数报表页面
+     * @return
+     */
+    @RequestMapping("/citySearchCharts")
+    public String citySearchCharts(){
+        return "backstage_supporter/citySearchECharts";
+    }
+
+    /**
+     * 查询所有城市和搜索次数
+     * @return
+     */
+    @RequestMapping("/queryCitySearchNumber")
+    @ResponseBody
+    public List<Map<String,Object>> queryCitySearchNumber(){
+        return cityservice.queryCitySearchNumber();
+    }
+
+    /**
+     * 城市攻略下载次数报表页面
+     * model 保存城市名称和攻略下载次数Map集合
+     * @return
+     */
+    @RequestMapping("/cityStrategyDownLoadECharts")
+    public String cityStrategyDownLoadECharts(Model model){
+        List<Map<String,Object>> mapList=cityservice.queryCityNameAndStrategyDownloadNumber();
+        model.addAttribute("mapList",mapList);
+        return "/backstage_supporter/cityStrategyDownLoadECharts";
     }
 
 }

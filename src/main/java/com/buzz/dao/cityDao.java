@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: aaaJYH
@@ -62,5 +63,13 @@ public interface cityDao {
     //根据城市名称查询城市
     @Select("select * from city where cityName=#{c}")
     public city byCityNameQueryCity(@Param("c") String cityName);
+
+    //查询城市name和searchNumber
+    @Select("select cityName name,searchNumber value from city where searchNumber>0")
+    public List<Map<String,Object>> queryCitySearchNumber();
+
+    //查询城市名称和攻略下载次数
+    @Select("select sum(s.downloadNumber) value,c.cityName name from city c,strategy s where c.cityId=s.cityId and s.downloadNumber>0 group BY name")
+    public List<Map<String,Object>> queryCityNameAndStrategyDownloadNumber();
 
 }

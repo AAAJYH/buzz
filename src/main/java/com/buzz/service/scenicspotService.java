@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: aaaJYH
@@ -73,6 +74,16 @@ public class scenicspotService {
     //查詢全部，写Excel
     public List<scenicspot> QueryAllScenicspotWriteExcel(){
         return scenicspotDao.QueryAllScenicspotWriteExcel();
+    }
+
+    //查询全部景点名称
+    public List<Map<String,Object>> queryAllChineseName(){
+        return scenicspotDao.queryAllChineseName();
+    }
+
+    //查询全部景点名称和坐标
+    public List<scenicspot> queryAllChineseNameAndZuoBiao(){
+        return scenicspotDao.queryAllChineseNameAndZuoBiao();
     }
 
 }

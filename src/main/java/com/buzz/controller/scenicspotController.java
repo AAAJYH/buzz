@@ -19,8 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Author: aaaJYH
@@ -217,6 +216,21 @@ public class scenicspotController {
             }
         }
         return rs;
+    }
+
+    @RequestMapping("/scenicsPotEChartsIndex")
+    public String scenicsPotEChartsIndex(Model model){
+        //景点名称集合
+        List<Map<String,Object>> scenicspotList=scenicspotService.queryAllChineseName();
+        model.addAttribute("scenicspotList",scenicspotList);
+        //景点坐标和名称集合
+        Map<String,Object> mapList=new HashMap<String,Object>();
+        List<scenicspot> scenicspotList1=scenicspotService.queryAllChineseNameAndZuoBiao();
+        for (scenicspot s:scenicspotList1) {
+            mapList.put(s.getChineseName(),s.getLongitude()+","+s.getLatitude());
+        }
+        model.addAttribute("mapList",mapList);
+        return "backstage_supporter/scenicsPotECharts";
     }
 
 }

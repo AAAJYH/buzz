@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: aaaJYH
@@ -51,7 +52,7 @@ public class cityService {
         if(type.equals("")||val.equals("")){
             sql=" 1=1";
         }else{
-            sql=" "+type+"='"+val+"'";
+            sql=" "+type+" like concat('%','"+val+"','%')";
         }
         Integer total=cityDao.byTypeQuery(sql).size();
         PageHelper.startPage(pageSize,rows);
@@ -96,5 +97,16 @@ public class cityService {
     public city byCityNameQueryCity(String cityName){
         return cityDao.byCityNameQueryCity(cityName);
     }
+
+    //查询城市name和searchNumber
+    public List<Map<String,Object>> queryCitySearchNumber(){
+        return cityDao.queryCitySearchNumber();
+    }
+
+    //查询城市名称和攻略下载次数
+    public List<Map<String,Object>> queryCityNameAndStrategyDownloadNumber(){
+        return cityDao.queryCityNameAndStrategyDownloadNumber();
+    }
+
 
 }

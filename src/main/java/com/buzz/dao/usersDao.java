@@ -3,6 +3,8 @@ package com.buzz.dao;
 import com.buzz.entity.users;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface usersDao
 {
@@ -73,4 +75,9 @@ public interface usersDao
      */
     @Select("select * from users where userId=#{userId}")
     public users find_userByuseruserId(@Param("userId")String userId);
+
+    //查询全部用户
+    @Select("select * from users")
+    public List<users> queryAllUsers();
+
 }

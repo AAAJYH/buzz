@@ -103,10 +103,10 @@
         #top #logout{
             text-align:center;
         }
-        #top #logout:hover{
+        #top #logout:hover,#updatePwd{
             cursor:pointer;
         }
-        #top #logout{
+        #top #logout,#updatePwd{
             font-size:70%;
             background: #F03A17;
             border:none;
@@ -126,6 +126,7 @@
 
     <div id="top" data-options="region:'north',title:'嗡&nbsp;嗡&nbsp;嗡&nbsp;后&nbsp;台&nbsp;系&nbsp;统',split:true">
         <div>👨账号：admin1</div>&nbsp;&nbsp;
+        <button id="updatePwd" title="修改密码">修改密码</button>
         <button id="logout" title="退出登录">退出登录</button>
         <div id="right">⏰系统时间：<span id = "sy_time"></span></div> <!-- 当前时间 -->
     </div>
@@ -164,25 +165,57 @@
             //时间
             getTime();
 
-
             //注销
             $("#logout").click(function(){
                 $.messager.confirm('确认对话框', '您想要退出该系统吗？', function(r){
                     if (r){
-
                         $.ajax({
                             url:'/logout',
                             type:'post',
+                            async:false,
                             dataType:'text',
                             success:function(data){
-                               window.location.href="/login";
+                                alert(data);
+/*
+                               window.location.href="/loginIndex";
+*/
                             }
                         });
-
                     }
             });
-
         });
+
+        $('#dd').dialog({
+           title: '修改密码',
+           width: 400,
+           height: "auto",
+           closed: true
+        });
+
+            $("#updatePwd").click(function(){
+               $("#dd").dialog("open");
+            });
+
+            $("#save").click(function(){
+                if($("#frm").form("validate")){
+                    $.messager.confirm('确认对话框', '您确认要修改吗？', function(r){
+                        if (r){
+                            $("#frm").form("submit",{
+                               url:'/updatePwd',
+                               success:function(data){
+                                   alert(data);
+                                   if(data=="密码修改成功，请重新登录"){
+                                       $("#frm").form("clear");
+                                       $("#dd").dialog("close");
+                                   }
+                               }
+                            });
+                        }
+                    });
+                }else{
+                    alert("请输入完整");
+                }
+            });
 
         });
     </script>
@@ -202,6 +235,14 @@
         <div id="tabs" style="width:500px;height:250px;"></div>
 
     </div>
+
+    <div id="dd" align="center">
+        <form id="frm">
+            <p><input name="oldPwd" class="easyui-textbox easyui-validatebox" data-options="type:'password',buttonText:'原密码',buttonAlign:'left',required:true" style="width:300px"></p>
+            <p><input name="newPwd" class="easyui-textbox easyui-validatebox" data-options="type:'password',buttonText:'新密码',buttonAlign:'left',required:true" style="width:300px"></p>
+            <p><a id="save" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save',width:300">保存</a></p>
+        </form>
+        </div>
 
 </body>
 

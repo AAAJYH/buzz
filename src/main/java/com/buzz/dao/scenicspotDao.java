@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: aaaJYH
@@ -47,5 +48,13 @@ public interface scenicspotDao {
     //查詢全部，，写Excel
     @Select("SELECT scenicSpotId,chineseName,englishName,address,synopsis,phone,url,traffic,tickets,openingHours,longitude,latitude,photo,ss.uptime,s.stateName stateId,c.cityName cityId FROM `scenicspot` ss,city c,state s where ss.cityId=c.cityId and ss.stateId=s.stateId;")
     public List<scenicspot> QueryAllScenicspotWriteExcel();
+
+    //查询全部景点名称
+    @Select("select chineseName name,120 value from scenicspot")
+    public List<Map<String,Object>> queryAllChineseName();
+
+    //查询全部景点名称和坐标
+    @Select("select chineseName,longitude,latitude from scenicspot")
+    public List<scenicspot> queryAllChineseNameAndZuoBiao();
 
 }

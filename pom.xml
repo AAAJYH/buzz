@@ -156,7 +156,7 @@
             <version>2.6.10</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.baidu.aip/java-sdk -->
+        <!-- 百度api -->
         <dependency>
             <groupId>com.baidu.aip</groupId>
             <artifactId>java-sdk</artifactId>

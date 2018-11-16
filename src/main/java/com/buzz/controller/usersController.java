@@ -1,6 +1,7 @@
 package com.buzz.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.buzz.entity.Paging;
 import com.buzz.entity.smsCode;
 import com.buzz.entity.users;
 import com.buzz.service.emailService;
@@ -28,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("usersController")
+    @RequestMapping("usersController")
 @SessionAttributes("user")
 public class usersController {
     @Resource
@@ -465,4 +466,27 @@ public class usersController {
     {
         return usersservice.find_userByuseruserId(userId);
     }
+
+    /**
+     * 后台用户页面
+     * @return
+     */
+    @RequestMapping("/usersManageIndex")
+    public String usersManageIndex(){
+        return "backstage_supporter/usersManage.html";
+    }
+
+    /**
+     * 后台分页查询用户
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/PagingQueryAllUsers")
+    @ResponseBody
+    public Paging<users> PagingQueryAllUsers(Integer page,Integer rows){
+        System.out.println(usersservice.PagingQueryAllUsers(page,rows));
+        return usersservice.PagingQueryAllUsers(page,rows);
+    }
+
 }
