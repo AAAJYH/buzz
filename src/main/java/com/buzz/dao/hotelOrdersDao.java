@@ -19,7 +19,7 @@ public interface hotelOrdersDao {
     public List<hotelorders> hotelordersList();
 
     //添加酒店订单
-    @Insert("insert into hotelorders(orderId,hid,roomName,bedType,inDate,outDate,lastTime,productName,orderAmout,passengers,contactName,contactMobile,email,Remark,state,userId,subTime) values(#{h.orderId},#{h.hid},#{h.roomName},#{h.bedType},#{h.inDate},#{h.outDate},#{h.lastTime},#{h.productName},#{h.orderAmout},#{h.passengers},#{h.contactName},#{h.contactMobile},#{h.email},#{h.Remark},#{h.state},#{h.userId},#{h.subTime})")
+    @Insert("insert into hotelorders(orderId,hid,roomName,bedType,inDate,outDate,lastTime,productName,orderAmout,passengers,contactName,contactMobile,email,Remark,state,userId,subTime,hotelName,defaultPicture) values(#{h.orderId},#{h.hid},#{h.roomName},#{h.bedType},#{h.inDate},#{h.outDate},#{h.lastTime},#{h.productName},#{h.orderAmout},#{h.passengers},#{h.contactName},#{h.contactMobile},#{h.email},#{h.Remark},#{h.state},#{h.userId},#{h.subTime},#{h.hotelName},#{h.defaultPicture})")
     public int addHotelOrder(@Param("h")hotelorders hotelOrder);
 
     //查询订单详情

@@ -85,6 +85,7 @@
             $.ajax({
                 url:'http://apitest.99263.com/Hotel/HotelDetail',
                 type:'post',
+                async:false,
                 data:{
                     "Data":{
                         "HId": [[${hid}]]
@@ -380,6 +381,7 @@
                             $.ajax({
                                url:'http://apitest.99263.com/Hotel/HotelRooms',
                                type:'post',
+                               async:false,
                                data:{
                                    "ApiKey": "b421b9a21075a359c09a36db79325d5b",
                                    "Sign": "11111111111111111111",
@@ -392,7 +394,6 @@
                                },
                                dataType:'json',
                                success:function(data){
-                                   $(".zhuan_quan_quan").css("display","none"); //关闭加载图片
                                    var rooms=data.Data.HotelRooms[0].Rooms;
                                    if(rooms.length>0){
                                        for(var i=0;i<rooms.length;i++){
@@ -404,21 +405,44 @@
                                                "                    <li style='font-size:150%;'><a class='yuding' style='color:#FFB200;' href='javascript:;'>预定</a></li>\n" +
                                                "                </ul>");
                                        }
+                                       $(".zhuan_quan_quan").css("display","none"); //关闭加载图片
+                                       var hid=data.Data.HotelRooms[0].HId;
+                                       var hotelName=""; //酒店名称
+                                       var defaultPicture=""; //酒店图片
+                                       $.ajax({
+                                           url:'http://apitest.99263.com/Hotel/HotelDetail',
+                                           type:'post',
+                                           async:false,
+                                           data:{
+                                               "Data":{
+                                                   "HId": hid
+                                               },
+                                               "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                                               "Sign": "11111111111111111111",
+                                               "Timestamp": "2017/10/01 00:00:00"
+                                           },
+                                           dataType:'JSON',
+                                           success:function(data){
+                                               var HoteDetails=data.Data.HotelDetails; //详情
+                                                hotelName=HoteDetails.HotelName;
+                                                defaultPicture=HoteDetails.DefaultPicture;
+                                           }
+                                       });
+
                                        $(".yuding").click(function(){
                                            if([[${session.user}]]!=null){
                                                var productName=$(this).parent().prev().prev().text();
                                                var price=$(this).parent().prev().text();
                                                var roomName=$(this).parent().prev().prev().prev().prev().text();
                                                var bedType=$(this).parent().prev().prev().prev().text();
-                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+roomName+"&bedType="+bedType;
+                                               window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+roomName+"&bedType="+bedType+"&hotelName="+hotelName+"&defaultPicture="+defaultPicture;
                                            }else{
                                                alert("请先登录");
                                                window.location.href="#login";
                                            }
                                        });
                                    }else{
-                                       $("#content").append("<div align='center' style='padding-top:10px;padding-bottom:10px;'>此日期暂无可选房型</div>");
-                                   }
+                                    }
                                }
                             });
                         }

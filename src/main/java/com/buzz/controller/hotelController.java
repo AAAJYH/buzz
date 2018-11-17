@@ -113,7 +113,7 @@ public class hotelController {
      * @return 订单页面
      */
     @RequestMapping("/hotelOrderIndex")
-    public String hotelOrderIndex(String hid,String beginTime,String endTime,String productName,Double price,Model model,String roomName,String bedType) throws ParseException {
+    public String hotelOrderIndex(String hid,String beginTime,String endTime,String productName,Double price,Model model,String roomName,String bedType,String hotelName,String defaultPicture) throws ParseException {
         model.addAttribute("hid",hid);
         model.addAttribute("beginTime",beginTime);
         model.addAttribute("endTime",endTime);
@@ -121,6 +121,8 @@ public class hotelController {
         model.addAttribute("price",price);
         model.addAttribute("roomName",roomName);
         model.addAttribute("bedType",bedType);
+        model.addAttribute("hotelName",hotelName);
+        model.addAttribute("defaultPicture",defaultPicture);
         SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy/MM/dd"); //加上时间
         Date date1=sDateFormat.parse(beginTime);
         Date date2=sDateFormat.parse(endTime);
@@ -154,12 +156,15 @@ public class hotelController {
      * @return 酒店订单支付方法
      */
     @RequestMapping("/addHotelOrder")
-    public String addHotelOrder(HttpSession session, String hid, String roomName, String bedType, String beginTime, String endTime, String lastTime, String productName, Double amount, String xingming, String name, String phone, String email, String remark) throws ParseException {
+    public String addHotelOrder(HttpSession session, String hid, String roomName, String bedType, String beginTime, String endTime, String lastTime, String productName, Double amount, String xingming, String name, String phone, String email, String remark,String hotelName,String defaultPicture) throws ParseException {
         //获取用户id、当前时间生成订单号，执行添加订单方法
-        String userid=((users)(session.getAttribute("user"))).getUserId();
+        String userid="";
+        if(session.getAttribute("user")!=null){
+            userid=((users)(session.getAttribute("user"))).getUserId();
+        }
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
         String orderId=simpleDateFormat.format(new Date());
-        hotelorders hotelorders=new hotelorders(orderId,hid,roomName,bedType,beginTime,endTime,lastTime,productName,amount,xingming,name,phone,email,remark,userid,"待支付",new Timestamp(System.currentTimeMillis()));
+        hotelorders hotelorders=new hotelorders(orderId,hid,roomName,bedType,beginTime,endTime,lastTime,productName,amount,xingming,name,phone,email,remark,userid,"待支付",new Timestamp(System.currentTimeMillis()),hotelName,defaultPicture);
         hotelOrdersService.addHotelOrder(hotelorders);
         session.setAttribute("hotelOrderId",orderId);
         return "redirect:/hotelController/HotelOrderPaymentIndex";
@@ -231,7 +236,6 @@ public class hotelController {
         try {
             //城市集合
             List<hotelorders> hotelordersList=hotelOrdersService.HotelOrderWriteExcel();
-            System.out.println(hotelordersList);
             //生成桌面路径
             FileSystemView fsv = FileSystemView.getFileSystemView();
             String path=fsv.getHomeDirectory().toString()+"\\酒店订单集合.xls";
@@ -261,13 +265,11 @@ public class hotelController {
                 provinceList.add(provinceService.byProvinceIdQuery((String) map.get("provinceId")));
             }
         }
-        System.out.println(provinceList);
         model.addAttribute("provinceList",provinceList); //存省集合
         List list=new ArrayList();
         for (province p:provinceList) {
             list.add(cityService.byProvinceIdQueryHot(p.getProvinceId()));
         }
-        System.out.println(list);
         model.addAttribute("cityList",list);
         return "front_desk/hotel2";
     }

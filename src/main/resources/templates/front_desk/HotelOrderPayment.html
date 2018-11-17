@@ -23,15 +23,18 @@
 
     <div class="message">
         <h3>
-            <img src="/images/one/duigou.png" style="position:absolute;top:11.7%;left:16%;"/>
-            <i class="i-success"></i>您的订单提交成功！
+            <i class="i-success"></i>
+            <span style="position:relative;left:-50px;">
+                <img src="/images/one/duigou.png"/>
+                您的订单提交成功！
+            </span>
             <span th:if="${hotelOrder.state=='待支付'}" class="countdown" id="tishi">支付剩余时间：
                 <span class="_j_expire_time" data-time="1218">
                     <em th:text="${fen}" id="fen">20</em>分
                     <em th:text="${miao}" id="miao">18</em>秒
                 </span>，超时则订单关闭
             </span>
-            <span class="countdown" th:if="${hotelOrder.state!='待支付'}">
+            <span class="countdown" th:if="${hotelOrder.state!='待支付'}" style="position: relative;left:-50px;top:-2px;font-weight:bold;">
                 <span th:text="'[订单：'+${hotelOrder.state}+']'"></span>
             </span>
             <script th:inline="javascript">
@@ -91,9 +94,9 @@
         <div class="hotel-info">
             <div class="hd">
                 <i></i>
-                <img src="/images/one/huangsezuobiao.png" style="position:absolute;top:39%;left:17.5%;"/>
-                <h2 id="hotelName"></h2>
-                <p id="address"></p>
+                <img src="/images/one/huangsezuobiao.png" style="position:relative;top:-5px;left:-55px;"/>
+                <h2 id="hotelName" style="margin-top: -50px;"></h2>
+                <p id="address" style="margin-bottom:-25px;"></p>
                 <script>
                     //设置酒店地址信息
                     $.ajax({
