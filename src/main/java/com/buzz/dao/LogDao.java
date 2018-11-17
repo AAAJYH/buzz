@@ -18,8 +18,8 @@ import java.util.List;
 public interface LogDao {
 
     //添加日志
-    @Insert("insert into log(logId,requestUrl,requestType,totalTime,ip,createSubtime,requestParam) values(#{logId},#{requestUrl},#{requestType},#{TotalTime},#{ip},#{createSubtime},#{requestParam})")
-    public int addLog(@Param("logId") String logId, @Param("requestUrl") String requestUrl, @Param("requestType") String requestType, @Param("TotalTime") long TotalTime, @Param("ip") String ip,@Param("createSubtime") Timestamp createSubtime,@Param("requestParam") String requestParam);
+    @Insert("insert into log(logId,requestUrl,requestType,totalTime,ip,createSubtime) values(#{logId},#{requestUrl},#{requestType},#{TotalTime},#{ip},#{createSubtime})")
+    public int addLog(@Param("logId") String logId, @Param("requestUrl") String requestUrl, @Param("requestType") String requestType, @Param("TotalTime") long TotalTime, @Param("ip") String ip,@Param("createSubtime") Timestamp createSubtime);
 
     //查询全部日志
     @Select("select * from log order by createSubtime desc")

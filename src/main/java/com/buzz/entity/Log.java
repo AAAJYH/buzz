@@ -14,7 +14,6 @@ public class Log {
 
     private String logId; //id
     private String requestUrl; //请求url
-    private String requestParam; //请求参数
     private String requestType; //请求类型
     private long totalTime; //用秒
     private String ip; //ip地址

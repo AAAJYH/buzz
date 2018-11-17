@@ -66,16 +66,16 @@ public class WebLogAspect {
         }
 
         //获取请求参数
-        params="{";
-        Enumeration<String> enumeration=request.getParameterNames();
-        while(enumeration.hasMoreElements()){
-            String parameterName=enumeration.nextElement();
-            params+=parameterName+":"+request.getParameter(parameterName)+",";
-        }
-        if(params.length()>1){
-            params=params.substring(0,params.length()-2);
-        }
-        params+="}";
+//        params="{";
+//        Enumeration<String> enumeration=request.getParameterNames();
+//        while(enumeration.hasMoreElements()){
+//            String parameterName=enumeration.nextElement();
+//            params+=parameterName+":"+request.getParameter(parameterName)+",";
+//        }
+//        if(params.length()>1){
+//            params=params.substring(0,params.length()-2);
+//        }
+//        params+="}";
     }
 
     /**
@@ -89,7 +89,7 @@ public class WebLogAspect {
         long totalTime=endDate.getTime()-startDate.getTime(); //用时
         Timestamp currentTime=new Timestamp(System.currentTimeMillis()); //当前时间戳
         //添加日志
-        logService.addLog(logId,url,requestType,totalTime,ip,currentTime,params);
+        logService.addLog(logId,url,requestType,totalTime,ip,currentTime);
     }
 
 }
