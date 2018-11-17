@@ -58,4 +58,15 @@ public class AdminService {
         return new Paging<Admin>(adminList,total);
     }
 
+    //根据账号密码判断是否存在此对象
+    public Admin queryAdmin(String adname,String pwd){
+        return adminDao.queryAdmin(adname,pwd);
+    }
+
+    //修改密码
+    public Integer byIdUpdatePwd(Integer id,String pwd){
+        return adminDao.byIdUpdatePwd(id,pwd);
+    }
+
+
 }

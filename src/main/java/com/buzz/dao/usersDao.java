@@ -106,4 +106,9 @@ public interface usersDao
      */
     @Select("select * from users where userId in (SELECT distinct tc.userId FROM travelNotes t INNER join travelCollection tc on t.travelNotesId=tc.travelNotesId where t.userId=#{userId})")
     public List<users> find_user_travelCollectionuserByuserId(@Param("userId")String userId);
+
+    //查询全部用户
+    @Select("select * from users")
+    public List<users> queryAllUsers();
+
 }

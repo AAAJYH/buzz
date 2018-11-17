@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="/js/jquery-1.11.0.min.js"></script>
+
+    <script>
+
+        function getBase64(img) {
+            //将图片转成Base64
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+            var dataURL = canvas.toDataURL("image/" + ext);
+            alert(dataURL);
+            return dataURL;
+        }
+
+        $(function(){
+            // var img=new Image();
+            // img.src="/images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png";
+            // alert(getBase64(img));
+            $.ajax({
+                url:'https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token=24.d163d0d1a6045384a614dedeeaa3fbcb.2592000.1544758023.282335-14774823',
+                type:'POST',
+                data:{
+                    "image":"https%3a%2f%2fss0.bdstatic.com%2f94oJfD_bAAcT8t7mm9GUKT-xh_%2ftimg%3fimage%26quality%3d100%26size%3db4000_4000%26sec%3d1494581871%26di%3d133fdf9f920fd7a9d6171f59bc965e8d%26src%3dhttp%3a%2f%2fimg3.duitang.com%2fuploads%2fblog%2f201404%2f19%2f20140419204851_Bhv24.thumb.700_0.jpeg","scenes":["ocr","face","public","politician","antiporn","terror","webimage"],"sceneConf":{"ocr":{"recognize_granularity":"big","language_type":"CHN_ENG","detect_direction":"true","detect_language":"true"},"antiporn":{}}
+                    },
+                'Content-Type':'application/x-www-form-urlencoded',
+                dataType:'jsonp',
+                success:function(data){
+                    alert(JSON.stringify(data));
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

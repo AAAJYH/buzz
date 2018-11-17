@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <script th:inline="none">
+
+        var url="";
+        $(function(){
+
+            $('#dg').datagrid({
+                url:'/strategyController/queryAllStrategy',
+                columns:[[
+                    {field:'strategyId',title:'编号',width:100,formatter:formatContext},
+                    {field:'strategyHeadline',title:'标题',width:80,formatter:formatContext},
+                    {field:'strategyBriefIntroduction',title:'简介',width:80,formatter:formatContext},
+                    {field:'scenicSpot',title:"相关景点",width:130,formatter:formatContext},
+                    {field:'strategyPhoto',title:'图片',width:30,formatter:formatPhoto},
+                    {field:'downloadNumber',title:'下载次数',width:50},
+                    {field:'cityId',title:'城市',width:40,formatter:formatCityId},
+                    {field:'stateId',title:'状态',width:40,formatter:formatState},
+                    {field:'updateTime',title:'修改时间',width:100,formatter:format_time}
+                ]],
+                fitColumns:true,
+                rownumbers:true,
+                singleSelect:true,
+                pagination:true,
+                pageNumber:1,
+                pageSize:14,
+                pageList:[5,14,20,25],
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    handler: function(){
+                        $("#dd").dialog("open");
+                        // $("#dd").dialog({title:'添加攻略'});
+                        url="/strategyController/addStrategy";
+                    }
+                },'-',{
+                    iconCls: 'icon-edit',
+                    handler: function(){
+                        var row=$("#dg").datagrid("getSelected");
+                        if(row==null){
+                            alert("请选中要修改的行");
+                        }else{
+                            $("#frm").form("load",row);
+                            url="/strategyController/byStrategyIdUpdateStrategy";
+                            // $("#dd").dialog({title:'修改攻略'});
+                            $("#dd").dialog("open");
+                        }
+                    }
+                },'--',{
+                    iconCls: 'icon-print',
+                    text:'生成Excel表格',
+                    handler: function(){
+                        $.ajax({
+                            url:'/strategyController/WriteExcel',
+                            type:'post',
+                            async:false,
+                            dataType:'text',
+                            success:function(data){
+                                if(data==""){
+                                    $.messager.show({
+                                        title:'我的消息',
+                                        msg:'Excel表格成功保存桌面，消息将在2秒后关闭。',
+                                        timeout:2000,
+                                        showType:'slide'
+                                    });
+                                }else{
+                                    alert(data);
+                                }
+                            }
+                        });
+                    }
+                }]
+            });
+
+            //时间转换
+            function format_time(value,row,index) {
+                var str=value.substring(0,value.lastIndexOf(".")).replace("T"," ");
+                return "<a title='"+str+"'>"+str+"</a>";
+            }
+
+            //转换城市id
+            function formatCityId(value,row,index){
+                var rs="";
+                $.ajax({
+                    url:'/cityController/ByCityIdQuery',
+                    type:'post',
+                    async:false,
+                    data:{
+                        CityId:row.cityId
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        rs=data.cityName;
+                    }
+                });
+                return rs;
+            }
+
+            //格式化图片
+            function formatPhoto(value,row,index){
+                return "<span style='color:blue;' onclick='showImage(this)'>查看</span><input type='hidden' value='"+value+"'><input type='hidden' value='"+row.strategyId+"'/> ";
+            }
+
+            function formatContext(value,row,index){
+                if(value==null){
+                    return "";
+                }else{
+                    return "<a title="+value+" style='color:black;text-decoration:none;'>"+value+"</a>";
+                }
+            }
+
+            //格式化状态，用ajax根据状态Id查询状态对象
+            function formatState(value,row,index){
+                var rs="";
+                $.ajax({
+                    url:'/StateController/byStateIdQuery',
+                    type:'post',
+                    async:false, //是否异步
+                    data:{
+                        stateId:value
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if(data!=null){
+                            rs=data.stateName;
+                        }
+                    }
+                });
+                return rs;
+            }
+
+            $('#dd').dialog({
+                title: 'My Dialog',
+                width: 400,
+                height: "auto",
+                closed: true,
+            });
+
+            //Esc按键事件，关闭图片
+            $(document).keyup(function(event){
+                if(event.keyCode==27){
+                    $(".imageContent").css("display","none"); //关闭图片
+                    $(".demo").css("display","none"); //关闭添加图片
+                }
+            });
+
+        });
+
+        //保存点击事件
+        function saveClick(){
+            var validate=$("#frm").form("validate");
+            if(validate){
+                $.messager.confirm('确认对话框', '您确定要保存吗？', function(r){
+                    if (r){
+                        $("#frm").form("submit",{
+                           url:url,
+                           success:function(data){
+                               if(data>0) {
+                                   $.messager.show({
+                                       title:'我的消息',
+                                       msg:'攻略保存成功，消息将在2秒后关闭。',
+                                       timeout:2000,
+                                       showType:'slide'
+                                   });
+                               }else{
+                                   alert("添加失败，请重新添加");
+                               }
+                               $("#dg").datagrid("reload");
+                               $("#dd").dialog("close");
+                           }
+                        });
+                    }
+                });
+            }else{
+                alert("请输入完整");
+            }
+        }
+
+        var id=""; //要修改图片的攻略id
+        var uploadUrl="/strategyController/uploadStrategyPhoto";
+
+        function setHeadPhoto(obj){
+            var setImage = $(obj).prev().prev().attr("src").substr(1, $(obj).prev().prev().attr("src").length);
+            $.ajax({
+                url:'/strategyController/setHeadPhoto',
+                type:'post',
+                async:false,
+                data:{
+                    photo:setImage,
+                    strategyId:id
+                },
+                dataType:'text',
+                success: function (data) {
+                    if(data!=""){
+                        var imagesArray = data.split(","); //景点图片
+                        $(".images").empty();
+                        $(".images").append("<img title='ESC关闭图片' src='/"+imagesArray[0]+"'/>" +
+                            "<span style='position: relative;;left:-3%;top:-180px;' onclick='deleteImage(this)'>❌</span>");
+                        for (var i = 1; i < imagesArray.length; i++) {
+                            $(".images").append("<img title='ESC关闭图片' src='/"+imagesArray[i]+"'/>" +
+                                "<span style='position: relative;;left:-3%;top:-180px;' onclick='deleteImage(this)'>❌</span>" +
+                                "<span style='color:red;position: relative;;left:-5%;top:-10px;' onclick='setHeadPhoto(this)'>↑</span>");
+                        }
+                    }
+                }
+            })
+        }
+
+        //显示图片
+        function showImage(obj){
+            var imagesArray=$(obj).next().val().split(","); //景点图片
+            id =$(obj).next().next().val(); //景点id
+            if(imagesArray.length>0){
+                $(".images").empty();
+                $(".images").append("<img title='ESC关闭图片' src='/"+imagesArray[0]+"'/>" +
+                "<span style='position: relative;;left:-3%;top:-180px;' onclick='deleteImage(this)'>❌</span>");
+                for(var i=1;i<imagesArray.length;i++){
+                    $(".images").append("<img title='ESC关闭图片' src='/"+imagesArray[i]+"'/>" +
+                        "<span style='position: relative;;left:-3%;top:-180px;' onclick='deleteImage(this)'>❌</span>" +
+                        "<span style='color:red;position: relative;left:-5%;top:-10px;font-size:120%;' onclick='setHeadPhoto(this)'>↑</span>");
+                }
+                $(".imageContent").css("display","block");
+            }
+        }
+
+        //删除景点图片时间
+        function deleteImage(obj){
+            //1.确认删除
+            $.messager.confirm('确认对话框', '您确定要删除此图片吗？', function(r) {
+                if (r) {
+                    var deleteImage = $(obj).prev().attr("src").substr(1, $(obj).prev().attr("src").length);
+                    $.ajax({
+                        url: '/strategyController/byStrategyIdQueryStrategy',
+                        type: 'post',
+                        async: false,
+                        data: {
+                            id: id,
+                            deleteImage: deleteImage
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            if (data != "景点图片不能少于一张") { //删除成功  1.重新加载图片   2.弹出框提示
+                                $.messager.show({
+                                    title: '我的消息',
+                                    msg: '景点图片删除成功，消息将在2秒后关闭。',
+                                    timeout: 2000,
+                                    showType: 'slide'
+                                });
+                                $(".images").empty();
+                                var imagesArray = data.split(","); //景点图片
+                                $(".images").append("<img title='ESC关闭图片' src='/"+imagesArray[0]+"'/>" +
+                                    "<span style='position: relative;;left:-3%;top:-180px;' onclick='deleteImage(this)'>❌</span>");
+                                for (var i = 1; i < imagesArray.length; i++) {
+                                    $(".images").append("<img title='ESC关闭图片' src='/" + imagesArray[i] + "'/>" +
+                                        "<span style='position: relative;;left:-3%;top:-180px;' onclick='deleteImage(this)'>❌</span>" +
+                                        "<span style='color:red;position: relative;;left:-5%;top:-10px;font-size:120%;' onclick='setHeadPhoto(this)'>↑</span>");
+                                }
+                                $(".imageContent").css("display", "block");
+                            }else{
+                                alert(data);
+                            }
+                            $("#dg").datagrid("reload");
+                        }
+                    });
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <table id="dg"></table>
+
+    <div id="dd">
+        <form id="frm" method="post" align="center">
+            <input name="strategyId" type="hidden"/>
+            <p>
+                <input name="strategyHeadline" class="easyui-textbox easyui-validatebox" data-options="prompt:'请输入',buttonText:'攻略标题',buttonAlign:'left',width:250,required:true">
+            </p>
+            <p>
+                <input name="strategyBriefIntroduction" class="easyui-textbox easyui-validatebox" data-options="prompt:'请输入',buttonText:'攻略简介',multiline:true,buttonAlign:'left',width:250,height:100,required:true">
+            </p>
+            <p>
+                <input name="scenicSpot" class="easyui-textbox" data-options="prompt:'请输入',buttonText:'相关景点',buttonAlign:'left',width:250">
+            </p>
+            <p>
+                <input id="citySelect" name="cityId" class="easyui-combobox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'所属城市',buttonAlign:'left',url:'/cityController/queryAllCity',valueField:'cityId',textField:'cityName',limitToList:true,required:true">
+            </p>
+            <p>
+                <select name="stateId" id="StateCombobox" class="easyui-validatebox easyui-combobox" data-options="width:250,prompt:'请选择',buttonText:'攻略状态',buttonAlign:'left',limitToList:true,panelHeight:70,required:true">
+                    <option value="0ee26211-3ae8-48b7-973f-8488bfe837d6">正常</option>
+                    <option value="ac618998-ffe3-4300-a391-cd581f74078c">删除</option>
+                </select>
+            </p>
+            <p>
+                <a id="save" href="javascript:saveClick();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+        </form>
+    </div>
+        <!--查看图片-->
+        <style type="text/css">
+            .imageContent{
+                width:73%;
+                height:auto;
+                position: absolute;
+                top: 10%;
+                left:15%;
+                display:none;
+                background:#EAEAEA;
+                border-radius:5px;
+                padding:10px 0 5px 40px;
+            }
+            .images{
+                width:100%;
+                height:auto;
+            }
+            .images img{
+                width:150px;
+                height:200px;
+                margin-left:-10px;
+            }
+            span:hover,#addScenicspotPhoto:hover {
+                cursor:pointer;
+            }
+            .demo{
+                position:absolute;
+                top:10%;
+                left:25%;
+                display:none;
+            }
+            #addScenicspotPhoto{
+                display: inline-block;
+                padding: .3em .5em;
+                border: 1px solid rgba(0,0,0,.2);
+                border-radius: .3em;
+                box-shadow: 0 1px white inset;
+                text-align: center;
+                text-shadow: 0 1px 1px black;
+                color:white;
+                font-weight: bold;
+                background-image: linear-gradient(#f5c153, #ea920d);
+                margin-bottom:10px;
+                margin-left:-10px;
+            }
+        </style>
+        <div class="imageContent">
+            <button id="addScenicspotPhoto">添加景点图片</button>
+            <script>
+                $("#addScenicspotPhoto").click(function(){
+                    $(".imageContent").css("display","none");
+                    $(".demo").css("display","block");
+                });
+            </script>
+            <div class="images" align="left">
+            </div>
+        </div>
+        <!--查看图片-->
+
+    <!--添加图片-->
+    <!-- 引用控制层插件样式 -->
+    <link rel="stylesheet" href="/css/zyUpload.css" type="text/css">
+    <!-- 引用核心层插件 -->
+    <script src="/js/zyFile.js"></script>
+    <!-- 引用控制层插件 -->
+    <script src="/js/zyUpload.js"></script>
+    <!-- 引用初始化JS -->
+    <script src="/js/jq22.js"></script>
+    <div id="demo" class="demo"></div>
+    <!--添加图片-->
+
+</body>
+</html>

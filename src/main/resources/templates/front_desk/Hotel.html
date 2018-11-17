@@ -213,7 +213,6 @@
                         b(marker,obj.HotelId);
                         map.addOverlay(marker);// 将标注添加到地图中
                     }else{
-                        alert("您选择地址没有解析到结果!");
                     }
                 }, "北京市");
             }
@@ -234,7 +233,7 @@
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
                 <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/hotelController/hotel2Index" target="_blank">酒店</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
@@ -273,13 +272,13 @@
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityName='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
 
                         <li class="navbar-overview">
-                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy'}"  data-cs-p="攻略">
+                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy?strategyId='+''}"  data-cs-p="攻略">
                                 <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>

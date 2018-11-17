@@ -92,43 +92,17 @@
             <version>1.4.0</version>
         </dependency>
 
-        <!-- springboot-activiti -->
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-basic</artifactId>
-            <version>5.22.0</version>
-        </dependency>
-
-    <!--activiti-modeler -->
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-modeler</artifactId>
-            <version>5.22.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-security-configuration</artifactId>
-                    <groupId>org.springframework.security</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-security-core</artifactId>
-                    <groupId>org.springframework.security</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-security-crypto</artifactId>
-                    <groupId>org.springframework.security</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-security-web</artifactId>
-                    <groupId>org.springframework.security</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- commons -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>1.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.1</version>
         </dependency>
 
         <!-- junit -->
@@ -162,6 +136,38 @@
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
             <version>3.0.52.ALL</version>
+        </dependency>
+
+        <!-- 引入poi，解析workbook视图 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14</version>
+        </dependency>
+        <!-- 处理excel和上面功能是一样的-->
+        <dependency>
+            <groupId>net.sourceforge.jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.6.10</version>
+        </dependency>
+
+        <!-- 百度api -->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.8.0</version>
+        </dependency>
+
+        <!-- 图片审核-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
         </dependency>
 
     </dependencies>

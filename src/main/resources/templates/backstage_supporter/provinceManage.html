@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <script th:inline="none">
+
+        var url="";
+        $(function(){
+            $('#dg').datagrid({
+                url:'/ProvinceController/PagingQueryProvince?provinceName=',
+                columns:[[
+                    {field:'provinceId',title:'编号',width:130},
+                    {field:'provinceName',title:'名称',width:100},
+                    {field:'stateId',title:'状态',width:100,formatter:formatState},
+                    {field:'uptime',title:'修改时间',width:130,formatter:format_time}
+                ]],
+                fitColumns:true,
+                rownumbers:true,
+                singleSelect:true,
+                pagination:true,
+                pageNumber:1,
+                pageSize:14,
+                pageList:[5,10,14,20],
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    handler: function(){
+                        $("#dd").dialog("open");
+                        // $("#dd").dialog({title:'添加'});
+                        $("#frm").form("clear");
+                        url='/ProvinceController/addProvince';
+                    }
+                },'-',{
+                    iconCls: 'icon-edit',
+                    handler: function(){
+                        var row=$("#dg").datagrid("getSelected");
+                        if(row!=null){
+                            $("#dd").dialog("open");
+                            // $("#dd").dialog({title:'修改'});
+                            $("#frm").form("load",row);
+                            url='/ProvinceController/byProvinceIdUpdate';
+                        }else{
+                            alert("请选择要修改的行");
+                        }
+                    }
+                },'--',{
+                    iconCls: 'icon-print',
+                    text:'生成Excel表格',
+                    handler: function(){
+                        $.ajax({
+                            url:'/ProvinceController/WriteExcel',
+                            type:'post',
+                            async:false,
+                            dataType:'text',
+                            success:function(data){
+                                if(data=="success"){
+                                    $.messager.show({
+                                        title:'我的消息',
+                                        msg:'Excel表格成功保存桌面，消息将在2秒后关闭。',
+                                        timeout:2000,
+                                        showType:'slide'
+                                    });
+                                }else{
+                                    alert(data);
+                                }
+                            }
+                        })
+                    }
+                },'--',{
+                    text:'<input id="ss">\n' +
+                    '<div id="mm">\n' +
+                    '<div data-options="name:\'provinceName\'">省市名称</div> \n' +
+                    '</div> ',
+                    handler: function(){}
+                }]
+            });
+
+            $('#ss').searchbox({
+                searcher:function(value,name){
+                    var url=$("#dg").datagrid("options").url="/ProvinceController/PagingQueryProvince?provinceName="+value;
+                    $("#dg").datagrid("reload");
+                },
+                menu:'#mm',
+                prompt:'请输入值',
+                width:250
+            });
+
+            //时间转换
+            function format_time(value,row,index) {
+                return value.substring(0,value.lastIndexOf(".")).replace("T"," ");
+            }
+
+            //格式化状态，用ajax根据状态Id查询状态对象
+            function formatState(value,row,index){
+                var rs="";
+                $.ajax({
+                    url:'/StateController/byStateIdQuery',
+                    type:'post',
+                    async:false, //是否异步
+                    data:{
+                        stateId:value
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if(data!=null){
+                            rs=data.stateName;
+                        }
+                    }
+                });
+                return rs;
+            }
+
+            $('#dd').dialog({
+                title: 'My Dialog',
+                width: 400,
+                height: "auto",
+                closed: true,
+            });
+
+        });
+
+        function saveClick(){
+            var validate=$("#frm").form("validate");
+            if(validate){
+                $.messager.confirm('确认对话框', '您确定要保存吗？', function(r){
+                    if (r){
+                        alert(url);
+                        $("#frm").form('submit',{
+                                url:url,
+                                success:function(data){
+                                    if(data>0){
+                                        $("#dd").dialog("close");
+                                        $.messager.show({
+                                            title:'我的消息',
+                                            msg:'添加成功，消息将在2秒后关闭。',
+                                            timeout:2000,
+                                            showType:'slide'
+                                        });
+                                        $("#dg").datagrid("reload");
+                                    }
+                                }
+                            }
+                        )
+                    }
+                });
+            }else{
+                alert("请输入完整");
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <table id="dg"></table>
+
+    <div id="dd">
+        <form id="frm" align="center">
+            <input type="hidden" name="provinceId"/>
+            <p>
+                <input name="provinceName" class="easyui-textbox easyui-validatebox" data-options="width:'200px',buttonText:'名称',buttonAlign:'left',required:true,prompt:'请输入'">
+            </p>
+            <p><select id="cc" class="easyui-combobox easyui-validatebox" name="stateId" data-options="panelHeight:70,width:'200px',buttonText:'状态',buttonAlign:'left',required:true,prompt:'请输入',limitToList:true">
+                    <option value="0ee26211-3ae8-48b7-973f-8488bfe837d6">正常</option>
+                    <option value="ac618998-ffe3-4300-a391-cd581f74078c">删除</option>
+                </select>
+            </p>
+            <p>
+                <a id="save" href="javascript:saveClick();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+        </form>
+    </div>
+
+</body>
+
+</html>

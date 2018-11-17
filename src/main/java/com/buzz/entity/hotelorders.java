@@ -35,5 +35,7 @@ public class hotelorders {
     private String userId; //user外键
     private String state; //订单状态
     private Timestamp subTime; //提交时间
+    private String hotelName; //酒店名称
+    private String defaultPicture; //酒店图片
 
 }

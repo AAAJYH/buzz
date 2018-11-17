@@ -1,6 +1,7 @@
 package com.buzz.service;
 
 import com.buzz.dao.usersDao;
+import com.buzz.entity.Paging;
 import com.buzz.entity.users;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Repository;
@@ -85,6 +86,15 @@ public class usersService {
     public users find_userByuseruserId(String userId) {
         return userdao.find_userByuseruserId(userId);
     }
+
+    //查询全部用户
+    public Paging<users> PagingQueryAllUsers(Integer page, Integer rows){
+        Integer total=userdao.queryAllUsers().size();
+        PageHelper.startPage(page,rows);
+        List<users> usersList=userdao.queryAllUsers();
+        return new Paging<users>(usersList,total);
+    }
+
 
     /**
      * 查询所有用户的被采纳答案数量

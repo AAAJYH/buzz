@@ -49,7 +49,7 @@ public class destinationController {
     @RequestMapping("/queryAllDestination")
     public String queryAllDestination(Model model){
         List<List> destinationList=new ArrayList<List>();
-        List<province> provinceList=provinceService.queryAllProvince();
+        List<province> provinceList=provinceService.ByStateQueryProvince();
         for (province p:provinceList) {
             List list=new ArrayList();
             list.add(p);

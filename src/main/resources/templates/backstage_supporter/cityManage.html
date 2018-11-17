@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>城市管理</title>
+
+    <!-- 引入Easyui -->
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <style type="text/css">
+        #show-image{
+            position:absolute;
+            top:20%;
+            left:35%;
+            width: 400px;
+            height: 340px;
+            padding:0;
+            border:4px solid #EAEAEA;
+            border-radius:5px;
+            display: none;
+            background:#EAEAEA;
+        }
+        .look_image{
+            color:blue;
+        }
+        .look_image:hover{
+            cursor:pointer;
+        }
+    </style>
+
+    <script th:inline="none">
+
+        var url="";
+        $(function(){
+            //初始化datagrid数据表格
+            $('#dg').datagrid({
+
+                url:'/cityController/pagingQueryCity?type=&val=',
+                columns:[[
+                    {field:'cityId',title:'编号',width:130},
+                    {field:'cityPhoto',title:'图片',width:40,formatter:formatPhoto},
+                    {field:'cityName',title:'名称',width:45},
+                    {field:'citySituation',title:'景点概括',width:80,formatter:formatSituation},
+                    {field:'provinceId',title:'所属省',width:35,formatter:formatProvince},
+                    {field:'stateId',title:'状态',width:30,formatter:formatState},
+                    {field:'searchNumber',title:'搜索次数',width:40},
+                    {field:'uptime',title:'修改时间',width:75,formatter:format_time}
+                ]],
+                fitColumns:true,
+                rownumbers:true ,
+                singleSelect:true,
+                pagination:true,
+                pageNumber:1,
+                pageSize:14,
+                pageList:[5,10,14,20],
+                toolbar: [
+                    {
+                    iconCls: 'icon-add',
+                    handler: function(){
+                        $("#dd").dialog("open");
+                        // $("#dd").dialog({title:'Add'});
+                        url="/cityController/addCity"; //设置添加的url
+                        $("#frm").form("clear");
+                    }
+                },'-',{
+                    iconCls: 'icon-remove',
+                    handler: function(){
+                        var row=$("#dg").datagrid("getSelected");
+                        if(row!=null){
+                            $.messager.confirm('确认对话框', '您确定要删除<span style=color:red;>'+row.cityName+'</span>吗？', function(r){
+                                if (r){
+                                    $.ajax({
+                                        url:'/cityController/byCityIdUpdateState',
+                                        type:'post',
+                                        async:false,
+                                        data:{
+                                            cityId:row.cityId,
+                                            stateId:'ac618998-ffe3-4300-a391-cd581f74078c'  //状态名称为删除的id
+                                        },
+                                        dataType:'text',
+                                        success:function(data){
+                                            if(data>0){
+                                                $.messager.show({
+                                                    title:'我的消息',
+                                                    msg:row.cityName+'城市删除成功，消息将在2秒后关闭。',
+                                                    timeout:2000,
+                                                    showType:'slide'
+                                                });
+                                                $("#dg").datagrid("reload");
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }else{
+                            alert("请选择要删除的行");
+                        }
+                    }
+                },'-',{
+                        iconCls: 'icon-edit',
+                        handler: function(){
+                            var row=$("#dg").datagrid("getSelected");
+                            if(row!=null) {
+                                $("#dd").dialog("open");
+                                // $("#dd").dialog({title:'编辑'});
+                                url="/cityController/byCityIdUpdateInfo"; //设置添加的url
+                                $("#frm").form("load",row);
+                            }else{
+                                alert("请选择要修改的行");
+                            }
+                        }
+                    },'--',{
+                        iconCls: 'icon-print',
+                        text:'生成Excel表格',
+                        handler: function(){
+                            $.ajax({
+                              url:'/cityController/WriteExcel',
+                              type:'post',
+                              async:false,
+                              dataType:'text',
+                              success:function(data){
+                                  if(data=="success"){
+                                      $.messager.show({
+                                          title:'我的消息',
+                                          msg:'Excel表格成功保存桌面，消息将在2秒后关闭。',
+                                          timeout:2000,
+                                          showType:'slide'
+                                      });
+                                  }else{
+                                      alert(data);
+                                  }
+                              }
+                            })
+                        }
+                    },'--',{
+                        text:'<input id="ss">\n' +
+                        '<div id="mm">\n' +
+                        '<div data-options="name:\'cityName\'">城市名称</div> \n' +
+                        '<div data-options="name:\'provinceName\'">省市名称</div> \n' +
+                        '</div> ',
+                        handler: function(){}
+                    }
+                ]
+
+            });
+
+            $('#ss').searchbox({
+                searcher:function(value,name){
+                    var url=$("#dg").datagrid("options").url="/cityController/pagingQueryCity?type="+name+"&val="+value;
+                    $("#dg").datagrid("reload");
+                    },
+                menu:'#mm',
+                prompt:'请输入值',
+                width:250
+            });
+
+            //时间转换
+            function format_time(value,row,index) {
+                return value.substring(0,value.lastIndexOf(".")).replace("T"," ");
+            }
+
+            //格式化景点概括
+            function formatSituation(value,row,index){
+                if(value!=""){
+                    return "<a title='"+value+"'>"+value.substr(0,10)+'...'+"</a>";
+                }else{
+                    return "";
+                }
+            }
+
+            //格式化图片
+            function formatPhoto(value,row,index){
+                    return "<span class='look_image' onclick=\"showImage(this)\">查看图片</span><input type='hidden' value="+value+"><input type='hidden' value="+row.cityId+">";
+            }
+
+            //格式化省pid，用ajax获取pid对应的省对象
+            function formatProvince(value,row,index){
+                var rs="";
+                $.ajax({
+                    url: '/ProvinceController/byProvinceIdQuery',
+                    type: 'post',
+                    async: false,
+                    data: {
+                        provinceId: value
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data != null) {
+                            rs=data.provinceName;
+                        }
+                    }
+                });
+                return rs;
+            }
+
+            //格式化状态，用ajax根据状态Id查询状态对象
+            function formatState(value,row,index){
+                var rs="";
+                $.ajax({
+                   url:'/StateController/byStateIdQuery',
+                   type:'post',
+                   async:false, //是否异步
+                   data:{
+                       stateId:value
+                   },
+                   dataType:'json',
+                   success:function(data){
+                       if(data!=null){
+                           rs=data.stateName;
+                       }
+                   }
+                });
+                return rs;
+            }
+
+            //初始化dialog对话框
+            $('#dd').dialog({
+                title: 'My Dialog',
+                width: 400,
+                height: "auto",
+                closed: true,
+            });
+
+            //保存图片点击事件
+            $("#saveImage").click(function(){
+                var imgVal=$("#geng_huan_tu_pian").val();
+                if(imgVal!=""){
+                    var formdata=new FormData($("#frm2")[0]);
+                    $.ajax({
+                       url:'/cityController/byCityIdUpdateCityPhoto',
+                       type:'post',
+                       async:true,
+                       processData: false, //不转换数据类型
+                       contentType: false,
+                       data: formdata,
+                       dataType:'text',
+                       success:function(data){
+                            if(data>0){
+                                $("#show-image").css("display","none"); //关闭图片
+                                $("#geng_huan_tu_pian").val(""); //清空file框
+                                $.messager.show({
+                                    title:'我的消息',
+                                    msg:'图片修改成功，消息将在2秒后关闭。',
+                                    timeout:2000,
+                                    showType:'slide'
+                                });
+                                $("#dg").datagrid("reload");
+                            }
+                        }
+                    });
+                }else{
+                    alert("请选择要修改的图片");
+                }
+            });
+
+            $.extend($.fn.validatebox.defaults.rules, {
+                citySituationValidate: {
+                    validator: function(value){
+                        return value.length>100
+                    },
+                    message: '景点概括字数必须大于100'
+                }
+            });
+
+        });
+
+        //查看图片点击事件
+        function showImage(obj){
+            var img=$(obj).next().val();
+            $(".show-image").attr("src",'/'+img); //设置显示的图片
+            $("#Id").val($(obj).next().next().val()); //设置要修改图片的城市id
+            $("#show-image").css("display","block");
+        }
+
+        //Esc按键事件，关闭图片
+        $(document).keyup(function(event){
+            if(event.keyCode==27){
+                $("#show-image").css("display","none"); //关闭图片
+                $("#geng_huan_tu_pian").val(""); //清空file框
+
+            }
+        });
+
+        //保存点击事件
+        function saveClick(){
+            var validate=$("#frm").form("validate");
+            if(validate){
+                $.messager.confirm('确认对话框', '您确定要保存吗吗？', function(r){
+                    if (r){
+                        $("#frm").form('submit',{
+                           url:url,
+                           success:function (data) {
+                               if(data>0){
+                                   $("#dd").dialog("close");
+                                   $.messager.show({
+                                       title:'我的消息',
+                                       msg:'添加成功，消息将在2秒后关闭。',
+                                       timeout:2000,
+                                       showType:'slide'
+                                   });
+                                   $("#dg").datagrid("reload");
+                               }
+                           }
+                        });
+                    }
+                });
+            }else{
+                alert("请输入完整");
+            }
+        }
+
+        //图片回显方法
+        function imageEcho(obj) {
+            var file = obj.files[0];//获取文件
+            if (file != null) {
+                //图片回显
+                //HTML5定义了FileReader作为读取文件的API  freader:从文件中读
+                var freader = new FileReader();
+                freader.readAsDataURL(file); //将文件读取为DataUrl，存储在result中
+                freader.onload = function (e) { //文件读取成功时触发
+                    $(".show-image").attr("src", e.target.result);
+                }
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <!--datagrid数据表格-->
+    <table id="dg"></table>
+
+    <!--dialog对话框-->
+    <div id="dd">
+        <form align="center" id="frm" type="post">
+            <input type="hidden" name="cityId">
+            <p><input name="cityName" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称',buttonAlign:'left',required:true"></p>
+            <p><input name="citySituation" class="easyui-textbox" data-options="width:250,prompt:'请输入',buttonText:'城市概述',buttonAlign:'left',height:100,multiline:true,validType:'citySituationValidate'"></p>
+            <p><input name="provinceId" class="easyui-combobox easyui-validatebox" id="ProvinceCombobox" data-options="valueField:'provinceId',textField:'provinceName',url:'/ProvinceController/queryProvinceAll',width:250,prompt:'请选择',buttonText:'省&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市',buttonAlign:'left',limitToList:true,required:true"></p>
+            <p>
+                <select name="stateId" id="StateCombobox" class="easyui-validatebox easyui-combobox" data-options="width:250,prompt:'请选择',buttonText:'状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态',buttonAlign:'left',limitToList:true,panelHeight:70,required:true">
+                    <option value="0ee26211-3ae8-48b7-973f-8488bfe837d6">正常</option>
+                    <option value="ac618998-ffe3-4300-a391-cd581f74078c">删除</option>
+                </select>
+            </p>
+            <p>
+                <a id="save" href="javascript:saveClick();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+        </form>
+    </div>
+
+    <!--查看图片-->
+    <div id="show-image" >
+        <img src="/images/gugong1.jpg" title="Esc关闭图片" class="show-image" width="400px" height="300px"/>
+        <form id="frm2" type="post" enctype="multipart/form-data">
+            <input type="hidden" name="CityId" id="Id">
+            <input id="geng_huan_tu_pian" name="cityPhoto" type="file" style="width:300px" onchange="imageEcho(this)">
+            <a id="saveImage" class="easyui-linkbutton" data-options="iconCls:'icon-save'">修改图片</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </form>
+    </div>
+
+</body>
+</html>

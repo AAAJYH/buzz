@@ -55,4 +55,12 @@ public interface AdminDao {
     @Select("select * from admin")
     public List<Admin> queryAllAdmin();
 
+    //根据账号密码判断是否存在此对象
+    @Select("select * from admin where adname=#{adname} and pwd=#{pwd}")
+    public Admin queryAdmin(@Param("adname") String adname,@Param("pwd") String pwd);
+
+    //修改密码
+    @Select("update admin set pwd=#{pwd} where id=#{id}")
+    public Integer byIdUpdatePwd(@Param("id") Integer id,@Param("pwd") String pwd);
+
 }

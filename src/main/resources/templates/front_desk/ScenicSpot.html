@@ -43,11 +43,11 @@
 <div id="header" xmlns="http://www.w3.org/1999/html">
     <div class="mfw-header">
         <div class="header-wrap clearfix">
-            <div class="head-logo"><img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/gugong1.jpg"></img></div>
+            <div class="head-logo"><img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/upload9a98e170-d909-4c9c-9af8-4d22b48f57c6.jpg"></img></div>
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
                 <li class="head-nav-index"><a href="#">首页</a></li>
                 <li class="head-nav-index"><a href="/destinationController/queryAllDestination">目的地</a></li>
-                <li class="head-nav-index"><a href="#">酒店</a></li>
+                <li class="head-nav-index"><a href="/hotelController/hotel2Index" target="_blank">酒店</a></li>
                 <li class="head-nav-index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
                 <li class="head-nav-index"><a href="#">游记</a></li>
                 <li class="head-nav-index"><a href="#">问答</a></li>
@@ -86,13 +86,13 @@
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId='}" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityName='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
 
                         <li class="navbar-overview">
-                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy'}"  data-cs-p="攻略">
+                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy?strategyId='+''}"  data-cs-p="攻略">
                                 <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -172,7 +172,7 @@
                                 <span class="num" th:text="${status.count}">1</span>
                                 <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" th:title="${obj.chineseName}" th:text="${obj.chineseName}">故宫</a>
                             </h3>
-                            <p th:text="${obj.synopsis+'...'}">中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
+                            <p style="width:370px;height:100px;" th:text="${obj.synopsis+'...'}">中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
                         </div>
                     </div>
                     <div class="pic">

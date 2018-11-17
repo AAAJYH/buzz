@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="/Easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/Easyui/themes/icon.css"/>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+
+    <style type="text/css">
+        p{
+            margin-left:20px;
+        }
+
+        /*自动补全内容样式*/
+        .tangram-suggestion {
+            z-index:9999;
+        }
+
+        #sousuo:hover{
+            cursor:pointer;
+        }
+
+        #sousuo{
+            background:#F1EFEF;
+            border-radius:3px;
+            font-size:90%;
+            padding:3px 7px;
+        }
+
+    </style>
+
+    <script th:inline="none">
+
+        var url="";
+        $(function() {
+
+            $('#dg').datagrid({
+                url: '/scenicspotController/PagingQueryScenicspot',
+                columns: [[
+                    {field: 'scenicSpotId', title: '编号', width: 50,formatter:formatContent},
+                    {field: 'chineseName', title: '中文名', width: 80,formatter:formatContent},
+                    {field: 'englishName', title: '英文名', width: 100,formatter:formatContent},
+                    {field: 'address', title: '景点位置', width: 130,formatter:formatContent},
+                    {field: 'synopsis', title: '概括', width: 60,formatter:formatContent},
+                    {field: 'phone', title: '联系电话', width: 100,formatter:formatContent},
+                    {field: 'url', title: '网址', width: 100,formatter:formatContent},
+                    {field: 'traffic', title: '交通', width: 60,formatter:formatContent},
+                    {field: 'tickets', title: '门票', width: 60,formatter:formatContent},
+                    {field: 'openingHours', title: '开放时间', width: 100,formatter:formatContent},
+                    {field: 'longitude', title: '经度', width: 100},
+                    {field: 'latitude', title: '纬度', width: 100},
+                    {field: 'photo', title: '图片', width: 50,formatter:formatImages},
+                    {field: 'cityId', title: '城市', width: 65,formatter:formatCityId},
+                    {field: 'stateId', title: '状态', width: 50,formatter:formatState},
+                    {field: 'uptime', title: '修改时间', width: 130,formatter:format_time}
+                ]],
+                fitColumns: true,
+                rownumbers: true,
+                singleSelect: true,
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 14,
+                pageList: [5, 10, 14, 20],
+                toolbar: [{
+                    iconCls: 'icon-add',
+                    handler: function(){
+                        $("#dd").dialog("open");
+                        // $("#dd").dialog({"title":"添加"});
+                        url="/scenicspotController/addScenicSpot";
+                        $("#frm").form("clear");
+                    }
+                },'-',{
+                    iconCls: 'icon-edit',
+                    handler: function(){
+                        var row=$("#dg").datagrid("getSelected");
+                        if(row!=null){
+                            $("#dd").dialog("open");
+                            // $("#dd").dialog({"title":"修改"});
+                            url="/scenicspotController/byScenicspotIdUpdateScenicspot";
+                            $("#frm").form("load",row);
+                        }else{
+                            alert("请选择要修改的行");
+                        }
+                    }
+                },'--',{
+                    iconCls: 'icon-print',
+                    text:'生成Excel表格',
+                    handler: function(){
+                        $.ajax({
+                           url:'/scenicspotController/WriteExcel',
+                           type:'post',
+                           async:false,
+                           dataType:'text',
+                           success:function(data){
+                                if(data==""){
+                                    $.messager.show({
+                                        title:'我的消息',
+                                        msg:'Excel表格成功保存桌面，消息将在2秒后关闭。',
+                                        timeout:2000,
+                                        showType:'slide'
+                                    });
+                                }else{
+                                    alert(data);
+                                }
+                           }
+                        });
+                    }
+                }]
+            });
+
+            //时间转换
+            function format_time(value,row,index) {
+                var str=value.substring(0,value.lastIndexOf(".")).replace("T"," ");
+                return "<a title='"+str+"'>"+str+"</a>";
+            }
+
+            function formatCityId(value,row,index){
+                var rs="";
+                $.ajax({
+                   url:'/cityController/ByCityIdQuery',
+                   type:'post',
+                   async:false,
+                   data:{
+                       CityId:row.cityId
+                   },
+                   dataType:'json',
+                   success:function(data){
+                        rs=data.cityName;
+                   }
+                });
+                return rs;
+            }
+
+            function formatContent(value,row,index){
+                return "<a title='"+value+"' style='color:black;text-decoration:none;'>"+value+"</a>";
+            }
+
+            function formatImages(value,row,index){
+                return "<span style='color:blue;' onclick='showImage(this)'>查看</span><input type='hidden' value='"+value+"'><input type='hidden' value='"+row.scenicSpotId+"'/> ";
+            }
+
+            //格式化状态，用ajax根据状态Id查询状态对象
+            function formatState(value,row,index){
+                var rs="";
+                $.ajax({
+                    url:'/StateController/byStateIdQuery',
+                    type:'post',
+                    async:false, //是否异步
+                    data:{
+                        stateId:value
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if(data!=null){
+                            rs=data.stateName;
+                        }
+                    }
+                });
+                return rs;
+            }
+
+            $('#dd').dialog({
+                title: 'My Dialog',
+                width: 800,
+                height: "auto",
+                closed: true,
+            });
+
+            $("#save").click(function(){
+
+                        var validate=$("#frm").form("validate");
+                        if(validate){
+                            $.messager.confirm('确认对话框', '您确定要保存吗？', function(r) {
+                                if (r) {
+                                    $("#frm").form('submit', {
+                                        url: url,
+                                        success: function (data) {
+                                            if (data > 0) {
+                                                $.messager.show({
+                                                    title: '我的消息',
+                                                    msg: '操作成功，消息将在2秒后关闭。',
+                                                    timeout: 2000,
+                                                    showType: 'slide'
+                                                });
+                                            } else {
+                                                alert("操作失败");
+                                            }
+                                            $("#dd").dialog("close");
+                                            $("#dg").datagrid("reload");
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            alert("亲输入完整");
+                        }
+                });
+
+            $.extend($.fn.validatebox.defaults.rules, {
+                validateSynopsis: {
+                    validator: function(value){
+                        return value.length>100
+                    },
+                    message: '字数必须大于100'
+                }
+            });
+
+            //Esc按键事件，关闭图片
+            $(document).keyup(function(event){
+                if(event.keyCode==27){
+                    $(".imageContent").css("display","none"); //关闭图片
+                    $(".demo").css("display","none"); //关闭添加图片
+                }
+            });
+
+        });
+
+        var id="";//要删除景点图片的id
+        var uploadUrl="/scenicspotController/uploadScenicspotPhoto";
+
+        //删除景点图片时间
+        function deleteImage(obj){
+            //1.确认删除
+            $.messager.confirm('确认对话框', '您确定要删除此图片吗？', function(r) {
+                if (r) {
+                    var deleteImage = $(obj).prev().attr("src").substr(1, $(obj).prev().attr("src").length);
+                    $.ajax({
+                        url: '/scenicspotController/byScenicspotIdUpdatePhoto',
+                        type: 'post',
+                        async: false,
+                        data: {
+                            id: id,
+                            deleteImage: deleteImage
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            if (data != "景点图片不能少于三张") { //删除成功  1.重新加载图片   2.弹出框提示
+                                $.messager.show({
+                                    title: '我的消息',
+                                    msg: '景点图片删除成功，消息将在2秒后关闭。',
+                                    timeout: 2000,
+                                    showType: 'slide'
+                                });
+                                $(".images").empty();
+                                var imagesArray = data.split(","); //景点图片
+                                for (var i = 0; i < imagesArray.length; i++) {
+                                    $(".images").append("<img title='ESC关闭图片' src='/" + imagesArray[i] + "'/>" +
+                                        "<span style='position: relative;;left:-3%;top:-130px;' onclick='deleteImage(this)'>❌</span>");
+                                    $(".imageContent").css("display", "block");
+                                }
+                            }else{
+                                alert(data);
+                            }
+                            $("#dg").datagrid("reload");
+                        }
+                    });
+                }
+            });
+        }
+
+        //显示图片
+        function showImage(obj){
+            var imagesArray=$(obj).next().val().split(","); //景点图片
+            id =$(obj).next().next().val(); //景点id
+            if(imagesArray.length>0){
+                $(".images").empty();
+                for(var i=0;i<imagesArray.length;i++){
+                    $(".images").append("<img title='ESC关闭图片' src='/"+imagesArray[i]+"'/>" +
+                        "<span style='position: relative;;left:-3%;top:-130px;' onclick='deleteImage(this)'>❌</span>");
+                    $(".imageContent").css("display","block");
+                }
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <table id="dg"></table>
+
+    <div id="dd">
+        <form id="frm" align="left">
+            <input type="hidden" name="scenicSpotId">
+            <p>
+                <input name="chineseName" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'中文名称',buttonAlign:'left',required:true">
+                <input name="englishName" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'英文名称',buttonAlign:'left',required:true">
+            </p>
+            <p>
+                <input name="phone" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'联系电话',buttonAlign:'left',required:true">
+                <input name="url" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'景点网址',buttonAlign:'left',required:true">
+            </p>
+            <p>
+                <input id="scenicSpotAddress" name="address" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'景点位置',buttonAlign:'left',required:true">
+                <input id="citySelect" name="cityId" class="easyui-combobox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'所属城市',buttonAlign:'left',url:'/cityController/queryAllCity',valueField:'cityId',textField:'cityName',limitToList:true,required:true">
+            </p>
+            <p>
+                <input id="lng" name="longitude" class="easyui-textbox easyui-validatebox" data-options="prompt:'请搜索',width:160,buttonText:'经度',buttonAlign:'left',required:true,readonly:true">&nbsp;&nbsp;
+                <input id="lat" name="latitude" class="easyui-textbox easyui-validatebox" data-options="prompt:'请搜索',width:160,buttonText:'纬度',buttonAlign:'left',required:true,readonly:true">&nbsp;&nbsp;
+                <select name="stateId" id="StateCombobox" class="easyui-validatebox easyui-combobox" data-options="width:160,prompt:'请选择',buttonText:'状态',buttonAlign:'left',limitToList:true,panelHeight:70,required:true">
+                    <option value="0ee26211-3ae8-48b7-973f-8488bfe837d6">正常</option>
+                    <option value="ac618998-ffe3-4300-a391-cd581f74078c">删除</option>
+                </select>
+            </p>
+            <p>
+                <input name="synopsis" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'景点概述',buttonAlign:'left',height:100,multiline:true,required:true,validType:'validateSynopsis'">
+                <input name="openingHours" class="easyui-textbox" data-options="width:250,prompt:'请输入',buttonText:'开放时间',buttonAlign:'left',height:100,multiline:true">
+            </p>
+            <p>
+                <input name="traffic" class="easyui-textbox" data-options="width:250,prompt:'请输入',buttonText:'交通',buttonAlign:'left',height:100,multiline:true">
+                <input name="tickets" class="easyui-textbox" data-options="width:250,prompt:'请输入',buttonText:'门票',buttonAlign:'left',height:100,multiline:true">
+            </p>
+            <p>
+                <a id="save" href="javascript:saveClick();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+            <div style="position:absolute;right:3%;top:10%;z-index:10;">
+               <input type="text" id="suggestId" size="20" value="百度" style="width:180px;" />
+                <a id="sousuo">搜索</a>
+                <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:50px;height:auto; display:none;"></div>
+                <div id="map" style="width:230px;height:360px;"></div>
+                <script>
+
+                    var map=new BMap.Map("map");
+                    map.centerAndZoom("北京",10);
+                    map.enableScrollWheelZoom()	;
+
+                    //关键字提示输入
+                    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+                        {"input" : "suggestId"
+                            ,"location" : map
+                        });
+
+                    //搜索点击事件
+                    $("#sousuo").click(function(){
+                        var address=$("#suggestId").val();
+                        if(address!=""){
+                            // 创建地址解析器实例
+                            var myGeo = new BMap.Geocoder();
+                            // 将地址解析结果显示在地图上,并调整地图视野
+                            myGeo.getPoint(address, function(point,addressComponents){
+                                if (point) {
+                                    map.clearOverlays();
+                                    map.centerAndZoom(point, 16);
+                                    map.addOverlay(new BMap.Marker(point));
+                                    //设置经纬度Input
+                                    $("#lng").textbox({"value":point.lng});
+                                    $("#lat").textbox({"value":point.lat});
+                                    //设置景点位置
+                                    $("#scenicSpotAddress").textbox({"value":addressComponents.address});
+                                }else{
+
+                                }
+                            }, "北京市");
+                        }
+                    });
+
+                </script>
+            </div>
+        </form>
+    </div>
+
+    <!--查看图片-->
+    <style type="text/css">
+        .imageContent{
+            width:67%;
+            height:auto;
+            position: absolute;
+            top: 10%;
+            left:18%;
+            display:none;
+            background:#EAEAEA;
+            border-radius:5px;
+            padding:10px 0 5px 40px;
+        }
+        .images{
+            width:100%;
+            height:auto;
+        }
+        .images img{
+            width:200px;
+            height:150px;
+            margin-left:-20px;
+        }
+        span:hover,#addScenicspotPhoto:hover {
+            cursor:pointer;
+        }
+        .demo{
+            position:absolute;
+            top:10%;
+            left:25%;
+            display:none;
+        }
+        #addScenicspotPhoto{
+            display: inline-block;
+            padding: .3em .5em;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: .3em;
+            box-shadow: 0 1px white inset;
+            text-align: center;
+            text-shadow: 0 1px 1px black;
+            color:white;
+            font-weight: bold;
+            background-image: linear-gradient(#f5c153, #ea920d);
+            margin-bottom:10px;
+            margin-left:-20px;
+        }
+    </style>
+    <div class="imageContent">
+        <button id="addScenicspotPhoto">添加景点图片</button>
+        <script>
+            $("#addScenicspotPhoto").click(function(){
+                $(".imageContent").css("display","none");
+                $(".demo").css("display","block");
+            });
+        </script>
+      <div class="images" align="left">
+      </div>
+    </div>
+    <!--查看图片-->
+
+    <!--添加图片-->
+    <!-- 引用控制层插件样式 -->
+    <link rel="stylesheet" href="/css/zyUpload.css" type="text/css">
+    <!-- 引用核心层插件 -->
+    <script src="/js/zyFile.js"></script>
+    <!-- 引用控制层插件 -->
+    <script src="/js/zyUpload.js"></script>
+    <!-- 引用初始化JS -->
+    <script src="/js/jq22.js"></script>
+    <div id="demo" class="demo"></div>
+    <!--添加图片-->
+
+</body>
+</html>

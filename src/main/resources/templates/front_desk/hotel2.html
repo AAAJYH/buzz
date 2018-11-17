@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>酒店</title>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+hotel_index:css+jquery-ui-1.11.0.min:css+hotel+datepicker-range:css+hotel+number_guests_picker^YlVX^1525846268.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector:js+corelib+underscore-1.6.0:js+corelib+backbone-1.1.2^YlBQ^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo">
+                <img class="mfw-logo" title="嗡嗡嗡自由行" src="/images/blue.jpg">
+            </div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index"><a href="#">首页</a></li>
+                <li class="head-nav-index"><a href="/destinationController/queryAllDestination">目的地</a></li>
+                <li class="head-nav-index"><a href="/hotelController/hotel2Index" target="_blank">酒店</a></li>
+                <li class="head-nav-index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
+                <li class="head-nav-index"><a href="#">游记</a></li>
+                <li class="head-nav-index"><a href="#">问答</a></li>
+            </ul>
+            <!-- 登录模块 -->
+            <style type="text/css">
+                .login_register{
+                    width:100px;
+                    height:40px;
+                    padding-top:25px;
+                    position:absolute;
+                    right:-3%;
+                    top:0;
+                    font-size:130%;
+                }
+                .login_register a{
+                    color:#FF9F05;
+                }
+                .photo{
+                    width:50px;
+                    height:50px;
+                    border-radius:25px;
+                    position:absolute;
+                    right:3%;
+                    top:15%;
+                }
+            </style>
+
+            <span th:if="${session.user!=null}">
+                <img th:src="@{'/'+${session.user.photo}}" class="photo">
+                <img th:src="${'/'+session.user.photo}" class="photo">
+            </span>
+
+            <div th:if="${session.user==null}" class="login_register" id="login">
+                <a href="javascript:;" id="login">登录</a>
+            </div>
+
+            <script>
+                $("#login").click(function(){
+                    window.location.href='/usersController/show_login_html?url='+(window.location.href).toString();
+                });
+            </script>
+            <!--登录模块-->
+            <div data-pagelet id="pagelet-block-a783145c4cd460664b408620875244c9" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<style type="text/css">
+    ._j_tab_content img {
+        opacity: 0;
+        -webkit-transition: opacity ease-in 1s;
+        -moz-transition: opacity ease-in 1s;
+        transition: opacity ease-in 1s;
+    }
+    ._j_tab_content .img-show {
+        opacity: 1;
+    }
+
+    .hotel-new-icon {
+        position: absolute;
+        display: block;
+        width: 238px;
+        height: 210px;
+        bottom: -1px;
+        left: 5px;
+        z-index: -1;
+        background-image: url('http://css.mafengwo.net/images/hotel/new-customer-icon.gif');
+        background-size: 100% 100%;
+    }
+
+    .hotel-new-icon:hover {
+        z-index: 0;
+        background-image: url('http://css.mafengwo.net/images/hotel/new-customer-hover-icon.png');
+    }
+
+    .hotel-new-icon .close {
+        position: absolute;
+        display: block;
+        width: 25px;
+        height: 25px;
+        right: 0;
+        bottom: 83px;
+        border-radius: 50%;
+    }
+
+    .toolbar-item-top, .toolbar-item-feedback, .toolbar-item-code {
+        padding-left: 40px;
+    }
+
+    #content{
+        width:910px;
+        height:auto;
+        position: relative;
+        top:50px;
+        background:white;
+        border-radius:5px;
+        border: 1px solid #FFA800;
+        display:none;
+    }
+
+    #content .one{
+        width:870px;
+        font-size:140%;
+        padding:5px 20px 10px 20px;
+        height:auto;
+        color:red;
+    }
+a:hover{
+    text-decoration:none;
+}
+</style>
+
+<div class="hotel-main">
+    <div class="h-title">酒店</div>
+    <div class="clearfix date-warp">
+        <div class="add-travle">
+            <input type="text" id="city" placeholder="出行目的地" autocomplete="off" style="width:900px;">
+            <div class="not-cont" id="_j_search_shortcut_mdds" style="display:none;"></div>
+            <div class="search-suggest-panel search-suggest-hotel" style="display:none;" id="_j_search_suggest"></div>
+            <div class="btn-search" id="search" style="margin-left:930px;margin-top: -47px;"><i></i></div>
+        </div>
+        <div id="content">
+        </div>
+        <!-- 搜索点击事件 -->
+        <script>
+
+            $(document).click(function(){
+                $("#content").css("display","none");
+            })
+
+            function search(){
+                var cityVal=$("#city").val();
+                $("#content").empty();
+                $("#content").css("display","none");
+                if(cityVal!=""){
+                    $.ajax({
+                        url:'/cityController/byCityNameQuery',
+                        type:'post',
+                        data:{
+                            cityName:cityVal
+                        } ,
+                        dataType:'json',
+                        success:function(data){
+                            var rs=data;
+                            if(rs.length>0){
+                                for(var i=0;i<rs.length;i++){
+                                    $("#content").append("<a target='_blank' href='/hotelController/hotelIndex?scenicspotId=&cityName="+rs[i].cityName+"'><div class=\"one\"><img src=\"/images/one/searchMarker.png\"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rs[i].cityName+"</div>");
+                                }
+                                $("#content").css("display","block");
+                            }
+                        }
+                    });
+                }
+            }
+
+            $("#city").keyup(function(){
+                search();
+            });
+            $("#search").click(function(){
+                search();
+            });
+            $()
+        </script>
+    </div>
+    <div class="h-notice clearfix">
+        <ul>
+            <li>
+                <i class="notice01"></i>
+                <div class="flt1">
+                    <h2>住宿攻略</h2>
+                    <p>区域攻略到特色主题，应有尽有</p>
+                </div>
+            </li>
+            <li>
+                <i class="notice02"></i>
+                <div class="flt1">
+                    <h2>专享价格</h2>
+                    <p>多平台价格对比，天天专享特惠</p>
+                </div>
+            </li>
+            <li>
+                <i class="notice03"></i>
+                <div class="flt1">
+                    <h2>真实点评</h2>
+                    <p>超过100万真实用户点评和游记</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="h-theme" id="_j_features">
+        <div class="h-title" style="margin-top: 50px;">主题酒店</div>
+        <div class="tab-theme">
+            <div class="themeList clearfix _j_tab_trigger">
+                <a href="javascript:;" data-id="0" style="margin-right:240px;">直辖市</a>
+                <a href="javascript:;" data-id="1" style="margin-right:240px;">云南</a>
+                <a href="javascript:;" data-id="2">河北</a>
+            </div>
+            <div class="_j_tab_content">
+
+                <ul class="clearfix" style="display:none;" data-id="0">
+                    <li>
+                        <!--data-src="http://p1-q.mafengwo.net/s9/M00/36/99/wKgBs1dL9YaAAYFtAAKJWRdj1Jc42.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318"-->
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=北京" target="_blank" data-type="area" data-name="暹粒吴哥窟">
+                                <div class="pic">
+                                    <img data-src="http://p2-q.mafengwo.net/s10/M00/5E/83/wKgBZ1mC9HeAG_qrAAJCv6dFP3M18.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>北京</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=天津"
+                               target="_blank" data-type="mdd" data-name="耶路撒冷">
+                                <div class="pic">
+                                    <img data-src="http://b3-q.mafengwo.net/s9/M00/36/97/wKgBs1dL9YWAOyWHAAnSy3jE73o54.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>天津</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=上海" target="_blank" data-type="mdd" data-name="阿格拉">
+                                <div class="pic">
+                                    <img data-src="http://p3-q.mafengwo.net/s9/M00/36/98/wKgBs1dL9YaAUTPvAAIBjYQZJSo48.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>上海</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=重庆" target="_blank" data-type="mdd" data-name="开罗">
+                                <div class="pic">
+                                    <img data-src="http://n3-q.mafengwo.net/s9/M00/36/98/wKgBs1dL9YaAO1apADncAXUNkdQ03.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>重庆</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="clearfix" style="display:none;" data-id="1">
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=昆明市" target="_blank" data-type="feature" data-name="首尔韩屋">
+                                <div class="pic">
+                                    <img data-src="http://p3-q.mafengwo.net/s6/M00/38/5A/wKgB4lLkvGuAanhIAALE78Ppo6A45.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>昆明市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=红河州" target="_blank" data-type="feature" data-name="京都町屋">
+                                <div class="pic">
+                                    <img data-src="http://p1-q.mafengwo.net/s9/M00/36/7F/wKgBs1dL9VqAf0FgAAWazIZMd2w67.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>红河州</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=大理州" target="_blank" data-type="feature" data-name="大理民居">
+                                <div class="pic">
+                                    <img data-src="http://b4-q.mafengwo.net/s8/M00/4D/0A/wKgBpVXyUvGADOMeAIKPONIE7lI97.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>大理州</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=文山州"
+                               target="_blank" data-type="feature" data-name="北京四合院">
+                                <div class="pic">
+                                    <img data-src="http://b4-q.mafengwo.net/s9/M00/36/7F/wKgBs1dL9VqAIPq3AAclqSuwPBU55.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>文山州</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=德宏州"
+                               target="_blank" data-type="feature" data-name="北海道温泉">
+                                <div class="pic">
+                                    <img data-src="http://n2-q.mafengwo.net/s9/M00/B1/46/wKgBs1dNVAyAba_KAFF6JhopH1k77.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>德宏州</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=怒江州"
+                               target="_blank" data-type="feature" data-name="洞穴酒店">
+                                <div class="pic">
+                                    <img data-src="http://n4-q.mafengwo.net/s6/M00/29/56/wKgB4lMXaJiAXRbTAAHjgVTxD7k70.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>怒江州</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="clearfix" style="display:none;" data-id="2">
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=保定市" target="_blank" data-type="mdd" data-name="富士山">
+                                <div class="pic">
+                                    <img data-src="http://p4-q.mafengwo.net/s10/M00/51/B4/wKgBZ1jLu5WAR-ezABxIarXxVhg42.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>保定市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="唐山市" target="_blank" data-type="mdd" data-name="奈良">
+                                <div class="pic">
+                                    <img data-src="http://n2-q.mafengwo.net/s10/M00/52/05/wKgBZ1jLvEGACICOABuulIYZhuQ06.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>唐山市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=衡水市" target="_blank" data-type="mdd" data-name="阿姆斯特丹">
+                                <div class="pic">
+                                    <img data-src="http://b2-q.mafengwo.net/s7/M00/55/A4/wKgB6lQC95mAQFNMAFO-6RdKryY46.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>衡水市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=邢台市" target="_blank" data-type="mdd" data-name="布鲁塞尔">
+                                <div class="pic">
+                                    <img data-src="http://n4-q.mafengwo.net/s10/M00/52/05/wKgBZ1jLvEGALatTABFdXHEc3vE85.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>邢台市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=承德市" target="_blank" data-type="mdd" data-name="林芝">
+                                <div class="pic">
+                                    <img data-src="http://b2-q.mafengwo.net/s10/M00/52/05/wKgBZ1jLvEGAH2IlABhOTwykidA02.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>承德市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fc-item">
+                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=张家口市" target="_blank" data-type="mdd" data-name="罗平">
+                                <div class="pic">
+                                    <img data-src="http://n4-q.mafengwo.net/s10/M00/52/04/wKgBZ1jLvECARBBhAB4nWrWz_nU23.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                </div>
+                                <div class="bag-opa"></div>
+                                <span class="shadow"></span>
+                                <div class="info">
+                                    <h2>张家口市</h2>
+                                    <p class="caption">中国</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于马蜂窝</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="马蜂窝团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入马蜂窝</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>马蜂窝良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>马蜂窝旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>马蜂窝APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+    if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+        M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad:js+plugins+dynamics:js+hotel+module+Log:js+hotel+module+Search_v2:js+xdate:js+hotel+module+FestivalDateConfig:js+jquery-ui-core:js+jquery-ui-datepicker:js+hotel+module+DateRangePicker:js+hotel+module+ModuleProvider:js+hotel+module+BookingDate:js+hotel+module+BookingGuests:js+hotel+module+NumberGuestsPicker:js+hotel+module+ImageLoader:js+hotel+index_v5:js+hotel+pc_app_guide^alJS^1542013838.js");
+    }
+</script>
+
+</body>
+</html>

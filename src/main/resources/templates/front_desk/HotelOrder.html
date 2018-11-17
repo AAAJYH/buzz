@@ -619,15 +619,17 @@
                   var amount=[[${price*days}]]; //总金额
                   var remark=$("#remark").val(); //备注
                   var bedType=[[${bedType}]];
+                  var hotelName=[[${hotelName}]]; //酒店名称
+                  var defaultPicture=[[${defaultPicture}]]; //酒店图片
 
                   var pinyin=/^[a-z]+$/; //拼音正则表达式
                   var hanzi=/^[\u4E00-\u9FA5]+$/; //汉字正则表达式
                   var shoujihao=/^1[0-9]{10}$/; //手机号正则表达式
                   var youxiang=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; //邮箱正则表达式
-
                    if((hanzi.test(name)||pinyin.test(name))&&(pinyin.test(xing)||hanzi.test(xing))&&(hanzi.test(ming)||pinyin.test(ming))&&shoujihao.test(phone)&&youxiang.test(email)){
-                      window.location.href="/hotelController/addHotelOrder?hid="+hid+"&roomName="+roomName+"&bedType="+bedType+"&beginTime="+beginTime+"&endTime="+endTime+"&lastTime="+lastTime+"&productName="+productName+"&amount="+amount+"&xingming="+(xing+ming)+"&name="+name+"&phone="+phone+"&email="+email+"&remark="+remark+"";
-                  }
+                      window.location.href="/hotelController/addHotelOrder?hid="+hid+"&roomName="+roomName+"&bedType="+bedType+"&beginTime="+beginTime+"&endTime="+endTime+"&lastTime="+lastTime+"&productName="+productName+"&amount="+amount+"&xingming="+(xing+ming)+"&name="+name+"&phone="+phone+"&email="+email+"&remark="+remark+"&hotelName="+hotelName+"&defaultPicture="+defaultPicture;
+                   }
+
                });
             </script>
         </div>

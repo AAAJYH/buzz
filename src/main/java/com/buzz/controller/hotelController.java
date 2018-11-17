@@ -1,9 +1,8 @@
 package com.buzz.controller;
 
 import com.buzz.entity.*;
-import com.buzz.service.hotelCollectService;
-import com.buzz.service.hotelOrdersService;
-import com.buzz.service.scenicspotService;
+import com.buzz.service.*;
+import com.buzz.utils.WriteExcel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +11,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.*;
 
 /**
@@ -36,6 +41,12 @@ public class hotelController {
     @Resource
     hotelOrdersService hotelOrdersService;
 
+    @Resource
+    cityService cityService;
+
+    @Resource
+    provinceService provinceService;
+
     /**
      * 查看城市酒店
      * @param model 景点集合
@@ -44,9 +55,14 @@ public class hotelController {
      * @return 酒店页面
      */
     @RequestMapping("/hotelIndex")
-    public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId){
-        //获取上下文city对象
-        city city=(city) request.getServletContext().getAttribute("city");
+    public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId,String cityName){
+        city city=null;
+        if(cityName.equals("")){
+            city=(city) request.getServletContext().getAttribute("city");
+        }else{
+            city=cityService.byCityNameQueryCity(cityName);
+            request.getServletContext().setAttribute("city",city);
+        }
         //保存景点集合
         List<scenicspot> scenicspotList=scenicspotService.byCityIdQueryScenicspot(city.getCityId());
         model.addAttribute("scenicspotList",scenicspotList);
@@ -98,7 +114,7 @@ public class hotelController {
      * @return 订单页面
      */
     @RequestMapping("/hotelOrderIndex")
-    public String hotelOrderIndex(String hid,String beginTime,String endTime,String productName,Double price,Model model,String roomName,String bedType) throws ParseException {
+    public String hotelOrderIndex(String hid,String beginTime,String endTime,String productName,Double price,Model model,String roomName,String bedType,String hotelName,String defaultPicture) throws ParseException {
         model.addAttribute("hid",hid);
         model.addAttribute("beginTime",beginTime);
         model.addAttribute("endTime",endTime);
@@ -106,6 +122,8 @@ public class hotelController {
         model.addAttribute("price",price);
         model.addAttribute("roomName",roomName);
         model.addAttribute("bedType",bedType);
+        model.addAttribute("hotelName",hotelName);
+        model.addAttribute("defaultPicture",defaultPicture);
         SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy/MM/dd"); //加上时间
         Date date1=sDateFormat.parse(beginTime);
         Date date2=sDateFormat.parse(endTime);
@@ -139,12 +157,15 @@ public class hotelController {
      * @return 酒店订单支付方法
      */
     @RequestMapping("/addHotelOrder")
-    public String addHotelOrder(HttpSession session, String hid, String roomName, String bedType, String beginTime, String endTime, String lastTime, String productName, Double amount, String xingming, String name, String phone, String email, String remark) throws ParseException {
+    public String addHotelOrder(HttpSession session, String hid, String roomName, String bedType, String beginTime, String endTime, String lastTime, String productName, Double amount, String xingming, String name, String phone, String email, String remark,String hotelName,String defaultPicture) throws ParseException {
         //获取用户id、当前时间生成订单号，执行添加订单方法
-        String userid=((users)(session.getAttribute("user"))).getUserId();
+        String userid="";
+        if(session.getAttribute("user")!=null){
+            userid=((users)(session.getAttribute("user"))).getUserId();
+        }
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
         String orderId=simpleDateFormat.format(new Date());
-        hotelorders hotelorders=new hotelorders(orderId,hid,roomName,bedType,beginTime,endTime,lastTime,productName,amount,xingming,name,phone,email,remark,userid,"待支付",new Timestamp(System.currentTimeMillis()));
+        hotelorders hotelorders=new hotelorders(orderId,hid,roomName,bedType,beginTime,endTime,lastTime,productName,amount,xingming,name,phone,email,remark,userid,"待支付",new Timestamp(System.currentTimeMillis()),hotelName,defaultPicture);
         hotelOrdersService.addHotelOrder(hotelorders);
         session.setAttribute("hotelOrderId",orderId);
         return "redirect:/hotelController/HotelOrderPaymentIndex";
@@ -185,6 +206,73 @@ public class hotelController {
     public int UpdateHotelOrderState(String HotelOrderId){
         int rs=hotelOrdersService.byHotelOrderIdUpdateState(HotelOrderId,"超时未支付");
         return rs;
+    }
+
+    /**
+     * 后台酒店管理页面
+     * @return
+     */
+    @RequestMapping("/hotelOrderManageIndex")
+    public String hotelOrderManageIndex(){
+        return "backstage_supporter/hotelOrderManage";
+    }
+
+    /**
+     * 后台分页查询
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/PagingQueryAllHotelOrders")
+    @ResponseBody
+    public Paging<hotelorders> PagingQueryAllHotelOrders(Integer page,Integer rows,String state){
+        return hotelOrdersService.PagingQueryHotelOrders(page,rows,state);
+    }
+
+    //查询写Excel
+    @RequestMapping("/HotelOrderWriteExcel")
+    @ResponseBody
+    public String HotelOrderWriteExcel(){
+        String rs="success";
+        try {
+            //城市集合
+            List<hotelorders> hotelordersList=hotelOrdersService.HotelOrderWriteExcel();
+            //生成桌面路径
+            FileSystemView fsv = FileSystemView.getFileSystemView();
+            String path=fsv.getHomeDirectory().toString()+"\\酒店订单集合.xls";
+            File file=new File(path);
+            if(file.exists()){
+                file.delete();
+            }
+            WriteExcel<hotelorders> we=new WriteExcel<hotelorders>();
+            we.write(hotelordersList,path,hotelorders.class);
+        }catch(Exception e){ //捕捉异常
+            String exceptionToString=e.toString();
+            if(exceptionToString.substring(0,exceptionToString.indexOf(":")).equals("java.io.FileNotFoundException")){
+                rs="另一个程序正在使用此文件，进程无法访问。";
+            }
+        }
+        return rs;
+    }
+
+    @RequestMapping("/hotel2Index")
+    public String hotel2Index(Model model){
+        //查询热门省
+        List<Map<String,Object>> provinceMap=provinceService.queryHotProvince();
+        //转换成省集合
+        List<province> provinceList=new ArrayList<province>();
+        if(provinceMap.size()>0){
+            for (Map map:provinceMap) {
+                provinceList.add(provinceService.byProvinceIdQuery((String) map.get("provinceId")));
+            }
+        }
+        model.addAttribute("provinceList",provinceList); //存省集合
+        List list=new ArrayList();
+        for (province p:provinceList) {
+            list.add(cityService.byProvinceIdQueryHot(p.getProvinceId()));
+        }
+        model.addAttribute("cityList",list);
+        return "front_desk/hotel2";
     }
 
     /**

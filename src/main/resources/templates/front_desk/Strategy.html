@@ -32,7 +32,7 @@
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
                 <li class="head-nav-index" data-cs-p="index"><a href="#">首页</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="/destinationController/queryAllDestination">目的地</a></li>
-                <li class="head-nav-index" data-cs-p="index"><a href="#">酒店</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="/hotelController/hotel2Index" target="_blank">酒店</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="/mapController/MarkerClustererMapIndex" target="_blank">地图</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="#">游记</a></li>
                 <li class="head-nav-index" data-cs-p="index"><a href="#">问答</a></li>
@@ -81,18 +81,18 @@
                 </li>
                 <script th:inline="javascript">
                     $("#jiudian").click(function(){
-                        window.location.href="/hotelController/hotelIndex?scenicspotId=";
+                        window.location.href="/hotelController/hotelIndex?scenicspotId=&cityName=";
                     });
                 </script>
 
                 <li class="navbar-overview" id="gonglue">
-                    <a class="navbar-btn" href="javascript:;"  data-cs-p="攻略">
+                    <a class="navbar-btn"  data-cs-p="攻略">
                         <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
                 <script th:inline="javascript">
                     $("#gonglue").click(function(){
-                        window.location.href="/strategyController/queryCityStrategy";
+                        window.location.href="/strategyController/queryCityStrategy?strategyId=";
                     });
                 </script>
 
@@ -124,14 +124,14 @@
 
     <!-- 标题图片 -->
     <div class="mdd_img" style="cursor: pointer">
-        <img th:src="${'/'+strategy.strategyPhoto.split(',')[0]}" width="228px" height="324px" alt=""/>
+        <img th:src="@{'/'+${strategy.strategyPhoto.split(',')[0]}}" width="228px" height="324px" alt=""/>
     </div>
 
     <div class="middle_de">
         <!--攻略标题-->
         <h1 th:text="${strategy.strategyHeadline}">丽江</h1>
         <!--相关景点-->
-        <div class="gl_title">
+        <div class="gl_title" th:if="${strategy.scenicSpot}!=null">
             <span th:each="str,status:${strategy.scenicSpot.split(',')}">
                 <span th:text="${str}"></span>
             </span>
@@ -178,7 +178,7 @@
                     canvas.height = img.height;
                     var ctx = canvas.getContext("2d");
                     ctx.drawImage(img, 0, 0, img.width, img.height);
-                    var ext = '/'+img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+                    var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
                     var dataURL = canvas.toDataURL("image/" + ext);
                     return dataURL;
                 }
@@ -188,7 +188,7 @@
                     if(imgs.length>0){
                         for(var i=0;i<imgs.length;i++){
                             var image = new Image();
-                            image.src = '/'+imgs[i];
+                            image.src = "/"+imgs[i];
                             var bs64 = getBase64(image);
                             doc.addImage(bs64,'JPEG', 10,40,180,180);
                             doc.addPage();
@@ -200,7 +200,6 @@
                 };
             </script>
             <a href="javascript:;" onclick="downLoadPdf()">下载PDF版本</a>
-            <p>文件大小 9.96 MB</p>
         </div>
 
         <div class="down_p down_p1">
@@ -237,7 +236,7 @@
                     if(imgs.length>0){
                         for(var i=0;i<imgs.length;i++){
                             var image = new Image();
-                            image.src = imgs[i];
+                            image.src = "/"+imgs[i];
                             var bs64 = getBase64Image(image);
                             currentZip.file(imgs[i],bs64, {base64: true});
                         }
@@ -251,7 +250,6 @@
 
             </script>
             <a id="downloadJPG" onclick="downloadJPGClick()">下载JPG版本</a>
-            <p>文件大小 18.20 MB</p>
         </div>
 
         <div class="up_time" style="width:220px;margin-left:-30px;">
@@ -266,7 +264,7 @@
             <ul class="scroll-content">
                 <li class="scroll-content-item" th:each="str,status:${strategy.strategyPhoto.split(',')}">
                     <a href="javascript:void(0);" class="on_fous preview_btn" data-paper_num="0">
-                        <img th:src="'/'+${str}" width="138" height="195">
+                        <img th:src="@{'/'+${str}+''}" width="138" height="195">
                         <span>点击<br/>预览</span>
                     </a>
                 </li>
@@ -285,7 +283,7 @@
     <div class="pop_w" style="display:none;">
         <div class="popdiv">
             <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
-                <img th:src="'/'+${str}" th:width="605px" th:height="800px"/>
+                <img th:src="@{'/'+${str}+''}" th:width="605px" th:height="800px"/>
             </p>
             <a style="display: block; position: fixed" href="javascript:;" class="fangda">放大</a>
             <span style="display: block; position: fixed">关闭</span>
@@ -300,7 +298,7 @@
                 <div class="slideLayer">
                     <div class="slideBox">
                         <p th:each="str,status:${strategy.strategyPhoto.split(',')}">
-                            <img th:src="'/'+${str}"/>
+                            <img th:src="@{'/'+${str}+''}"/>
                         </p>
                         <img class="book_paper_img" src="">
                     </div>
@@ -310,6 +308,21 @@
         <a title="缩小" id="mfw_op_minfy_btn" href="javascript:;" class="suoxiao">缩小</a>
         <a title="关闭" id="mfw_op_close_btn" href="javascript:;" style="margin-left: 433px;">关闭</a>
     </div>
+
+    <!-- 其他景点 -->
+    <div th:if="${otherStrategy}!=null" style="overflow: auto;width:100%;height:auto;margin-top:30px;">
+        <h1 style="font-size:130%;font-weight:bold;margin-bottom:10px;">其他攻略</h1>
+        <div th:each="obj,statr:${otherStrategy}" style="float:left;margin-right:20px;">
+            <a th:href="@{'/strategyController/queryCityStrategy?strategyId='+${obj.strategyId}}">
+                <img th:src="@{'/'+${obj.strategyPhoto.split(',')[0]}}" width="150" height="200"/>
+            </a>
+            <div class="down_cout" style="margin-left:8px;">
+                <span></span>
+                <p th:text="${obj.downloadNumber}+'人下载'">219649人下载</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 </div>
 

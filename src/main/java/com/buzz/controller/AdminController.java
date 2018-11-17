@@ -107,6 +107,29 @@ public class AdminController {
     @ResponseBody
     public String logout(){
         SecurityUtils.getSubject().logout(); //调用shiro注销方法
-        return "success";
+        return "ok";
     }
+
+    /**
+     * 后台修改密码
+     * @param oldPwd
+     * @param newPwd
+     * @return
+     */
+    @RequestMapping("/updatePwd")
+    @ResponseBody
+    public String updatePwd(String oldPwd,String newPwd){
+        //1.先获取当前管理员对象
+        String AdName=(String) SecurityUtils.getSubject().getPrincipal();
+        //2.判断参数密码是否正确
+        if(adminService.queryAdmin(AdName,Md5.encrypt(oldPwd))!=null){
+            //3.修改密码
+            Admin admin=adminService.byAdNameQuery(AdName);
+            adminService.byIdUpdatePwd(admin.getId(),Md5.encrypt(newPwd));
+            return "密码修改成功，请重新登录";
+        }else{
+            return "原密码输入错误";
+        }
+    }
+
 }
