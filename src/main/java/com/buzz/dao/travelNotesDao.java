@@ -27,6 +27,14 @@ public interface travelNotesDao
     public List<travelNotes> find_travelNotes_ByuserId(@Param("userId")String userId,@Param("stateIds")String... stateIds);
 
     /**
+     * 根据用户编号获取该用户收藏的游记
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select tn.*,tc.travelCollectionId from travelNotes tn inner join travelCollection tc on tn.travelNotesId=tc.travelNotesId where tc.userId=#{userId} and tn.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<travelNotes> find_travelNotesBytravelCollectionAnduserIdAndstateId(@Param("userId")String userId,@Param("stateIds")String... stateIds);
+    /**
      * 根据游记编号查询游记
      * @param travelNotesId 游记编号
      * @return 游记实体对象
@@ -157,4 +165,13 @@ public interface travelNotesDao
      */
     @Select("select tn.* from travelNotes tn left join(select travelNotesId,count(travelNotesId) as count1 from travelCollection GROUP BY travelNotesId) tc on tc.travelNotesId=tn.travelNotesId where tc.count1=(select count(travelNotesId) from travelCollection GROUP BY travelNotesId ORDER BY count(travelNotesId) desc LIMIT 0,1) LIMIT 0,1")
     public travelNotes find_travelNotesByHot();
+
+    /**
+     * 根据用户获取游记,游记回复,并将游记回复时间,存入游记的发布时间,游记回复内容存入游记内容,游记回复用户存入游记用户
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select tn.travelNotesId,tn.travelNotesheadline,tnr.userId,tnr.replyContent as travelNotesContent,tnr.replyTime as releaseTime from travelNotes tn inner join travelNotesReply tnr on tn.travelNotesId=tnr.travelNotesId where tn.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and tn.userId=#{userId} and tnr.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> order by tnr.replyTime desc</script>"})
+    public List<travelNotes> find_travelNotes_travelNotesReplyByuserIdAndStateId(@Param("userId")String userId,@Param("stateIds")String... stateIds);
 }

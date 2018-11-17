@@ -33,4 +33,12 @@ public interface scenicspotDao {
     @Select("select * from scenicspot where chineseName like concat('%',#{ScenicspotName},'%')")
     public List<scenicspot> byScenicspotNameQuery(@Param("ScenicspotName") String ScenicspotName);
 
+    /**
+     * 根据用户收藏景点编号查询
+     * @param usersId
+     * @param stateId
+     * @return
+     */
+    @Select("select si.*,sc.scenicSpotCollectId from scenicSpot si inner join scenicSpotCollect sc on si.scenicSpotId=sc.scenicSpotId where sc.usersId=#{usersId} and si.stateId=#{stateId}")
+    public List<scenicspot> find_scenicSpotByscenicSpotCollectAndusersId(@Param("usersId") String usersId,@Param("stateId")String stateId);
 }

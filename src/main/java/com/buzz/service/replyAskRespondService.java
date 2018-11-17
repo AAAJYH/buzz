@@ -49,6 +49,42 @@ public class replyAskRespondService
     }
 
     /**
+     * 通过用户编号和状态编号进行分页查询回复问答,回复问答评论数量,点赞数量
+     * @param pageIndex
+     * @param pageSize
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateId(Integer pageIndex,Integer pageSize,String userId,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return replyaskresponddao.find_replyAskRespondByuserIdAndstateId(userId,stateIds);
+    }
+
+    /**
+     * 通过用户编号和状态编号和金牌回答编号查询回复问答,回复问答评论数量,点赞数量
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<replyAskRespond> find_replyAskRespond_optimumAnswerByuserIdAndstateId(Integer pageIndex,Integer pageSize,String userId,String optimumAnswer,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return replyaskresponddao.find_replyAskRespond_optimumAnswerByuserIdAndstateId(userId,optimumAnswer,stateIds);
+    }
+    /**
+     * 通过用户编号和状态编号获取被采纳的答案数量
+     * @param userId
+     * @param optimumAnswer
+     * @param stateIds
+     * @return
+     */
+    public Integer find_replyAskRespond_optimumAnswerNum(String userId,String optimumAnswer,String...stateIds)
+    {
+        return replyaskresponddao.find_replyAskRespond_optimumAnswerNum(userId,optimumAnswer,stateIds);
+    }
+    /**
      * 根据问答编号和状态编号查询回复问答
      * @param askRespondId  问答编号
      * @param stateId 状态编号
@@ -146,5 +182,39 @@ public class replyAskRespondService
     public int update_replyAskRespond_optimumAnswerByreplyAskRespondId(String replyAskRespondId,String optimumAnswer)
     {
         return replyaskresponddao.update_replyAskRespond_optimumAnswerByreplyAskRespondId(replyAskRespondId,optimumAnswer);
+    }
+
+    /**
+     * 通过用户编号分页查询所收藏回复问答
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<replyAskRespond> find_replyAskRespondByreplyAskRespondTopAnduserIdAndstateId(Integer pageIndex,Integer pageSize,String userId,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return replyaskresponddao.find_replyAskRespondByreplyAskRespondTopAnduserIdAndstateId(userId,stateIds);
+    }
+
+    /**
+     * 通过用户编号和状态获取回复问答,当做问答消息
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<replyAskRespond> find_replyAskRespond_Message_askRespondByuserIdAndstateId(String userId,String...stateIds)
+    {
+        return replyaskresponddao.find_replyAskRespond_Message_askRespondByuserIdAndstateId(userId,stateIds);
+    }
+
+    /**
+     * 通过用户编号获取回复回答评论,当做回答评论
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<replyAskRespond> find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId(String userId,String...stateIds)
+    {
+        return replyaskresponddao.find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId(userId,stateIds);
     }
 }

@@ -1,10 +1,7 @@
 package com.buzz.dao;
 
 import com.buzz.entity.travelCollection;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -41,5 +38,13 @@ public interface travelCollectionDao
      * @return
      */
     @Select("select count(travelCollectionId) from travelCollection where travelNotesId=#{travelNotesId}")
-    public Integer find_travelCollectionCountBytravelNotesId(String travelNotesId);
+    public Integer find_travelCollectionCountBytravelNotesId(@Param("travelNotesId") String travelNotesId);
+
+    /**
+     * 根据收藏游记编号删除
+     * @param travelCollectionId
+     * @return
+     */
+    @Delete("delete from travelCollection where travelCollectionId=#{travelCollectionId}")
+    public Integer delete_travelCollectionBytravelCollectionId(@Param("travelCollectionId")String travelCollectionId);
 }

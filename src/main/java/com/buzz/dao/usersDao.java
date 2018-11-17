@@ -98,4 +98,12 @@ public interface usersDao
      */
     @Select("select u.*,(select count(rat.replyAskRespondTopId) from replyAskRespondTop rat left join replyAskRespond rar on rat.replyAskRespondId=rar.replyAskRespondId where rar.userId=u.userId) nums from users u ORDER BY nums desc")
     public List<users> find_user_replyAskRespondTopNum();
+
+    /**
+     * 查询该用户下的游记点赞的用户
+     * @param userId
+     * @return
+     */
+    @Select("select * from users where userId in (SELECT distinct tc.userId FROM travelNotes t INNER join travelCollection tc on t.travelNotesId=tc.travelNotesId where t.userId=#{userId})")
+    public List<users> find_user_travelCollectionuserByuserId(@Param("userId")String userId);
 }

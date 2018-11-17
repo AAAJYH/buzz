@@ -178,13 +178,13 @@
                     <div class="pic">
                         <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" th:title="${obj.chineseName}">
                             <div class="large">
-                                <img th:src="@{'/images/'+${obj.photo.split(',')[0]}+''}" width="380" height="270"/>
+                                <img th:src="@{'/'+${obj.photo.split(',')[0]}+''}" width="380" height="270"/>
                             </div>
                             <div>
-                                <img th:src="@{'/images/'+${obj.photo.split(',')[1]}+''}" width="185" height="130"/>
+                                <img th:src="@{'/'+${obj.photo.split(',')[1]}+''}" width="185" height="130"/>
                             </div>
                             <div>
-                                <img th:src="@{'/images/'+${obj.photo.split(',')[2]}+''}" width="185" height="130"/>
+                                <img th:src="@{'/'+${obj.photo.split(',')[2]}+''}" width="185" height="130"/>
                             </div>
                         </a>
                     </div>

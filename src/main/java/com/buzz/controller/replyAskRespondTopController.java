@@ -51,4 +51,14 @@ public class replyAskRespondTopController
         }
         return map;
     }
+
+    @ResponseBody
+    @RequestMapping("delete_replyAskRespondTopByreplyAskRespondTopId")
+    public boolean delete_replyAskRespondTopByreplyAskRespondTopId(String replyAskRespondTopId)
+    {
+        if(0<replyaskrespondtopservice.delete_replyAskRespondTopByreplyAskRespondTopId(replyAskRespondTopId))
+            return true;
+        else
+            return false;
+    }
 }

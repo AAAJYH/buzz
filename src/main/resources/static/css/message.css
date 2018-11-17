@@ -1,0 +1,188 @@
+@charset "utf-8";
+/* 
+Message
+PM:luosiwei
+UI:ZhangMeng
+CSS:fenghua
+2015.12.08
+*/
+
+.mfw_main {margin:0 auto; width:980px}
+.w1000{width:1000px;}
+.hightlight {color:#ff9d00}
+.gray {color:#aaa}
+.small {font-size:12px}
+
+.mfw_main {padding-bottom:20px}
+h1 {font-size:16px; color:#333; height:50px; line-height:50px; margin-top:10px; font-weight:normal}
+.main {width:100%; overflow:hidden; position:relative; min-height:150px}
+.main .main_left {width:700px; float:left}
+.main .sider {width:280px; position:relative; float:right; min-height:100px}
+.main .sider img {width:280px}
+.main .sider a {width:50px; height:50px; position:absolute; top:0; right:0; z-index:1; text-decoration:none}
+.list {width:700px; letter-spacing:0.5px; min-height:80px; position:relative;}
+.list .first {margin-top:0}
+.msgitem {padding:20px; margin-top:20px; border-radius: 4px; border: 1px solid #e5e5e5; position:relative}
+.bgi {background:url(/images/message/icons3.png) no-repeat}
+.msg_logocnt {float:left; width:48px; height:48px; margin-right:20px; position:relative}
+.msg_logocnt img{border-radius:50%; width:48px; height:48px}
+.mergelogo {background-position:0 0}
+.sysmsglogo {background-position:0 -50px}
+.wendamsglogo{background-position:0 -100px}
+.warninglogo{background-position:0 -150px}
+.wendagoldlogo{background-position:-50px 0;}
+.remindlogo{background-position:-50px -50px;}
+.handlelogo{background-position:-50px -100px;}
+.dotlinelogo{background-position:-50px -150px;}
+.dinglogo{background-position:-50px -200px;}
+.wendalogo{background-position:0 -250px;}
+.wendanewlogo{background-position:-50px -250px;}
+.wendaworldcuplogo{background-position:0 -300px;}
+
+.msg_infocnt {float:left; width:570px}
+.msg_infocnt img{max-width:100%;}
+.msg_infocnt h2, .msg_infocnt .title strong {font-size:14px; color:#666; font-weight:normal;}
+.msg_infocnt h2 .time {float:right;margin-left:20px;}
+.msg_infocnt .content {margin-top: 10px; line-height: 24px;}
+.msg_infocnt .content, .msg_infocnt .content {color: #999; font-size: 14px;}
+.msg_infocnt .content a, .msg_infocnt .content a * {color: #ff9d00; font-weight:normal}
+.msg_closer {width:9px; height:9px; position:absolute; top:23px; right:18px; background-position:left -241px}
+.new_icon {position: absolute; width: 11px; height: 11px; border: 1px solid #FFF; border-radius: 50%; background: #ff624d; right: 0px; top: 0px}
+.msg_infocnt .content a img {display: block}
+.meg_page{text-align:right; width:700px; margin:20px 0 80px 0;}
+.meg_page a{display:inline-block; margin-left:5px; padding:5px 8px; border-radius:4px; color:#646464; text-decoration:none;}
+.meg_page a.on,.meg_page a:hover{background:#ff9d00; color:#FFF;}
+.waiting {cursor:wait}
+h2.merge_content {line-height:48px; width:100%; overflow:hidden}
+.unread_num {color: #FFF; height: 16px; font-size:12px; line-height:16px; border-radius: 4px; display: inline-block; padding: 0 10px; background: #ff9d00; float:right; margin:16px 0 0 10px}
+.merge_item {cursor:pointer}
+.merge_item:hover {border:1px solid #fc9c27; -webkit-box-shadow:0 0 10px rgba(252,156,39,0.5); -moz-box-shadow:0 0 10px rgba(252,156,39,0.5); box-shadow:0 0 10px rgba(252,156,39,0.5);}
+.subtitle {font-size:14px; color:#666}
+.gt {font-size:14px; color:#666}
+.msgitem .merge_sublist {font-size:14px; line-height:1.9; color:#999; float:left; clear:both}
+.msgitem .merge_sublist.more {font-size:16px}
+
+.without_title.msgitem {padding:20px 20px 45px 20px}
+.without_title h2 {position:absolute; left:90px; bottom:15px}
+.without_title h2 .title {display:none}
+.without_title h2 .time{margin-left:0;float:none;}
+
+.merge_cnt .msgitem {border-radius: 0; border-bottom:none; margin-top:0}
+.merge_cnt .msgitem.msgtop {border-radius: 4px 4px 0 0}
+.merge_cnt .msgitem.last {border-radius:0 0 4px 4px; border-bottom:1px solid #e5e5e5}
+.list em {color:#ff9d00; text-decoration:underline; font-style:normal}
+
+/* ask */
+.ico_tips {padding: 0 6px;margin-left: 15px;color: #fff;display: inline-block;background-color: #ffba26;border-radius: 3px;font-size: 12px;font-style: normal;line-height: 16px;position: relative;top: -1px;}
+.get_experience {display: inline;margin-left: 5px;font-size: 14px;color: #ffba26;}
+
+/* user card */
+.card_pop {clear: both;position: absolute;top:-11px; left:-13px; width:276px; height:126px; overflow:hidden; padding: 10px 10px 10px 12px;border: 1px solid #dedede; margin:0; background-color: #fff;z-index: 100;}
+.card_pop a.a_btn {height: 16px;line-height: 16px;padding: 0 5px;background: #92c778;font-size: 11px;color: #fff;overflow: hidden;border-radius: 3px;}
+.card_pop a.a_btn:hover {text-decoration: none;}
+.card_pop a.a_btn i {float: left;display: inline-block;margin-right: 3px;}
+.card_pop dt {margin-bottom: 18px; overflow:hidden}
+.pop_avatar {width: 48px;height: 48px;margin-right: 15px;float: left;position: relative;}
+.pop_avatar .border_left {width: 2px;height: 48px;position: absolute;left: -13px;top: 0;background: #ffc75a;}
+.pop_avatar img {border-radius:50%; }
+.card_pop .i-fengshou {width: 18px;height: 15px;display: block;position: absolute;bottom: -5px;right: -5px;background: url(http://css.mafengwo.net/images/common/fengshou.png) 0 -55px no-repeat;}
+.pop_info {width: 212px;float: left;}
+.pop_info p {margin-bottom: 7px;}
+.pop_info p.no_margin {margin-bottom: 0;}
+.pop_info a {display: inline-block;margin-right: 5px;}
+.pop_info a.name {font-size: 14px;color: #ff8a00;}
+.pop_info a.grade {color: #e30000;}
+.pop_info a.gender,.pop_info a.boy {width: 17px;height: 17px;background:url(/images/post/carte.png) no-repeat 0 0;line-height: 200px;overflow: hidden;vertical-align: middle;}
+.pop_info a.girl {background-position: -18px 0;}
+.pop_info a.vip {width: 23px;height: 9px;background:url(/images/post/carte.png) no-repeat -36px 0;line-height: 0;}
+.card_pop a.att {background: #92c778;}
+.card_pop a.att:hover {background: #77b45a;}
+.card_pop a.att i {width: 8px;height: 8px;background:url(/images/post/carte.png) no-repeat -60px 0;margin-top: 4px;}
+.card_pop a.comm {background: #5ec8e2;}
+.card_pop a.comm:hover {background: #43bedc;}
+.card_pop a.comm i {width: 9px;height: 9px;background: url(/images/post/carte.png) no-repeat -69px 0;margin-top: 4px;}
+
+.card_pop dd {border-top: 1px solid #ececec;}
+.card_pop dd ul {padding: 15px 0;}
+.card_pop dd li {width: 68px;float: left;border-right: 1px solid #ececec;text-align: center;font-size: 14px;}
+.card_pop dd li.last {border-right: none;}
+.card_pop dd li a,.card_pop dd li a:hover {color: #666;}
+.card_pop dd li strong {font-family: verdana,Arial,"Lucida Grande","Microsoft Yahei","Hiragino Sans GB","Hiragino Sans GB W3",SimSun,STHeiti;display: block;margin-top: 5px;}
+
+
+
+
+/* note plugin style */
+/* note */
+.new_notes_list li {overflow:hidden; zoom:1}
+.new_notes_list li .name, .new_notes_list li .title a {overflow: hidden; text-overflow: ellipsis; white-space: nowrap}
+.new_notes_list li .name {width:95px; margin-right:10px; float:left}
+.new_notes_list li .key {float:left}
+.new_notes_list li .title {float:left; width:270px}
+.new_notes_list li .title a {display:block}
+.msg_infocnt .new_notes_list .name img {border-radius:50%; margin-right:3px; display:inline-block}
+
+
+.MMessage {
+  position: absolute;
+  top: 32px;
+  left: 137px;
+  width: 320px;
+  padding: 14px 20px 20px;
+  background-color: #ffffff;
+  border: #d6d6d6 1px solid;
+  z-index: 10;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.MMessage .close {
+  font-size: 14px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  transition: transform .6s ease 0s;
+  -webkit-transition: -webkit-transform 0.6s ease 0s;
+  color: #666;
+  width: 12px;
+  line-height: 12px;
+}
+.MMessage .close:hover {
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  color: #ff7200;
+  text-decoration: none;
+}
+.MMessageTitle {
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+.MMessageTitle strong {
+  font-weight: normal;
+  color: #ff7200;
+  margin: 0 3px;
+}
+.MMessageDetail textarea {
+  padding: 10px 15px;
+  background-color: #efefef;
+  border-style: none;
+  width: 290px;
+  height: 80px;
+  line-height: 22px;
+  font-size: 14px;
+  resize: none;
+  color: #666;
+}
+.MMessageBtn {
+  text-align: right;
+  margin-top: 10px;
+}
+.MMessageBtn a {
+  line-height: 30px;
+  border-radius: 3px;
+}
+.icon-msghoney{display:inline-block;margin:0 5px;width:15px;height:18px;background:url(/images/message/msg-honey.png) no-repeat;vertical-align:middle;position: relative;top: -1px;}
+
+@media (min-resolution:1.25dppx),(-webkit-min-device-pixel-ratio:1.25),(min-device-pixel-ratio:1.25){
+  .bgi{background-image:url(/images/message/icons3@2x.png);background-size:100px auto;}
+  .icon-msghoney{background-position:-9px 0;background-size:25px;}
+}

@@ -32,6 +32,11 @@ public class WebConfig implements WebMvcConfigurer
                 .addPathPatterns("/travelNotesController/insert_travelNotes")
                 .addPathPatterns("/replyAskRespondCommentController/insert_replyAskRespondComment")
                 .addPathPatterns("/replyAskRespondTopController/insert_replyAskRespondTop")
+                .addPathPatterns("/scenicspotCollectController/find_scenicSpotCollectByuserIds")
+                .addPathPatterns("/hotelController/find_hotelOrdersByuserIdAndstateId")
+                .addPathPatterns("/replyAskRespondController/find_replyAskRespond_Message_askRespondByuserIdAndstateId")
+                .addPathPatterns("/replyAskRespondController/find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId")
+                .addPathPatterns("/travelNotesController/find_travelNotes_travelNotesReplyByuserIdAndStateId")
                 .addPathPatterns("/travelNotesReplyController/insert_travelNotesReply");
     }
 }

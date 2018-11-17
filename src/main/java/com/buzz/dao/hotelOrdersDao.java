@@ -30,4 +30,12 @@ public interface hotelOrdersDao {
     @Update("update hotelorders set state=#{s} where orderId=#{h}")
     public int byHotelOrderIdUpdateState(@Param("h") String hotelOrderId,@Param("s") String state);
 
+    /**
+     * 通过用户编号和状态查询
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from hotelOrders where state in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and userId=#{userId}</script>"})
+    public List<hotelorders> find_hotelOrdersByuserIdAndstateId(@Param("userId")String userId,@Param("stateIds")String...stateIds);
 }

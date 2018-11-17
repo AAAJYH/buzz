@@ -40,4 +40,14 @@ public class scenicspotService {
         return scenicspotDao.byScenicspotNameQuery(ScenicspotName);
     }
 
+    /**
+     * 根据用户收藏景点编号查询
+     * @param usersId
+     * @param stateId
+     * @return
+     */
+    public List<scenicspot> find_scenicSpotByscenicSpotCollectAndusersId(String usersId,String stateId)
+    {
+        return scenicspotDao.find_scenicSpotByscenicSpotCollectAndusersId(usersId,stateId);
+    }
 }

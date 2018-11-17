@@ -42,5 +42,15 @@ public class hotelOrdersService {
         return hotelOrdersDao.byHotelOrderIdUpdateState(hotelOrderId,state);
     }
 
+    /**
+     * 通过用户编号和状态查询
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<hotelorders> find_hotelOrdersByuserIdAndstateId(String userId,String...stateIds)
+    {
+        return hotelOrdersDao.find_hotelOrdersByuserIdAndstateId(userId,stateIds);
+    }
 
 }

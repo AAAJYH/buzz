@@ -1,10 +1,7 @@
 package com.buzz.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.buzz.entity.travelNotes;
-import com.buzz.entity.travelNotesContent;
-import com.buzz.entity.travelNotesReply;
-import com.buzz.entity.users;
+import com.buzz.entity.*;
 import com.buzz.service.*;
 import com.buzz.utils.Encryption;
 import org.springframework.stereotype.Controller;
@@ -25,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +38,8 @@ public class travelNotesController {
     private cityService cityservice;
     @Resource
     private travelCollectionService travelcollectionservice;
+    @Resource
+    private travelNotesReplyService travelnotesreplyservice;
     /**
      * 根据用户编号和状态查询游记
      *
@@ -52,7 +52,6 @@ public class travelNotesController {
         users user = (users) session.getAttribute("user");
         return travelnotesservice.find_travelNotes_ByuserId(user.getUserId(), "aa093f4b-1c4c-4f4f-8626-87d51c50d58b");
     }
-
     //根据游记编号显示游记信息
     @RequestMapping("find_travelNotes_travelNotesId")
     public String find_travelNotes_travelNotesId(String travelNotesId, Model model) throws IOException {
@@ -631,6 +630,76 @@ public class travelNotesController {
         }
         return list;
     }
+
+    /**
+     * 查过用户编号查询所属游记,赞游记用户,游记评论
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("load_travelNotes_travelNotesReplyByuserId")
+    public Map<String,Object> load_travelNotesByuserId(String userId)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        List<travelNotes> travelNotes=travelnotesservice.find_travelNotes_ByuserId(userId,"b45b8bd7-4ce2-407a-9622-3040573f6710","30d3e6ed-f7b4-43cd-95e5-5ac428f15245");
+        if(null!=travelNotes&&0<travelNotes.size())
+        {
+            List<travelNotesReply>travelNotesReplys=new ArrayList<travelNotesReply>();
+            for(travelNotes t:travelNotes)
+            {
+                if(null!=t&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                List travelNotesReplylist=travelnotesreplyservice.find_travelNotesReplyBytravelNotesIdAndstateIdNoPage(t.getTravelNotesId(),"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+                if(null!=travelNotesReplylist&&0<travelNotesReplylist.size())
+                    travelNotesReplys.addAll(travelNotesReplylist);
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+            map.put("travelNotes",travelNotes);
+            if(null!=travelNotesReplys&&0<travelNotesReplys.size())
+            {
+                for(travelNotesReply tnr:travelNotesReplys)
+                    tnr.setUser(usersservice.find_userByuseruserId(tnr.getUserId()));
+            }
+            map.put("travelNotesReplys",travelNotesReplys);
+            map.put("travelCollectionUsers",usersservice.find_user_travelCollectionuserByuserId(userId));
+        }
+        return map;
+    }
+
+    /**
+     * 根据用户编号获取该用户收藏的游记
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotesBytravelCollectionAnduserIdAndstateId")
+    public Map<String,Object> find_travelNotesBytravelCollectionAnduserIdAndstateId(String userId)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        List<travelNotes> travelNotes=travelnotesservice.find_travelNotesBytravelCollectionAnduserIdAndstateId(userId,"b45b8bd7-4ce2-407a-9622-3040573f6710","30d3e6ed-f7b4-43cd-95e5-5ac428f15245");
+        if(null!=travelNotes&&0<travelNotes.size())
+        {
+            List<travelNotesReply>travelNotesReplys=new ArrayList<travelNotesReply>();
+            for(travelNotes t:travelNotes)
+            {
+                if(null!=t&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                List travelNotesReplylist=travelnotesreplyservice.find_travelNotesReplyBytravelNotesIdAndstateIdNoPage(t.getTravelNotesId(),"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+                if(null!=travelNotesReplylist&&0<travelNotesReplylist.size())
+                    travelNotesReplys.addAll(travelNotesReplylist);
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+            map.put("travelNotes",travelNotes);
+            if(null!=travelNotesReplys&&0<travelNotesReplys.size())
+            {
+                for(travelNotesReply tnr:travelNotesReplys)
+                    tnr.setUser(usersservice.find_userByuseruserId(tnr.getUserId()));
+            }
+            map.put("travelNotesReplys",travelNotesReplys);
+            map.put("travelCollectionUsers",usersservice.find_user_travelCollectionuserByuserId(userId));
+        }
+        return map;
+    }
     @ResponseBody
     @RequestMapping("load_travelNotesBypageIndexAndcityId")
     public Map<String,Object> load_travelNotesBypageIndexAndcityId(Integer pageIndex,String cityId) throws IOException {
@@ -729,5 +798,28 @@ public class travelNotesController {
             }
         }
         return t;
+    }
+
+    /**
+     * 根据用户获取游记,游记回复,并将游记回复时间,存入游记的发布时间,游记回复内容存入游记内容,游记回复用户存入游记用户
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotes_travelNotesReplyByuserIdAndStateId")
+    public Map<String,Object> find_travelNotes_travelNotesReplyByuserIdAndStateId(HttpSession session)
+    {
+        String [] stateIds={"b45b8bd7-4ce2-407a-9622-3040573f6710","30d3e6ed-f7b4-43cd-95e5-5ac428f15245","0ee26211-3ae8-48b7-973f-8488bfe837d6"};
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user= (users) session.getAttribute("user");
+        map.put("currentUser",user);
+        List<travelNotes> travelNotes=travelnotesservice.find_travelNotes_travelNotesReplyByuserIdAndStateId(user.getUserId(),stateIds);
+        if(null!=travelNotes&&0<travelNotes.size())
+        {
+            for(travelNotes t:travelNotes)
+                t.setUser(usersservice.find_userByuseruserId(t.getUserId()));
+        }
+        map.put("travelNotes",travelNotes);
+        return map;
     }
 }

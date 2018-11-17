@@ -42,6 +42,16 @@ public class travelNotesService {
     }
 
     /**
+     * 根据用户编号获取该用户收藏的游记
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<travelNotes> find_travelNotesBytravelCollectionAnduserIdAndstateId(String userId,String... stateIds)
+    {
+        return travelnotesdao.find_travelNotesBytravelCollectionAnduserIdAndstateId(userId,stateIds);
+    }
+    /**
      * 根据游记编号查询游记
      *
      * @param travelNotesId 游记编号
@@ -234,5 +244,16 @@ public class travelNotesService {
     public travelNotes find_travelNotesByHot()
     {
         return travelnotesdao.find_travelNotesByHot();
+    }
+
+    /**
+     * 根据用户获取游记,游记回复,并将游记回复时间,存入游记的发布时间,游记回复内容存入游记内容,游记回复用户存入游记用户
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<travelNotes> find_travelNotes_travelNotesReplyByuserIdAndStateId(String userId,String... stateIds)
+    {
+        return travelnotesdao.find_travelNotes_travelNotesReplyByuserIdAndStateId(userId,stateIds);
     }
 }

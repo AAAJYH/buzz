@@ -25,4 +25,6 @@ public class replyAskRespond
     private String optimumAnswer;
     private String stateId;
     private Integer replyAskRespondTopNum;//点赞数量不存在数据库
+    private Integer replyAskRespondCommentNum;//回复评论数量不存在数据库
+    private String replyAskRespondTopId;//收藏回复问答编号,不存在数据库
 }

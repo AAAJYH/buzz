@@ -105,7 +105,7 @@ public class askRespondController {
     @RequestMapping("update_askRespondDetailByaskRespondId")
     public Map<String, Object> update_askRespondDetailByaskRespondId(String askRespondId, String askRespondDetail) throws IOException {
         Map<String, Object> map = new HashMap<String, Object>();
-        askRespond ask = askrespondservice.find_askRespondByaskRespondId(askRespondId);
+        askRespond ask = askrespondservice.find_askRespondByaskRespondId(askRespondId,"0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af");
         if (null != ask) {
             if (ask.getStateId().equals("0ee26211-3ae8-48b7-973f-8488bfe837d6")) {
                 String path = ResourceUtils.getURL("src/main/resources/static").getPath();
@@ -153,7 +153,7 @@ public class askRespondController {
     @RequestMapping("delete_askRespondByaskRespondId")
     public Map<String, Object> delete_askRespondByaskRespondId(String askRespondId) throws FileNotFoundException {
         Map<String, Object> map = new HashMap<String, Object>();
-        askRespond ask = askrespondservice.find_askRespondByaskRespondId(askRespondId);
+        askRespond ask = askrespondservice.find_askRespondByaskRespondId(askRespondId,"0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af");
         if (null != ask) {
             try {
                 if (ask.getStateId().equals("0ee26211-3ae8-48b7-973f-8488bfe837d6")) {
@@ -425,6 +425,88 @@ public class askRespondController {
         }
         map.put("askResponds",askrespondservice.load_TopreplyAskRespond(list));
         map.put("currentIndex",pageIndex);
+        return map;
+    }
+
+    /**
+     * 根据用户和状态分页查询问答
+     * @param userId
+     * @param pageIndex
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_askRespondByuserIdAndstateIdAndPage")
+    public Map<String,Object> find_askRespondByuserIdAndstateIdAndPage(String userId,Integer pageIndex)
+    {
+        Integer pageSize=10;
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("currentIndex",pageIndex);
+        String [] stateIds={"0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
+        Integer replyAskRespondsNum=replyaskrespondservice.find_replyAskRespondCountByuserIdAndStateId(userId,stateIds);
+        Integer optimumAnswerNum=replyaskrespondservice.find_replyAskRespond_optimumAnswerNum(userId,"true",stateIds);
+        map.put("replyAskRespondsNum",replyAskRespondsNum);
+        map.put("optimumAnswerNum",optimumAnswerNum);
+        float cainalv=(float)optimumAnswerNum/replyAskRespondsNum*100;
+        map.put("cainalv",cainalv);
+        List<askRespond> askResponds=askrespondservice.find_askRespondByuserIdAndstateId(pageIndex,pageSize,userId,stateIds);
+        Integer askRespondNum=askrespondservice.find_askRespond_CountByuserIdAndstateId(userId,stateIds);
+        map.put("askRespondNum",askRespondNum);
+        if(null!=askResponds&&0<askResponds.size())
+        {
+            for(askRespond a:askResponds)
+            {
+                if(null!=a.getCityId()&&!"".equals(a.getCityId()))
+                    a.setCity(cityservice.byCityIdQuery(a.getCityId()));
+            }
+            map.put("askResponds",askResponds);
+        }
+        Integer pages=0;
+        if(askRespondNum%pageSize>0)
+            pages=askRespondNum/pageSize+1;
+        else
+            pages=askRespondNum/pageSize;
+        map.put("pages",pages);
+        return map;
+    }
+
+    /**
+     * 查询所有问答
+     * @param userId
+     * @param pageIndex
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_askRespond_AllBystateId")
+    public Map<String,Object> find_askRespond_AllBystateId(String userId,Integer pageIndex)
+    {
+        Integer pageSize=10;
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("currentIndex",pageIndex);
+        String [] stateIds={"0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
+        Integer replyAskRespondsNum=replyaskrespondservice.find_replyAskRespondCountByuserIdAndStateId(userId,stateIds);
+        Integer optimumAnswerNum=replyaskrespondservice.find_replyAskRespond_optimumAnswerNum(userId,"true",stateIds);
+        map.put("replyAskRespondsNum",replyAskRespondsNum);
+        map.put("optimumAnswerNum",optimumAnswerNum);
+        float cainalv=(float)optimumAnswerNum/replyAskRespondsNum*100;
+        map.put("cainalv",cainalv);
+        List<askRespond> askResponds=askrespondservice.find_askRespond_replyAskRespondNumBystateId(pageIndex,pageSize,stateIds);
+        Integer askRespondNum=askrespondservice.find_askRespond_countBystateId(stateIds);
+        map.put("askRespondNum",askRespondNum);
+        if(null!=askResponds&&0<askResponds.size())
+        {
+            for(askRespond a:askResponds)
+            {
+                if(null!=a.getCityId()&&!"".equals(a.getCityId()))
+                    a.setCity(cityservice.byCityIdQuery(a.getCityId()));
+            }
+            map.put("askResponds",askResponds);
+        }
+        Integer pages=0;
+        if(askRespondNum%pageSize>0)
+            pages=askRespondNum/pageSize+1;
+        else
+            pages=askRespondNum/pageSize;
+        map.put("pages",pages);
         return map;
     }
 }

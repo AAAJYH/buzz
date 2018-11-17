@@ -13,7 +13,7 @@ public interface askRespondDao
      * @param a
      * @return
      */
-    @Insert({"<script>insert into askRespond(askRespondId,askRespondTitle,askRespondDetail<if test='null!=interestLabelId'>,interestLabelId</if><if test='null!=cityId'>,cityId</if>,userId,stateId) values(#{askRespondId},#{askRespondTitle},#{askRespondDetail}<if test='null!=interestLabelId'>,#{interestLabelId}</if><if test='null!=cityId'>,#{cityId}</if>,#{userId},#{stateId})</script>"})
+    @Insert({"<script>insert into askRespond(askRespondId,askRespondTitle,askRespondDetail<if test=\"null!=interestLabelId and ''!=interestLabelId\">,interestLabelId</if><if test=\"null!=cityId and ''!=cityId\">,cityId</if>,userId,stateId) values(#{askRespondId},#{askRespondTitle},#{askRespondDetail}<if test=\"null!=interestLabelId and ''!=interestLabelId\">,#{interestLabelId}</if><if test=\"null!=cityId and ''!=cityId\">,#{cityId}</if>,#{userId},#{stateId})</script>"})
     public int insert_askRespond(askRespond a);
 
     /**
@@ -21,7 +21,7 @@ public interface askRespondDao
      * @param askRespondId
      * @return
      */
-    @Select({"<script>select * from askRespond where askRespondId=#{askRespondId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    @Select({"<script>select * from askRespond where askRespondId=#{askRespondId} <if test=\"null!=stateIds\">and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></if></script>"})
     public askRespond find_askRespondByaskRespondId(@Param("askRespondId") String askRespondId,@Param("stateIds")String...stateIds);
 
     /**
@@ -93,4 +93,40 @@ public interface askRespondDao
      */
     @Select({"<script>select * from askRespond where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
     public List<askRespond> find_askRespondBystateId(@Param("stateIds") String... stateIds);
+
+    /**
+     * 通过用户和状态查询问答和回复问答数量
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select ask.*,(select count(rak.replyAskRespondId) from replyAskRespond rak where rak.askRespondId=ask.askRespondId) replyAskRespondNum from askRespond ask where ask.userId=#{userId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondByuserIdAndstateId(@Param("userId")String userId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 通过用户和状态查询问答数量
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select count(askRespondId) from askRespond where userId=#{userId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public Integer find_askRespond_CountByuserIdAndstateId(@Param("userId")String userId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 通过状态查询问答和回复问答数量
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select ask.*,(select count(rak.replyAskRespondId) from replyAskRespond rak where rak.askRespondId=ask.askRespondId) replyAskRespondNum from askRespond ask where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespond_replyAskRespondNumBystateId(@Param("stateIds")String...stateIds);
+
+    /**
+     * 查询所有问答数量
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select count(askRespondId) from askRespond where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public Integer find_askRespond_countBystateId(@Param("stateIds")String...stateIds);
+
+
 }

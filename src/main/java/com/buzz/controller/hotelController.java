@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: aaaJYH
@@ -188,4 +187,48 @@ public class hotelController {
         return rs;
     }
 
+    /**
+     * 通过用户编号和状态查询酒店订单
+     * @param session
+     * @param stateIds
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_hotelOrdersByuserIdAndstateId")
+    public Map<String,Object> find_hotelOrdersByuserIdAndstateId(HttpSession session,String stateIds)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user= (users) session.getAttribute("user");
+        List<hotelorders> hotelOrders=new ArrayList<hotelorders>();
+        if(null==stateIds||"".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已付款","未付款","超时未支付");
+        else if("48d4c6ab-9b7b-4d95-b1ee-e26ee58c2550".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已付款");
+        else if("be6f2782-0c94-436b-91fe-3a7cf3b37bcc".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"未付款");
+        else if("7a0dbb86-2325-4ff1-9e79-0e4321354ee2".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"超时未支付");
+        map.put("user",user);
+        map.put("hotelOrders",hotelOrders);
+        return map;
+    }
+
+    @RequestMapping("HotelOrderPaymentIndexByhotelOrderId")
+    public String HotelOrderPaymentIndex(String hotelOrderId,Model model)
+    {
+        //根据订单id查询订单保存request中
+        hotelorders hotelorders=hotelOrdersService.byHotelOrderIdQuery(hotelOrderId);
+        model.addAttribute("hotelOrder",hotelorders);
+        if(hotelorders.getState().equals("待支付")){
+            Timestamp orderDate=hotelorders.getSubTime();
+            Long orderTime=orderDate.getTime()+1*60*1000;
+            Long currentTime=System.currentTimeMillis();
+            int sumSecond= (int) ((orderTime-currentTime)/1000);
+            int fen= sumSecond/60;
+            int miao=sumSecond-fen*60;
+            model.addAttribute("fen",fen);
+            model.addAttribute("miao",miao);
+        }
+        return "front_desk/HotelOrderPayment";
+    }
 }

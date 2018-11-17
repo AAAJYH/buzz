@@ -541,4 +541,11 @@ public class usersController {
     {
         return usersservice.find_user_replyAskRespondTopNum(1);
     }
+
+    @ResponseBody
+    @RequestMapping("find_usersByuserId")
+    public users find_usersByuserId(String userId)
+    {
+        return usersservice.find_userByuseruserId(userId);
+    }
 }

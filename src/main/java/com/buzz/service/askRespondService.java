@@ -189,4 +189,47 @@ public class askRespondService {
         }
         return list;
     }
+
+    /**
+     * 通过用户和状态查询问答和回复问答数量
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<askRespond> find_askRespondByuserIdAndstateId(Integer pageIndex,Integer pageSize,String userId,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return askresponddao.find_askRespondByuserIdAndstateId(userId,stateIds);
+    }
+
+    /**
+     * 通过用户和状态查询问答数量
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public Integer find_askRespond_CountByuserIdAndstateId(String userId,String...stateIds)
+    {
+        return askresponddao.find_askRespond_CountByuserIdAndstateId(userId,stateIds);
+    }
+
+    /**
+     * 通过状态查询问答和回复问答数量
+     * @param stateIds
+     * @return
+     */
+    public List<askRespond> find_askRespond_replyAskRespondNumBystateId(Integer pageIndex,Integer pageSize,String...stateIds)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return askresponddao.find_askRespond_replyAskRespondNumBystateId(stateIds);
+    }
+    /**
+     * 查询所有问答数量
+     * @param stateIds
+     * @return
+     */
+    public Integer find_askRespond_countBystateId(String...stateIds)
+    {
+        return askresponddao.find_askRespond_countBystateId(stateIds);
+    }
 }

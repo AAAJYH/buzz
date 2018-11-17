@@ -120,4 +120,14 @@ public class usersService {
         PageHelper.startPage(pageIndex, 10);
         return userdao.find_user_replyAskRespondTopNum();
     }
+
+    /**
+     * 查询该用户下的游记点赞的用户
+     * @param userId
+     * @return
+     */
+    public List<users> find_user_travelCollectionuserByuserId(String userId)
+    {
+        return userdao.find_user_travelCollectionuserByuserId(userId);
+    }
 }
