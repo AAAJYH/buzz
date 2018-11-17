@@ -24,8 +24,8 @@ public class LogService {
 
     //添加日志
     @Transactional
-    public int addLog(String logId,String requestUrl,String requestType,long TotalTime,String ip,Timestamp createSubtime,String requestParam){
-        return logDao.addLog( logId, requestUrl, requestType, TotalTime, ip, createSubtime,requestParam);
+    public int addLog(String logId,String requestUrl,String requestType,long TotalTime,String ip,Timestamp createSubtime){
+        return logDao.addLog( logId, requestUrl, requestType, TotalTime, ip, createSubtime);
     }
 
     //查询全部日志

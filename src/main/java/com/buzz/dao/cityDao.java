@@ -1,11 +1,7 @@
 package com.buzz.dao;
 
 import com.buzz.entity.city;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
 import java.util.List;

@@ -313,12 +313,12 @@
                         {
                             var td_statusHtml="";
                             var td_operateHtml="";
-                            if(data.hotelOrders[i].state=="已付款")
+                            if(data.hotelOrders[i].state=="已支付")
                             {
                                 td_statusHtml="<td class='td-status'><p class='s4'>已支付</p></td>";
                                 td_operateHtml="<td class='td-operate'><a href='hotelController/HotelOrderPaymentIndexByhotelOrderId?hotelOrderId="+data.hotelOrders[i].orderId+"' target='_blank'>查看订单</a></td>";
                             }
-                            else if(data.hotelOrders[i].state=="未付款")
+                            else if(data.hotelOrders[i].state=="待支付")
                             {
                                 td_statusHtml="<td class='td-status'><p class='s4'>待支付</p></td>";
                                 td_operateHtml="<td class='td-operate'><a href='hotelController/HotelOrderPaymentIndexByhotelOrderId?hotelOrderId="+data.hotelOrders[i].orderId+"' target='_blank'>查看订单</a><a class='btn' href='hotelController/HotelOrderPaymentIndexByhotelOrderId?hotelOrderId="+data.hotelOrders[i].orderId+"' target='_blank'>去支付</a></td>";

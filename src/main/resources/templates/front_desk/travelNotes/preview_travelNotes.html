@@ -193,8 +193,8 @@
     <div class="view_title clearfix">
         <div class="vt_center">
             <div class="person">
-                <a href="usersController/login_user" target="_blank" class="per_pic"><img src="" /></a>
-                <strong><a href="usersController/login_user" target="_blank" class="per_name"></a></strong>
+                <a target="_blank" class="per_pic"><img src="" /></a>
+                <strong><a target="_blank" class="per_name"></a></strong>
                 <div class="vc_time">
                     <span class="time"></span>
                 </div>
@@ -363,6 +363,8 @@
                             $(".set_index").html("<div class='set_bg _j_load_cover' style='z-index: 1;opacity: 1;background-image: url("+data.travelNotesheadPhoto+");'><img src='"+data.travelNotesheadPhoto+"' style='display: none'></div><div class='_j_titlebg'><div class='title_bg'></div><div class='view_info' data-length='0'><div class='vi_con'><h1 data-length='0' class='headtext lh80'></h1></div></div></div>");
                         }
                         $("title").text(data.travelNotesheadline);
+                        $(".per_pic").attr("href","front_desk/users/personalSpace.html?userId="+data.user.userId);
+                        $(".per_name").attr("href","front_desk/users/personalSpace.html?userId="+data.user.userId);
                         $(".per_pic").children("img").prop("src",data.user.photo);
                         var per_name=data.user.userName;
                         if(null!=data.user.address&&data.user.address.length>0)

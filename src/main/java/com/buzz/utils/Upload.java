@@ -1,8 +1,8 @@
 package com.buzz.utils;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.ArrayUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
