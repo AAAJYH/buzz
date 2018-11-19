@@ -65,7 +65,24 @@
                 },
                 data:[[${mapList}]]
             }
-        ]
+        ],
+        toolbox:{ //保存图片属性配置
+            feature:{
+                saveAsImage:{
+                    type:'png',
+                    name:'攻略下载次数',
+                    backgroundColor:'auto',
+                    show:true,
+                    title:'保存为  图片',
+                    backgroundColor:'white',
+                    iconStyle:{ //下载图标样式
+                        textPosition:'left',
+                    }
+                }
+            },
+            right:25,
+            top:10
+        }
     };
     ;
     if (option && typeof option === "object") {

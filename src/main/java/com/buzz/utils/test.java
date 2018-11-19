@@ -5,6 +5,7 @@ import com.buzz.entity.users;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import javax.swing.filechooser.FileSystemView;
@@ -190,7 +191,11 @@ public class test<T> {
         test<Log> t=new test();
         System.out.println(t.getAuth(clientId, clientSecret));
     }
-
+        @Test
+    public void aaa(){
+            Md5Hash m=new Md5Hash("admin1");
+            System.out.println(m);
+}
 
 
 }

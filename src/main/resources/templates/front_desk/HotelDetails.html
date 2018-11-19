@@ -289,10 +289,10 @@
     <div class="top-info clearfix" id="_j_crumb">
 
         <!-- 旅游攻略 > 云南 > 丽江-->
-        <div class="crumb">
+        <div class="crumb" th:if="${application.city}!=null">
             <div class="item">酒店<em>&gt;</em></div>
-            <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
-            <div class="item cur" th:text="${application.city.cityName+'酒店详情'}">北京酒店详情</div>
+            <div class="item"><span th:text="${application.city.cityName}" >北京</span><em>&gt;</em></div>
+            <div class="item cur" th:text="${application.city.cityName+'酒店详情'}" >北京酒店详情</div>
         </div>
 
         <!-- 收藏 -->

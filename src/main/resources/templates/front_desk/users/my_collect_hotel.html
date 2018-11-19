@@ -99,6 +99,8 @@
 </div>
 <div class="wrapper">
     <div class="home-extra">
+
+        <!--菜单栏-->
         <div class='s-menu'>
             <ul class='clearfix'>
                 <li class='on'><a>我的收藏<i></i></a></li>
@@ -107,14 +109,80 @@
         </div>
         <div class='s_title'>
             <ul>
-                <li class='s_curr'>
+                <li>
                     <a href='front_desk/users/my_collect_scenicSpotCollect.html'>景点收藏</a>
                 </li>
-                <li><a href='front_desk/users/my_collect_hotel.html'>酒店收藏</a></li>
+                <li class='s_curr'><a href='front_desk/users/my_collect_hotel.html'>酒店收藏</a></li>
             </ul>
         </div>
+        <!--菜单栏-->
+
+        <!--收藏酒店信息-->
+        <style type="text/css">
+            .hotel-collect{
+                width:94%;
+                padding:5px;
+                margin-left:4%;
+            }
+            .hotel-collect .b-hotel{
+                width:100%;
+                overflow: auto;
+            }
+            .hotel-collect .b-hotel li{
+                width:275px;
+                height:170px;
+                float:left;
+                margin-right:20px;
+                padding-bottom:0px;
+            }
+            ._j_hotel_item .info{
+                width:fit-content;
+                width:-moz-fit-content;
+                position:relative;
+                height:auto;
+                top:-40px;
+                left:10px;
+                color:white;
+            }
+            .info h2{
+                font-size:130%;
+                font-weight:300;
+            }
+            ._j_hotel_item .cityName{
+                width:fit-content;
+                width:-moz-fit-content;
+                height:18px;
+                padding:5px;
+                color:white;
+                text-align: center;
+                background:#4EADF2;
+                position:relative;
+                top:-205px;
+            }
+            .cancel{
+                width:30px;
+                height:30px;
+                position:relative;
+                top:-230px;
+                left:250px;
+                display:none;
+            }
+            .cancel:hover{
+                cursor:pointer;
+            }
+        </style>
+        <div class="hotel-collect">
+                <ul class="b-hotel" id="_j_hotel_list" >
+                    <!--收藏酒店信息-->
+                </ul>
+        </div>
+        <!--收藏酒店信息-->
+
     </div>
+
 </div>
+
+<!--页脚-->
 <div class="home_footer">
     <div class="copyright">&copy; 2018 mafengwo.cn, all rights reserved</div>
     <div class="hf_nav">
@@ -126,10 +194,7 @@
         <a href="/s/private.html">隐私原则</a>
     </div>
 </div>
-
-
 <link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
-
 <div class="mfw-toolbar" id="_j_mfwtoolbar">
     <div class="toolbar-item-top">
         <a role="button" class="btn _j_gotop">
@@ -160,116 +225,87 @@
     </div>
 </div>
 <script>
-    $().ready(
-        function()
-        {
-            find_scenicSpotCollectByuserIds();
-        }
-    );
-    function find_scenicSpotCollectByuserIds()
-    {
-        $.ajax({
-            url:"scenicspotCollectController/find_scenicSpotCollectByuserIds",
-            dataType:"json",
-            type:"post",
-            success:function(data)
-            {
-                if(null!=data)
-                {
-                    $(".MAvaImg img").attr("src",data.user.photo);
-                    $(".MAvaName").text(data.user.userName);
-                    var titleBarHtml="";
-                    var userId=data.user.userId;
-                    titleBarHtml+="<li><a class='tags_link' href='front_desk/users/personalSpace.html?userId="+userId+"' title='我的窝'>我的窝</a></li>";
-                    titleBarHtml+="<li><a class='tags_link' href='front_desk/users/travelNotes.html?userId=" + userId + "'>我的游记</a></li>";
-                    titleBarHtml += "<li><a class='tags_link' href='front_desk/users/my_travelCollection.html?userId="+userId+"' title='游记收藏'>游记收藏</a></li>";
-                    titleBarHtml+="<li><a class='tags_link' href='front_desk/users/my_replyAskRespond.html?userId="+userId+"' title='我的问答'>我的问答</a></li>";
-                    titleBarHtml+="<li><a class='tags_link' href='front_desk/travelNotes/createNoteIndex.html' title='写游记'>写游记</a></li>";
-                    titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
-                    titleBarHtml+="<li class='more '><span class='tags_link' role='button' title='更多' style='cursor:default'>更多<i class='MDownMore'></i></span><div class='tags_more_list'><ul><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏'><i class='ico_collect'></i><span>我的收藏</span></a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单'><i class='ico_order'></i><span>我的订单</span></a></li></ul></div></li>";
-                    $("#titleBar").html(titleBarHtml);
-                    var p_countrysHtml="<div class='s-menu'><ul class='clearfix'><li class='on'><a>我的收藏<i></i></a></li><li><a href='front_desk/users/my_orderForm.html'>我的订单<i></i></a></li></ul></div><div class='s_title'><ul><li  class='s_curr'><a href='front_desk/users/my_collect_scenicSpotCollect.html'>景点收藏</a></li><li><a href='front_desk/users/my_collect_hotel.html'>酒店收藏</a></li></ul></div>";
-                    if(null!=data.scenicSpots&&0<data.scenicSpots.length)
-                    {
-                        for(var i=0;i<data.scenicSpots.length;i++)
-                        {
-                            var photo=data.scenicSpots[i].photo.split(",");
-                            var synopsis=data.scenicSpots[i].synopsis;
-                            if(null!=synopsis&&synopsis.length>70)
-                                synopsis=synopsis.substring(0,70)+"...";
 
-                            var p_item_poiHtml="";
-                            if(null!=photo&&0<photo.length)
-                            {
-                                p_item_poiHtml+="<div class='p-nav clearfix' style='margin-top:20px;'><a class='on'><i class='p-icon-hotel'></i>图片</a></div><ul class='p-poi clearfix'>";
-                                for(var s=0;s<photo.length;s++)
-                                {
-                                    p_item_poiHtml+="<li><a href='scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+data.scenicSpots[i].scenicSpotId+"' target='_blank'><div class='img' style='height: 160px;'><img src='"+photo[s]+"' width='162' height='162'></div></a></li>";
-                                }
-                                p_item_poiHtml+="</ul></div>";
-                            }
-                            else
-                                photo=["images/home_new2015/default.jpg"];
-                            p_countrysHtml+="<div class='p-country'><div class='p-hd'>"+data.scenicSpots[i].city.cityName+"</div><div class='p-item'><div class='p-item-main clearfix'><div class='p-toggle'><a class='btn-toggle' onclick='conceal_photo(this)'><span>收起</span><i class='arr-up'></i></a></div><div class='p-content'><div class='img'><a href='scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+data.scenicSpots[i].scenicSpotId+"' target='_blank'><img src='"+photo[i]+"' width='140' height='90'></a></div><div class='p-title'><a href='scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+data.scenicSpots[i].scenicSpotId+"' target='_blank'><strong>"+data.scenicSpots[i].chineseName+"</strong></a><span class='en'>"+data.scenicSpots[i].englishName+"</span><span class='s-pull'><a data-scenicSpotCollectId='"+data.scenicSpots[i].scenicSpotCollectId+"' onclick='cancel_scenicSpotCollect(this)'>取消收藏</a></span></div><p class='favtip'></p><p class='summary'>"+synopsis+"</p></div></div>"+p_item_poiHtml+"</div></div>";
-                        }
-                    }
-                    $(".home-extra").html(p_countrysHtml);
-                }
-            }
-        });
-    }
-    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
-    $.ajaxSetup({
-        //设置ajax请求结束后的执行动作
-        complete :
-            function(XMLHttpRequest, textStatus) {
-                // 通过XMLHttpRequest取得响应头，sessionstatus
-                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-                if (sessionstatus == "TIMEOUT") {
-                    var win = window;
-                    while (win != win.top){
-                        win = win.top;
-                    }
-                    var currentHref=win.location.href;
-                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
-                }
-            }
-    });
-    //取消收藏
-    function cancel_scenicSpotCollect(obj)
-    {
-        var scenicSpotCollectId=$(obj).attr("data-scenicSpotCollectId");
+    function load(){
+
+        //ajax加载收藏酒店
         $.ajax({
-            url:"scenicspotCollectController/delete_scenicSpotCollectByscenicSpotCollectId",
-            dataType:"json",
-            type:"post",
-            data:{scenicSpotCollectId:scenicSpotCollectId},
-            success:function(data)
-            {
-                if(data)
-                   find_scenicSpotCollectByuserIds();
+            url:'/hotelCollectController/byUseridQuery',
+            type:'post',
+            async:false,
+            dataType:'json',
+            success:function(data){
+                if(data!=null){
+                    $("#_j_hotel_list").empty();
+                    for(var i=0;i<data.length;i++){
+                        var hotelCollectId=data[i].hotelCollectId;
+                        //调用365商旅接口，根据酒店Id查询酒店详情
+                        $.ajax({
+                            url: 'http://apitest.99263.com/Hotel/HotelDetail',
+                            type: 'post',
+                            async: false,
+                            data: {
+                                "Data": {
+                                    "HId": data[i].hotelId
+                                },
+                                "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                                "Sign": "11111111111111111111",
+                                "Timestamp": "2017/10/01 00:00:00"
+                            },
+                            dataType: 'JSON',
+                            success: function (data) {
+                                var HoteDetails = data.Data.HotelDetails; //详情
+                                $("#_j_hotel_list").append("<li class=\"_j_hotel_item\">\n" +
+                                    "                        <img src="+HoteDetails.DefaultPicture+" width=\"275\" height=\"170\">\n" +
+                                    "                        <div class=\"info\">\n" +
+                                    "                            <h2>"+HoteDetails.Liansuo+"</h2>\n" +
+                                    "                            <p>"+HoteDetails.HotelName+"</p>\n" +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"cityName\">北京</div>\n" +
+                                    "                        <div class=\"cancel\"><img src=\"/images/one/true.jpg\" width=\"20\" height=\"20\"/><input type=\"hidden\" value='"+hotelCollectId+"'></div>\n" +
+                                    "                    </li>");
+                            }
+                        });
+                    }
+                }
             }
         });
+
+        //酒店div触碰事件
+        $(".hotel-collect .b-hotel li").hover(function(){
+            $(this).children(".cancel").css("display","block");
+            this.style.cursor='pointer';
+        },function(){
+            $(this).children(".cancel").css("display","none");
+        });
+
+        //叉号点击事件删除酒店收藏
+        $(".cancel").click(function(){
+           $.ajax({
+              url:'/hotelCollectController/byUesridAndHotelidDelete',
+              type:'post',
+              async:false,
+              data:{
+                  hotelCollectId:$(this).children("input").val()
+              },
+              dataType:'text',
+              success:function(data){
+                  if(data==1){
+                      load();
+                  }else{
+                      alert("删除失败");
+                  }
+              }
+           });
+        });
+
     }
-    //隐藏图片
-    function conceal_photo(obj)
-    {
-        var text=$(obj).children("span").text();
-        if(text=="收起")
-        {
-            $(obj).children("span").text("展开更多");
-            $(obj).children("i").attr("class","arr-down");
-            $(obj).parent().parent().next().addClass("hide");
-            $(obj).parent().parent().parent().children("ul").addClass("hide");
-        }
-        else
-        {
-            $(obj).children("span").text("收起");
-            $(obj).children("i").attr("class","arr-up");
-            $(obj).parent().parent().next().removeClass("hide");
-            $(obj).parent().parent().parent().children("ul").removeClass("hide");
-        }
-    }
+
+    $(function(){
+
+        load();
+
+    });
 </script>
 </body>
 </html>

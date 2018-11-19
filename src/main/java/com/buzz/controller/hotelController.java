@@ -57,7 +57,7 @@ public class hotelController {
     @RequestMapping("/hotelIndex")
     public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId,String cityId){
         city city=null;
-        if(cityId.equals("")){
+        if(cityId==null||cityId.equals("")){
             city=(city) request.getServletContext().getAttribute("city");
         }else{
             city=cityService.byCityIdQuery(cityId);

@@ -31,7 +31,7 @@ public interface hotelOrdersDao {
     public int byHotelOrderIdUpdateState(@Param("h") String hotelOrderId,@Param("s") String state);
 
     //查询写Excel
-    @Select("select h.orderId,h.hid,h.roomName,h.bedType,h.inDate,h.lastTime,h.outDate,h.productName,h.orderAmout,h.passengers,h.contactName,h.contactMobile,h.email,h.Remark,h.state,h.subTime,u.userName FROM hotelorders h,users u where h.userId=u.userId ")
+    @Select("select h.orderId,h.hid,h.defaultPicture,h.hotelName,h.roomName,h.bedType,h.inDate,h.lastTime,h.outDate,h.productName,h.orderAmout,h.passengers,h.contactName,h.contactMobile,h.email,h.Remark,h.state,h.subTime,u.userName,u.userId FROM hotelorders h,users u where h.userId=u.userId ")
     public List<hotelorders> HotelOrderWriteExcel();
 
     //根据状态查询全部订单
