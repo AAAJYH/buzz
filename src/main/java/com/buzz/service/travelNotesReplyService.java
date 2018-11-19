@@ -31,6 +31,16 @@ public class travelNotesReplyService {
     }
 
     /**
+     * 根据游记编号和状态编号查询
+     * @param travelNotesId
+     * @param stateId
+     * @return
+     */
+    public List<travelNotesReply> find_travelNotesReplyBytravelNotesIdAndstateIdNoPage(String travelNotesId,String stateId)
+    {
+        return travelnotesreplydao.find_travelNotesReplyBytravelNotesIdAndstateId(travelNotesId,stateId);
+    }
+    /**
      * 根据游记回复编号查询游记回复
      * @param travelNotesReplyId 游记回复编号
      * @return

@@ -30,6 +30,14 @@ public class scenicspotCollectService {
     public int addScenicspotCollect(String scenicSpotCollectId,String scenicSpotId,String userid,Timestamp collectTime){
         return scenicspotCollectDao.addScenicspotCollect(scenicSpotCollectId,scenicSpotId,userid,collectTime);
     }
-
+    /**
+     * 通过收藏景点编号删除
+     * @param scenicSpotCollectId
+     * @return
+     */
+    public Integer delete_scenicSpotCollectByscenicSpotCollectId(String scenicSpotCollectId)
+    {
+        return scenicspotCollectDao.delete_scenicSpotCollectByscenicSpotCollectId(scenicSpotCollectId);
+    }
 
 }

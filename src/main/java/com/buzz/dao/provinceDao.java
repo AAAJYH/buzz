@@ -46,8 +46,8 @@ public interface provinceDao {
     @Select("<script>select * from province <if test=\"provinceName!=''\">where provinceName like concat('%',#{provinceName},'%')</if> order by uptime desc</script>")
     public List<province> ByProvcinceNameQueryAllProvince(@Param("provinceName") String provinceName);
 
-    //查询热门省
-    @Select("select provinceId,count(*) sum from city group by provinceId ORDER BY sum desc LIMIT 0,5;\n")
+    //根据搜索次数查询热门省
+    @Select("select provinceId,sum(searchNumber) sum from city group by provinceId ORDER BY sum desc LIMIT 0,6")
     public List<Map<String,Object>> queryHotProvince();
 
 }

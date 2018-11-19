@@ -7,6 +7,7 @@
     <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
     <link href="css/new_notes.css" rel="stylesheet" type="text/css"/>
     <script language="javascript" src="js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
 </head>
 <body>
 <div id="header" xmlns="http://www.w3.org/1999/html">
@@ -192,8 +193,8 @@
     <div class="view_title clearfix">
         <div class="vt_center">
             <div class="person">
-                <a href="usersController/login_user" target="_blank" class="per_pic"><img src="" /></a>
-                <strong><a href="usersController/login_user" target="_blank" class="per_name"></a></strong>
+                <a target="_blank" class="per_pic"><img src="" /></a>
+                <strong><a target="_blank" class="per_name"></a></strong>
                 <div class="vc_time">
                     <span class="time"></span>
                 </div>
@@ -362,6 +363,8 @@
                             $(".set_index").html("<div class='set_bg _j_load_cover' style='z-index: 1;opacity: 1;background-image: url("+data.travelNotesheadPhoto+");'><img src='"+data.travelNotesheadPhoto+"' style='display: none'></div><div class='_j_titlebg'><div class='title_bg'></div><div class='view_info' data-length='0'><div class='vi_con'><h1 data-length='0' class='headtext lh80'></h1></div></div></div>");
                         }
                         $("title").text(data.travelNotesheadline);
+                        $(".per_pic").attr("href","front_desk/users/personalSpace.html?userId="+data.user.userId);
+                        $(".per_name").attr("href","front_desk/users/personalSpace.html?userId="+data.user.userId);
                         $(".per_pic").children("img").prop("src",data.user.photo);
                         var per_name=data.user.userName;
                         if(null!=data.user.address&&data.user.address.length>0)
@@ -391,7 +394,7 @@
                                 insertHtml+="<p class='_j_note_content _j_seqitem'>"+data.travelNotesContents[i].value+"</p>";
                             else if("img"==data.travelNotesContents[i].type)
                             {
-                                insertHtml+="<div id='_j_photo_390561227' class='add_pic _j_anchorcnt _j_seqitem' style='width:680px'><a target='_blank' style='display: block' href='"+data.travelNotesContents[i].value+"'><img class='_j_lazyload' src='"+data.travelNotesContents[i].value+"' style='background-color:white; display: inline;' height='"+data.travelNotesContents[i].height+"'px width='"+data.travelNotesContents[i].width+"'px></a></div>";
+                                insertHtml+="<div id='_j_photo_390561227' class='add_pic _j_anchorcnt _j_seqitem' style='width:680px'><a target='_blank' style='display: block' href='"+data.travelNotesContents[i].value+"'><img class='_j_lazyload' src='"+data.travelNotesContents[i].value+"' style='background-color:white; display: inline;' height='"+data.travelNotesContents[i].height+"px' width='"+data.travelNotesContents[i].width+"px'></a></div>";
                             }
                             else if("h2"==data.travelNotesContents[i].type)
                             {

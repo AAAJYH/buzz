@@ -6,11 +6,11 @@
     <title></title>
     <meta name="renderer" content="webkit" />
     <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
-    <link href="http://css.mafengwo.net/css/cv/css+home_new2015+home_new2015:css+path+wo-path_v2:css+clip:css+path+map:css+path+jvectormap-2.0.1%5EalI%5E1509971336.css" rel="stylesheet" type="text/css"/>
-    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css">
-    <link href="http://css.mafengwo.net/css/cv/css+mfw-index.2015:css+jquery-ui-1.9.1.custom.min:css+hotel+datepicker-range^ZFM^1525846268.css" rel="stylesheet" type="text/css">
+    <link href="css/css+home_new2015+home_new2015_css+path+wo-path_v2_css+clip_css+path+map_css+path+jvectormap-2.0.1^alI^1509971336.css" rel="stylesheet" type="text/css"/>
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css">
+    <link href="css/css+mfw-index.2015_css+jquery-ui-1.9.1.custom.min_css+hotel+datepicker-range^ZFM^1525846268.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-
+    <link rel="icon" type="image/x-icon" href="images/logoHead.ico">
 </head>
 <body>
 <div class="topBar">
@@ -98,14 +98,7 @@
         </div>
         <div class="tags_bar">
             <div class="center clearfix">
-                <ul class="flt2" id="titleBar">
-                    <li class='on'><a class='tags_link' href='/u/52028572.html' title='我的窝'>我的窝</a></li>
-                    <li><a class='tags_link' href='/u/52028572/note.html' title='我的游记'>我的游记</a></li>
-                    <li><a class='tags_link' href='/wenda/u/52028572/answer.html' title='我的问答'>我的问答</a></li>
-                    <li id='_j_pathnav'><a class='tags_link' href='/path/52028572.html' title='我的足迹'>我的足迹</a></li>
-                    <li><a class='tags_link' href='/u/52028572/review.html' title='我的点评'>我的点评</a></li>
-                    <li><a class='tags_link' href='/u/52028572/together.html' title='我的结伴'>我的结伴</a></li>
-                </ul>
+                <ul class="flt2" id="titleBar"></ul>
             </div>
         </div>
     </div>
@@ -185,7 +178,6 @@
                         <a>暂无</a>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="content flt2">
@@ -202,15 +194,12 @@
             </div>
             <div class="common_block my_notes" id="my_travelNotes">
                 <div class="common_title clearfix">
-                    <h2>我的游记</h2>
+                    <h2>游记内容</h2>
                 </div>
                 <div class="notes_default_v2">
                     <div class="notes_dcon">
                     </div>
                     <a href="front_desk/travelNotes/createNoteIndex.html" title="写游记" class="btn_write"><i></i>写游记</a>
-                </div>
-                <div class="more_notes">
-                    <a class="btn_deleted" href="/u/note/delete.html"><i></i>已删除游记</a>
                 </div>
             </div>
             <div class="common_block my_notes">
@@ -258,7 +247,7 @@
 </div>
 
 
-<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+<link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
 
 <div class="mfw-toolbar" id="_j_mfwtoolbar">
     <div class="toolbar-item-top">
@@ -313,30 +302,29 @@ $().ready(
                             if(data.currentUser.userId!=userId)//如果当前用户是本网页用户
                             {
                                 titleBarHtml+="<li class='on'><a class='tags_link' href='front_desk/users/personalSpace.html?userId="+userId+"' title='TA的窝'>TA的窝</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/note.html' title='TA的游记'>TA的游记</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/wenda/u/52028572/answer.html' title='TA的问答'>TA的问答</a></li>";
-                                titleBarHtml+="<li id='_j_pathnav'><a class='tags_link' href='/path/52028572.html' title='TA的足迹'>TA的足迹</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/review.html' title='TA的点评'>TA的点评</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/together.html' title='TA的结伴'>TA的结伴</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/users/travelNotes.html?userId=" + userId + "' title='TA的游记'>TA的游记</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/users/my_replyAskRespond.html?userId="+userId+"' title='TA的问答'>TA的问答</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/travelNotes/createNoteIndex.html' title='写游记'>写游记</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
                             }
                             else
                             {
                                 titleBarHtml+="<li class='on'><a class='tags_link' href='front_desk/users/personalSpace.html?userId="+userId+"' title='我的窝'>我的窝</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/note.html' title='我的游记'>我的游记</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/wenda/u/52028572/answer.html' title='我的问答'>我的问答</a></li>";
-                                titleBarHtml+="<li id='_j_pathnav'><a class='tags_link' href='/path/52028572.html' title='我的足迹'>我的足迹</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/review.html' title='我的点评'>我的点评</a></li>";
-                                titleBarHtml+="<li><a class='tags_link' href='/u/52028572/together.html' title='我的结伴'>我的结伴</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/users/travelNotes.html?userId=" + userId + "'>我的游记</a></li>";
+                                titleBarHtml += "<li><a class='tags_link' href='front_desk/users/my_travelCollection.html?userId="+userId+"' title='游记收藏'>游记收藏</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/users/my_replyAskRespond.html?userId="+userId+"' title='我的问答'>我的问答</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/travelNotes/createNoteIndex.html' title='写游记'>写游记</a></li>";
+                                titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
+                                titleBarHtml+="<li class='more '><span class='tags_link' role='button' title='更多' style='cursor:default'>更多<i class='MDownMore'></i></span><div class='tags_more_list'><ul><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏'><i class='ico_collect'></i><span>我的收藏</span></a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单'><i class='ico_order'></i><span>我的订单</span></a></li></ul></div></li>";
                             }
                         }
                         else
                         {
                             titleBarHtml+="<li class='on'><a class='tags_link' href='front_desk/users/personalSpace.html?userId="+userId+"' title='TA的窝'>TA的窝</a></li>";
-                            titleBarHtml+="<li><a class='tags_link' href='/u/52028572/note.html' title='TA的游记'>TA的游记</a></li>";
-                            titleBarHtml+="<li><a class='tags_link' href='/wenda/u/52028572/answer.html' title='TA的问答'>TA的问答</a></li>";
-                            titleBarHtml+="<li id='_j_pathnav'><a class='tags_link' href='/path/52028572.html' title='TA的足迹'>TA的足迹</a></li>";
-                            titleBarHtml+="<li><a class='tags_link' href='/u/52028572/review.html' title='TA的点评'>TA的点评</a></li>";
-                            titleBarHtml+="<li><a class='tags_link' href='/u/52028572/together.html' title='TA的结伴'>TA的结伴</a></li>";
+                            titleBarHtml+="<li><a class='tags_link' href='front_desk/users/travelNotes.html?userId=" + userId + "' title='TA的游记'>TA的游记</a></li>";
+                            titleBarHtml+="<li><a class='tags_link' href='front_desk/users/my_replyAskRespond.html?userId="+userId+"' title='TA的问答'>TA的问答</a></li>";
+                            titleBarHtml+="<li><a class='tags_link' href='front_desk/travelNotes/createNoteIndex.html' title='写游记'>写游记</a></li>";
+                            titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
                         }
                         $("#titleBar").html(titleBarHtml);
                     }
@@ -350,6 +338,7 @@ $().ready(
                 data:{userId:userId},
                 success:function(data)
                 {
+                    $("title").text(data.userName+"的窝");
                     var currentuserId=$("#currentuserId").val();
                     var MAvaInfoHtml="";
                     $(".MAvaImg").children("img").attr("src",data.photo);
@@ -376,88 +365,94 @@ $().ready(
                             $("#_j_profilearea").html("<span></span>")
                     }
                     $(".MAvaInfo").html(MAvaInfoHtml);
-                }
-            });
-            //根据用户编号获取游记
-            $.ajax({
-                url:"travelNotesController/find_travelNotesByuserId",
-                dataType:"json",
-                type:"post",
-                data:{userId:userId},
-                success:function(data)
-                {
-                    if(null!=data)
-                    {
-                        if(0<data.length)
+                    //根据用户编号获取游记
+                    $.ajax({
+                        url:"travelNotesController/find_travelNotesByuserId",
+                        dataType:"json",
+                        type:"post",
+                        data:{userId:userId},
+                        success:function(data)
                         {
-                            var currentuserId=$("#currentuserId").val();
-                            var equalsuserId=false;//当前用户是否为当前个人中心用户
-                            if(currentuserId==userId)
-                                equalsuserId=true;
-                            var my_travelNotesHtml="<div class='notes_list'><ul>";//我的游记html元素
-                            var music_infoHtml="";
-                            var music_first=true;
-                            var show_imageHtml="";
-                            var show_navHtml="";
-                            var image_first=true;
-                            for(var i=0;i<data.length;i++)
+                            if(null!=data)
                             {
-                                var cityName="";
-                                if(null!=data[i].cityId&&0<data[i].cityId.length)
-                                    cityName=data[i].city.cityName;
-                                var travelNotesheadPhoto=data[i].travelNotesheadPhoto;
-                                if(null==travelNotesheadPhoto||0==travelNotesheadPhoto.length)
-                                    travelNotesheadPhoto="images/home_new2015/default.jpg";
-                                my_travelNotesHtml+="<li><dl><dt><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank'><img src='"+travelNotesheadPhoto+"' height='400' width='680' alt='封面'></a><div class='hover_item'><div class='thumb_description'><strong>"+cityName+"</strong></div><a href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' class='flt2 notes_handles edit' title='编辑'><i></i></a></div></dt><dd><div class='note_title clearfix'><div class='MDing'><span>"+data[i].collectionNumber+"</span><a role='button' data-travelNotesId='"+data[i].travelNotesId+"' onclick='insert_travelCollection(this)' title='赞一下'>赞</a></div><div class='note_info'><h3><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' title='"+data[i].travelNotesheadline+"'>"+data[i].travelNotesheadline+"</a></h3><div class='note_more'><span class='MInfoNum'><i class='MIcoView'></i><em>"+data[i].browsingHistory+"</em></span><span class='MInfoNum'><i class='MIcoStar'></i><em>"+data[i].collectionNumber+"</em></span><span class='time'>"+format_time(data[i].releaseTime)+"</span></div></div></div><div class='note_word'></div></dd></dl></li>";
-                                var releaseTime=format_time(data[i].releaseTime);
-                                var year=releaseTime.substring(0,4);
-                                var day=releaseTime.substr(8,2);
-                                if(image_first)
+                                if(0<data.length)
                                 {
-                                    image_first=false;
-                                    show_imageHtml+="<li class='first' style='display:list-item;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+data[i].travelNotesheadline+"</h3></a></li>";
-                                    show_navHtml+="<li class='active'><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
-                                }
-                                else
-                                {
-                                    show_imageHtml+="<li style='display:none;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+data[i].travelNotesheadline+"</h3></a></li>";
-                                    show_navHtml+="<li class=''><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
-                                }
-                                if(null!=data[i].backgroundMusic&&0<data[i].backgroundMusic.length)
-                                {
-                                    if(music_first)
+                                    var currentuserId=$("#currentuserId").val();
+                                    var equalsuserId=false;//当前用户是否为当前个人中心用户
+                                    if(currentuserId==userId)
+                                        equalsuserId=true;
+                                    var my_travelNotesHtml="<div class='notes_list'><ul>";//我的游记html元素
+                                    var music_infoHtml="";
+                                    var music_first=true;
+                                    var show_imageHtml="";
+                                    var show_navHtml="";
+                                    var image_first=true;
+                                    for(var i=0;i<data.length;i++)
                                     {
-                                        music_first=false;
-                                        $("#jp_audio_0").prop("src",data[i].backgroundMusic);
-                                        var music=$("#jp_audio_0")[0];
-                                        music.play();
-                                        if(music.paused)
-                                            $("._j_m_control").attr("class","control _j_m_control pause");
-                                        else
+                                        var cityName="";
+                                        if(null!=data[i].cityId&&0<data[i].cityId.length)
+                                            cityName=data[i].city.cityName;
+                                        var travelNotesheadPhoto=data[i].travelNotesheadPhoto;
+                                        if(null==travelNotesheadPhoto||0==travelNotesheadPhoto.length)
+                                            travelNotesheadPhoto="images/home_new2015/default.jpg";
+                                        var travelNotesheadline=data[i].travelNotesheadline;
+                                        if(null==travelNotesheadline||""==travelNotesheadline)
+                                            travelNotesheadline="未命名游记标题";
+                                        my_travelNotesHtml+="<li><dl><dt><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank'><img src='"+travelNotesheadPhoto+"' height='400' width='680' alt='封面'></a><div class='hover_item'><div class='thumb_description'><strong>"+cityName+"</strong></div><a href='travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+data[i].travelNotesId+"' class='flt2 notes_handles edit' title='编辑'><i></i></a></div></dt><dd><div class='note_title clearfix'><div class='MDing'><span>"+data[i].collectionNumber+"</span><a role='button' data-travelNotesId='"+data[i].travelNotesId+"' onclick='insert_travelCollection(this)' title='收藏一下'>藏</a></div><div class='note_info'><h3><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' title='"+travelNotesheadline+"'>"+travelNotesheadline+"</a></h3><div class='note_more'><span class='MInfoNum'><i class='MIcoView'></i><em>"+data[i].browsingHistory+"</em></span><span class='MInfoNum'><i class='MIcoStar'></i><em>"+data[i].collectionNumber+"</em></span><span class='time'>"+format_time(data[i].releaseTime)+"</span></div></div></div><div class='note_word'></div></dd></dl></li>";
+                                        var releaseTime=format_time(data[i].releaseTime);
+                                        var year=releaseTime.substring(0,4);
+                                        var day=releaseTime.substr(8,2);
+                                        if(i<=4)
                                         {
-                                            $("._j_m_control").attr("class","control _j_m_control play");
-                                            over_container_setInterval;
+                                            if(image_first)
+                                            {
+                                                image_first=false;
+                                                show_imageHtml+="<li class='first' style='display:list-item;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+travelNotesheadline+"</h3></a></li>";
+                                                show_navHtml+="<li class='active'><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
+                                            }
+                                            else
+                                            {
+                                                show_imageHtml+="<li style='display:none;'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-pic'><img height='600px' src='"+travelNotesheadPhoto+"' style='height: 630px;'></a><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank' class='show-title dark'><div class='date'><span class='day'>"+day+"</span>/"+year+"</div><h3>"+travelNotesheadline+"</h3></a></li>";
+                                                show_navHtml+="<li class=''><a data-index='"+i+"' onclick='switcTravelNotesheadPhoto(this)'><img src='"+travelNotesheadPhoto+"' height='62' width='110'><span></span></a></li>";
+                                            }
                                         }
-                                        music_infoHtml+="<div music_url='"+data[i].backgroundMusic+"' class='_j_musicitem'><span class='name' title='"+data[i].backgroundMusicName+"'>"+data[i].backgroundMusicName+"</span><span>来自</span><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' title='《"+data[i].travelNotesheadline+"》'>《<strong>"+data[i].travelNotesheadline+"</strong>》</a></div>";
+                                        if(null!=data[i].backgroundMusic&&0<data[i].backgroundMusic.length)
+                                        {
+                                            if(music_first)
+                                            {
+                                                music_first=false;
+                                                $("#jp_audio_0").prop("src",data[i].backgroundMusic);
+                                                var music=$("#jp_audio_0")[0];
+                                                music.play();
+                                                if(music.paused)
+                                                    $("._j_m_control").attr("class","control _j_m_control pause");
+                                                else
+                                                {
+                                                    $("._j_m_control").attr("class","control _j_m_control play");
+                                                    over_container_setInterval;
+                                                }
+                                                music_infoHtml+="<div music_url='"+data[i].backgroundMusic+"' class='_j_musicitem'><span class='name' title='"+data[i].backgroundMusicName+"'>"+data[i].backgroundMusicName+"</span><span>来自</span><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' title='《"+travelNotesheadline+"》'>《<strong>"+travelNotesheadline+"</strong>》</a></div>";
+                                            }
+                                            else
+                                                music_infoHtml+="<div music_url='"+data[i].backgroundMusic+"' class='_j_musicitem hide'><span class='name' title='"+data[i].backgroundMusicName+"'>"+data[i].backgroundMusicName+"</span><span>来自</span><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' title='《"+travelNotesheadline+"》'>《<strong>"+travelNotesheadline+"</strong>》</a></div>";
+                                        }
                                     }
+                                    my_travelNotesHtml+="</ul>";
+                                    var more_notesHtml="";
+                                    if(equalsuserId)
+                                        more_notesHtml="<a class='btn_deleted' href='/u/note/delete.html?userId="+userId+"'><i></i>已删除游记</a><a href='/u/52028572/note.html?userId="+userId+"'>共<strong>"+data.length+"</strong>篇游记</a>";
                                     else
-                                        music_infoHtml+="<div music_url='"+data[i].backgroundMusic+"' class='_j_musicitem hide'><span class='name' title='"+data[i].backgroundMusicName+"'>"+data[i].backgroundMusicName+"</span><span>来自</span><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' title='《"+data[i].travelNotesheadline+"》'>《<strong>"+data[i].travelNotesheadline+"</strong>》</a></div>";
+                                        more_notesHtml="<a href='/u/52028572/note.html'>共<strong>"+data.length+"</strong>篇游记</a>";
+                                    my_travelNotesHtml+="<div class='more_notes'>"+more_notesHtml+"</div></div>";
+                                    $(".show-image").html(show_imageHtml);
+                                    update_travelNotesheadPhoto_setInterval;
+                                    $(".show-nav").html(show_navHtml);
+                                    $("#my_travelNotes").html(my_travelNotesHtml);
+                                    $(".music_info").html(music_infoHtml);
                                 }
                             }
-                            my_travelNotesHtml+="</ul>";
-                            var more_notesHtml="";
-                            if(equalsuserId)
-                                more_notesHtml="<a class='btn_deleted' href='/u/note/delete.html?userId="+userId+"'><i></i>已删除游记</a><a href='/u/52028572/note.html?userId="+userId+"'>共<strong>"+data.length+"</strong>篇游记</a>";
-                            else
-                                more_notesHtml="<a href='/u/52028572/note.html'>共<strong>"+data.length+"</strong>篇游记</a>";
-                            my_travelNotesHtml+="<div class='more_notes'>"+more_notesHtml+"</div></div>";
-                            $(".show-image").html(show_imageHtml);
-                            update_travelNotesheadPhoto_setInterval;
-                            $(".show-nav").html(show_navHtml);
-                            $("#my_travelNotes").html(my_travelNotesHtml);
-                            $(".music_info").html(music_infoHtml);
                         }
-                    }
+                    });
                 }
             });
         }
@@ -467,9 +462,8 @@ $().ready(
             titleBarHtml+="<li class='on'><a class='tags_link' title='TA的窝'>TA的窝</a></li>";
             titleBarHtml+="<li><a class='tags_link' title='TA的游记'>TA的游记</a></li>";
             titleBarHtml+="<li><a class='tags_link' title='TA的问答'>TA的问答</a></li>";
-            titleBarHtml+="<li id='_j_pathnav'><a class='tags_link' title='TA的足迹'>TA的足迹</a></li>";
-            titleBarHtml+="<li><a class='tags_link' title='TA的点评'>TA的点评</a></li>";
-            titleBarHtml+="<li><a class='tags_link' title='TA的结伴'>TA的结伴</a></li>";
+            titleBarHtml+="<li><a class='tags_link' href='front_desk/travelNotes/createNoteIndex.html' title='写游记'>写游记</a></li>";
+            titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
             $("#titleBar").html(titleBarHtml);
         }
     }

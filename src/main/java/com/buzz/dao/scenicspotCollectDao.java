@@ -1,10 +1,7 @@
 package com.buzz.dao;
 
 import com.buzz.entity.scenicspotCollect;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
 
@@ -25,4 +22,11 @@ public interface scenicspotCollectDao {
     @Insert("insert into scenicspotcollect(scenicSpotCollectId,scenicSpotId,usersId,collectTime) values(#{scenicSpotCollectId},#{scenicSpotId},#{userid},#{collectTime})")
     public int addScenicspotCollect(@Param("scenicSpotCollectId") String scenicSpotCollectId,@Param("scenicSpotId") String scenicSpotId,@Param("userid") String userid,@Param("collectTime") Timestamp collectTime);
 
+    /**
+     * 通过收藏景点编号删除
+     * @param scenicSpotCollectId
+     * @return
+     */
+    @Delete("delete from scenicSpotCollect where scenicSpotCollectId=#{scenicSpotCollectId}")
+    public Integer delete_scenicSpotCollectByscenicSpotCollectId(@Param("scenicSpotCollectId")String scenicSpotCollectId);
 }

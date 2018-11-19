@@ -1,0 +1,1 @@
+<p>11111<img src="images\askRespond\photo/14a60e49-d6a6-495d-8a8b-3cec97c7b990.png" class="fr-fic fr-dib fr-draggable" width="120px" onclick="showImagealert(this.src)">1+1=2</p>

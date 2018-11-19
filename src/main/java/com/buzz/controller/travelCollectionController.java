@@ -61,4 +61,19 @@ public class travelCollectionController
         }
         return map;
     }
+
+    /**
+     * 通过收藏游记编号删除
+     * @param travelCollectionId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("delete_travelCollectionBytravelCollectionId")
+    public boolean delete_travelCollectionBytravelCollectionId(String travelCollectionId)
+    {
+        if(0<travelcollectionservice.delete_travelCollectionBytravelCollectionId(travelCollectionId))
+            return true;
+        else
+            return false;
+    }
 }

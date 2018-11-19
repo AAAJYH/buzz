@@ -3,12 +3,14 @@ package com.buzz.controller;
 import com.buzz.entity.city;
 import com.buzz.entity.scenicspot;
 import com.buzz.entity.strategy;
+import com.buzz.service.cityService;
 import com.buzz.service.scenicspotService;
 import com.buzz.service.strategyService;
 import com.buzz.utils.Upload;
 import com.buzz.utils.WriteExcel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +38,8 @@ public class strategyController {
 
     @Resource
     strategyService strategyService;
-
+    @Resource
+    private cityService cityservice;
     /**
      * 查询城市攻略
      * ServletContext 获取city对象
@@ -222,5 +225,42 @@ public class strategyController {
         strategy strategy1=strategyService.byStrategyIdQueryStrategy(strategyId);
         return strategy1.getStrategyPhoto();
     }
+    /**
+     * 获取下载数量最多的五个旅游攻略
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_strategyHot5")
+    public List<strategy> find_strategyHot5()
+    {
+        return strategyService.find_strategyHot5();
+    }
 
+    /**
+     * 根据旅游攻略编号查询
+     * @param model
+     * @param
+     * @return
+     */
+    @RequestMapping("find_strategyBystrategyId")
+    public String find_strategyBystrategyId(Model model,String strategyId,HttpServletRequest request)
+    {
+        strategy strategy=strategyService.find_strategyBystrategyId(strategyId);
+        city city=cityservice.byCityIdQuery(strategy.getCityId());
+        request.getServletContext().setAttribute("city",city);
+        model.addAttribute("strategy",strategy);
+        return "/front_desk/Strategy";
+    }
+
+    /**
+     * 根据城市编号查询旅游攻略,只查询五条
+     * @param cityId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_strategyBycityIdR5")
+    public List<strategy> find_strategyBycityIdR5(String cityId)
+    {
+        return strategyService.find_strategyBycityIdR5(cityId);
+    }
 }

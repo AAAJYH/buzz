@@ -27,7 +27,9 @@ public class scenicspot {
     private String latitude; //纬度
     private String photo; //图片
     private String cityId; //city外键
+    private city city;
     private Timestamp uptime; //修改时间
+    private String scenicSpotCollectId;//景点收藏编号,数据库中不存在
     private String stateId; //状态id
 
 }

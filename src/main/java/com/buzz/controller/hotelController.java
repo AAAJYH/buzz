@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: aaaJYH
@@ -54,12 +55,12 @@ public class hotelController {
      * @return 酒店页面
      */
     @RequestMapping("/hotelIndex")
-    public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId,String cityName){
+    public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId,String cityId){
         city city=null;
-        if(cityName.equals("")){
+        if(cityId.equals("")){
             city=(city) request.getServletContext().getAttribute("city");
         }else{
-            city=cityService.byCityNameQueryCity(cityName);
+            city=cityService.byCityIdQuery(cityId);
             request.getServletContext().setAttribute("city",city);
         }
         //保存景点集合
@@ -274,4 +275,48 @@ public class hotelController {
         return "front_desk/hotel2";
     }
 
+    /**
+     * 通过用户编号和状态查询酒店订单
+     * @param session
+     * @param stateIds
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_hotelOrdersByuserIdAndstateId")
+    public Map<String,Object> find_hotelOrdersByuserIdAndstateId(HttpSession session,String stateIds)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user= (users) session.getAttribute("user");
+        List<hotelorders> hotelOrders=new ArrayList<hotelorders>();
+        if(null==stateIds||"".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已支付","待支付","超时未支付");
+        else if("48d4c6ab-9b7b-4d95-b1ee-e26ee58c2550".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已支付");
+        else if("be6f2782-0c94-436b-91fe-3a7cf3b37bcc".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"待支付");
+        else if("7a0dbb86-2325-4ff1-9e79-0e4321354ee2".equals(stateIds))
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"超时未支付");
+        map.put("user",user);
+        map.put("hotelOrders",hotelOrders);
+        return map;
+    }
+
+    @RequestMapping("HotelOrderPaymentIndexByhotelOrderId")
+    public String HotelOrderPaymentIndex(String hotelOrderId,Model model)
+    {
+        //根据订单id查询订单保存request中
+        hotelorders hotelorders=hotelOrdersService.byHotelOrderIdQuery(hotelOrderId);
+        model.addAttribute("hotelOrder",hotelorders);
+        if(hotelorders.getState().equals("待支付")){
+            Timestamp orderDate=hotelorders.getSubTime();
+            Long orderTime=orderDate.getTime()+1*60*1000;
+            Long currentTime=System.currentTimeMillis();
+            int sumSecond= (int) ((orderTime-currentTime)/1000);
+            int fen= sumSecond/60;
+            int miao=sumSecond-fen*60;
+            model.addAttribute("fen",fen);
+            model.addAttribute("miao",miao);
+        }
+        return "front_desk/HotelOrderPayment";
+    }
 }

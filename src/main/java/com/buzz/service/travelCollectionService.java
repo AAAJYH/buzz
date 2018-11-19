@@ -50,4 +50,9 @@ public class travelCollectionService
     {
         return travelcollectiondao.find_find_travelCollectionCountBytravelNotesIdAnduserId(travelNotesId,userId);
     }
+
+    public Integer delete_travelCollectionBytravelCollectionId(String travelCollectionId)
+    {
+        return travelcollectiondao.delete_travelCollectionBytravelCollectionId(travelCollectionId);
+    }
 }

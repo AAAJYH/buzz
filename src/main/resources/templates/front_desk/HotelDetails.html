@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/t-datepicker.min.js"></script>
     <script type="text/javascript" src="/js/perfect-scrollbar.min.js"></script>
-
+    <link rel="icon" type="image/x-icon" href='/images/logoHead.ico'>
     <!--星星css-->
     <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
 
@@ -367,10 +367,10 @@
                     <a class="hs-btn" id="_j_price_btn" href="javascript:queryPrice();">查看价格</a>
                     <script th:inline="javascript">
                         function queryPrice(){
-                            $("#content").empty();
                             $(".zhuan_quan_quan").css("display","block"); //显示加载图片
+                            alert(1);
                             //日期数组
-                                var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
+                            var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
                             //开始时间
                             var beginTime=getDates[0].getFullYear()+"/"+(getDates[0].getMonth()+1)+"/"+getDates[0].getDate();
                             //结束时间
@@ -396,16 +396,17 @@
                                success:function(data){
                                    var rooms=data.Data.HotelRooms[0].Rooms;
                                    if(rooms.length>0){
+                                       var content="";
                                        for(var i=0;i<rooms.length;i++){
-                                           $("#content").append("<ul>\n" +
+                                           content+="<ul>\n" +
                                                "                    <li>"+rooms[i].RoomName+"</li>\n" +
                                                "                    <li>"+rooms[i].BedType+"</li>\n" +
                                                "                    <li>"+rooms[i].RoomProducts[0].ProductName+"</li>\n" +
                                                "                    <li>"+rooms[i].RoomProducts[0].PerDayPrice+"</li>\n" +
                                                "                    <li style='font-size:150%;'><a class='yuding' style='color:#FFB200;' href='javascript:;'>预定</a></li>\n" +
-                                               "                </ul>");
+                                               "                </ul>";
                                        }
-                                       $(".zhuan_quan_quan").css("display","none"); //关闭加载图片
+                                       $("#content").html(content);
                                        var hid=data.Data.HotelRooms[0].HId;
                                        var hotelName=""; //酒店名称
                                        var defaultPicture=""; //酒店图片
@@ -428,7 +429,6 @@
                                                 defaultPicture=HoteDetails.DefaultPicture;
                                            }
                                        });
-
                                        $(".yuding").click(function(){
                                            if([[${session.user}]]!=null){
                                                var productName=$(this).parent().prev().prev().text();
@@ -442,9 +442,10 @@
                                            }
                                        });
                                    }else{
-                                    }
+                                   }
+                                   $(".zhuan_quan_quan").css("display","none"); //关闭加载图片
                                }
-                            });
+                        });
                         }
                     </script>
                 </div>

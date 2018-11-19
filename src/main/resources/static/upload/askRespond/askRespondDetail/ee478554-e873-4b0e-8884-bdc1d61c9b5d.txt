@@ -1,0 +1,1 @@
+<p><strong>测试图片是否上传成功</strong></p><p><img src="images\askRespond\photo/1f031175-16f0-48bf-8fb0-df93d47a2f42.jpeg" class="fr-fic fr-dib" width="690px" onclick="showImagealert(this.src)"></p><p>测试成功</p>

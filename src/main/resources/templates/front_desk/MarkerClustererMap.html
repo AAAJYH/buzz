@@ -6,14 +6,21 @@
     <script type="text/javascript"src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+    <link rel="icon" type="image/x-icon" href='/images/logoHead.ico'>
 </head>
 <body style="padding:0;margin:0;">
-    <div style="width:1533px;height:720px;" id="map"></div>
+    <div id="map"></div>
     <script th:inline="javascript">
+            var kuan=$(document).width();//屏幕宽
+            var gao=$(document).height(); //屏幕高
+            //设置地图的宽高
+            $("#map").css("width",kuan+"px");
+            $("#map").css("height",gao+"px");
 
         //初始化地图
         var map=new BMap.Map("map");
-        map.centerAndZoom(new BMap.Point(107.907017,36.003761),5);
+        map.centerAndZoom(new BMap.Point(107.907017,36.003761),6);
         map.enableScrollWheelZoom(); //启动滚轮缩放
         map.enableKeyboard(); //启动键盘移动地图
         map.setMinZoom(5); //最小缩放级别

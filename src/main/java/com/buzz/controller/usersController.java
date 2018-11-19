@@ -2,10 +2,11 @@ package com.buzz.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.buzz.entity.Paging;
+import com.buzz.entity.replyAskRespond;
+import com.buzz.entity.replyAskRespondComment;
 import com.buzz.entity.smsCode;
 import com.buzz.entity.users;
-import com.buzz.service.emailService;
-import com.buzz.service.usersService;
+import com.buzz.service.*;
 import com.buzz.utils.Encryption;
 import com.buzz.utils.SmsVerification;
 import com.buzz.utils.verifyCodeUtils;
@@ -15,28 +16,32 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
-    @RequestMapping("usersController")
+@RequestMapping("usersController")
 @SessionAttributes("user")
 public class usersController {
     @Resource
     private usersService usersservice;
     @Resource
     private emailService emailservice;
-
+    @Resource
+    private replyAskRespondService replyaskrespondservice;
+    @Resource
+    private askRespondService askrespondservice;
+    @Resource
+    private replyAskRespondCommentService replyaskrespondcommentservice;
     /**
      * 显示登录页面
      *
@@ -456,6 +461,27 @@ public class usersController {
     }
 
     /**
+     * 根据当前登录用户,问答编号,状态编号回复问答
+     * @param askRespondId
+     * @param session
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping("getCurrentLoginUserAndreplyAskRespond")
+    public Map<String,Object>getCurrentLoginUserAndreplyAskRespond(String askRespondId,HttpSession session) throws IOException {
+        Map<String,Object> map=new HashMap<String,Object>();
+        users user=(users) session.getAttribute("user");
+        if(null!=user)
+        {
+            map.put("loginState",true);
+            map.put("currentUser",user);
+        }
+        else
+            map.put("loginState",false);
+        return map;
+    }
+    /**
      * 根据用户编号获取用户
      * @param userId 用户编号
      * @return users实体
@@ -463,6 +489,63 @@ public class usersController {
     @ResponseBody
     @RequestMapping("find_userByuserId")
     public users find_userByuserId(String userId)
+    {
+        return usersservice.find_userByuseruserId(userId);
+    }
+
+    /**
+     * 退出当前登录用户
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("loginOut")
+    public boolean loginOut(HttpSession session,SessionStatus sessionstatus)
+    {
+        session.removeAttribute("user");
+        sessionstatus.setComplete();
+        users user= (users) session.getAttribute("user");
+        if(null!=user)
+            return false;
+        else
+            return true;
+    }
+    /**
+     * 查询所有用户的被采纳答案数量
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_user_optimumAnswerNum")
+    public List<users> find_user_optimumAnswerNum() {
+        return usersservice.find_user_optimumAnswerNum(1,"true");
+    }
+
+    /**
+     * 查询所有用户的回复问答数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_user_replyAskRespondNum")
+    public List<users> find_user_replyAskRespondNum()
+    {
+        return usersservice.find_user_replyAskRespondNum(1,"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+    }
+
+    /**
+     * 查询所有用户的被顶数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_user_replyAskRespondTopNum")
+    public List<users> find_user_replyAskRespondTopNum()
+    {
+        return usersservice.find_user_replyAskRespondTopNum(1);
+    }
+
+    @ResponseBody
+    @RequestMapping("find_usersByuserId")
+    public users find_usersByuserId(String userId)
     {
         return usersservice.find_userByuseruserId(userId);
     }

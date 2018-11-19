@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost/">
+
+    <title>旅游问答,解决旅行问题,基于旅游的问答分享平台 - 马蜂窝</title>
+    <meta name="description" content="马蜂窝旅游问答是基于旅游的问答分享平台,这里聚集了各路旅行达人,只要你有旅行中的问题,在马蜂窝问答问出来,总有旅行经验丰富或者居住在当地的旅行家会为你热心解答" />
+    <meta name="keywords" content="马蜂窝旅游问答" />
+    <meta name="renderer" content="webkit" />
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/mfw-ask/mfw-ask.css?1492702270" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
+    <script src="js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+
+<div class="topBar">
+    <div class="topBarC">
+        <div class="logo"><a title="马蜂窝自由行" href="/">马蜂窝自由行</a></div>
+        <div class="t_nav">
+            <ul id="pnl_nav" data-cs-t="headnav_wo">
+                <li data-cs-p="index">
+                    <strong class="t"><a href="/">首页</a></strong>
+                </li>
+                <li data-cs-t="wenda" data-cs-p="wenda">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                </li>
+                <li data-cs-t="things" data-cs-p="things">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">马蜂窝周边</a></strong>
+                </li>
+                <li data-cs-p="together">
+                    <strong class="t"><a href="/together/">结伴</a></strong>
+                </li>
+                <li data-cs-p="group">
+                    <strong class="t"><a href="/group/">小组</a></strong>
+                </li>
+                <li data-cs-p="mall">
+                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
+                </li>
+                <li class="drop" data-cs-p="other">
+                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
+                    <div class="c">
+
+                        <a href="/focus/" target="_blank">真人兽</a>
+
+                        <a href="/school/" target="_blank">马蜂窝高校</a>
+                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
+                        <a href="/auction/" target="_blank">马蜂窝拍卖行</a>
+                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
+                        <a href="/radio/" target="_blank">旅行电台</a>
+                        <a href="/club/" target="_blank">蜂首聚乐部</a>
+                        <a href="/home/vip_show.php" target="_blank">VIP</a>
+                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="t_search">
+            <form method="GET" action="/search/s.php" name="search">
+                <input type="text" class="key" value="" name="q" id="word">
+                <input type="submit" value="" class="btn">
+            </form>
+        </div>
+
+        <div class="t_info">
+            <div data-pagelet id="pagelet-block-cb22778ca597afcd9902878e27032b5d" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="_j_param" data-type="1" data-sort="8" data-key="" data-mddid="" data-tid="" data-more="1" data-time=""/>
+<div class="wrapper wrapper-new" data-cs-t="wenda">
+    <div class="col-main">
+
+        <div class="i-main">
+            <div class="mt-nav clearfix i_link" style="margin-bottom: 16px;">
+                <a href="front_desk/askRespond/askRespond.html">问答首页</a>
+                <em></em>
+                <div class="drop-mine _j_crumb_my">
+                    <a class="drop-hd" href="/wenda/u/58191946/answer.html" target="_blank"><i></i>我的问答</a>
+                    <ul class="drop-bd" style="display: none;">
+                        <li><a href="/wenda/u/58191946/question.html" target="_blank">我的提问</a></li>
+                        <li><a href="/wenda/u/58191946/answer.html" target="_blank">我的回答</a></li>
+                        <li><a href="/wenda/u/58191946/solution.html" target="_blank">为我推荐的提问</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="search-box">
+                <div class="search-panel" data-cs-t="wenda">
+                    <div class="clearfix _j_suggest_hd">
+                        <div class="sp-input">
+                            <input type="text" id="_j_wenda_seach_input" value="" placeholder="提问前请先搜索，看看你的问题其他蜂蜂是否已经问过">
+                        </div>
+                        <input type="button" id="_j_wenda_seach_button" class="sp-button" data-mddid="0">
+                    </div>
+                    <div class="bd _j_suggest_box hide">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="newcate-wrap _j_qa_list">
+            <div class="hd">
+                <ul class="cate-tab">
+                    <li class="on _j_change_type" data-type="1" data-sort="10">
+                        <a>
+                            热门问题
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        <div class="bd newcate-bd">
+            <ul class="_j_pager_box"></ul>
+        </div>
+        <div class="_j_pager">
+            <div class="ft ft_load_btn">
+                <div class="answer-more _j_add_more_button">
+                    <a onclick='clickload_askRespondBypage(this)'>加载更多<i></i></a>
+                </div>
+            </div>
+            <div class="ft ft_loading _j_add_loading_button hide">
+                <div class="answer-loading">正在加载<i></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-side">
+    <div class="i-ask">
+        <a href="front_desk/askRespond/question.html" class="btn-ask btn-ask2" target="_blank"><i></i>我要提问</a>
+    </div>
+    <dl class="i-tags tag-area _j_tags">
+        <dt>问答热门地区</dt>
+        <dd class="clearfix">
+            <div class="label">境内</div>
+            <ul class="_j_open_mdd_list"></ul>
+        </dd>
+    </dl>
+    <div class="rank _j_rank" style="margin-top: 20px;">
+        <div class="hd">排行榜</div>
+        <div class="bd">
+            <ul class="tab-num" data-cs-p="rank_list">
+                <li class="on _j_rank_change_flag" onclick='find_user_optimumAnswerNum(this)' >金牌数</li>
+                <li class="_j_rank_change_flag" onclick='find_user_replyAskRespondNum(this)'>回答数</li>
+                <li class="_j_rank_change_flag"  onclick="find_user_replyAskRespondTopNum(this)">被顶次数</li>
+            </ul>
+            <ul class="rank-list _j_rank_list">
+                <li class="r-top r-top1 clearfix">
+                    <em class="num">1</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/68389998/answer.html" target="_blank" rel="nofollow"><img src="https://p3-q.mafengwo.net/s10/M00/6F/7C/wKgBZ1oS-LmAWy70ACEh4inSDQs42.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/68389998/answer.html" target="_blank" rel="nofollow">Cassie</a></span>
+                        <span class="level"><a href="/wenda/u/68389998/answer.html" target="_blank" rel="nofollow">LV.39</a></span>
+                    </div>
+                    <span class="num">15</span>
+                </li>
+                <li class="r-top r-top2 clearfix">
+                    <em class="num">2</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/93722422/answer.html" target="_blank" rel="nofollow"><img src="https://b4-q.mafengwo.net/s12/M00/73/F9/wKgED1vFTBOAKOjBABL3iM_sLbw58.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/93722422/answer.html" target="_blank" rel="nofollow">雨飞</a></span>
+                        <span class="level"><a href="/wenda/u/93722422/answer.html" target="_blank" rel="nofollow">LV.30</a></span>
+                    </div>
+                    <span class="num">11</span>
+                </li>
+                <li class="r-top r-top3 clearfix">
+                    <em class="num">3</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/94301410/answer.html" target="_blank" rel="nofollow"><img src="https://p2-q.mafengwo.net/s10/M00/9B/DE/wKgBZ1m_DE-ANP9oAANY0fgzAGQ88.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/94301410/answer.html" target="_blank" rel="nofollow">蔡薄四</a></span>
+                        <span class="level"><a href="/wenda/u/94301410/answer.html" target="_blank" rel="nofollow">LV.36</a></span>
+                    </div>
+                    <span class="num">11</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">4</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/71997727/answer.html" target="_blank" rel="nofollow"><img src="https://p1-q.mafengwo.net/s10/M00/A2/D6/wKgBZ1j0d_mAekHJAAA1VR33vwg05.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/71997727/answer.html" target="_blank" rel="nofollow">杨小气鬼</a></span>
+                        <span class="level"><a href="/wenda/u/71997727/answer.html" target="_blank" rel="nofollow">LV.31</a></span>
+                    </div>
+                    <span class="num">10</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">5</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/664589/answer.html" target="_blank" rel="nofollow"><img src="https://b4-q.mafengwo.net/s11/M00/BA/57/wKgBEFsEwYKAWwZYAAEHycOYXjM46.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/664589/answer.html" target="_blank" rel="nofollow">sarah一直在路上</a></span>
+                        <span class="level"><a href="/wenda/u/664589/answer.html" target="_blank" rel="nofollow">LV.37</a></span>
+                    </div>
+                    <span class="num">9</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">6</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/78247586/answer.html" target="_blank" rel="nofollow"><img src="https://p3-q.mafengwo.net/s9/M00/A5/14/wKgBs1aYSHaAAujFAASWmnKvT1k17.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/78247586/answer.html" target="_blank" rel="nofollow">米兰小王子</a></span>
+                        <span class="level"><a href="/wenda/u/78247586/answer.html" target="_blank" rel="nofollow">LV.34</a></span>
+                    </div>
+                    <span class="num">9</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">7</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/80448920/answer.html" target="_blank" rel="nofollow"><img src="https://p1-q.mafengwo.net/s11/M00/F7/99/wKgBEFpylFiAMsXSAACOxFQF-3k65.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/80448920/answer.html" target="_blank" rel="nofollow">击浪飞歌</a></span>
+                        <span class="level"><a href="/wenda/u/80448920/answer.html" target="_blank" rel="nofollow">LV.33</a></span>
+                    </div>
+                    <span class="num">9</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">8</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/65327706/answer.html" target="_blank" rel="nofollow"><img src="https://n2-q.mafengwo.net/s11/M00/79/D3/wKgBEFsrVM6ACjOgAABz7qvz8iM68.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/65327706/answer.html" target="_blank" rel="nofollow">小三没儿话</a></span>
+                        <span class="level"><a href="/wenda/u/65327706/answer.html" target="_blank" rel="nofollow">LV.22</a></span>
+                    </div>
+                    <span class="num">9</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">9</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/10304491/answer.html" target="_blank" rel="nofollow"><img src="https://n1-q.mafengwo.net/s5/M00/CC/6B/wKgB21BZ18H_zz7GAAHzAbBJsr035.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/10304491/answer.html" target="_blank" rel="nofollow">Kyle_Shi</a></span>
+                        <span class="level"><a href="/wenda/u/10304491/answer.html" target="_blank" rel="nofollow">LV.42</a></span>
+                    </div>
+                    <span class="num">9</span>
+                </li>
+                <li class="clearfix">
+                    <em class="num">10</em>
+                    <div class="user no_qid">
+                        <a class="avatar" href="/wenda/u/54985201/answer.html" target="_blank" rel="nofollow"><img src="https://b2-q.mafengwo.net/s12/M00/DB/B3/wKgED1u9lwGAJs2PAAdSiWeh3xc08.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
+                        <span class="name"><a href="/wenda/u/54985201/answer.html" target="_blank" rel="nofollow">璞石::天祺</a></span>
+                        <span class="level"><a href="/wenda/u/54985201/answer.html" target="_blank" rel="nofollow">LV.32</a></span>
+                    </div>
+                    <span class="num">9</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
+
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+
+
+<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
+
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<input type="hidden" id="keyvalue">
+<input type="hidden" id="cityId">
+<input type="hidden" id="interestLabelName">
+<script>
+    $().ready(
+        function()
+        {
+            find_user_optimumAnswerNum();
+            $.ajax({
+                url:"cityController/find_city_askRespondNum",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    var _j_open_mdd_listHtml="";
+                    if(null!=data&&0<data.length)
+                    {
+                        for(var i=0;i<data.length;i++)
+                        {
+                            _j_open_mdd_listHtml+="<li ><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
+                        }
+                    }
+                    $("._j_open_mdd_list").html(_j_open_mdd_listHtml);
+                }
+            });
+            $("#keyvalue").val(GetQueryString("keyvalue"));
+            $("#cityId").val(GetQueryString("cityId"));
+            $("#interestLabelId").val(GetQueryString("interestLabelId"));
+            var keyvalue = GetQueryString("keyvalue");
+            var cityId = GetQueryString("cityId");
+            var interestLabelId = GetQueryString("interestLabelId");
+            if (null != keyvalue && "" != keyvalue)
+            {
+                $.ajax({
+                    url:"askRespondController/find_askRespondBykeyvalueAndstateId",
+                    dataType:"json",
+                    type:"post",
+                    data:{pageIndex:1,keyvalue:keyvalue},
+                    success:function(data)
+                    {
+                        load_data(data);
+                        $("._j_add_more_button a").attr("data-bySeach","keyvalue");
+                        $("._j_add_more_button a").attr("data-value",encodeURI(encodeURI(keyvalue)));
+                    }
+                });
+            }
+            else if(null!=cityId&&""!=cityId)
+            {
+                $.ajax({
+                    url:"askRespondController/find_askRespondBycityIdAndstateId",
+                    dataType:"json",
+                    type:"post",
+                    data:{pageIndex:1,cityId:cityId},
+                    success:function(data)
+                    {
+                        load_data(data);
+                        $("._j_add_more_button a").attr("data-bySeach","cityId");
+                        $("._j_add_more_button a").attr("data-value",cityId);
+                    }
+                });
+            }
+            else if(null!=interestLabelId&&""!=interestLabelId)
+            {
+                $.ajax({
+                    url:"askRespondController/find_askRespondByinterestLabelIdAndstateId",
+                    dataType:"json",
+                    type:"post",
+                    data:{pageIndex:1,interestLabelId:interestLabelId},
+                    success:function(data)
+                    {
+                        load_data(data);
+                        $("._j_add_more_button a").attr("data-bySeach","interestLabelId");
+                        $("._j_add_more_button a").attr("data-value",interestLabelId);
+                    }
+                });
+            }
+            else
+            {
+                $.ajax({
+                    url:"askRespondController/find_askRespondBystateId",
+                    dataType:"json",
+                    type:"post",
+                    data:{pageIndex:1},
+                    success:function(data)
+                    {
+                        load_data(data);
+                        $("._j_add_more_button a").attr("data-bySeach","All");
+                    }
+                });
+            }
+        }
+    );
+    //加载问答
+    function load_data(data)
+    {
+        var _j_pager_boxHtml="";
+        if(null!=data)
+        {
+            if(null!=data.askResponds&&data.askResponds.length)
+            {
+                for(var i=0;i<data.askResponds.length;i++)
+                {
+                    var aHtml="";
+                    if(null!=data.askResponds[i].replyaskrespond.replyHeadPhoto&&""!=data.askResponds[i].replyaskrespond.replyHeadPhoto)
+                        aHtml="<img src='"+data.askResponds[i].replyaskrespond.replyHeadPhoto+"' width='150' height='100'>";
+                    if(null!=data.askResponds[i].replyaskrespond.replyBrief&&""!=data.askResponds[i].replyaskrespond.replyBrief)
+                        aHtml+="<p>"+data.askResponds[i].replyaskrespond.replyBrief+"</p>";
+                    var desc_clearfixHtml="";
+                    if(null!=aHtml&&""!=aHtml)
+                        desc_clearfixHtml="<div class='desc clearfix'><a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank' style='color: #666;'>"+aHtml+"</a></div>";
+                    var tagsHtml="";
+                    if(null!=data.askResponds[i].interestLabelId&&""!=data.askResponds[i].interestLabelId)
+                        tagsHtml="<div class='tags'><a href='front_desk/askRespond/askRespond.html?interestLabelId="+data.askResponds[i].interestlabel.interestLabelId+"' class='_j_filter_click' target='_blank'><i class='_j_filter_click'></i>"+data.askResponds[i].interestlabel.interestLabelName+"</a></div>";
+                    var mddHtml="";
+                    if(null!=data.askResponds[i].cityId&&""!=data.askResponds[i].cityId)
+                        mddHtml+="<div class='mdd'><a href='front_desk/askRespond/askRespond.html?cityId="+data.askResponds[i].city.cityId+"' class='_j_filter_click' target='_blank'><i class='_j_filter_click'></i>"+data.askResponds[i].city.cityName+"</a></div>";
+                    _j_pager_boxHtml+="<li class='item clearfix'><div class='title'><a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank'>"+data.askResponds[i].askRespondTitle+"</a></div><div class='container'><div class='avatar'><a href='front_desk/users/personalSpace.html?userId="+data.askResponds[i].user.userId+"' target='_blank' class='_j_filter_click'><img class='_j_filter_click' src='"+data.askResponds[i].user.photo+"'></a></div><div class='user-info'><a class='name _j_filter_click' href='front_desk/users/personalSpace.html?userId="+data.askResponds[i].user.userId+"' target='_blank'>"+data.askResponds[i].user.userName+"</a></div>"+desc_clearfixHtml+""+tagsHtml+"<div class='operate'>"+mddHtml+"<a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank' style='text-decoration: none;'><span class='reply'>回复 ("+data.askResponds[i].replyAskRespondNum+")</span></a><span class='date'>发布于 "+format_time(data.askResponds[i].releaseTime)+"</span></div></div></li>";
+                }
+                $("._j_pager").css("display","block");
+            }
+            else
+            {
+                _j_pager_boxHtml="<div class='qa-empty'><i class='icon-empty'></i><p>无相关问题</p></div>";
+                $("._j_pager").css("display","none");
+            }
+            $("._j_add_more_button a").attr("data-index",data.currentIndex);
+        }
+        else
+        {
+            _j_pager_boxHtml="<div class='qa-empty'><i class='icon-empty'></i><p>无相关问题</p></div>";
+            $("._j_pager").css("display","none");
+        }
+        $("._j_pager_box").html(_j_pager_boxHtml);
+    }
+    //查询用户金牌排位
+    function find_user_optimumAnswerNum(obj)
+    {
+        $("._j_rank_change_flag").removeClass("on");
+        if (null == obj)
+            $($("._j_rank_change_flag")[0]).addClass("on");
+        else
+            $(obj).addClass("on");
+        $.ajax({
+            url:"usersController/find_user_optimumAnswerNum",
+            dataType:"json",
+            type:"post",
+            success:function(data)
+            {
+                load_j_rank_list(data);
+            }
+        });
+    }
+    //加载用户回答数
+    function find_user_replyAskRespondNum(obj)
+    {
+        $("._j_rank_change_flag").removeClass("on");
+        $(obj).addClass("on");
+        $.ajax({
+            url:"usersController/find_user_replyAskRespondNum",
+            dataType:"json",
+            type:"post",
+            success:function(data)
+            {
+                load_j_rank_list(data);
+            }
+        });
+    }
+    //加载用户被顶次数
+    function find_user_replyAskRespondTopNum(obj)
+    {
+        $("._j_rank_change_flag").removeClass("on");
+        $(obj).addClass("on");
+        $.ajax({
+            url:"usersController/find_user_replyAskRespondTopNum",
+            dataType:"json",
+            type:"post",
+            success:function(data)
+            {
+                load_j_rank_list(data);
+            }
+        });
+    }
+
+    //加载用户排位
+    function load_j_rank_list(data)
+    {
+        var _j_rank_listHtml="";
+        if(null!=data&&0<data.length)
+        {
+            for(var i=0;i<data.length;i++)
+            {
+                if(i+1==1)
+                    _j_rank_listHtml+="<li class='r-top r-top1 clearfix'><em class='num'>1</em><div class='user no_qid'><a class='avatar' href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'><img width='50' height='50'  src='"+data[i].photo+"'></a><span class='name'><a href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'>"+data[i].userName+"</a></span></div><span class='num'>"+data[i].nums+"</span></li>";
+                else if(i+1==2)
+                    _j_rank_listHtml+="<li class='r-top r-top2 clearfix'><em class='num'>2</em><div class='user no_qid'><a class='avatar' href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'><img width='50' height='50' src='"+data[i].photo+"'></a><span class='name'><a href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'>"+data[i].userName+"</a></span></div><span class='num'>"+data[i].nums+"</span></li>";
+                else if(i+1==3)
+                    _j_rank_listHtml+="<li class='r-top r-top3 clearfix'><em class='num'>3</em><div class='user no_qid'><a class='avatar' href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'><img width='50' height='50' src='"+data[i].photo+"'></a><span class='name'><a href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'>"+data[i].userName+"</a></span></div><span class='num'>"+data[i].nums+"</span></li>";
+                else
+                    _j_rank_listHtml+="<li class='clearfix'><em class='num'>"+(i+1)+"</em><div class='user no_qid'><a class='avatar' href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'><img width='50' height='50' src='"+data[i].photo+"'></a><span class='name'><a href='front_desk/users/personalSpace.html?userId="+data[i].userId+"' target='_blank' rel='nofollow'>"+data[i].userName+"</a></span></div><span class='num'>"+data[i].nums+"</span></li>";
+            }
+        }
+        $("._j_rank_list").html(_j_rank_listHtml);
+    }
+    //分页加载问答
+    function load_askRespondBypage(data)
+    {
+        var _j_pager_boxHtml="";
+        if(null!=data)
+        {
+            if(null!=data.askResponds&&data.askResponds.length)
+            {
+                for(var i=0;i<data.askResponds.length;i++)
+                {
+                    var aHtml="";
+                    if(null!=data.askResponds[i].replyaskrespond.replyHeadPhoto&&""!=data.askResponds[i].replyaskrespond.replyHeadPhoto)
+                        aHtml="<img src='"+data.askResponds[i].replyaskrespond.replyHeadPhoto+"' width='150' height='100'>";
+                    if(null!=data.askResponds[i].replyaskrespond.replyBrief&&""!=data.askResponds[i].replyaskrespond.replyBrief)
+                        aHtml+="<p>"+data.askResponds[i].replyaskrespond.replyBrief+"</p>";
+                    var desc_clearfixHtml="";
+                    if(null!=aHtml&&""!=aHtml)
+                        desc_clearfixHtml="<div class='desc clearfix'><a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank' style='color: #666;'>"+aHtml+"</a></div>";
+                    var tagsHtml="";
+                    if(null!=data.askResponds[i].interestLabelId&&""!=data.askResponds[i].interestLabelId)
+                        tagsHtml="<div class='tags'><a href='front_desk/askRespond/askRespond.html?interestLabelId="+data.askResponds[i].interestlabel.interestLabelId+"' class='_j_filter_click' target='_blank'><i class='_j_filter_click'></i>"+data.askResponds[i].interestlabel.interestLabelName+"</a></div>";
+                    var mddHtml="";
+                    if(null!=data.askResponds[i].cityId&&""!=data.askResponds[i].cityId)
+                        mddHtml+="<div class='mdd'><a href='front_desk/askRespond/askRespond.html?cityId="+data.askResponds[i].city.cityId+"' class='_j_filter_click' target='_blank'><i class='_j_filter_click'></i>"+data.askResponds[i].city.cityName+"</a></div>";
+                    _j_pager_boxHtml+="<li class='item clearfix'><div class='title'><a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank'>"+data.askResponds[i].askRespondTitle+"</a></div><div class='container'><div class='avatar'><a href='front_desk/users/personalSpace.html?userId="+data.askResponds[i].user.userId+"' target='_blank' class='_j_filter_click'><img class='_j_filter_click' src='"+data.askResponds[i].user.photo+"'></a></div><div class='user-info'><a class='name _j_filter_click' href='front_desk/users/personalSpace.html?userId="+data.askResponds[i].user.userId+"' target='_blank'>"+data.askResponds[i].user.userName+"</a></div>"+desc_clearfixHtml+""+tagsHtml+"<div class='operate'>"+mddHtml+"<a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank' style='text-decoration: none;'><span class='reply'>回复 ("+data.askResponds[i].replyAskRespondNum+")</span></a><span class='date'>发布于 "+format_time(data.askResponds[i].releaseTime)+"</span></div></div></li>";
+                }
+                $("._j_pager").css("display","block");
+            }
+            else
+                $("._j_pager").css("display","none");
+            $("._j_add_more_button a").attr("data-index",data.currentIndex);
+        }
+        else
+            $("._j_pager").css("display","none");
+        $("._j_pager").children(".ft_load_btn").removeClass("hide");
+        $("._j_pager").children("._j_add_loading_button").addClass("hide");
+        $("._j_pager_box").append(_j_pager_boxHtml);
+    }
+    function clickload_askRespondBypage(obj)
+    {
+        $("._j_pager").children(".ft_load_btn").addClass("hide");
+        $("._j_pager").children("._j_add_loading_button").removeClass("hide");
+        var value =$(obj).attr("data-value");
+        var pageIndex=parseInt($(obj).attr("data-index"))+1;
+        if (null != keyvalue && "" != keyvalue)
+        {
+            $.ajax({
+                url:"askRespondController/find_askRespondBykeyvalueAndstateId",
+                dataType:"json",
+                type:"post",
+                data:{pageIndex:pageIndex,keyvalue:value},
+                success:function(data)
+                {
+                    load_askRespondBypage(data);
+                }
+            });
+        }
+        else if(null!=cityId&&""!=cityId)
+        {
+            $.ajax({
+                url:"askRespondController/find_askRespondBycityIdAndstateId",
+                dataType:"json",
+                type:"post",
+                data:{pageIndex:pageIndex,cityId:value},
+                success:function(data)
+                {
+                    load_askRespondBypage(data);
+                }
+            });
+        }
+        else if(null!=interestLabelId&&""!=interestLabelId)
+        {
+            $.ajax({
+                url:"askRespondController/find_askRespondByinterestLabelIdAndstateId",
+                dataType:"json",
+                type:"post",
+                data:{pageIndex:pageIndex,interestLabelId:value},
+                success:function(data)
+                {
+                    load_askRespondBypage(data);
+                }
+            });
+        }
+        else
+        {
+            $.ajax({
+                url:"askRespondController/find_askRespondBystateId",
+                dataType:"json",
+                type:"post",
+                data:{pageIndex:pageIndex},
+                success:function(data)
+                {
+                    load_askRespondBypage(data);
+                }
+            });
+        }
+    }
+    //搜索问答
+    $("#_j_wenda_seach_input").keyup(
+        function()
+        {
+            var value=$(this).val();
+            if(null!=value&&""!=value)
+            {
+                $.ajax({
+                    url:"askRespondController/find_askRespondByaskRespondTitle_key",
+                    dataType:"json",
+                    type:"post",
+                    data:{keyvalue:value},
+                    success:function(data)
+                    {
+                        if(null!=data&&0<data.length)
+                        {
+                            var is=data.length;
+                            if(is>10)
+                                is=10;
+                            var _j_suggest_boxHtml="<div class='bd-question'><h3>问题 ("+data.length+")</h3><ul>";
+                            for(var i=0;i<is;i++)
+                            {
+                                _j_suggest_boxHtml+="<li class='_j_search_item'><a target='_blank' href='front_desk/askRespond/replyRespond.html?askRespondId="+data[i].askRespondId+"' data-cs-p='suggest_detail'>"+data[i].askRespondTitle+"<span>"+data[i].replyAskRespondNum+" 回答</span></a></li>";
+                            }
+                            _j_suggest_boxHtml+="</ul></div><div class='bd-more'><a href='front_desk/askRespond/askRespond.html?keyvalue="+encodeURI(encodeURI(value))+"' data-cs-p='suggest_more'><i></i>查看全部关于“"+value+"”的搜索结果</a></div>";
+                            $("._j_suggest_box").html(_j_suggest_boxHtml);
+                            $("._j_suggest_box").removeClass("hide");
+                        }
+                        else
+                            $("._j_suggest_box").addClass("hide");
+                    }
+                });
+            }
+            else
+                $("._j_suggest_box").addClass("hide");
+        }
+    );
+</script>
+<script>
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
+    });
+    //获取地址栏中的参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    //转换日期
+    function format_time(replyTime)
+    {
+        return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+    }
+</script>
+</body>
+</html>

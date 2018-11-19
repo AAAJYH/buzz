@@ -21,5 +21,5 @@ public class city {
     private String stateId; //状态（删除/未删除）
     private Integer searchNumber; //搜索次数
     private Timestamp uptime; //修改时间
-
+    private Integer askRespondNum;//问答数量,不存在数据库
 }

@@ -38,4 +38,12 @@ public interface hotelOrdersDao {
     @Select("<script>select * from hotelorders <if test=\"state!=''\">where state=#{state} </if> order by subTime desc</script>")
     public List<hotelorders> byStateQueryHotelOrders(@Param("state") String state);
 
+    /**
+     * 通过用户编号和状态查询
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from hotelOrders where state in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and userId=#{userId}</script>"})
+    public List<hotelorders> find_hotelOrdersByuserIdAndstateId(@Param("userId")String userId,@Param("stateIds")String...stateIds);
 }

@@ -28,4 +28,5 @@ public class travelNotes
     private city city;
     private String stateId;
     private String oldstateId;
+    private String travelCollectionId;//收藏游记编号,不存在于数据库
 }

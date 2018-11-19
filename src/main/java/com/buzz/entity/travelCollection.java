@@ -11,6 +11,7 @@ public class travelCollection
 {
     private String travelCollectionId;
     private String userId;
+    private users user;
     private String travelNotesId;
     private String collectionTime;
 }

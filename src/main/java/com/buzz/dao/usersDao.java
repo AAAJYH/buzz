@@ -76,6 +76,37 @@ public interface usersDao
     @Select("select * from users where userId=#{userId}")
     public users find_userByuseruserId(@Param("userId")String userId);
 
+    /**
+     * 查询所有用户的被采纳答案数量
+     * @param optimumAnswer
+     * @return
+     */
+    @Select("select u.*,(select count(r.replyAskRespondId) from replyAskRespond r where r.userId=u.userId and r.optimumAnswer=#{optimumAnswer}) nums from users u ORDER BY nums desc")
+    public List<users> find_user_optimumAnswerNum(@Param("optimumAnswer")String optimumAnswer);
+
+    /**
+     * 查询所有用户的回复问答数量
+     * @param stateId
+     * @return
+     */
+    @Select("select u.*,(select count(r.replyAskRespondId) from replyAskRespond r where r.userId=u.userId and r.stateId=#{stateId}) nums from users u ORDER BY nums desc")
+    public List<users> find_user_replyAskRespondNum(@Param("stateId")String stateId);
+
+    /**
+     * 查询所有用户的被顶数量
+     * @return
+     */
+    @Select("select u.*,(select count(rat.replyAskRespondTopId) from replyAskRespondTop rat left join replyAskRespond rar on rat.replyAskRespondId=rar.replyAskRespondId where rar.userId=u.userId) nums from users u ORDER BY nums desc")
+    public List<users> find_user_replyAskRespondTopNum();
+
+    /**
+     * 查询该用户下的游记点赞的用户
+     * @param userId
+     * @return
+     */
+    @Select("select * from users where userId in (SELECT distinct tc.userId FROM travelNotes t INNER join travelCollection tc on t.travelNotesId=tc.travelNotesId where t.userId=#{userId})")
+    public List<users> find_user_travelCollectionuserByuserId(@Param("userId")String userId);
+
     //查询全部用户
     @Select("select * from users")
     public List<users> queryAllUsers();
