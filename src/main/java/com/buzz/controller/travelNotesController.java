@@ -665,7 +665,41 @@ public class travelNotesController {
         }
         return map;
     }
-
+    /**
+     * 查过用户编号查询删除游记,赞游记用户,游记评论
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("load_delete_travelNotes_travelNotesReplyByuserId")
+    public Map<String,Object> load_delete_travelNotes_travelNotesReplyByuserId(HttpSession session)
+    {
+        users user= (users) session.getAttribute("user");
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("user",user);
+        List<travelNotes> travelNotes=travelnotesservice.find_travelNotes_ByuserId(user.getUserId(),"ac618998-ffe3-4300-a391-cd581f74078c");
+        if(null!=travelNotes&&0<travelNotes.size())
+        {
+            List<travelNotesReply>travelNotesReplys=new ArrayList<travelNotesReply>();
+            for(travelNotes t:travelNotes)
+            {
+                if(null!=t&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                List travelNotesReplylist=travelnotesreplyservice.find_travelNotesReplyBytravelNotesIdAndstateIdNoPage(t.getTravelNotesId(),"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+                if(null!=travelNotesReplylist&&0<travelNotesReplylist.size())
+                    travelNotesReplys.addAll(travelNotesReplylist);
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+            map.put("travelNotes",travelNotes);
+            if(null!=travelNotesReplys&&0<travelNotesReplys.size())
+            {
+                for(travelNotesReply tnr:travelNotesReplys)
+                    tnr.setUser(usersservice.find_userByuseruserId(tnr.getUserId()));
+            }
+            map.put("travelNotesReplys",travelNotesReplys);
+        }
+        map.put("travelCollectionUsers",usersservice.find_user_travelCollectionuserByuserId(user.getUserId()));
+        return map;
+    }
     /**
      * 根据用户编号获取该用户收藏的游记
      * @param userId
@@ -734,7 +768,6 @@ public class travelNotesController {
         map.put("travelNotes",list);
         return map;
     }
-
     /**
      * 根据发布时间倒序获取游记
      * @param pageIndex

@@ -2,9 +2,8 @@ package com.buzz.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.buzz.entity.Paging;
-import com.buzz.entity.replyAskRespond;
-import com.buzz.entity.replyAskRespondComment;
 import com.buzz.entity.smsCode;
+import com.buzz.entity.userbindEmailAndbindPhone;
 import com.buzz.entity.users;
 import com.buzz.service.*;
 import com.buzz.utils.Encryption;
@@ -14,16 +13,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +48,8 @@ public class usersController {
     private askRespondService askrespondservice;
     @Resource
     private replyAskRespondCommentService replyaskrespondcommentservice;
+    @Resource
+    private userbindEmailAndbindPhoneService userbindemailandbindphoneservice;
     /**
      * 显示登录页面
      *
@@ -103,7 +111,7 @@ public class usersController {
             Cookie cookie=new Cookie(code,passport);
             cookie.setMaxAge(60*60*24);//设置为一天时间
             response.addCookie(cookie);
-            String url="http://localhost:8000/usersController/show_updateuserPasswordBybindEmail_html?code="+code;
+            String url="http://localhost/usersController/show_updateuserPasswordBybindEmail_html?code="+code;
             String content="<div style='width:500px;margin:auto;border:1px solid #DEDEDE;padding:50px;'><p style='border-bottom:1px solid #CCCCCC;padding:10px 0px;'><span style='font-family:Montserrat;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:25px;color: #7B7B7B;'>buzz Travel network</span></p><p style='font-size:18px;font-family: 黑体;font-weight: bold;color:#7B7B7B;'>亲爱的用户，你好!</p><p style='color: #7B7B7B;'>我们已经收到了你的密码重置请求，请 24 小时内点击下面的按钮重置密码。</p><p style='text-align:center;'><a style='display: inline-block;width:120px;height:50px;background-color:#FFA800;color:white;line-height: 50px;border-radius: 3px;text-decoration: none;' href='"+url+"'>重置密码</a></p><p style='margin-top:50px;border-top:1px solid #CCCCCC;padding:10px 0px;color:#7B7B7B;'>如果以上按钮无法打开，请把下面的链接复制到浏览器地址栏中打开：</p><a href='"+url+"' style='color:#7B7B7B;'>"+url+"</a></div>";
             emailservice.sendHtmlEmail(passport,"设置新密码",content);
             model.addAttribute("bindEmail",passport);
@@ -148,7 +156,7 @@ public class usersController {
     public int SendRegisterVerificationCode(String bindPhone, HttpServletRequest request, HttpServletResponse response) {
         int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
         String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-//        SmsVerification.getVerificationCode(bindPhone,smsContent);
+        //SmsVerification.getVerificationCode(bindPhone,smsContent);
         System.out.println(verificationCode);
         smsCode smscode = new smsCode(bindPhone, verificationCode);
         String str = JSON.toJSONString(smscode);
@@ -234,7 +242,7 @@ public class usersController {
      * @return
      */
     @RequestMapping("register_user")
-    public String register_user(Model model, users user, String password, String mobile) {
+    public String register_user(Model model, users user, String password, String mobile) throws IOException {
         user.setUserId(Encryption.getUUID());
         user.setPhoto("images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png");
         user.setUserPassword(Encryption.encryption_md5(password));
@@ -412,20 +420,42 @@ public class usersController {
 
         if (null != passport && !"".equals(passport) && null != password && !"".equals(password))
         {
-            users user=usersservice.login_user(passport,Encryption.encryption_md5(password));
-            if(null!=user&&user.getBindPhone().equals(passport))
+            users user=null;
+            if(passport.indexOf("@")>0)//判断是否为邮箱
             {
-                model.addAttribute("user",user);
-                if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
-                    return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
-                }else{
-                    return "redirect:/destinationController/queryAllDestination";
+                user=usersservice.find_userByuserPasswordAndbindEmail(passport,Encryption.encryption_md5(password));
+                if(null!=user&&user.getBindEmail().equals(passport))
+                {
+                    model.addAttribute("user",user);
+                    if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
+                        return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                    }else{
+                        return "front_desk/homePage.html";
+                    }
+                }
+                else
+                {
+                    model.addAttribute("danger_message","账号或密码错误,请重试!");
+                    return "front_desk/login";
                 }
             }
             else
             {
-                model.addAttribute("danger_message","账号或密码错误,请重试!");
-                return "front_desk/login";
+                user=usersservice.login_user(passport,Encryption.encryption_md5(password));
+                if(null!=user&&user.getBindPhone().equals(passport))
+                {
+                    model.addAttribute("user",user);
+                    if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
+                        return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
+                    }else{
+                        return "front_desk/homePage.html";
+                    }
+                }
+                else
+                {
+                    model.addAttribute("danger_message","账号或密码错误,请重试!");
+                    return "front_desk/login";
+                }
             }
         }
         else
@@ -435,7 +465,7 @@ public class usersController {
                 if(request.getServletContext().getAttribute("pageurl")!=null&&!request.getServletContext().getAttribute("pageurl").equals("")){
                     return "redirect:"+request.getServletContext().getAttribute("pageurl").toString().substring(16);
                 }else{
-                    return "redirect:/destinationController/queryAllDestination";
+                    return "front_desk/homePage.html";
                 }
             else
             {
@@ -568,8 +598,376 @@ public class usersController {
     @RequestMapping("/PagingQueryAllUsers")
     @ResponseBody
     public Paging<users> PagingQueryAllUsers(Integer page,Integer rows){
-        System.out.println(usersservice.PagingQueryAllUsers(page,rows));
         return usersservice.PagingQueryAllUsers(page,rows);
     }
 
+    /**
+     * 根据用户编号修改个人简介
+     * @param userId
+     * @param individualResume
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("update_users_individualResumeByuserId")
+    public boolean update_users_individualResumeByuserId(String userId,String individualResume)
+    {
+        if(0<usersservice.update_users_individualResumeByuserId(userId,individualResume))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * 修改用户信息
+     * @param model
+     * @param userId
+     * @param userName
+     * @param sex
+     * @param cityId
+     * @param birthDate
+     * @param individualResume
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("update_usersByuserId")
+    public boolean update_usersByuserId(Model model,String userId,String userName,String sex,String cityId,String birthDate,String individualResume) throws ParseException {
+        users update_user=new users();
+        update_user.setUserId(userId);
+        update_user.setUserName(userName);
+        update_user.setSex(sex);
+        update_user.setAddress(cityId);
+        update_user.setBirthDate(Timestamp.valueOf(birthDate+" 18:01:01"));
+        update_user.setIndividualResume(individualResume);
+        if(0<usersservice.update_usersByuserId(update_user))
+        {
+            model.addAttribute("user",usersservice.find_userByuseruserId(userId));
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
+     * 上传图片
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("upload_users_photo")
+    public Map<String,Object> update_users_photoByuserId(@RequestParam("photo")MultipartFile photo) throws IOException {
+        Map<String,Object> map=new HashMap<String,Object>();
+        String oldfilename = photo.getOriginalFilename();
+        String filetype = oldfilename.substring(oldfilename.lastIndexOf("."));
+        String newfilename = Encryption.getUUID() + filetype;
+        FileOutputStream fos=null;
+        try
+        {
+            String path = ResourceUtils.getURL("src/main/resources/static/images/userPhoto").getPath();
+            path = path.replace("%20", " ");
+            fos=new FileOutputStream(path+"/"+newfilename);
+            byte[] bytes=photo.getBytes();
+            fos.write(bytes);
+            fos.flush();
+            File file=new File(path+"/"+newfilename);
+            if(file.exists())
+            {
+                map.put("result",true);
+                map.put("url","images/userPhoto/"+newfilename);
+            }
+        }
+        catch(IOException e)
+        {
+            map.put("result",false);
+            e.printStackTrace();
+        }
+        finally
+        {
+            fos.flush();
+            fos.close();
+        }
+        return map;
+    }
+
+    /**
+     * 通过用户编号和已上传的图片路径,剪切图片并修改用户头像
+     * @param userId 用户编号
+     * @param url 图片路径
+     * @param boundx 封面x
+     * @param boundy 封面y
+     * @param selectx 选择x
+     * @param selecty 选择y
+     * @param selectw 选择w
+     * @param selecth 选择h
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("update_users_photoByuserId")
+    public Map<String,Object> update_users_photoByuserId(Model model,String userId,String url,Integer boundx,Integer boundy,Integer selectx,Integer selecty,Integer selectw,Integer selecth) throws IOException
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        String path = ResourceUtils.getURL("src/main/resources/static").getPath();
+        path = path.replace("%20", " ");
+        String filetype = url.substring(url.lastIndexOf("."));
+        String newfilename = "images/userPhoto/"+Encryption.getUUID() + filetype;
+        String newfilenames="images/userPhoto/"+Encryption.getUUID() + filetype;
+        String oldfile=path+"/"+url;
+        String newfile=path+"/"+newfilename;
+        String newfiles=path+"/"+newfilenames;
+        double wr=0,hr=0;
+        try
+        {
+            boolean flag=Encryption.operateByMaxSize(oldfile,newfile,boundy,boundx);//将图片缩放
+            if(flag)
+            {
+                File old=new File(oldfile);
+                if(old.exists())//如果存在删除旧图片
+                    old.delete();
+                BufferedImage bi = Encryption.file2img(newfile);//读取图片
+                File newphoto=new File(newfile);
+                if(newphoto.exists())
+                    newphoto.delete();
+                BufferedImage bii = Encryption.img_tailor(bi, selectx, selecty, selectw,selecth);//按照x,y轴,宽度和高度产生新的图片
+                Encryption.img2file(bii, filetype.replace(".",""), newfiles);//生成图片
+                File file=new File(newfiles);
+                if(file.exists())
+                {
+                    users update_user=new users();
+                    update_user.setUserId(userId);
+                    update_user.setPhoto(newfilenames);
+                    users user=usersservice.find_userByuseruserId(userId);
+                    String delete_filename=user.getPhoto();
+                    if(0<usersservice.update_usersByuserId(update_user))
+                    {
+                        if(!delete_filename.equals("images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png"))//判断不是默认图片
+                        {
+                            File delete_file=new File(path+"/"+delete_filename);
+                            if(delete_file.exists())//删除该用户之前的头像
+                                delete_file.delete();
+                        }
+                        user.setPhoto(newfilenames);
+                        model.addAttribute("user",user);
+                        map.put("result",true);
+                    }
+                    else
+                        map.put("result",false);
+                }
+                else
+                    map.put("result",true);
+            }
+            else
+                map.put("result",false);
+        }
+        catch(Exception e)
+        {
+            map.put("result",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    /**
+     * 根据图片路径删除图片
+     * @param url
+     * @return
+     * @throws FileNotFoundException
+     */
+    @ResponseBody
+    @RequestMapping("delete_users_photo")
+    public boolean delete_users_photo(String url) throws FileNotFoundException
+    {
+        String path = ResourceUtils.getURL("src/main/resources/static").getPath();
+        path = path.replace("%20", " ");
+        String filepath=path+"/"+url;
+        File file=new File(filepath);
+        if(file.exists())
+            file.delete();
+        return true;
+    }
+
+    /**
+     * 发送邮箱验证
+     * @param userId
+     * @param bindEmail
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("send_bindEmailMessage")
+    public boolean send_bindEmailMessage(String userId,String bindEmail)
+    {
+        String updateId=Encryption.getUUID();
+        userbindEmailAndbindPhone ueap=userbindemailandbindphoneservice.find_userbindEmailAndbindPhoneByuserIdAndtype(userId,"insertbindEmail");
+        if(null==ueap)
+        {
+            ueap=new userbindEmailAndbindPhone();
+            ueap.setUpdateId(updateId);
+            ueap.setUserId(userId);
+            ueap.setUpdatebindEmail(bindEmail);
+            ueap.setUpdatebindEmailstateId("5402e51d-b657-432a-8e73-025db3393dd5");
+            ueap.setType("insertbindEmail");
+            if(0<userbindemailandbindphoneservice.insert_userbindEmailAndbindPhone(ueap))
+            {
+                users user=usersservice.find_userByuseruserId(userId);
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                String url="http://localhost/userbindEmailAndbindPhoneController/update_userbindEmailByuserbindEmailAndbindPhone?updateId="+updateId;
+                String content="<div><p>"+user.getUserName()+",你好:</p><p>嗡嗡嗡验证您的常用邮箱，是为了确认您能收到好友的提醒，此邮箱帐号我们会为您保密。</p><p>请点击下面的连接地址或者将下面的地址复制到浏览器完成验证。</p><p><a href='"+url+"'>"+url+"</a></p><p>下面是您的绑定信息：</p><p>邮件地址：<a href='https://mail.qq.com'>"+bindEmail+"</a></p><p style='margin-left:100px'>嗡嗡嗡制作</p><p style='margin-left:100px'>"+sdf.format(new Date())+"</p></div>";
+                emailservice.sendHtmlEmail(bindEmail,"设置新邮箱",content);
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+        {
+            users user=usersservice.find_userByuseruserId(userId);
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            String url="http://localhost/userbindEmailAndbindPhoneController/update_userbindEmailByuserbindEmailAndbindPhone?updateId="+ueap.getUpdateId();
+            String content="<div><p>"+user.getUserName()+",你好:</p><p>嗡嗡嗡验证您的常用邮箱，是为了确认您能收到好友的提醒，此邮箱帐号我们会为您保密。</p><p>请点击下面的连接地址或者将下面的地址复制到浏览器完成验证。</p><p><a href='"+url+"'>"+url+"</a></p><p>下面是您的绑定信息：</p><p>邮件地址：<a href='https://mail.qq.com'>"+ueap.getUpdatebindEmail()+"</a></p><p style='margin-left:100px'>嗡嗡嗡制作</p><p style='margin-left:100px'>"+sdf.format(new Date())+"</p></div>";
+            emailservice.sendHtmlEmail(bindEmail,"设置新邮箱",content);
+            return true;
+        }
+    }
+
+    /**
+     * 发送修改绑定手机号验证码
+     * @param userId
+     * @param passport 联系方式
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("send_updatebindPhoneMessage")
+    public Map<String,Object> send_updatebindPhoneMessage(String userId,String passport)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
+        boolean result=false;
+        userbindEmailAndbindPhone ueap=userbindemailandbindphoneservice.find_userbindEmailAndbindPhoneByuserIdAndtype(userId,"updatebindPhone");
+        if(null!=ueap)
+        {
+            ueap.setVerificationCode(verificationCode);
+            if(0<userbindemailandbindphoneservice.update_userbindEmailAndbindPhoneByupdateId(ueap))
+                result=true;
+        }
+        else
+        {
+            ueap=new userbindEmailAndbindPhone();
+            ueap.setUpdateId(Encryption.getUUID());
+            ueap.setUserId(userId);
+            ueap.setVerificationMode(passport);
+            ueap.setVerificationCode(verificationCode);
+            ueap.setType("updatebindPhone");
+            if(0<userbindemailandbindphoneservice.insert_userbindEmailAndbindPhone(ueap))
+                result=true;
+        }
+        if(result)
+        {
+            if(passport.indexOf("@")>0)//判断是否为邮箱或者手机号
+            {
+                map.put("type","email");
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                users user=usersservice.find_userByuseruserId(userId);
+                String content="<table border='0' cellpadding='0' cellspacing='0' style='background-color:f7f9fa; border-radius:3px;border:1px solid #dedede;margin:0 auto; background-color:#ffffff' width='552'><tbody><tr><td bgcolor='#ffffff' align='center' style='padding: 0 15px 0px 15px;'><table border='0' cellpadding='0' cellspacing='0' width='480'><tbody><tr><td><table width='100%' border='0' cellpadding='0' cellspacing='0'><tbody><tr><td><table cellpadding='0' cellspacing='0' border='0' align='left'><tbody><tr><td width='550' align='left' valign='top'><table width='100%' border='0' cellpadding='0' cellspacing='0'><tbody><tr><td bgcolor='#ffffff' align='left' style='background-color:#ffffff; font-size: 17px; color:#7b7b7b; padding:28px 0 0 0;line-height:25px;'><b>"+user.getUserName()+",你好：</b></td></tr><tr><td align='left' valign='top' style='font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 20px 0px'>以下是您的验证码,很高兴您使用我们的服务。</td></tr><tr><td style='border-bottom:1px #f1f4f6 solid; padding: 10px 0 35px 0;' align='center'><table border='0' cellspacing='0' cellpadding='0'><tbody><tr><td><span style='font-family:Hiragino Sans GB;font-size:17px;'>验证码："+verificationCode+"</span></td></tr></tbody></table></td></tr><tr><td align='right' valign='top' style='font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 35px 0px'>嗡嗡嗡<br><span style='border-bottom: 1px dashed rgb(204, 204, 204); position: relative;' t='5' times=''>"+sdf.format(new Date())+"</span></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>";
+                emailservice.sendHtmlEmail(passport,"更换手机号",content);
+            }
+            else
+            {
+                map.put("type","phone");
+                String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
+                //SmsVerification.getVerificationCode(passport,smsContent);
+            }
+            map.put("verificationCode",verificationCode);
+            map.put("updateId",ueap.getUpdateId());
+        }
+        map.put("result",result);
+        System.out.println(verificationCode);
+        return map;
+    }
+    /**
+     * 发送修改绑定邮箱验证码
+     * @param userId
+     * @param passport 联系方式
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("send_updatebindEmailMessage")
+    public Map<String,Object> send_updatebindEmailMessage(String userId,String passport)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
+        boolean result=false;
+        userbindEmailAndbindPhone ueap=userbindemailandbindphoneservice.find_userbindEmailAndbindPhoneByuserIdAndtype(userId,"updatebindEmail");
+        if(null!=ueap)
+        {
+            ueap.setVerificationCode(verificationCode);
+            if(0<userbindemailandbindphoneservice.update_userbindEmailAndbindPhoneByupdateId(ueap))
+                result=true;
+        }
+        else
+        {
+            ueap=new userbindEmailAndbindPhone();
+            ueap.setUpdateId(Encryption.getUUID());
+            ueap.setUserId(userId);
+            ueap.setVerificationMode(passport);
+            ueap.setVerificationCode(verificationCode);
+            ueap.setType("updatebindEmail");
+            if(0<userbindemailandbindphoneservice.insert_userbindEmailAndbindPhone(ueap))
+                result=true;
+        }
+        if(result)
+        {
+            if(passport.indexOf("@")>0)//判断是否为邮箱或者手机号
+            {
+                map.put("type","email");
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                users user=usersservice.find_userByuseruserId(userId);
+                String content="<table border='0' cellpadding='0' cellspacing='0' style='background-color:f7f9fa; border-radius:3px;border:1px solid #dedede;margin:0 auto; background-color:#ffffff' width='552'><tbody><tr><td bgcolor='#ffffff' align='center' style='padding: 0 15px 0px 15px;'><table border='0' cellpadding='0' cellspacing='0' width='480'><tbody><tr><td><table width='100%' border='0' cellpadding='0' cellspacing='0'><tbody><tr><td><table cellpadding='0' cellspacing='0' border='0' align='left'><tbody><tr><td width='550' align='left' valign='top'><table width='100%' border='0' cellpadding='0' cellspacing='0'><tbody><tr><td bgcolor='#ffffff' align='left' style='background-color:#ffffff; font-size: 17px; color:#7b7b7b; padding:28px 0 0 0;line-height:25px;'><b>"+user.getUserName()+",你好：</b></td></tr><tr><td align='left' valign='top' style='font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 20px 0px'>以下是您的验证码,很高兴您使用我们的服务。</td></tr><tr><td style='border-bottom:1px #f1f4f6 solid; padding: 10px 0 35px 0;' align='center'><table border='0' cellspacing='0' cellpadding='0'><tbody><tr><td><span style='font-family:Hiragino Sans GB;font-size:17px;'>验证码："+verificationCode+"</span></td></tr></tbody></table></td></tr><tr><td align='right' valign='top' style='font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 35px 0px'>嗡嗡嗡<br><span style='border-bottom: 1px dashed rgb(204, 204, 204); position: relative;' t='5' times=''>"+sdf.format(new Date())+"</span></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>";
+                emailservice.sendHtmlEmail(passport,"更换邮箱地址",content);
+            }
+            else
+            {
+                map.put("type","phone");
+                String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
+                //SmsVerification.getVerificationCode(passport,smsContent);
+            }
+            map.put("verificationCode",verificationCode);
+            map.put("updateId",ueap.getUpdateId());
+        }
+        map.put("result",result);
+        System.out.println(verificationCode);
+        return map;
+    }
+    /**
+     * 向新的手机号或邮箱发送验证码
+     * @param userId
+     * @param passport
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("send_updatebindEmailorupdatebindPhoneMessage")
+    public Map<String,Object> send_updatebindEmailorupdatebindPhoneMessage(String userId,String passport)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        if(null!=passport&&!"".equals(passport))
+        {
+            int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
+            if(passport.indexOf("@")>0)//判断是否为邮箱或者手机号
+            {
+                map.put("type","email");
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                users user=usersservice.find_userByuseruserId(userId);
+                String content="<table border='0' cellpadding='0' cellspacing='0' style='background-color:f7f9fa; border-radius:3px;border:1px solid #dedede;margin:0 auto; background-color:#ffffff' width='552'><tbody><tr><td bgcolor='#ffffff' align='center' style='padding: 0 15px 0px 15px;'><table border='0' cellpadding='0' cellspacing='0' width='480'><tbody><tr><td><table width='100%' border='0' cellpadding='0' cellspacing='0'><tbody><tr><td><table cellpadding='0' cellspacing='0' border='0' align='left'><tbody><tr><td width='550' align='left' valign='top'><table width='100%' border='0' cellpadding='0' cellspacing='0'><tbody><tr><td bgcolor='#ffffff' align='left' style='background-color:#ffffff; font-size: 17px; color:#7b7b7b; padding:28px 0 0 0;line-height:25px;'><b>"+user.getUserName()+",你好：</b></td></tr><tr><td align='left' valign='top' style='font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 20px 0px'>以下是您的验证码,很高兴您使用我们的服务。</td></tr><tr><td style='border-bottom:1px #f1f4f6 solid; padding: 10px 0 35px 0;' align='center'><table border='0' cellspacing='0' cellpadding='0'><tbody><tr><td><span style='font-family:Hiragino Sans GB;font-size:17px;'>验证码："+verificationCode+"</span></td></tr></tbody></table></td></tr><tr><td align='right' valign='top' style='font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 35px 0px'>嗡嗡嗡<br><span style='border-bottom: 1px dashed rgb(204, 204, 204); position: relative;' t='5' times=''>"+sdf.format(new Date())+"</span></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>";
+                emailservice.sendHtmlEmail(passport,"更换绑定信息",content);
+            }
+            else
+            {
+                map.put("type","phone");
+                String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
+                //SmsVerification.getVerificationCode(passport,smsContent);
+            }
+            map.put("result",true);
+            map.put("verificationCode",verificationCode);
+            System.out.println(verificationCode);
+        }
+        else
+            map.put("result",false);
+        return map;
+    }
 }

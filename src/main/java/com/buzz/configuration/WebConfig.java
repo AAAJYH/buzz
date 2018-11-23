@@ -38,6 +38,7 @@ WebConfig implements WebMvcConfigurer
                 .addPathPatterns("/replyAskRespondController/find_replyAskRespond_Message_askRespondByuserIdAndstateId")
                 .addPathPatterns("/replyAskRespondController/find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId")
                 .addPathPatterns("/travelNotesController/find_travelNotes_travelNotesReplyByuserIdAndStateId")
+                .addPathPatterns("/travelNotesController/load_delete_travelNotes_travelNotesReplyByuserId")
                 .addPathPatterns("/travelNotesReplyController/insert_travelNotesReply");
     }
 }

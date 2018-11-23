@@ -128,5 +128,12 @@ public interface askRespondDao
     @Select({"<script>select count(askRespondId) from askRespond where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
     public Integer find_askRespond_countBystateId(@Param("stateIds")String...stateIds);
 
-
+    /**
+     * 根据城市编号和状态获取两个问答
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from askRespond where cityId=#{cityId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<askRespond> find_askRespondAndcityBycityIdTop2(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
 }

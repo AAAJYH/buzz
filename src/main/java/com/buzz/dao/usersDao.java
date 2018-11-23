@@ -111,4 +111,20 @@ public interface usersDao
     @Select("select * from users")
     public List<users> queryAllUsers();
 
+    /**
+     * 根据用户编号修改个人简介
+     * @param userId
+     * @param individualResume
+     * @return
+     */
+    @Update("update users set individualResume=#{individualResume} where userId=#{userId}")
+    public Integer update_users_individualResumeByuserId(@Param("userId")String userId,@Param("individualResume")String individualResume);
+
+    /**
+     * 根据用户编号修改用户信息
+     * @param user
+     * @return
+     */
+    @Update({"<script>update users set stateId=stateId <if test=\"null!=bindEmail and ''!=bindEmail\">,bindEmail=#{bindEmail}</if><if test=\"null!=bindPhone and ''!=bindPhone\">,bindPhone=#{bindPhone}</if><if test=\"null!=photo and ''!=photo\">,photo=#{photo}</if><if test=\"null!=userName and ''!=userName\">,userName=#{userName}</if><if test=\"null!=sex and ''!=sex\">,sex=#{sex}</if><if test=\"null!=address and ''!=address\">,address=#{address}</if><if test=\"null!=birthDate\">,birthDate=#{birthDate}</if><if test=\"null!=individualResume and ''!=individualResume\">,individualResume=#{individualResume}</if> where userId=#{userId}</script>"})
+    public Integer update_usersByuserId(users user);
 }

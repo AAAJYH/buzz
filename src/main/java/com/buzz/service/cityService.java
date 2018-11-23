@@ -40,6 +40,17 @@ public class cityService {
         return cityDao.byCityNameQuery(cityName);
     }
 
+    /**
+     * 根据城市名和状态编号搜索
+     * @param cityName
+     * @param stateId
+     * @return
+     */
+    public List<city> find_cityBycityNameNolike(String cityName,String stateId)
+    {
+        return cityDao.find_cityBycityNameNolike(cityName,stateId);
+    }
+
     //城市查询次数加一
     @Transactional
     public int SearchNumberAddOne(String cityId){

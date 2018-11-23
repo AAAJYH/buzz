@@ -5,9 +5,12 @@ package com.buzz.utils;
  * @Date: 2018/10/17 7:44
  */
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,5 +91,28 @@ import java.util.UUID;
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        /**
+         * 原图缩放图片
+         * @param inSrc 被缩放图片路径
+         * @param outSrc 输出新缩放图片路径
+         * @param height 高度
+         * @param width 宽度
+         * @return
+         */
+        public static boolean operateByMaxSize(String inSrc, String outSrc, int height, int width)
+        {
+            boolean flag = false;
+            if(null==inSrc||null==outSrc){
+                return flag;
+            }
+            try {
+                Thumbnails.of(inSrc).size(width, height).toFile(outSrc);
+                flag = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return flag;
         }
     }

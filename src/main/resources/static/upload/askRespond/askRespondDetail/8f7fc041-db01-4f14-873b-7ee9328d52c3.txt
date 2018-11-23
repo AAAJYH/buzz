@@ -1,0 +1,1 @@
+<p><img src="images\askRespond\photo/a73e9083-7564-4b39-8b55-bd6436407fc5.jpeg" class="fr-fic fr-dib" width="700px" onclick="showImagealert(this.src)"></p><p>我想去北京,附近有什么好玩的地方么</p>

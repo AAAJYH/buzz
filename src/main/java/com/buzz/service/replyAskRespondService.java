@@ -10,58 +10,68 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class replyAskRespondService
-{
+public class replyAskRespondService {
     @Resource
     private replyAskRespondDao replyaskresponddao;
 
     /**
      * 通过问答编号,用户编号,状态编号查询回复问答
+     *
      * @param userId
      * @param askRespondId
      * @param stateId
      * @return
      */
-    public replyAskRespond find_replyAskRespondByuserIdAndaskRespondIdAndstateId(String userId, String askRespondId, String stateId)
-    {
-        return replyaskresponddao.find_replyAskRespondByuserIdAndaskRespondIdAndstateId(userId,askRespondId,stateId);
+    public replyAskRespond find_replyAskRespondByuserIdAndaskRespondIdAndstateId(String userId, String askRespondId, String stateId) {
+        return replyaskresponddao.find_replyAskRespondByuserIdAndaskRespondIdAndstateId(userId, askRespondId, stateId);
     }
 
     /**
      * 通过回复问答编号,回复问答头图,所属问答,回复问答内容,所属用户,状态添加
+     *
      * @param r
      * @return
      */
-    public int insert_replyAskRespondByaskRespondId(replyAskRespond r)
-    {
+    public int insert_replyAskRespondByaskRespondId(replyAskRespond r) {
         return replyaskresponddao.insert_replyAskRespondByaskRespondId(r);
     }
 
     /**
      * 通过用户编号和状态编号查询回复问答数量
+     *
      * @param userId
      * @param stateIds
      * @return
      */
-    public Integer find_replyAskRespondCountByuserIdAndStateId(String userId,String...stateIds)
-    {
-        return replyaskresponddao.find_replyAskRespondCountByuserIdAndStateId(userId,stateIds);
+    public Integer find_replyAskRespondCountByuserIdAndStateId(String userId, String... stateIds) {
+        return replyaskresponddao.find_replyAskRespondCountByuserIdAndStateId(userId, stateIds);
     }
 
     /**
      * 通过用户编号和状态编号进行分页查询回复问答,回复问答评论数量,点赞数量
+     *
      * @param pageIndex
      * @param pageSize
      * @param userId
      * @param stateIds
      * @return
      */
-    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateId(Integer pageIndex,Integer pageSize,String userId,String...stateIds)
-    {
-        PageHelper.startPage(pageIndex,pageSize);
-        return replyaskresponddao.find_replyAskRespondByuserIdAndstateId(userId,stateIds);
+    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateIdAndPage(Integer pageIndex, Integer pageSize, String userId, String... stateIds) {
+        PageHelper.startPage(pageIndex, pageSize);
+        return replyaskresponddao.find_replyAskRespondByuserIdAndstateIdAndPage(userId, stateIds);
     }
 
+    /**
+     * 通过用户编号和状态编号查询回复问答
+     *
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateId(String userId, String... stateIds)
+    {
+        return replyaskresponddao.find_replyAskRespondByuserIdAndstateId(userId,stateIds);
+    }
     /**
      * 通过用户编号和状态编号和金牌回答编号查询回复问答,回复问答评论数量,点赞数量
      * @param userId
@@ -216,5 +226,25 @@ public class replyAskRespondService
     public List<replyAskRespond> find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId(String userId,String...stateIds)
     {
         return replyaskresponddao.find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId(userId,stateIds);
+    }
+
+    /**
+     * 通过问答编号,状态,最佳问答状态,查询最佳回复问答
+     * @return
+     */
+    public replyAskRespond find_replyAskRespondByaskRespondIdAndoptimumAnswerAndstateId(String askRespondId,String optimumAnswer,String...stateIds)
+    {
+        return replyaskresponddao.find_replyAskRespondByaskRespondIdAndoptimumAnswerAndstateId(askRespondId,optimumAnswer,stateIds);
+    }
+    /**
+     * 通过问答编号,状态查询最佳回复问答
+     * @param askRespondId
+     * @param stateIds
+     * @return
+     */
+    public replyAskRespond find_replyAskRespondByaskRespondIdAndstateId(String askRespondId,String...stateIds)
+    {
+        PageHelper.startPage(1,1);
+        return replyaskresponddao.find_replyAskRespondByaskRespondIdAndstateId(askRespondId,stateIds);
     }
 }

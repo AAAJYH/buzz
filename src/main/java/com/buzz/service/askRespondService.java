@@ -232,4 +232,16 @@ public class askRespondService {
     {
         return askresponddao.find_askRespond_countBystateId(stateIds);
     }
+
+    /**
+     * 根据城市编号和状态获取两个问答
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    public List<askRespond> find_askRespondAndcityBycityIdTop2(String cityId,String...stateIds)
+    {
+        PageHelper.startPage(1,2);
+        return askresponddao.find_askRespondAndcityBycityIdTop2(cityId,stateIds);
+    }
 }

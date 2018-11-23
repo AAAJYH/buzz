@@ -1,9 +1,6 @@
 package com.buzz.controller;
 
-import com.buzz.entity.askRespond;
-import com.buzz.entity.replyAskRespond;
-import com.buzz.entity.replyAskRespondComment;
-import com.buzz.entity.users;
+import com.buzz.entity.*;
 import com.buzz.service.*;
 import com.buzz.utils.Encryption;
 import com.buzz.utils.Upload;
@@ -390,7 +387,8 @@ public class askRespondController {
     @ResponseBody
     @RequestMapping("find_askRespondBykeyvalueAndstateId")
     public Map<String,Object> find_askRespondBykeyvalueAndstateId(Integer pageIndex,String keyvalue) throws UnsupportedEncodingException {
-        keyvalue=URLDecoder.decode(keyvalue,"UTF-8");
+        if(null!=keyvalue&&!"".equals(keyvalue))
+            keyvalue=URLDecoder.decode(keyvalue,"UTF-8");
         Integer pageSize=10;
         Map<String,Object> map=new HashMap<String,Object>();
         List <askRespond>list=new ArrayList<askRespond>();
@@ -501,6 +499,45 @@ public class askRespondController {
         else
             pages=askRespondNum/pageSize;
         map.put("pages",pages);
+        return map;
+    }
+
+    /**
+     * 根据城市获取两个问答
+     * @param cityId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_askRespondAndcityBycityIdTop2")
+    public Map<String,Object> find_askRespondAndcityBycityIdTop2(String cityId)
+    {
+        String [] stateIds={"0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
+        Map<String,Object> map=new HashMap<String,Object>();
+        List<askRespond> askResponds=askrespondservice.find_askRespondAndcityBycityIdTop2(cityId,stateIds);
+        if(null!=askResponds&&0<askResponds.size())
+        {
+            for(askRespond a:askResponds)
+            {
+                a.setUser(usersservice.find_userByuseruserId(a.getUserId()));
+                if(a.getStateId().equals("2130f38e-48b2-4e7e-a4cf-120aa3a149af"))
+                {
+                    replyAskRespond rask=replyaskrespondservice.find_replyAskRespondByaskRespondIdAndoptimumAnswerAndstateId(a.getAskRespondId(),"true",stateIds);
+                    if(null!=rask)
+                        rask.setUser(usersservice.find_userByuseruserId(rask.getUserId()));
+                    a.setReplyaskrespond(rask);
+                }
+                else
+                {
+                    replyAskRespond rask=replyaskrespondservice.find_replyAskRespondByaskRespondIdAndstateId(a.getAskRespondId(),stateIds);
+                    if(null!=rask)
+                        rask.setUser(usersservice.find_userByuseruserId(rask.getUserId()));
+                    a.setReplyaskrespond(rask);
+                }
+            }
+        }
+        city city=cityservice.byCityIdQuery(cityId);
+        map.put("city",city);
+        map.put("askResponds",askResponds);
         return map;
     }
 }

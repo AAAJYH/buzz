@@ -311,12 +311,18 @@ public class replyAskRespondController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("currentIndex", pageIndex);
         String[] stateIds = {"0ee26211-3ae8-48b7-973f-8488bfe837d6", "79ce7fee-9393-4ab8-88a0-306d7b2c9d22", "2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
-        List<replyAskRespond> replyAskResponds = replyaskrespondservice.find_replyAskRespondByuserIdAndstateId(pageIndex, pageSize, userId, stateIds);
-        for (replyAskRespond r : replyAskResponds) {
-            askRespond ask = askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(), stateIds);
-            if (null != ask.getCityId() && !"".equals(ask.getCityId()))
-                ask.setCity(cityservice.byCityIdQuery(ask.getCityId()));
-            r.setAskrespond(ask);
+        List<replyAskRespond> replyAskResponds = replyaskrespondservice.find_replyAskRespondByuserIdAndstateIdAndPage(pageIndex, pageSize, userId, stateIds);
+        if(null!=replyAskResponds&&0<replyAskResponds.size())
+        {
+            for (replyAskRespond r : replyAskResponds) {
+                askRespond ask = askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(), stateIds);
+                if(null!=ask)
+                {
+                    if (null != ask.getCityId() && !"".equals(ask.getCityId()))
+                        ask.setCity(cityservice.byCityIdQuery(ask.getCityId()));
+                    r.setAskrespond(ask);
+                }
+            }
         }
         map.put("replyAskResponds", replyAskResponds);
         Integer replyAskRespondsNum = replyaskrespondservice.find_replyAskRespondCountByuserIdAndStateId(userId, stateIds);
@@ -334,6 +340,34 @@ public class replyAskRespondController {
         return map;
     }
 
+    /**
+     * 通过用户编号和状态查询问答回复,提问
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_replyAskRespondByuserIdAndstateId")
+    public Map<String, Object> find_replyAskRespondByuserIdAndstateId(String userId)
+    {
+        Map<String, Object> map=new HashMap<String, Object>();
+        String[] stateIds = {"0ee26211-3ae8-48b7-973f-8488bfe837d6", "79ce7fee-9393-4ab8-88a0-306d7b2c9d22", "2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
+        List<replyAskRespond>replyAskResponds=replyaskrespondservice.find_replyAskRespondByuserIdAndstateId(userId,stateIds);
+        if(null!=replyAskResponds)
+        {
+            for(replyAskRespond r:replyAskResponds)
+            {
+                askRespond ask=askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(),stateIds);
+                if(null!=ask)
+                {
+                    ask.setReplyAskRespondNum(replyaskrespondservice.find_replyAskRespondCountByaskRespondIdAndStateId(ask.getAskRespondId(),"0ee26211-3ae8-48b7-973f-8488bfe837d6"));
+                    ask.setUser(usersservice.find_userByuseruserId(ask.getUserId()));
+                    r.setAskrespond(ask);
+                }
+            }
+        }
+        map.put("replyAskResponds",replyAskResponds);
+        return map;
+    }
     @ResponseBody
     @RequestMapping("find_replyAskRespond_optimumAnswerByuserIdAndstateIdAndPage")
     public Map<String, Object> find_replyAskRespond_optimumAnswerByuserIdAndstateIdAndPage(String userId, Integer pageIndex) {
@@ -342,11 +376,17 @@ public class replyAskRespondController {
         map.put("currentIndex", pageIndex);
         String[] stateIds = {"0ee26211-3ae8-48b7-973f-8488bfe837d6", "79ce7fee-9393-4ab8-88a0-306d7b2c9d22", "2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
         List<replyAskRespond> replyAskResponds = replyaskrespondservice.find_replyAskRespond_optimumAnswerByuserIdAndstateId(pageIndex, pageSize, userId, "true", stateIds);
-        for (replyAskRespond r : replyAskResponds) {
-            askRespond ask = askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(), stateIds);
-            if (null != ask.getCityId() && !"".equals(ask.getCityId()))
-                ask.setCity(cityservice.byCityIdQuery(ask.getCityId()));
-            r.setAskrespond(ask);
+        if(null!=replyAskResponds&&0<replyAskResponds.size())
+        {
+            for (replyAskRespond r : replyAskResponds) {
+                askRespond ask = askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(), stateIds);
+                if(null!=ask)
+                {
+                    if (null != ask.getCityId() && !"".equals(ask.getCityId()))
+                        ask.setCity(cityservice.byCityIdQuery(ask.getCityId()));
+                    r.setAskrespond(ask);
+                }
+            }
         }
         map.put("replyAskResponds", replyAskResponds);
         Integer replyAskRespondsNum = replyaskrespondservice.find_replyAskRespondCountByuserIdAndStateId(userId, stateIds);
@@ -379,12 +419,18 @@ public class replyAskRespondController {
         map.put("currentIndex", pageIndex);
         String[] stateIds = {"0ee26211-3ae8-48b7-973f-8488bfe837d6", "79ce7fee-9393-4ab8-88a0-306d7b2c9d22", "2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
         List<replyAskRespond> replyAskResponds = replyaskrespondservice.find_replyAskRespondByreplyAskRespondTopAnduserIdAndstateId(pageIndex, pageSize, userId, stateIds);
-        for (replyAskRespond r : replyAskResponds) {
-            askRespond ask = askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(), stateIds);
-            if (null != ask.getCityId() && !"".equals(ask.getCityId()))
-                ask.setCity(cityservice.byCityIdQuery(ask.getCityId()));
-            r.setUser(usersservice.find_userByuseruserId(r.getUserId()));
-            r.setAskrespond(ask);
+        if(null!=replyAskResponds&&0<replyAskResponds.size())
+        {
+            for (replyAskRespond r : replyAskResponds) {
+                askRespond ask = askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(), stateIds);
+                if(null!=ask)
+                {
+                    if (null != ask.getCityId() && !"".equals(ask.getCityId()))
+                        ask.setCity(cityservice.byCityIdQuery(ask.getCityId()));
+                    r.setUser(usersservice.find_userByuseruserId(r.getUserId()));
+                    r.setAskrespond(ask);
+                }
+            }
         }
         map.put("replyAskResponds", replyAskResponds);
         Integer replyAskRespondsNum = replyaskrespondservice.find_replyAskRespondCountByuserIdAndStateId(userId, stateIds);
@@ -417,10 +463,13 @@ public class replyAskRespondController {
         users user= (users) session.getAttribute("user");
         map.put("currentUser",user);
         List<replyAskRespond> replyAskResponds=replyaskrespondservice.find_replyAskRespond_Message_askRespondByuserIdAndstateId(user.getUserId(),stateIds);
-        for(replyAskRespond r:replyAskResponds)
+        if(null!=replyAskResponds&&0<replyAskResponds.size())
         {
-            r.setUser(usersservice.find_userByuseruserId(r.getUserId()));
-            r.setAskrespond(askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(),stateIds));
+            for(replyAskRespond r:replyAskResponds)
+            {
+                r.setUser(usersservice.find_userByuseruserId(r.getUserId()));
+                r.setAskrespond(askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(),stateIds));
+            }
         }
         map.put("replyAskResponds",replyAskResponds);
         return map;
@@ -439,10 +488,13 @@ public class replyAskRespondController {
         users user= (users) session.getAttribute("user");
         map.put("currentUser",user);
         List<replyAskRespond> replyAskResponds=replyaskrespondservice.find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId(user.getUserId(),stateIds);
-        for(replyAskRespond r:replyAskResponds)
+        if(null!=replyAskResponds&&0<replyAskResponds.size())
         {
-            r.setUser(usersservice.find_userByuseruserId(r.getUserId()));
-            r.setAskrespond(askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(),stateIds));
+            for(replyAskRespond r:replyAskResponds)
+            {
+                r.setUser(usersservice.find_userByuseruserId(r.getUserId()));
+                r.setAskrespond(askrespondservice.find_askRespondByaskRespondId(r.getAskRespondId(),stateIds));
+            }
         }
         map.put("replyAskResponds",replyAskResponds);
         return map;

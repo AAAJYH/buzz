@@ -13,60 +13,35 @@
 <body>
 <div class="topBar">
     <div class="topBarC">
-        <div class="logo"><a title="马蜂窝自由行" href="/">马蜂窝自由行</a></div>
+        <div class="logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;width:40px;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
         <div class="t_nav">
             <ul id="pnl_nav" data-cs-t="headnav_wo">
                 <li data-cs-p="index">
-                    <strong class="t"><a href="/">首页</a></strong>
+                    <strong class="t"><a href="front_desk/homePage.html">首页</a></strong>
                 </li>
                 <li data-cs-t="wenda" data-cs-p="wenda">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                    <strong class="t"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></strong>
                 </li>
                 <li data-cs-t="things" data-cs-p="things">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">马蜂窝周边</a></strong>
+                    <strong class="t"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></strong>
                 </li>
                 <li data-cs-p="together">
-                    <strong class="t"><a href="/together/">结伴</a></strong>
+                    <strong class="t"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></strong>
                 </li>
                 <li data-cs-p="group">
-                    <strong class="t"><a href="/group/">小组</a></strong>
-                </li>
-                <li data-cs-p="mall">
-                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
-                </li>
-                <li class="drop" data-cs-p="other">
-                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
-                    <div class="c">
-
-                        <a href="/focus/" target="_blank">真人兽</a>
-
-                        <a href="/school/" target="_blank">马蜂窝高校</a>
-                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
-                        <a href="/auction/" target="_blank">马蜂窝拍卖行</a>
-                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
-                        <a href="/radio/" target="_blank">旅行电台</a>
-                        <a href="/club/" target="_blank">蜂首聚乐部</a>
-                        <a href="/home/vip_show.php" target="_blank">VIP</a>
-                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
-                    </div>
+                    <strong class="t"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></strong>
                 </li>
             </ul>
         </div>
-        <div class="t_search">
-            <form method="GET" action="/search/s.php" name="search">
-                <input type="text" class="key" value="" name="q" id="word">
-                <input type="submit" value="" class="btn">
-            </form>
-        </div>
-
         <div class="t_info">
-            <div data-pagelet id="pagelet-block-194fe9af3bb472f0f55cad1508c7c29b" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+            <div class="pagelet-block" id="login_box">
+                <div class="no_login">
+                    <span><a href="usersController/show_login_html">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="usersController/show_login_html">注册</a></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 <input type="hidden" id="_j_param" data-type="1" data-flag="0" data-total="0" data-uid="52028572">
 <div class="main">
     <div class="banner">
@@ -127,46 +102,15 @@
 <div id="footer">
     <div class="ft-content" style="width: 1105px">
         <div class="ft-copyright">
-            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <a href="front_desk/homePage.html"><i style="background:url('images/logoBottom.png') no-repeat 0 0px;float:left;width: 136px;height: 39px;overflow: hidden;margin: 8px 20px 0 0;"></i></a>
             <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
-            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
         </div>
         <div class="ft-safety">
             <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
             <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
             <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
         </div>
-
-    </div>
-</div>
-<link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
-<div class="mfw-toolbar" id="_j_mfwtoolbar">
-    <div class="toolbar-item-top">
-        <a role="button" class="btn _j_gotop">
-            <i class="icon_top"></i>
-            <em>返回顶部</em>
-        </a>
-    </div>
-    <div class="toolbar-item-feedback">
-        <a role="button" data-japp="feedback" class="btn">
-            <i class="icon_feedback"></i>
-            <em>意见反馈</em>
-        </a>
-    </div>
-    <div class="toolbar-item-code">
-        <a role="button" class="btn">
-            <i class="icon_code"></i>
-        </a>
-        <a role="button" class="mfw-code _j_code">
-            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
-        </a>
-        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
-    </div>
-    <div class="toolbar-item-down">
-        <a role="button" class="btn _j_gobottom">
-            <i class="icon_down"></i>
-            <em>页面底部</em>
-        </a>
     </div>
 </div>
 <input type="hidden" id="currentuserId">
@@ -191,8 +135,10 @@
                         {
                             var titleBarHtml="";
                             var _j_qa_navHtml="";
+                            var login_boxHtml="";
                             if(data.loginState)
                             {
+                                login_boxHtml="<ul class='user_info'><li id='pnl_user_msg' data-hoverclass='on' class='msg _j_hoverclass'><span id='oldmsg' class='oldmsg'><a href='javascript:' class='infoItem'>消息<b></b></a></span><ul id='head-msg-box' class='drop-bd'><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></li><li class='account _j_hoverclass' data-hoverclass='on' id='pnl_user_set'><span class='t'><a class='infoItem' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"'><img src='"+data.currentUser.photo+"' width='32' height='32' align='absmiddle'><b></b></a></span><div class='uSet c'><div class='asset'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' >我的嗡嗡嗡</a><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'>写游记</a><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow'>我的收藏</a><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow'>我的问答</a><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow'>我的游记</a><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'>游记收藏</a><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow'>我的订单</a><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow'>设置</a><a onclick='logout()' title='退出登录' rel='nofollow'>退出</a></div></li></ul>";
                                 currentuserId=data.currentUser.userId;
                                 $("#currentuserId").val(data.currentUser.userId);
                                 if(data.currentUser.userId!=userId)//如果当前用户是本网页用户
@@ -229,7 +175,24 @@
                                 titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
                                 _j_qa_navHtml+="<li class='on'><a href='front_desk/users/my_replyAskRespond.html?userId="+userId+"'>TA的回答</a></li>";
                                 _j_qa_navHtml+="<li><a href='front_desk/users/my_askRespond.html?userId="+userId+"'>TA的提问</a></li>";
+                                var url=window.location.href;
+                                login_boxHtml="<div class='no_login'><span><a href='usersController/show_login_html?url="+url+"'>登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='usersController/show_login_html?url="+url+"'>注册</a></span></div>";
                             }
+                            $("#login_box").html(login_boxHtml);
+                            //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                            $(document).mouseover(
+                                function(e)
+                                {
+                                    if(0<$(e.target).closest("#pnl_user_msg").length||0<$(e.target).closest("#head-msg-box").length)
+                                        $("#pnl_user_msg").addClass("on");
+                                    else
+                                        $("#pnl_user_msg").removeClass("on");
+                                    if(0<$(e.target).closest("#pnl_user_set").length||0<$(e.target).closest(".uSet").length)
+                                        $("#pnl_user_set").addClass("on");
+                                    else
+                                        $("#pnl_user_set").removeClass("on");
+                                }
+                            );
                             $("#titleBar").html(titleBarHtml);
                             $("._j_qa_nav").html(_j_qa_navHtml);
                             //获取当前页面用户
@@ -302,6 +265,20 @@
             success:function(data)
             {
                 load_data(data);
+            }
+        });
+    }
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
             }
         });
     }

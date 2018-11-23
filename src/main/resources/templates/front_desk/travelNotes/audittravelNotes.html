@@ -10,85 +10,27 @@
     <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
 </head>
 <body>
-<div id="header">
+<div id="header" xmlns="http://www.w3.org/1999/html">
     <div class="mfw-header">
         <div class="header-wrap clearfix">
-            <div class="head-logo"><a class="mfw-logo" title="嗡嗡嗡自由行" href="http://www.mafengwo.cn/"></a></div>
+            <div class="head-logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
             <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
-                <li class="head-nav-index" data-cs-p="index"><a href="http://www.mafengwo.cn/">首页</a></li>
-                <li class="head-nav-place" data-cs-p="mdd"><a href="http://www.mafengwo.cn/mdd/" title="目的地">目的地</a></li>
-                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="http://www.mafengwo.cn/gonglve/" title="旅游攻略">旅游攻略</a></li>
-                <li class="head-nav-sales head-nav-dropdown _j_sales_nav_show" id="_j_nav_sales" data-cs-p="sales">
-                    <a class="drop-toggle" href="http://www.mafengwo.cn/sales/" style="cursor: pointer;display: block;border-bottom:0 none;" data-sales-nav="旅行商城">
-                        <span>旅行商城<i class="icon-caret-down"></i></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-sales hide _j_sales_top" id="_j_sales_panel" data-cs-t="sales_nav">
-                        <ul>
-                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/" data-sales-nav="机票＋酒店">自由行<i class="i-hot">hot</i></a></li>
-                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4" data-sales-nav="跟团游">跟团游</a></li>
-                            <li><a target="_blank" href="http://www.mafengwo.cn/localdeals/" data-sales-nav="当地游">当地游</a></li>
-                            <li><a target="_blank" href="http://www.mafengwo.cn/flight/" data-sales-nav="国内机票">国内机票<i class="i-new">new</i></a></li>
-                            <li><a target="_blank" href="http://www.mafengwo.cn/sales/visa/" data-sales-nav="签证">签证</a></li>
-                            <li><a target="_blank" href="http://www.mafengwo.cn/insure/" data-sales-nav="保险">保险</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="head-nav-hotel" data-cs-p="hotel"><a href="http://www.mafengwo.cn/hotel/" title="酒店">酒店</a></li>
-                <li class="head-nav-community head-nav-dropdown _j_shequ_nav_show" id="_j_nav_community" data-cs-p="community">
-                    <div class="drop-toggle"><span>社区<i class="icon-caret-down"></i></span></div>
-                    <!-- 社区下拉面板 begin -->
-                    <div class="dropdown-panel dropdown-community hide _j_shequ_top no-image" id="_j_community_panel" data-cs-t="community_nav">
-                        <div class="panel-wrapper">
-                            <ul class="nav-list clearfix">
-                                <li class="h"><a href="http://www.mafengwo.cn/wenda/" target="_blank" title="问答" data-cs-p="wenda">问答<i class="i-hot">hot</i></a></li>
-                                <li><a href="http://www.mafengwo.cn/mall/things.php" target="_blank" title="嗡嗡嗡周边" data-cs-p="things">嗡嗡嗡周边<i class="i-new">new</i></a></li>
-                                <li><a href="http://www.mafengwo.cn/club/" target="_blank" title="蜂首俱乐部" data-cs-p="club">蜂首俱乐部</a></li>
-                                <li><a href="http://www.mafengwo.cn/together/" target="_blank" title="结伴" data-cs-p="together">结伴</a></li>
-                            </ul>
-                            <ul class="nav-list-sub clearfix">
-
-                                <li><a href="http://www.mafengwo.cn/group/" target="_blank" title="嗡嗡嗡旅行家" data-cs-p="group">小组论坛</a></li>
-                                <li><a href="http://www.mafengwo.cn/rudder/" target="_blank" title="分舵同城" data-cs-p="rudder">分舵同城</a></li>
-                                <li><a href="http://www.mafengwo.cn/auction/" target="_blank" title="嗡嗡嗡拍卖行" data-cs-p="paimai">嗡嗡嗡拍卖行</a></li>
-                                <!--<li><a href="http://www.mafengwo.cn/postal/" target="_blank" title="游记纪念工厂" data-cs-p="postal">游记纪念工厂</a></li>-->
-                                <li><a href="http://www.mafengwo.cn/photo_pk/prev.php" target="_blank" title="照片PK" data-cs-p="photo_pk">照片PK</a></li>
-                                <li><a href="http://www.mafengwo.cn/focus/" target="_blank" title="真人兽" data-cs-p="focus">真人兽</a></li>
-                                <li><a href="http://www.mafengwo.cn/mall/virtual_goods.php" target="_blank" title="道具商店" data-cs-p="virtual">道具商店</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 社区下拉面板 end -->
-                </li>
-                <li class="head-nav-app" data-cs-p="app"><a href="http://www.mafengwo.cn/app/intro/gonglve.php" title="APP">APP</a></li>
+                <li class="head-nav-index" data-cs-p="index"><a href="front_desk/homePage.html">首页</a></li>
+                <li class="head-nav-place" data-cs-p="mdd"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></li>
+                <li class="head-nav-hotel" data-cs-p="hotel"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></li>
+                <li class="head-nav-hotel" data-cs-p="map"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></li>
             </ul>
-            <div class="head-search" data-online="1">
-                <div class="head-search-wrapper">
-                    <div class="head-searchform">
-                        <input name="q" type="text" id="_j_head_search_input" autocomplete="off">
-                        <a role="button" href="javascript:" class="icon-search" id="_j_head_search_link"></a>
-                    </div>
+            <div id="login_box" class="pagelet-block">
+                <div class='login-out'>
+                    <a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html' rel='nofollow'>登录</a>
+                    <span class='split'>|</span>
+                    <a href='usersController/show_login_html' title='注册帐号' rel='nofollow'>注册</a>
                 </div>
             </div>
-            <div data-pagelet id="pagelet-block-44e9abffdcbac8401013580561ab89a0" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal"></div>
         </div>
         <div class="shadow"></div>
     </div>
-    <!-- 新自由行菜单 begin -->
-    <div class="dropdown-bar" style="display: none">
-        <div class="content">
-            <ul class="clearfix ul-dropdown-bar" id="Js_middleNav">
-                <li data-type="sales"><a href="http://www.mafengwo.cn/sales/">自由行</a></li>
-                <li data-type="freewalker"><a href="http://www.mafengwo.cn/sales/0-0-0-0-0-0-0-0.html?group=4">跟团游</a></li>
-                <li data-type="localdeals"><a href="http://www.mafengwo.cn/localdeals/">当地游</a></li>
-                <li data-type="flight"><a href="http://www.mafengwo.cn/flight/">国内机票</a></li>
-                <li data-type="visa"><a href="http://www.mafengwo.cn/sales/visa/">签证</a></li>
-                <li data-type="wifi"><a href="http://www.mafengwo.cn/localdeals/0-0-0-21-0-0-0-0.html">全球WiFi</a></li>
-                <li data-type="cruise"><a href="http://www.mafengwo.cn/sales/0-0-0-5-0-0-0-0.html">邮轮</a></li>
-                <li data-type="insurance"><a href="http://www.mafengwo.cn/insurance/">旅游保险</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- 新自由行菜单 end -->
 </div>
 <div class="main">
     <input type="hidden" id="travelNotesId" name="travelNotesId">
@@ -761,32 +703,32 @@
                 <dd><strong>920,000</strong> 家国际酒店</dd>
                 <dd><strong>21,000,000</strong> 条真实点评</dd>
                 <dd><strong>382,000,000</strong> 次攻略下载</dd>
-                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+                <dd><a class="highlight" target="_blank">中国旅游行业第一部“玩法”</a></dd>
             </dl>
             <dl class="ft-info-col ft-info-about">
                 <dt>关于我们</dt>
-                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+                <dd><a rel="nofollow">关于嗡嗡嗡</a><a class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a rel="nofollow">隐私政策</a><a rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a rel="nofollow">服务协议</a><a rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" rel="nofollow">加入嗡嗡嗡</a></dd>
             </dl>
             <dl class="ft-info-col ft-info-service">
                 <dt>旅行服务</dt>
                 <dd>
                     <ul class="clearfix">
-                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
-                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
-                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
-                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
-                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                        <li><a target="_blank">旅游攻略</a></li>
+                        <li><a target="_blank">酒店预订</a></li>
+                        <li><a target="_blank">旅游特价</a></li>
+                        <li><a target="_blank">国际租车</a></li>
+                        <li><a target="_blank">旅游问答</a></li>
+                        <li><a target="_blank">旅游保险</a></li>
+                        <li><a target="_blank">旅游指南</a></li>
+                        <li><a target="_blank">订火车票</a></li>
+                        <li><a target="_blank">旅游资讯</a></li>
+                        <li><a target="_blank">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" class="highlight">旅行商城全球商家入驻</a></li>
                     </ul>
                 </dd>
             </dl>
@@ -813,8 +755,14 @@
                 </dd>
             </dl>
         </div>
+
+        <div class="ft-links">
+            <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+            <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
+        </div>
+
         <div class="ft-copyright">
-            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <a href="front_desk/homePage.html"><i style="background:url('images/logoBottom.png') no-repeat 0 0px;float:left;width: 136px;height: 39px;overflow: hidden;margin: 8px 20px 0 0;"></i></a>
             <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
             <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
         </div>
@@ -871,12 +819,34 @@
                 {
                     if(null!=data)
                     {
+                        var login_boxHtml="";
                         if(data.loginState)
                         {
                             $("#userId").val(data.currentUser.userId);
                             $(".photo-con").children("a").attr({"href":"front_desk/users/personalSpace.html?userId="+data.currentUser.userId,"title":data.currentUser.userName});
                             $(".photo-con").children("a").children("img").attr("src",data.currentUser.photo);
+                            login_boxHtml="<div class='login-info'><div class='head-user' id='_j_head_user'><a class='drop-trigger' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' title='"+data.currentUser.userName+"的窝' rel='nofollow'><div class='user-image'><img src='"+data.currentUser.photo+"' height='32' width='32'></div><i class='icon-caret-down'></i></a></div><div class='head-msg' id='_j_head_msg'><a class='drop-trigger' href='javascript:' rel='nofollow'><i class='icon-msg'></i>消息<i class='icon-caret-down'></i><span class='head-msg-new hide' style='display: none;'></span></a></div></div><div class='dropdown-group'><div class='dropdown-menu dropdown-msg hide' id='_j_msg_panel' style='z-index: 10; display: none;'><ul><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></div><div class='dropdown-menu dropdown-msg hide' id='_j_msg_float_panel' style='display: none;'><ul></ul><a href='javascript:' class='close-newmsg'>×</a></div><div class='dropdown-menu dropdown-user hide' id='_j_user_panel' data-cs-t='user_nav' style='display: none;'><div class='user-info'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><ul><li><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' ><i class='icon-wo'></i>我的嗡嗡嗡</a></li><li><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'><i class='icon-writenotes'></i>写游记</a></li><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow' data-cs-p='collect'><i class='icon-collect'></i>我的收藏</a></li><li><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow' data-cs-p='wenda'><i class='icon-wenda'></i>我的问答</a></li><li><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow' data-cs-p='appointnotes'><i class='icon-ordernotes'></i>我的游记</a></li><li><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'><i class='icon-path'></i>游记收藏</a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow' data-cs-p='order'><i class='icon-order'></i>我的订单</a></li><li><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow' data-cs-p='settings'><i class='icon-settings'></i>设置</a></li><li><a onclick='logout()' title='退出登录' rel='nofollow'><i class='icon-logout' data-cs-p='logout'></i>退出</a></li></ul></div></div>";
                         }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='login-out'><a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html?url="+url+"' rel='nofollow'>登录</a><span class='split'>|</span><a href='usersController/show_login_html?url="+url+"' title='注册帐号' rel='nofollow'>注册</a></div>";
+                        }
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#_j_user_panel").length||0<$(e.target).closest("#_j_head_user").length)
+                                    $("#_j_user_panel").css("display","block");
+                                else
+                                    $("#_j_user_panel").css("display","none");
+                                if(0<$(e.target).closest("#_j_head_msg").length||0<$(e.target).closest("#_j_msg_panel").length)
+                                    $("#_j_msg_panel").css("display","block");
+                                else
+                                    $("#_j_msg_panel").css("display","none");
+                            }
+                        );
                     }
                 }
             });
@@ -948,7 +918,7 @@
                             {
                                 $(".set_index").html("<div class='post-deleted'><i class='icon'></i><p>本篇游记已被删除</p></div>");
                                 if(null!=userId&&userId==data.travelNotes.userId)//判断登录用户是否为游记所属用户,如果是则显示编辑和删除操作
-                                    $("body").append("<div class='pagelet-block' ><div class='layer_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.7; z-index: 88;'></div><div class='notes-deled-pop'><div class='msg'>亲爱的蜂蜂，你的游记已经被删除。<br>但，马蜂窝专为你提供一颗永不过期的后悔药。<br>你可以在任何时间恢复你的记忆。</div><div><a class='btn btn-recover _j_restore' onclick='restore_travelNotes()'>恢复游记</a></div></div></div>");
+                                    $("body").append("<div class='pagelet-block' ><div class='layer_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.7; z-index: 88;'></div><div class='notes-deled-pop'><div class='msg'>亲爱的蜂蜂，你的游记已经被删除。<br>但，嗡嗡嗡专为你提供一颗永不过期的后悔药。<br>你可以在任何时间恢复你的记忆。</div><div><a class='btn btn-recover _j_restore' onclick='restore_travelNotes()'>恢复游记</a></div></div></div>");
                                 else
                                     $("body").append("<div class='pagelet-block'><div class='layer_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.7; z-index: 88;'></div><div class='notes-deled-pop'><div class='msg'>亲爱的蜂蜂，此游记已经被删除。<br>需要次游记作者吃下后悔药<br>恢复他的记忆,您才可继续观看</div></div></div>");
                             }

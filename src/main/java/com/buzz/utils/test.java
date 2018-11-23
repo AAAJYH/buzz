@@ -182,7 +182,7 @@ public class test<T> {
             return null;
         }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // 官网获取的 API Key 更新为你注册的
         String clientId = "cymIZx98alUpK82RqX9sNql3";
         // 官网获取的 Secret Key 更新为你注册的
@@ -190,7 +190,12 @@ public class test<T> {
         test<Log> t=new test();
         System.out.println(t.getAuth(clientId, clientSecret));
     }
-
-
+*/
+    public static void main(String[] args) {
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+    }
 
 }

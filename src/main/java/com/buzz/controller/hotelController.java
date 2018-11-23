@@ -57,7 +57,7 @@ public class hotelController {
     @RequestMapping("/hotelIndex")
     public String hotelIndex(Model model, HttpServletRequest request,String scenicspotId,String cityName){
         city city=null;
-        if(cityName.equals("")){
+        if(null==cityName||cityName.equals("")){
             city=(city) request.getServletContext().getAttribute("city");
         }else{
             city=cityService.byCityNameQueryCity(cityName);
@@ -289,9 +289,9 @@ public class hotelController {
         users user= (users) session.getAttribute("user");
         List<hotelorders> hotelOrders=new ArrayList<hotelorders>();
         if(null==stateIds||"".equals(stateIds))
-            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已支付","待支付","超时未支付");
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已付款","待支付","超时未支付");
         else if("48d4c6ab-9b7b-4d95-b1ee-e26ee58c2550".equals(stateIds))
-            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已支付");
+            hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"已付款");
         else if("be6f2782-0c94-436b-91fe-3a7cf3b37bcc".equals(stateIds))
             hotelOrders=hotelOrdersService.find_hotelOrdersByuserIdAndstateId(user.getUserId(),"待支付");
         else if("7a0dbb86-2325-4ff1-9e79-0e4321354ee2".equals(stateIds))
