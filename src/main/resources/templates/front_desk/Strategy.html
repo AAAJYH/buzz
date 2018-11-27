@@ -52,8 +52,8 @@
     <div class="crumb" style="position: relative;top:-15px;">
         <div class="item">目的地<em>&gt;</em></div>
         <div class="item">旅游攻略<em>&gt;</em></div>
-        <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
-        <div class="item cur" th:text="${strategy.strategyHeadline}">丽江攻略</div>
+        <div class="item"><span th:text="${application.city.cityName}"></span><em>&gt;</em></div>
+        <div class="item cur" th:text="${strategy.strategyHeadline}"></div>
     </div>
 
     <!-- 玩法路线 景点 酒店 攻略 游记 问答 地图 -->
@@ -100,7 +100,7 @@
                 </script>
 
                 <li class="navbar-local navbar-dropdown">
-                    <a class="navbar-btn " href="#" target="_blank" data-cs-p="游记">
+                    <a class="navbar-btn " th:href="@{'/front_desk/city_travelNotes.html?cityId='+${application.city.cityId}}" target="_blank" data-cs-p="游记">
                         <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>

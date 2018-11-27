@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>您访问的页面错误了</title>
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/err500.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <base href="http://localhost/">
+</head>
+<body>
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
+            <ul class="head-nav" data-cs-t="headnav" id="_j_head_nav">
+                <li class="head-nav-index" data-cs-p="index"><a href="front_desk/homePage.html">首页</a></li>
+                <li class="head-nav-place" data-cs-p="mdd"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve" data-cs-p="gonglve"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></li>
+                <li class="head-nav-hotel" data-cs-p="hotel"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></li>
+                <li class="head-nav-hotel" data-cs-p="map"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></li>
+            </ul>
+            <div id="login_box" class="pagelet-block">
+                <div class='login-out'>
+                    <a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html' rel='nofollow'>登录</a>
+                    <span class='split'>|</span>
+                    <a href='usersController/show_login_html' title='注册帐号' rel='nofollow'>注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+<div class="wrap" style="background-image:url(images/err/bg1.jpg);">
+    <div class="inner">
+        <ul class="circle">
+            <li class="tips"></li>
+            <li class="ctext">
+                <p>很抱歉，</p>
+                <p>你要访问的<b>页面</b></p>
+                <p><strong>正在努力维修...</strong></p>
+            </li>
+            <li>返回<a href="front_desk/homePage.html">首页&gt;</a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    $().ready(
+        function()
+        {
+            //获取当前登录用户
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        var login_boxHtml="";
+                        if(data.loginState)
+                        {
+                            login_boxHtml="<div class='login-info'><div class='head-user' id='_j_head_user'><a class='drop-trigger' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' title='"+data.currentUser.userName+"的窝' rel='nofollow'><div class='user-image'><img src='"+data.currentUser.photo+"' height='32' width='32'></div><i class='icon-caret-down'></i></a></div><div class='head-msg' id='_j_head_msg'><a class='drop-trigger' href='javascript:' rel='nofollow'><i class='icon-msg'></i>消息<i class='icon-caret-down'></i><span class='head-msg-new hide' style='display: none;'></span></a></div></div><div class='dropdown-group'><div class='dropdown-menu dropdown-msg hide' id='_j_msg_panel' style='z-index: 10; display: none;'><ul><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></div><div class='dropdown-menu dropdown-msg hide' id='_j_msg_float_panel' style='display: none;'><ul></ul><a href='javascript:' class='close-newmsg'>×</a></div><div class='dropdown-menu dropdown-user hide' id='_j_user_panel' data-cs-t='user_nav' style='display: none;'><div class='user-info'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><ul><li><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' ><i class='icon-wo'></i>我的嗡嗡嗡</a></li><li><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'><i class='icon-writenotes'></i>写游记</a></li><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow' data-cs-p='collect'><i class='icon-collect'></i>我的收藏</a></li><li><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow' data-cs-p='wenda'><i class='icon-wenda'></i>我的问答</a></li><li><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow' data-cs-p='appointnotes'><i class='icon-ordernotes'></i>我的游记</a></li><li><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'><i class='icon-path'></i>游记收藏</a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow' data-cs-p='order'><i class='icon-order'></i>我的订单</a></li><li><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow' data-cs-p='settings'><i class='icon-settings'></i>设置</a></li><li><a onclick='logout()' title='退出登录' rel='nofollow'><i class='icon-logout' data-cs-p='logout'></i>退出</a></li></ul></div></div>";
+                        }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='login-out'><a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html?url="+url+"' rel='nofollow'>登录</a><span class='split'>|</span><a href='usersController/show_login_html?url="+url+"' title='注册帐号' rel='nofollow'>注册</a></div>";
+                        }
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#_j_user_panel").length||0<$(e.target).closest("#_j_head_user").length)
+                                    $("#_j_user_panel").css("display","block");
+                                else
+                                    $("#_j_user_panel").css("display","none");
+                                if(0<$(e.target).closest("#_j_head_msg").length||0<$(e.target).closest("#_j_msg_panel").length)
+                                    $("#_j_msg_panel").css("display","block");
+                                else
+                                    $("#_j_msg_panel").css("display","none");
+                            }
+                        );
+                    }
+                }
+            });
+        }
+    );
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
+    });
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -529,14 +529,14 @@ function load_travelNotesByNew(pageIndex,cityId)
                     var travelNotesContent="";
                     if(null!=data.travelNotes[i].travelNotesContents)
                     {
-                        for(var s=0;i<data.travelNotes[i].travelNotesContents.length;s++)
+                        for(var s=0;s<data.travelNotes[i].travelNotesContents.length;s++)
                         {
                             if(data.travelNotes[i].travelNotesContents[s].type=="textarea")
                             {
                                 if(0<data.travelNotes[i].travelNotesContents[s].value.length)
                                 {
                                     travelNotesContent=data.travelNotes[i].travelNotesContents[s].value;
-                                    break;
+                                        break;
                                 }
                             }
                         }
@@ -626,7 +626,7 @@ function load_travelNotesByNew(pageIndex,cityId)
                         var travelNotesContent="";
                         if(null!=data.travelNotes[i].travelNotesContents)
                         {
-                            for(var s=0;i<data.travelNotes[i].travelNotesContents.length;s++)
+                            for(var s=0;s<data.travelNotes[i].travelNotesContents.length;s++)
                             {
                                 if(data.travelNotes[i].travelNotesContents[s].type=="textarea")
                                 {
@@ -939,6 +939,23 @@ function _j_gs_tagRemove(obj)
         else
             window.location.href="strategyController/find_strategyBystrategyId?strategyId="+id;
     }
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
+    });
 </script>
 <div class="m-search-suggest m-search-suggest-index hide" style="display: none;"></div>
 </body>

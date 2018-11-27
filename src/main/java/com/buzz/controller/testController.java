@@ -28,4 +28,11 @@ public class testController {
         return "backstage_supporter/test";
     }
 
+    @RequestMapping("/test500")
+    public String test500()
+    {
+        int i=1/0;
+        return "s";
+    }
+
 }

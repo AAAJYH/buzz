@@ -294,7 +294,7 @@ $().ready(
                             var MAvaInfoHtml="";
                             $(".MAvaImg").children("img").attr("src",data.photo);
                             if(null!=data.address&&0<data.address.length)
-                                MAvaInfoHtml+="<span class='MAvaPlace flt1' title=''>现居:"+data.address+"</span>";
+                                MAvaInfoHtml+="<span>现居:"+data.city.cityName+"</span><br/><br/>";
                             var MAvaNameHtml="";
                             MAvaNameHtml+=data.userName;
                             if(data.sex=="男")

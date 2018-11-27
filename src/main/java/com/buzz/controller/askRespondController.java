@@ -540,4 +540,30 @@ public class askRespondController {
         map.put("askResponds",askResponds);
         return map;
     }
+
+    /**
+     * 通过城市编号和状态编号获取问答,和回复问答数量
+     * @param cityId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_askRespondBycityIdAndstateIdAndtop5")
+    public List<askRespond> find_askRespondBycityIdAndstateIdAndtop5(String cityId)
+    {
+        String [] stateIds={"0ee26211-3ae8-48b7-973f-8488bfe837d6","79ce7fee-9393-4ab8-88a0-306d7b2c9d22","2130f38e-48b2-4e7e-a4cf-120aa3a149af"};
+        List <askRespond> list=askrespondservice.find_askRespondBycityIdAndstateIdAndtop5(1,5,cityId,stateIds);
+        if(null!=list&&0<list.size())
+        {
+            for(askRespond a:list)
+            {
+                if("2130f38e-48b2-4e7e-a4cf-120aa3a149af".equals(a.getStateId()))
+                    a.setReplyaskrespond(replyaskrespondservice.find_replyAskRespondByaskRespondIdAndoptimumAnswerAndstateId(a.getAskRespondId(),"true",stateIds));
+                else if("79ce7fee-9393-4ab8-88a0-306d7b2c9d22".equals(a.getStateId()))
+                    a.setReplyaskrespond(replyaskrespondservice.find_replyAskRespondByaskRespondIdAndstateId(a.getAskRespondId(),stateIds));
+                if(null!=a.getReplyaskrespond())
+                    a.getReplyaskrespond().setUser(usersservice.find_userByuseruserId(a.getReplyaskrespond().getUserId()));
+            }
+        }
+        return list;
+    }
 }

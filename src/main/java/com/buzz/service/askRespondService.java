@@ -244,4 +244,16 @@ public class askRespondService {
         PageHelper.startPage(1,2);
         return askresponddao.find_askRespondAndcityBycityIdTop2(cityId,stateIds);
     }
+
+    /**
+     * 通过城市编号和状态编号获取问答,和回复问答数量
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    public List<askRespond> find_askRespondBycityIdAndstateIdAndtop5(Integer pageIndex,Integer pageSize,String cityId,String... stateIds)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return askresponddao.find_askRespondBycityIdAndstateIdAndtop5(cityId,stateIds);
+    }
 }

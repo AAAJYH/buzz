@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <meta name="renderer" content="webkit" />
+    <base href="http://localhost/">
+    <script language="javascript" src="js/jquery-1.11.0.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/logoHead.ico">
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/css+mdd+poi-list_css+mdd+poiMap_popup^YFI^1519936459.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
+            <ul class="head-nav" id="_j_head_nav">
+                <li class="head-nav-index"><a href="front_desk/homePage.html">首页</a></li>
+                <li class="head-nav-place"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></li>
+                <li class="head-nav-hotel"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></li>
+                <li class="head-nav-hotel"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></li>
+            </ul>
+            <div id="login_box" class="pagelet-block">
+                <div class='login-out'>
+                    <a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html' rel='nofollow'>登录</a>
+                    <span class='split'>|</span>
+                    <a href='usersController/show_login_html' title='注册帐号' rel='nofollow'>注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+<script language="JavaScript">
+    //lazyload
+    function img_lazyload() {
+        $("img.lazy").lazyload({
+            threshold: 400
+        });
+    }
+    $(function () {
+        img_lazyload();
+    });
+</script>
+<div class="wrapper">
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/mdd/place-crumb.css?1519936459" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        #header{
+            margin-bottom: 0;
+        }
+        .crumb {
+            width: 1000px;
+            font:12px Arial,"Microsoft Yahei","\5FAE\8F6F\96C5\9ED1",Tahoma,Helvetica,STHeiti,"Hiragino Sans GB";
+            height: 20px;
+            padding: 15px 0;
+            color: #666;
+            line-height: 20px;
+            margin: 0 auto;
+        }
+        .crumb .item a{
+            color:#666;
+            font-size:12px;
+        }
+
+    </style>
+    <div class="crumb">
+        <div class="item"><a href="destinationController/queryAllDestination" target="_blank">目的地</a><em>&gt;</em></div>
+        <div class="item"><a></a><em>&gt;</em></div>
+        <div class="item cur"><strong></strong></div>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+        $(function () {
+            //面包屑
+            $('.drop').mouseenter(function(ev) {
+                var target = $(ev.currentTarget);
+                clearTimeout(target.data('hideTimer'));
+                target.addClass('open');
+                target.children('bd').fadeIn(200);
+            });
+            $('.drop').mouseleave(function(ev) {
+                var target = $(ev.currentTarget);
+                target.data("hideTimer", setTimeout(function() {
+                    target.removeClass('open');
+                    target.children('bd').fadeOut(200);
+                }, 200));
+            });
+        });
+    </script>
+    <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
+        <div class="navbar-con">
+            <ul class="navbar clearfix">
+                <li class="navbar-overview">
+                    <a class="navbar-btn" data-cs-p="首页">
+                        <i class="navbar-icon"></i><span>首页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <li class="navbar-scenic">
+                    <a class="navbar-btn" href="/scenicspotController/byCityIdQueryScenicspot?cityId=77420ca9-eb80-4257-83dc-843cd21a4bd0" data-cs-p="景点">
+                        <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <li class="navbar-sales navbar-dropdown">
+                    <a class="navbar-btn " href="/hotelController/hotelIndex?scenicspotId=&amp;cityName=" data-cs-p="酒店">
+                        <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <li class="navbar-overview">
+                    <a class="navbar-btn" href="/strategyController/queryCityStrategy?strategyId=" data-cs-p="攻略">
+                        <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <li class="navbar-local navbar-dropdown active">
+                    <a class="navbar-btn" href="/front_desk/city_travelNotes.html" target="_blank" data-cs-p="游记">
+                        <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <li class="navbar-community navbar-dropdown">
+                    <a class="navbar-btn " href="/front_desk/askRespond/askRespond.html">
+                        <i class="navbar-icon"></i><span>问答</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>
+                <li class="navbar-maps navbar-last">
+                    <a class="navbar-btn" href="/mapController/mapIndex" target="_blank" data-cs-p="地图">
+                        <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+        (function(){
+            var navigation = $('.place-navbar'),
+                offset_top = navigation.offset().top,
+                h = navigation.outerHeight(true),
+                intervalod,
+                navdrop = $('.city-guide'),//顶导航
+                overviewdrop = $('.overview-drop'),//攻略概况
+                subtabdrop = $('.navbar-dropdown');//子菜单
+            navigation.after('<div id="fill_area" style="height: '+h+'px;display:none;"></div>');
+            function setFixed(){
+
+                var scrolltop = $(document).scrollTop(),
+                    fillarea = $('#fill_area');
+                if(scrolltop  > offset_top + 60){
+                    fillarea.show();
+                    navigation.addClass('place-navbar-fixed');
+                }else{
+                    fillarea.hide();
+                    navigation.removeClass('place-navbar-fixed');
+                }
+            }
+            $(window).scroll(function(){
+                setFixed();
+            });
+            /*定导航*/
+            navdrop.mouseenter(function(ev) {
+                clearTimeout(intervalod);
+                overviewdrop.removeClass('hide');
+            });
+            navdrop.mouseleave(function(ev) {
+                intervalnd = setTimeout(function(){
+                    overviewdrop.addClass('hide');
+                }, 200);
+            });
+            /*攻略概况*/
+            overviewdrop.mouseenter(function(ev) {
+                clearTimeout(intervalnd);
+                overviewdrop.removeClass('hide');
+            });
+            overviewdrop.mouseleave(function(ev) {
+                intervalod = setTimeout(function(){
+                    overviewdrop.addClass('hide');
+                }, 100);
+            });
+            /*子菜单*/
+            subtabdrop.mouseenter(function(ev) {
+                $(ev.currentTarget).find('.navbar-dropmenu').removeClass('hide');
+            });
+            subtabdrop.mouseleave(function(ev) {
+                $(ev.currentTarget).find('.navbar-dropmenu').addClass('hide');
+            });
+            setFixed();
+            $(window).resize(function(){
+                setOverView();
+            });
+            function setOverView(){
+                var overViewLayer = $('.overview-drop'),
+                    wHeight = $(window).height(),
+                    lHeight = overViewLayer.height();
+                if(wHeight - 80 > lHeight){
+                    overViewLayer.css({
+                        'height'   : 'auto',
+                        'overflow' : 'hidden'
+                    });
+                }else{
+                    overViewLayer.css({
+                        'height'   :  wHeight - 280 > 0 ? wHeight - 280 : wHeight,
+                        'overflow' : 'auto'
+                    });
+                }
+            }
+            setOverView();
+        })();
+    </script>
+
+    <div class="p-content" data-cs-p="游记列表">
+        <style type="text/css">
+            .post-label{
+                float: left;
+                padding-left: 20px;
+                padding-top: 13px;
+            }
+            .post-label a {
+                font-size: 14px;
+                padding: 5px;
+            }
+            .post-label .on{
+                color: #333;
+                background-color: #dfdfdf;
+                margin: 5px;
+            }
+        </style>
+        <div class="m-post">
+            <div class="post-tab clearfix">
+                <div class="tab-item on"><a class="on" style="margin-right: 20px;">最热游记</a></div>
+                <div class="tab-item "><a class="">最新游记</a></div>
+            </div>
+            <div class="navbar-sub clearfix">
+                <div class="tn-write"><a class="btn-add" target="_blank" href="front_desk/travelNotes/createNoteIndex.html"><i></i>写游记</a></div>
+            </div>
+            <script>
+                (function(){
+                    var traveltab = $('.tn-dropdown');
+                    traveltab.mouseenter(function(ev) {
+                        $(ev.currentTarget).addClass('dropdown-open');
+
+                    });
+                    traveltab.mouseleave(function(ev) {
+                        $(ev.currentTarget).removeClass('dropdown-open');
+
+                    });
+
+                    /**游记筛选指南*/
+                    $(".toggle_filter_guide").click(function(){
+                        $(this).closest('.tn-filterTips').find(">.pop").toggleClass('hide');
+                    });
+
+                    $(".ginfo_filter").click(function(){
+                        var attr = {};
+                        attr['mddid'] = $(this).data('mddid');
+                        attr['f_group'] = $(this).data('group');
+                        attr['f_value'] = $(this).data('name');
+                        attr['source'] = 'mdd_ginfo';
+                        mfwPageEvent('ugc','ginfo_filter',attr);
+                    });
+                    $(".ginfo_tag_click").click(function(){
+                        var attr = {};
+                        attr['mddid'] = $(this).data('mddid');
+                        attr['tagid'] = $(this).data('tag');
+                        attr['source'] = 'mdd_ginfo';
+                        mfwPageEvent('ugc','ginfo_tag_click',attr);
+                    });
+
+                })();
+            </script>
+            <div class="_notelist">
+                <div class="post-list">
+                    <div class="post-box" style="display: none;"></div>
+                    <ul></ul>
+                </div>
+            </div>
+            <div class="_pagebar"></div>
+            <script type="text/javascript">
+                (function () {
+                    var $notelist = $('._notelist'),
+                        $pagebar = $('._pagebar'),
+                        $con = $notelist.parent(),
+                        $tagTop = $con.find('.tag-pop'),
+                        $sorts = $con.find('[data-sort]'),
+                        $filters = $con.find('.navbar-sub .tn-dropdown li').not($sorts),
+                        $tags = $con.find(".post-topic li"),
+                        sort = '1',
+                        month = 0,
+                        cost = 0,
+                        days = 0,
+                        tag_id = 0,
+                        ajax_lock;
+                    $sorts.on('click', function (e, styleOnly) {
+                        e.preventDefault();
+                        var $this = $(this), $tab = $this.closest('.tab-item,.tn-dropdown'),
+                            $placeholder = $tab.find('.dropdown-trigger span'),
+                            changed;
+                        sort = $this.data('sort');
+                        if (!$this.is('.on')) {
+                            $tab.addClass('on').siblings().removeClass('on');
+                            $sorts.removeClass('on');
+                            $this.addClass('on');
+                            $placeholder.text($this.text());
+                            changed = true;
+                        }
+                        if (changed && !styleOnly) {
+                            if ($this.data('sort') != 1) {
+                                $filters.filter(':nth-child(1)').trigger('click', [1]);
+                                $tags.filter('.on').trigger('click', [1]);
+                            }
+                        }
+                        styleOnly && e.stopPropagation();
+                    });
+                    $filters.on('click', function (e, styleOnly) {
+                        e.preventDefault();
+                        var $this = $(this), $dropdown = $this.closest('.tn-dropdown'),
+                            $placeholder = $dropdown.find('.dropdown-trigger span'),
+                            changed,
+                            $link = $this.find('>a'),
+                            params = $link.attr('href');
+                        if (params) {
+                            params = params.split('/');
+                            params = params[params.length - 1].split('.')[0].split('-');
+                            if ($link.data('group') == 1) {
+                                month = params[1];
+                            } else if ($link.data('group') == 2) {
+                                cost = params[2];
+                            } else if ($link.data('group') == 3) {
+                                days = params[3];
+                            }
+                        }
+
+                        if (!$this.is('.on')) {
+                            $filters.removeClass('on');
+                            $this.addClass('on');
+                            $placeholder.text($.trim($this.text()) == '不限' ? ($placeholder.data('placeholder') || $this.text()) : $this.text());
+                            changed = true;
+                        }
+                        if (changed && !styleOnly) {
+                            //只能允许最新游记方式排序
+                            $sorts.filter('[data-sort=1]').trigger('click', [1]);
+                            $tags.filter('.on').trigger('click', [1]);
+                            getTravelNotes();
+                        }
+                        styleOnly && e.stopPropagation();
+                    });
+
+                    $tags.click(function (e, styleOnly) {
+                        e.preventDefault();
+                        var $this = $(this);
+                        if ($this.is('.on')) {
+                            $this.removeClass('on');
+                            $tagTop.hide();
+                            tag_id = 0;
+                        } else {
+                            $this.addClass('on').siblings().removeClass('on');
+                            $tagTop.show().find('dt').text($this.find('.v-middle').text())
+                                .end().find('dd').text($this.find('._desc').text());
+                            tag_id = $this.find('.v-middle').data('id');
+                        }
+                        if (!styleOnly) {
+                            //只能允许最新游记方式排序
+                            $sorts.filter('[data-sort=1]').trigger('click', [1]);
+                            $filters.filter(':nth-child(1)').trigger('click', [1]);
+                            getTravelNotes();
+                        }
+                        styleOnly && e.stopPropagation();
+                    });
+
+                    $pagebar.on('click', 'a[href]', function (e) {
+                        if ('mdd_yj' == 'mdd_index') {
+                            e.preventDefault();
+                            var params = $(this).attr('href').split('/');
+                            params = params[params.length - 1].split('.')[0].split('-');
+                            $('html,body').animate({
+                                scrollTop: ('mdd_yj' == 'mdd_index' ? $con.closest('.row-travels') : $con).offset().top - 60
+                            }, 500);
+                            getTravelNotes(params[0] == 's' ? params[5] : params[params.length - 1]);
+                        }
+                    });
+
+                    //POI游记ajax翻页
+                    window.flip_over = function (poiid, page) {
+                        if (!ajax_lock) {
+                            ajax_lock = true;
+                            $.get('/gonglve/ajax.php', {
+                                act: 'get_new_travellist', page: page, poi_id: poiid
+                            }, function (d) {
+                                var $list = $(d.list);
+                                if (d.msg == 'succ') {
+                                    $('.post-list').replaceWith($list);
+                                    $('.page-hotel').replaceWith(d.page);
+                                    $list.find("img.lazy").lazyload({
+                                        threshold: 400
+                                    });
+                                    $('html,body').animate({
+                                        scrollTop: $('.m-post').offset().top - 60
+                                    }, 500);
+                                }
+                                ajax_lock = false;
+                            }, 'json');
+                        }
+                    }
+                })();
+            </script>
+        </div>
+
+    </div>
+    <div class="p-aside">
+        <div class="m-box m-gonglve" style="margin-top:10px;">
+            <div class="hd"><h2></h2></div>
+            <div class="bd slide book-slide">
+                <ul class="slide-list" style="width:2000px;"></ul>
+                <a class="btn-prev book-prev" href="javascript:void(0);"></a>
+                <a class="btn-next book-next" href="javascript:void(0);"></a>
+                <ol class="dot-nav"></ol>
+            </div>
+        </div>
+        <style type="text/css">
+            .rec-tips {
+                position: absolute;
+                z-index: 4;
+                #width: 180px;
+                padding: 8px 10px;
+                border: 1px solid #fed999;
+                background-color: #fff8e6;
+                border-radius: 2px;
+                line-height: 18px;
+                color: #333;
+                font-weight: normal;
+            }
+            .rec-tips a {
+                color: #333;
+            }
+            .t-info-more {
+                display: none;
+            }
+        </style>
+
+        <div class="m-box m-ask">
+            <div class="hd">
+                <h2></h2>
+                <a class="btn-askAll" target="_blank"><i></i>所有问题</a>
+            </div>
+            <div class="bd">
+                <div class="search _j_qa_search_box">
+                    <script>
+                        var suggest_default = '有解决不了的问题，在这里向蜂蜂提出';
+                    </script>
+                    <div class="search-panel" data-cs-t="wenda">
+                        <div class="hd clearfix _j_suggest_hd">
+                            <div class="sp-input">
+                                <input type="text" class="_j_suggest" value="有解决不了的问题，在这里向蜂蜂提出">
+                            </div>
+                            <div class="sp-button">
+                                <input type="button" class="_j_search clickstat">
+                            </div>
+                        </div>
+                        <div class="bd _j_suggest_box" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- m-ask end -->
+        <div class="m-box m-hotAsk">
+            <div class="bd">
+                <ul></ul>
+            </div>
+            <a class="btn-addAsk" href="front_desk/askRespond/question.html" target="_blank"><i></i>我要提问</a>
+        </div>
+        <!-- m-hotAsk end -->
+        <div class="m-box m-comm"></div>
+        <!-- m-comm end -->
+        <script language="javascript" src="js/js+jquery.mfwSlide_js+MouseTip^YFU^1493174420.js" type="text/javascript" crossorigin="anonymous"></script>
+        <script language="JavaScript" type="text/javascript">
+            function load_js()
+            {
+                $(function(){
+                    /*宝藏提示*/
+                    $("#_js_treasureTips .i_know").click(function(e){
+                        e.preventDefault();
+                        $("#_js_treasureTips").hide();
+                    });
+                    $("._j_hover").hover(function(){
+                        $(".m-hotAsk ul li").removeClass("on");
+                        $(this).addClass('on');
+                    },function(){
+                        $(".m-hotAsk ul li").removeClass("on");
+                    });
+                    $('.book-slide').mfwSlide({
+                        'width' : 260,
+                        'height': 180,
+                        'speed' : 300,  //滚动速度
+                        'item' : 'ul>li', //
+                        'thumb_box' : '.dot-nav',  //缩略图，没有请置空
+                        'prev_btn' : '.book-prev',   //前一张，没有请置空
+                        'next_btn' : '.book-next',   //下一张，没有请置空
+                        'thumb_focus_class' : 'on',  // 当前正在显示的幻灯对应的缩略图的class
+                        'auto_play' : true,  // 自动播放
+                        'interval' : 8,  // 幻灯切换时间间隔
+                        'btn_auto_hide' : true,  // 自动隐藏上一张，下一张按钮
+                        'contain' : true, //thumb_box是否是$('#slide_box')的子元素,除特殊情况应该为true
+                        'always_play' : true
+                    });
+                    $('.sales-slide').mfwSlide({
+                        'width' : 260,
+                        'height': 180,
+                        'speed' : 300,  //滚动速度
+                        'item' : 'ul>li', //
+                        'thumb_box' : '.dot-nav',  //缩略图，没有请置空
+                        'prev_btn' : '.sales-prev',   //前一张，没有请置空
+                        'next_btn' : '.sales-next',   //下一张，没有请置空
+                        'thumb_focus_class' : 'on',  // 当前正在显示的幻灯对应的缩略图的class
+                        'auto_play' : true,  // 自动播放
+                        'interval' : 8,  // 幻灯切换时间间隔
+                        'btn_auto_hide' : true,  // 自动隐藏上一张，下一张按钮
+                        'contain' : true, //thumb_box是否是$('#slide_box')的子元素,除特殊情况应该为true
+                        'always_play' : true
+                    });
+                    $('.hover-cover').hover(function(){
+                        $(this).find('.img-cover').show();
+                    },function(){
+                        $(this).find('.img-cover').hide();
+                    });
+                    // 假动态滚动
+                    var actionList = $("#_j_new_action_list");
+                    if(actionList.children('li').length > 5) {
+                        setInterval(function() {
+                            var lastItem = actionList.children('li').last().remove();
+                            lastItem.css('display', 'none');
+                            lastItem.prependTo(actionList).slideDown();
+                        }, 5000);
+                    }
+
+                    // 问答模块相关
+                    $("body").delegate("._j_question_item","mouseenter",function(event){
+                        $(this).addClass("hover");
+                    });
+
+                    $("body").delegate("._j_question_item","mouseleave",function(event){
+                        $(this).removeClass("hover");
+                    });
+
+                    $("body").delegate("._j_question_item","click",function(event){
+                        if (!$(event.target).hasClass("_j_filter_click")){
+                            var qid = $(this).data("qid");
+                            window.location.href = '/wenda/detail-' + qid + ".html";
+                        }
+                    });
+
+                    var suggest_timer;
+                    $("body").delegate("._j_suggest","focus",function(event){
+                        var target = $(this);
+                        var p = target.parents("._j_suggest_hd");
+                        p.addClass("focus");
+                        if (target.val() == suggest_default){
+                            target.val('');
+                        }
+                        if (target.val() == ''){
+                            var mddid = parseInt(target.data("mddid"),10);
+                            if (mddid){
+                                target.trigger("keyup");
+                            }
+                        }
+                    });
+                    $("body").delegate("._j_suggest","blur",function(event){
+                        var target = $(this);
+                        var p = target.parents("._j_suggest_hd");
+                        p.removeClass("focus");
+                        if (target.val() == ''){
+                            target.val(suggest_default);
+                        }
+                        suggest_timer = setTimeout(function(){
+                            $("._j_suggest_box").hide();
+                        },500);
+                    });
+
+                    $("body").delegate("._j_suggest","keydown",function(event){
+                        if (event.keyCode == 13){
+                            $("._j_search").trigger("click");
+                        }
+                    });
+                });
+            }
+        </script>
+    </div>
+</div>
+<style type="text/css">
+    .map-mark {
+        width: 24px;
+        height: 28px;
+        background: url(http://images.mafengwo.net/images/mdd/new_img/hotel-maps-bg11.png) no-repeat -35px 0;
+        overflow: hidden;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 22px;
+        cursor: pointer;
+        position: relative;
+    }
+    .map-mark.on {
+        background-position: -35px -35px;
+        z-index: 1009;
+    }
+</style>
+<div class="popup-wrap" id="mdd_map">
+    <div class="hotel-maps">
+        <div class="pop-ctrl"><a href="javascript:void(0);" class="btn-close"><i></i>关闭</a></div>
+        <div class="inner">
+            <div class="hm-bar">
+                <div class="hd">
+                    <dl>
+                        <dt>北京地图</dt>
+                        <dd class="hide mdd-mode">北京热门目的地排行</dd>
+                    </dl>
+                    <ul class="hide nav-type poi-mode">
+                        <li class="on"><a href="javascript:void(0);" class="change-poitype" data-id="3"><i class="icon-scenic"></i><span>景点</span></a></li>
+                        <li><a href="javascript:void(0);" class="change-poitype" data-id="1"><i class="icon-cate"></i><span>美食</span></a></li>
+                        <li><a href="javascript:void(0);" class="change-poitype" data-id="4"><i class="icon-shop"></i><span>购物</span></a></li>
+                        <li><a href="javascript:void(0);" class="change-poitype" data-id="5"><i class="icon-amusement"></i><span>娱乐</span></a></li>
+                    </ul>
+                </div>
+                <div class="bd">
+                    <div class="poi-mList" style="height:500px;">
+                        <ul id="poiList"></ul>
+                    </div>
+                </div>
+                <div class="ft"><a href="javascript:void(0);" class="btn-prev disable">上一页</a><a href="javascript:void(0);" class="btn-next">下一页</a></div>
+            </div>
+            <div class="hm-cont">
+                <div class="hd"></div>
+                <div class="bd">
+                    <div id="map_canvas"></div>
+                    <!--div class="mark-smallHotel" style="left:300px;top:200px;"><i></i></div-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript" src="js/google2amap.js" type="text/javascript" crossorigin="anonymous"></script>
+<script language="JavaScript" type="text/javascript">
+    var poi_list = [];
+    var mddid = parseInt('10065');
+    var mdd_center = { lat:parseFloat('39.903999328613'), lng:parseFloat('116.40799713135'), zoom:parseInt('14') },map;
+    var marker_handle;
+    var infowin_hanlde;
+    var markers = { };
+    var currPop;
+    var allPop = { };
+    var currOtherPop;
+    var allOtherPop = { };
+    var mode, curType = 3, curPage = 1, pageSize = 10, totalPage, stackPage = [];
+    $(function(){
+        //更改poi类型
+        $('.change-poitype').click(function(){
+            var self = $(this);
+            var type_id = self.data('id')*1;
+            if(type_id>0){
+                $('.change-poitype').closest('li.on').removeClass('on');
+                self.closest('li').addClass('on');
+                curType = type_id;
+                reload_map(1);
+                $('.poi-mList').scrollTop(0);
+            }
+        });
+        //关闭
+        $('.btn-close').click(function(){
+            $('body').css('overflow','auto');
+            $('#mdd_map').fadeOut();
+        });
+        //上一页
+        $('.btn-prev').click(function(){
+            if($(this).hasClass('disable')) return;
+            var testpage = curPage - 1;
+            if(testpage>1){
+                curPage = testpage;
+            } else {
+                curPage = 1;
+                if(!$(this).hasClass('disable')){
+                    $(this).addClass('disable');
+                }
+            }
+            if(curPage<totalPage && $('.btn-next').hasClass('disable')){
+                $('.btn-next').removeClass('disable');
+            }
+        });
+        //下一页
+        $('.btn-next').click(function(){
+            if($(this).hasClass('disable')) return;
+            var testpage = curPage + 1;
+            if(testpage>totalPage){
+                if(!$(this).hasClass('disable')){
+                    $(this).addClass('disable');
+                }
+            } else {
+                curPage = curPage + 1;
+                if(curPage==totalPage){
+                    $(this).addClass('disable');
+                }
+            }
+            if(curPage>1 && $('.btn-prev').hasClass('disable')){
+                $('.btn-prev').removeClass('disable');
+            }
+        });
+
+    });
+    /* all functions */
+    //无数据
+    function no_result(){
+        init_mapsize();
+        map_draw('map_canvas', mdd_center,[]);
+        $('#poiList').empty().append('<ul style="text-align: center;padding-top: 10px;">对不起，北京暂时还没有此类信息</ul>');
+    }
+    //将数拆分成子页
+    function list_slice(list,page){
+        var offset = (page-1) * pageSize;
+        if(list.length<offset){
+            return [];
+        } else {
+            var last = offset+pageSize;
+            last = last>list.length ? list.length : last;
+            var new_list = [];
+            for(var i=offset;i<last;i++){
+                new_list.push(list[i]);
+            }
+            return new_list;
+        }
+    }
+    /* copy form gmap.popup.v2.js by loin */
+    function showPOIPop(marker) {
+        if(currPop) {
+            hidePOIPop(currPop.id);
+        }
+        if(currOtherPop) {
+            hideOtherPop(currOtherPop.id);
+        }
+        marker.popup = new infowin_hanlde({
+            map: map,
+            text: marker.popup_html,
+            latLng: marker.latLng,
+            bottom: 34,
+            ready: function() {
+                var that = this;
+                var div = that.div;
+                var elem = div.find('.m-hotelPop');
+                var close = div.find('.m-close');
+                close.on('click', function(e) {
+                    e.preventDefault();
+                    hidePOIPop(elem.data('id'));
+                })
+            }
+        });
+
+        currPop = marker.popup;
+        //console.log(currPop);
+        currPop.id = marker.id;
+        allPop[marker.id] = marker.popup;
+    }
+
+    function hidePOIPop(poiid) {
+        if(allPop[poiid]!==undefined){
+            allPop[poiid].setMap(null);
+            currPop = null;
+            if(markers[poiid]) {
+                var elem = markers[poiid].div.find('.map-mark');
+                elem.removeClass('on');
+                $('#poi_'+poiid).removeClass('active');
+            }
+        }
+    }
+
+    function hideOtherPop(id) {
+        allOtherPop[id].setMap(null);
+        var typeId = '';
+        if(currOtherPop) {
+            typeId = currOtherPop.type_id;
+            currOtherPop = null;
+        }
+
+        if(otherMarkers[typeId][id]) {
+            var elem = otherMarkers[typeId][id].div.find('.mark-poi');
+            elem.removeClass('on');
+        }
+    }
+
+    function MarkerOverlay() {
+        var Overlay = function(map, text, latLng, ready) {
+            this.map = map;
+            this.text = text;
+            this.latLng = latLng;
+            this.ready = ready;
+            this.div = null;
+            this.setMap(this.map);
+        }
+
+        Overlay.prototype = new google.maps.OverlayView();
+
+        $.extend(Overlay.prototype, {
+            onAdd: function() {
+                var div = $('<div/>').html(this.text).css('position', 'absolute');
+                $(this.getPanes().overlayImage).append(div);
+                this.div = div;
+                if(typeof this.ready === 'function') {
+                    this.ready.call(this);
+                }
+            },
+            draw: function() {
+                var latLng = this.getProjection().fromLatLngToDivPixel(this.latLng);
+                this.div.css({
+                    'left': latLng.x - this.div.width() / 2,
+                    'bottom': -latLng.y
+                });
+            },
+            onRemove: function() {
+                this.div.remove();
+                this.div = null;
+            }
+        });
+
+        return Overlay;
+    }
+
+    function InfoWindowOverlay() {
+        var Overlay = function(opt) {
+            this.opt = opt;
+            this.map = opt;
+            this.div = null;
+            this.latLng = opt.latLng;
+            this.bottom = typeof opt.bottom == 'undefined' ? 0 : parseInt(opt.bottom);
+            this.ready = typeof opt.ready == 'undefined' ? '' : opt.ready;
+            this.setMap(opt.map);
+        }
+
+        Overlay.prototype = new google.maps.OverlayView();
+
+        $.extend(Overlay.prototype, {
+            onAdd: function () {
+                var div = $('<div/>').html(this.opt.text).css({
+                    'position': 'absolute',
+                    'cursor': 'default',
+                    'z-index': 5
+                });
+                $(this.getPanes().floatPane).append(div);
+                this.div = div;
+                if(typeof this.ready === 'function') {
+                    this.ready.call(this);
+                }
+            },
+            draw: function () {
+                var projection = this.getProjection();
+                var divPixel = projection.fromLatLngToDivPixel(this.latLng);
+                //解决方案一
+                var bounds = this.map.getBounds();
+                var ne = projection.fromLatLngToDivPixel(bounds.getNorthEast());
+                var sw = projection.fromLatLngToDivPixel(bounds.getSouthWest());
+
+                this.div.css({
+                    'left': parseInt(divPixel.x) - this.div.outerWidth() / 2,
+                    'bottom': -(divPixel.y - this.bottom)
+                });
+
+                if (divPixel.x > ne.x || divPixel.x < sw.x || divPixel.y < ne.y || divPixel.y > sw.y) {
+                    var c = projection.fromLatLngToDivPixel(this.map.getCenter());
+                    this.map.panBy(divPixel.x - c.x, divPixel.y - this.div.outerHeight() - ne.y - 110);
+                } else {
+                    var x = 0;
+                    var y = 0;
+                    var adjust = 50;
+                    if (divPixel.x > ne.x - 680) {
+                        adjust = 110;
+                    }
+                    if (divPixel.x < (sw.x + 190 + 15)) {
+                        x = divPixel.x - (sw.x + 190 + 15);
+                    }
+                    if (divPixel.x > (ne.x - 190 - 40)) {
+                        x = divPixel.x - (ne.x - 190 - 40);
+                    }
+                    y = (divPixel.y - (this.div.outerHeight() + adjust)) - ne.y;
+                    if (x || y) {
+                        this.map.panBy(x, y < 0 ? y : 0);
+                    }
+                }
+                //解决方案二
+                /*this.div.css({
+                 'left': divPixel.x - 160,
+                 'bottom': -(divPixel.y - 34)
+                 });
+                 this.map.setCenter(this.latLng);*/
+            },
+            onRemove: function () {
+                this.div.remove();
+                this.div = null;
+            }
+        });
+        return Overlay;
+    }
+</script>
+<script language="javascript" src="js/jquery.lazyload.1.9.3.js" type="text/javascript" crossorigin="anonymous"></script>
+<link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a rel="nofollow">关于嗡嗡嗡</a><a class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a rel="nofollow">隐私政策</a><a rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a rel="nofollow">服务协议</a><a rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank">旅游攻略</a></li>
+                        <li><a target="_blank">酒店预订</a></li>
+                        <li><a target="_blank">旅游特价</a></li>
+                        <li><a target="_blank">国际租车</a></li>
+                        <li><a target="_blank">旅游问答</a></li>
+                        <li><a target="_blank">旅游保险</a></li>
+                        <li><a target="_blank">旅游指南</a></li>
+                        <li><a target="_blank">订火车票</a></li>
+                        <li><a target="_blank">旅游资讯</a></li>
+                        <li><a target="_blank">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="ft-links">
+            <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+            <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
+        </div>
+
+        <div class="ft-copyright">
+            <a href="front_desk/homePage.html"><i style="background:url('images/logoBottom.png') no-repeat 0 0px;float:left;width: 136px;height: 39px;overflow: hidden;margin: 8px 20px 0 0;"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="cityId">
+<script>
+    $().ready(
+        function()
+        {
+            var cityId=GetQueryString("cityId");
+            $("#cityId").val(cityId);
+            //获取当前登录用户
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        var login_boxHtml="";
+                        if(data.loginState)
+                        {
+                            login_boxHtml="<div class='login-info'><div class='head-user' id='_j_head_user'><a class='drop-trigger' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' title='"+data.currentUser.userName+"的窝' rel='nofollow'><div class='user-image'><img src='"+data.currentUser.photo+"' height='32' width='32'></div><i class='icon-caret-down'></i></a></div><div class='head-msg' id='_j_head_msg'><a class='drop-trigger' href='javascript:' rel='nofollow'><i class='icon-msg'></i>消息<i class='icon-caret-down'></i><span class='head-msg-new hide' style='display: none;'></span></a></div></div><div class='dropdown-group'><div class='dropdown-menu dropdown-msg hide' id='_j_msg_panel' style='z-index: 10; display: none;'><ul><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></div><div class='dropdown-menu dropdown-msg hide' id='_j_msg_float_panel' style='display: none;'><ul></ul><a href='javascript:' class='close-newmsg'>×</a></div><div class='dropdown-menu dropdown-user hide' id='_j_user_panel' data-cs-t='user_nav' style='display: none;'><div class='user-info'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><ul><li><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' ><i class='icon-wo'></i>我的嗡嗡嗡</a></li><li><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'><i class='icon-writenotes'></i>写游记</a></li><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow' data-cs-p='collect'><i class='icon-collect'></i>我的收藏</a></li><li><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow' data-cs-p='wenda'><i class='icon-wenda'></i>我的问答</a></li><li><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow' data-cs-p='appointnotes'><i class='icon-ordernotes'></i>我的游记</a></li><li><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'><i class='icon-path'></i>游记收藏</a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow' data-cs-p='order'><i class='icon-order'></i>我的订单</a></li><li><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow' data-cs-p='settings'><i class='icon-settings'></i>设置</a></li><li><a onclick='logout()' title='退出登录' rel='nofollow'><i class='icon-logout' data-cs-p='logout'></i>退出</a></li></ul></div></div>";
+                            load_mytravelNotes(data.currentUser.userId,cityId);
+                        }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='login-out'><a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html?url="+url+"' rel='nofollow'>登录</a><span class='split'>|</span><a href='usersController/show_login_html?url="+url+"' title='注册帐号' rel='nofollow'>注册</a></div>";
+                        }
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#_j_user_panel").length||0<$(e.target).closest("#_j_head_user").length)
+                                    $("#_j_user_panel").css("display","block");
+                                else
+                                    $("#_j_user_panel").css("display","none");
+                                if(0<$(e.target).closest("#_j_head_msg").length||0<$(e.target).closest("#_j_msg_panel").length)
+                                    $("#_j_msg_panel").css("display","block");
+                                else
+                                    $("#_j_msg_panel").css("display","none");
+                            }
+                        );
+                        load_travelNotes(1,cityId);
+                        find_strategyBycityId(cityId);
+                        load_askRespond(cityId);
+                    }
+                }
+            });
+        }
+    );
+    //通过用户编号和城市编号查询游记
+    function load_mytravelNotes(userId,cityId)
+    {
+        $.ajax({
+            url:"travelNotesController/find_travelNotesByuserIdAndcityId",
+            type:"post",
+            dataType:"json",
+            data:{userId:userId,cityId:cityId},
+            success:function(data)
+            {
+                var post_boxhtml="";
+                if(null!=data&&0<data.length)
+                {
+                    $(".post-box").css("display","block");
+                    post_boxhtml+="<p class='more'>你在此目的地下共有<em>"+data.length+"</em>篇游记,<a href='front_desk/users/travelNotes.html?userId="+userId+"' target='_blank'>查看更多我的游记</a></p>";
+                    for(var i=0;i<data.length;i++)
+                    {
+                        if(5<data.length&&i==5)
+                            break;
+                        var travelNotesheadPhoto=data[i].travelNotesheadPhoto;
+                        if(null==travelNotesheadPhoto||""==travelNotesheadPhoto)
+                            travelNotesheadPhoto="images/home_new2015/default.jpg";
+                        var travelNotesContent="";
+                        if(null!=data[i].travelNotesContents)
+                        {
+                            for(var s=0;s<data[i].travelNotesContents.length;s++)
+                            {
+                                if(data[i].travelNotesContents[s].type=="textarea")
+                                {
+                                    if(0<data[i].travelNotesContents[s].value.length)
+                                        travelNotesContent+=data[i].travelNotesContents[s].value;
+                                }
+                            }
+                        }
+                        var travelNotesheadline=data[i].travelNotesheadline;
+                        if(null==travelNotesheadline||""==travelNotesheadline)
+                            travelNotesheadline="未命名游记标题";
+                        post_boxhtml+="<div class='post-item clearfix'><div class='post-cover'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' traget='_blank'><img class='lazy' data-original='"+travelNotesheadPhoto+"' width='215' height='135' src='"+travelNotesheadPhoto+"' style='display: inline;'></a></div><div class='post-title yahei hasxjicon'><span class='tn-ding'><a class='btn-ding' data-travelNotesId='"+data[i].travelNotesId+"' data-type='next' onclick='insert_travelCollection(this)'></a><em>"+data[i].collectionNumber+"</em></span><span class='tn-user'><a href='front_desk/users/personalSpace.html?userId="+data[i].user.userId+"' target='_blank'><img src='"+data[i].user.photo+"'>"+data[i].user.userName+"</a></span><span class='tn-nums'><i></i>"+data[i].browsingHistory+"</span></div><h2><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data[i].travelNotesId+"' target='_blank'>"+travelNotesheadline+"</a></h2><div class='post-content'>"+travelNotesContent+"</div></div>";
+                    }
+                    $(".post-box").html(post_boxhtml);
+                }
+                else
+                    $(".post-box").css("display","none");
+            }
+        });
+    }
+    //加载游记内容
+    function load_travelNotes(pageIndex,cityId)
+    {
+        $.ajax({
+            url:"travelNotesController/find_travelNotesBycityIdAndpageIndex",
+            type:"post",
+            dataType:"json",
+            data:{pageIndex:pageIndex,cityId:cityId},
+            success:function(data)
+            {
+                var post_listulHtml="";
+                var _pagebarHtml="";
+                if(null!=data)
+                {
+                    var cityId=data.city.cityId;
+                    var cityName=data.city.cityName;
+                    var titletext=cityName+"热门游记,"+cityName+"自助游游记,"+cityName+"旅游热门游记 - 嗡嗡嗡";
+                    $("title").text(titletext);
+                    $($(".crumb .item a")[1]).text(cityName);
+                    $($(".crumb .item")[2]).html("<strong>"+cityName+"游记</strong>");
+                    if(null!=cityId&&""!=cityId)
+                    {
+                        $($(".crumb .item a")[1]).attr("href","scenicspotController/byCityIdQueryScenicspot?cityId="+cityId);
+                        $($(".navbar-overview a")[0]).attr("href","scenicspotController/byCityIdQueryScenicspot?cityId="+cityId);
+                        $(".navbar-local a").attr("href","front_desk/city_travelNotes.html?cityId="+cityId);
+                        $(".navbar-community a").attr("href","front_desk/askRespond/askRespond.html?cityId="+cityId);
+                        $(".btn-askAll").attr("href","front_desk/askRespond/askRespond.html?cityId="+cityId);
+                    }
+                    else
+                    {
+                        $(".btn-askAll").attr("href","front_desk/askRespond/askRespond.html");
+                    }
+                    $(".m-gonglve .hd h2").text(cityName+"旅游攻略下载");
+                    $(".m-ask .hd h2").html("<i></i>"+cityName+"问答");
+                    if(data.currentPageIndex<data.travelNotes.length)
+                    {
+                        _pagebarHtml="<div align='right' class='page-hotel'><span class='count'>共<span>"+data.totalPageCount+"</span>页 / <span>"+data.totalCount+"</span>条</span>";
+                        if(1!=data.currentPageIndex)
+                        {
+                            _pagebarHtml+="<a class='ti first' data-page='1' onclick='load_travelNotesBypageIndex(this)'>首页</a>";
+                            _pagebarHtml+="<a class='ti prev' data-page='"+(data.currentPageIndex-1)+"' onclick='load_travelNotesBypageIndex(this)'>前一页</a>";
+                        }
+                        for(var i=data.currentPageIndex-4;i<data.currentPageIndex;i++)
+                        {
+                            if(i>0)
+                                _pagebarHtml+="<a  class='ti' onclick='load_travelNotesBypageIndex(this)' data-page='"+i+"'>"+i+"</a>";
+                        }
+                        _pagebarHtml+="<span class='this-page'>"+data.currentPageIndex+"</span>";
+                        for(var i=data.currentPageIndex+1;i<=data.totalPageCount;i++)
+                        {
+                            _pagebarHtml+="<a  class='ti' onclick='load_travelNotesBypageIndex(this)' data-page='"+i+"'>"+i+"</a>";
+                        }
+                        if(data.totalPageCount!=data.currentPageIndex)
+                        {
+                            _pagebarHtml+="<a class='ti next' data-page='"+(data.currentPageIndex+1)+"' onclick='load_travelNotesBypageIndex(this)'>后一页</a>";
+                            _pagebarHtml+="<a class='ti last' data-page='"+data.totalPageCount+"' onclick='load_travelNotesBypageIndex(this)'>末页</a>";
+                        }
+                        _pagebarHtml+="</div>";
+                    }
+                    for(var i=0;i<data.travelNotes.length;i++)
+                    {
+                        var travelNotesheadPhoto=data.travelNotes[i].travelNotesheadPhoto;
+                        if(null==travelNotesheadPhoto||""==travelNotesheadPhoto)
+                            travelNotesheadPhoto="images/home_new2015/default.jpg";
+                        var travelNotesContent="";
+                        if(null!=data.travelNotes[i].travelNotesContents)
+                        {
+                            for(var s=0;s<data.travelNotes[i].travelNotesContents.length;s++)
+                            {
+                                if(data.travelNotes[i].travelNotesContents[s].type=="textarea")
+                                {
+                                    if(0<data.travelNotes[i].travelNotesContents[s].value.length)
+                                        travelNotesContent+=data.travelNotes[i].travelNotesContents[s].value;
+                                }
+                            }
+                        }
+                        var cityId=data.travelNotes[i].cityId;
+                        var cityHtml="";
+                        if(null!=cityId&&""!=cityId)
+                            cityHtml="<a href='scenicspotController/byCityIdQueryScenicspot?cityId="+cityId+"' target='_blank' rel='nofollow'>"+data.travelNotes[i].city.cityName+"</a>";
+                        var travelNotesheadline=data.travelNotes[i].travelNotesheadline;
+                        if(null==travelNotesheadline||""==travelNotesheadline)
+                            travelNotesheadline="未命名游记标题";
+                        post_listulHtml+="<li class='post-item clearfix'><div class='post-cover'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'><img class='lazy' data-original='"+travelNotesheadPhoto+"' width='215' height='135' alt='"+travelNotesheadline+"' src='"+travelNotesheadPhoto+"' style='display: inline;'></a></div><div class='post-ding'><span>"+data.travelNotes[i].collectionNumber+"</span><a class='btn-ding' data-travelNotesId='"+data.travelNotes[i].travelNotesId+"' data-type='prev' onclick='insert_travelCollection(this)'>顶</a></div><h2 class='post-title yahei hasxjicon'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'>"+travelNotesheadline+"</a></h2><div class='post-author'><span class='author'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotes[i].user.userId+"' target='_blank' rel='nofollow'><img class='lazy' width='16' height='16' data-original='"+data.travelNotes[i].user.photo+"' src='"+data.travelNotes[i].user.photo+"' style='display: inline;'></a>作者：<a href='front_desk/users/personalSpace.html?userId="+data.travelNotes[i].user.userId+"' target='_blank' rel='nofollow'>"+data.travelNotes[i].user.userName+"</a></span><span class='last-comment'>"+cityHtml+"<span class='comment-date'>"+format_time(data.travelNotes[i].releaseTime)+"</span></span></div><div class='post-content'>"+travelNotesContent+"</div><span class='status'><i class='icon_view'></i>"+data.travelNotes[i].browsingHistory+"</span></li>";
+                    }
+                }
+                $(".post-list ul").html(post_listulHtml);
+                $("._pagebar").html(_pagebarHtml);
+            }
+        });
+    }
+    //加载最新发表游记内容
+    function load_travelNotesByNew(pageIndex,cityId)
+    {
+        $.ajax({
+            url: "travelNotesController/find_travelNotesBycityIdAndpageIndexAndreleaseTimedesc",
+            type: "post",
+            dataType: "json",
+            data: {pageIndex: pageIndex, cityId: cityId},
+            success: function (data)
+            {
+                var post_listulHtml="";
+                var _pagebarHtml="";
+                if(null!=data)
+                {
+                    if(data.currentPageIndex<data.travelNotes.length)
+                    {
+                        _pagebarHtml="<div align='right' class='page-hotel'><span class='count'>共<span>"+data.totalPageCount+"</span>页 / <span>"+data.totalCount+"</span>条</span>";
+                        if(1!=data.currentPageIndex)
+                        {
+                            _pagebarHtml+="<a class='ti first' data-page='1' onclick='load_travelNotesBypageIndex(this)'>首页</a>";
+                            _pagebarHtml+="<a class='ti prev' data-page='"+(data.currentPageIndex-1)+"' onclick='load_travelNotesBypageIndex(this)'>前一页</a>";
+                        }
+                        for(var i=data.currentPageIndex-4;i<data.currentPageIndex;i++)
+                        {
+                            if(i>0)
+                                _pagebarHtml+="<a  class='ti' onclick='load_travelNotesBypageIndex(this)' data-page='"+i+"'>"+i+"</a>";
+                        }
+                        _pagebarHtml+="<span class='this-page'>"+data.currentPageIndex+"</span>";
+                        for(var i=data.currentPageIndex+1;i<=data.totalPageCount;i++)
+                        {
+                            _pagebarHtml+="<a  class='ti' onclick='load_travelNotesBypageIndex(this)' data-page='"+i+"'>"+i+"</a>";
+                        }
+                        if(data.totalPageCount!=data.currentPageIndex)
+                        {
+                            _pagebarHtml+="<a class='ti next' data-page='"+(data.currentPageIndex+1)+"' onclick='load_travelNotesBypageIndex(this)'>后一页</a>";
+                            _pagebarHtml+="<a class='ti last' data-page='"+data.totalPageCount+"' onclick='load_travelNotesBypageIndex(this)'>末页</a>";
+                        }
+                        _pagebarHtml+="</div>";
+                    }
+                    for(var i=0;i<data.travelNotes.length;i++)
+                    {
+                        var travelNotesheadPhoto=data.travelNotes[i].travelNotesheadPhoto;
+                        if(null==travelNotesheadPhoto||""==travelNotesheadPhoto)
+                            travelNotesheadPhoto="images/home_new2015/default.jpg";
+                        var travelNotesContent="";
+                        if(null!=data.travelNotes[i].travelNotesContents)
+                        {
+                            for(var s=0;s<data.travelNotes[i].travelNotesContents.length;s++)
+                            {
+                                if(data.travelNotes[i].travelNotesContents[s].type=="textarea")
+                                {
+                                    if(0<data.travelNotes[i].travelNotesContents[s].value.length)
+                                        travelNotesContent+=data.travelNotes[i].travelNotesContents[s].value;
+                                }
+                            }
+                        }
+                        var cityId=data.travelNotes[i].cityId;
+                        var cityHtml="";
+                        if(null!=cityId&&""!=cityId)
+                            cityHtml="<a href='scenicspotController/byCityIdQueryScenicspot?cityId="+cityId+"' target='_blank' rel='nofollow'>"+data.travelNotes[i].city.cityName+"</a>";
+                        var travelNotesheadline=data.travelNotes[i].travelNotesheadline;
+                        if(null==travelNotesheadline||""==travelNotesheadline)
+                            travelNotesheadline="未命名游记标题";
+                        post_listulHtml+="<li class='post-item clearfix'><div class='post-cover'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'><img class='lazy' data-original='"+travelNotesheadPhoto+"' width='215' height='135' alt='"+travelNotesheadline+"' src='"+travelNotesheadPhoto+"' style='display: inline;'></a></div><div class='post-ding'><span id='topvote8309966'>"+data.travelNotes[i].collectionNumber+"</span><a class='btn-ding' data-travelNotesId='"+data.travelNotes[i].travelNotesId+"' onclick='insert_travelCollection(this)'>顶</a></div><h2 class='post-title yahei hasxjicon'><a href='front_desk/travelNotes/audittravelNotes.html?travelNotesId="+data.travelNotes[i].travelNotesId+"' target='_blank'>"+travelNotesheadline+"</a></h2><div class='post-author'><span class='author'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotes[i].user.userId+"' target='_blank' rel='nofollow'><img class='lazy' width='16' height='16' data-original='"+data.travelNotes[i].user.photo+"' src='"+data.travelNotes[i].user.photo+"' style='display: inline;'></a>作者：<a href='front_desk/users/personalSpace.html?userId="+data.travelNotes[i].user.userId+"' target='_blank' rel='nofollow'>"+data.travelNotes[i].user.userName+"</a></span><span class='last-comment'>"+cityHtml+"<span class='comment-date'>"+format_time(data.travelNotes[i].releaseTime)+"</span></span></div><div class='post-content'>"+travelNotesContent+"</div><span class='status'><i class='icon_view'></i>"+data.travelNotes[i].browsingHistory+"</span></li>";
+                    }
+                }
+                $(".post-list ul").html(post_listulHtml);
+                $("._pagebar").html(_pagebarHtml);
+            }
+        });
+    }
+    //获取该城市旅游攻略
+    function find_strategyBycityId(cityId)
+    {
+        $.ajax({
+            url:"strategyController/find_strategyBycityIdR5",
+            dataType:"json",
+            type:"post",
+            data:{cityId:cityId},
+            success:function(data)
+            {
+                var slide_listhtml="";
+                var dot_nav="";
+                if(null!=data&&0<data.length)
+                {
+                    for(var i=0;i<data.length;i++)
+                    {
+                        var strategyPhoto=data[i].strategyPhoto;
+                        strategyPhoto=strategyPhoto.substring(0,strategyPhoto.indexOf(","));
+                        slide_listhtml+="<li><a class='cover' href='strategyController/queryCityStrategy?strategyId="+data[i].strategyId+"' target='_blank'><img src='"+strategyPhoto+"' width='90' height='127'></a><strong>"+data[i].strategyHeadline+"</strong><p>"+data[i].strategyBriefIntroduction+"</p><a class='btn' href='strategyController/queryCityStrategy?strategyId="+data[i].strategyId+"' target='_blank'><i></i>免费下载<em>data[i].downloadNumber</em></a></li>";
+                        dot_nav+="<li class=''></li>";
+                    }
+                    $(".slide-list").html(slide_listhtml);
+                    $(".dot-nav").html(dot_nav);
+                    load_js();
+                }
+            }
+        });
+    }
+    //根据城市编号加载问答
+    function  load_askRespond(cityId)
+    {
+        $.ajax({
+            url:"askRespondController/find_askRespondBycityIdAndstateIdAndtop5",
+            dataType:"json",
+            type:"post",
+            data:{cityId:cityId},
+            success:function(data)
+            {
+                if(null!=data&&0<data.length)
+                {
+                    var m_hotAsk_ul_html="";
+                    for(var i=0;i<data.length;i++)
+                    {
+                        var con="";
+                        if(null!=data[i].replyaskrespond)
+                            con="<p class='con'><span class='user'><img src='"+data[i].replyaskrespond.user.photo+"'>"+data[i].replyaskrespond.user.userName+"</span>："+data[i].replyaskrespond.replyBrief+"</p>";
+                        m_hotAsk_ul_html+="<li class='_j_hover'><a href='front_desk/askRespond/replyRespond.html?askRespondId="+data[i].askRespondId+"' target='_blank'><h3>"+data[i].askRespondTitle+"</h3>"+con+"<p><span class='num-orange'>"+data[i].replyAskRespondNum+"</span>回答&nbsp;&nbsp;&nbsp;<span class='num-blue'>"+format_time(data[i].releaseTime)+"</span></p></a></li>";
+                    }
+                    $(".m-hotAsk .bd ul").html(m_hotAsk_ul_html);
+                    load_js();
+                }
+            }
+        });
+    }
+    $("._j_suggest").keyup(
+        function()
+        {
+            var value=$(this).val();
+            if(null!=value&&""!=value)
+            {
+                $("._j_suggest_box").html("");
+                $.ajax({
+                    url:"interestLabelController/find_interestLabelBykeyvalueAndstateId",
+                    dataType:"json",
+                    type:"post",
+                    data:{keyvalue:value},
+                    success:function(data)
+                    {
+                        var  _j_suggest_box="<div class='bd-topic'><span>话题</span>";
+                        if(null!=data.interestLabel&&0<data.interestLabel.length)
+                        {
+                            for(var i=0;i<data.interestLabel.length;i++)
+                            {
+                                _j_suggest_box+="<a target='_blank' class='a-tag' href='front_desk/askRespond/askRespond.html?interestLabelId="+data.interestLabel[i].interestLabelId+"' data-cs-p='suggest_tag'>"+data.interestLabel[i].interestLabelName+"</a>";
+                            }
+                        }
+                        if(null!=data.city&&0<data.city.length)
+                        {
+                            for(var i=0;i<data.city.length;i++)
+                            {
+                                _j_suggest_box+="<a target='_blank' class='a-tag' href='front_desk/askRespond/askRespond.html?cityId="+data.city[i].cityId+"' data-cs-p='suggest_tag'>"+data.city[i].cityName+"</a>";
+                            }
+                        }
+                        _j_suggest_box+="</div>";
+                        if(0<data.interestLabel.length||0<data.city.length)
+                        {
+                            $("._j_suggest_box").css("display","block");
+                            $("._j_suggest_box").html(_j_suggest_box);
+                        }
+                        else
+                        {
+                            $("._j_suggest_box").css("display","none");
+                            $("._j_suggest_box").html("");
+                        }
+                    }
+                });
+            }
+            else
+                $("._j_suggest_box").css("display","none");
+        }
+    );
+    //添加游记收藏
+    function insert_travelCollection(obj)
+    {
+        var travelNotesId=$(obj).attr("data-travelNotesId");
+        var type=$(obj).attr("data-type");
+        if(null!=travelNotesId&&0<travelNotesId.length)
+        {
+            $.ajax({
+                url:"travelCollectionController/insert_travelCollectionBytravelNotesId",
+                dataType:"json",
+                type:"post",
+                data:{travelNotesId:travelNotesId},
+                success:function(data)
+                {
+                    if(data.result=="exist")
+                        showover_message("该文章您已经收藏过了");
+                    else
+                    {
+                        if(data.result)
+                        {
+                            if("prev"==type)
+                                $(obj).prev().text(data.travelCollection.length);
+                            else
+                                $(obj).next().text(data.travelCollection.length);
+                        }
+                    }
+                }
+            });
+        }
+        else
+            showover_message("该文章您已经收藏过了");
+    }
+    //显示5秒钟消息提示
+    function showover_message(msg)
+    {
+        $("body").append("<div id='over_container'><div id='over_message'>"+msg+"</div></div>");
+        var over_container_setInterval=setInterval(function(){
+            if($("#over_container").length>0)
+            {
+                $("#over_container").remove();
+                window.clearInterval(over_container_setInterval);
+            }
+        },5000);
+    }
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
+    });
+        //点击分页按钮
+    function load_travelNotesBypageIndex(obj)
+    {
+            var cityId=$("#cityId").val();
+            var pageIndex=$(obj).attr("data-page");
+            var text=$(".tab-item .on").children("a").text();
+            if(text=="最热游记")
+                load_travelNotes(pageIndex,cityId);
+            else
+                load_travelNotesByNew(pageIndex,cityId);
+    }
+    $(".tab-item").click(
+        function()
+        {
+            $(".tab-item").removeClass("on");
+            $(this).addClass("on");
+            var cityId=$("#cityId").val();
+            var text=$(this).children("a").text();
+            if(text=="最热游记")
+                load_travelNotes(1,cityId);
+            else
+                load_travelNotesByNew(1,cityId);
+        }
+    );
+    //获取地址栏中的参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    //转换日期
+    function format_time(replyTime)
+    {
+        return replyTime.substring(0,replyTime.lastIndexOf(".")).replace("T"," ");
+    }
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

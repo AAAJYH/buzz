@@ -50,14 +50,14 @@
     <div class="view_title clearfix">
         <div class="vt_center">
             <div class="person">
-                <a target="_blank" class="per_pic"><img src="" /></a>
+                <a target="_blank" class="per_pic"><img src="" width="120px" height="120px"/></a>
                 <strong><a target="_blank" class="per_name"></a></strong>
                 <div class="vc_time">
                     <span class="time"></span>
                 </div>
             </div>
             <div class=" music_botton">
-                <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src=""></audio></div>
+                <div class="hd_audio" id="jp_jplayer_0" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" loop preload="metadata" src=""></audio></div>
                 <a rel="nofollow" title="播放" class="control _j_m_control pause">
                     <i></i>
                     <i></i>
@@ -221,10 +221,12 @@
                         {
                             $("#my_travelNotes").attr("href","front_desk/users/travelNotes.html?userId="+data.currentUser.userId);
                             login_boxHtml="<div class='login-info'><div class='head-user' id='_j_head_user'><a class='drop-trigger' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' title='"+data.currentUser.userName+"的窝' rel='nofollow'><div class='user-image'><img src='"+data.currentUser.photo+"' height='32' width='32'></div><i class='icon-caret-down'></i></a></div><div class='head-msg' id='_j_head_msg'><a class='drop-trigger' href='javascript:' rel='nofollow'><i class='icon-msg'></i>消息<i class='icon-caret-down'></i><span class='head-msg-new hide' style='display: none;'></span></a></div></div><div class='dropdown-group'><div class='dropdown-menu dropdown-msg hide' id='_j_msg_panel' style='z-index: 10; display: none;'><ul><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></div><div class='dropdown-menu dropdown-msg hide' id='_j_msg_float_panel' style='display: none;'><ul></ul><a href='javascript:' class='close-newmsg'>×</a></div><div class='dropdown-menu dropdown-user hide' id='_j_user_panel' data-cs-t='user_nav' style='display: none;'><div class='user-info'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><ul><li><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' ><i class='icon-wo'></i>我的嗡嗡嗡</a></li><li><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'><i class='icon-writenotes'></i>写游记</a></li><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow' data-cs-p='collect'><i class='icon-collect'></i>我的收藏</a></li><li><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow' data-cs-p='wenda'><i class='icon-wenda'></i>我的问答</a></li><li><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow' data-cs-p='appointnotes'><i class='icon-ordernotes'></i>我的游记</a></li><li><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'><i class='icon-path'></i>游记收藏</a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow' data-cs-p='order'><i class='icon-order'></i>我的订单</a></li><li><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow' data-cs-p='settings'><i class='icon-settings'></i>设置</a></li><li><a onclick='logout()' title='退出登录' rel='nofollow'><i class='icon-logout' data-cs-p='logout'></i>退出</a></li></ul></div></div>";
+                            show_travelNotes(data.currentUser);
                         }
                         else
                         {
                             var url=window.location.href;
+                            window.location.href="usersController/show_login_html?url="+url;
                             login_boxHtml="<div class='login-out'><a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html?url="+url+"' rel='nofollow'>登录</a><span class='split'>|</span><a href='usersController/show_login_html?url="+url+"' title='注册帐号' rel='nofollow'>注册</a></div>";
                         }
                         $("#login_box").html(login_boxHtml);
@@ -245,17 +247,25 @@
                     }
                 }
             });
-            var travelNotesId=GetQueryString("travelNotesId");
-            $("#travelNotesId").val(travelNotesId);
-            $(".btn_big").prop("href","travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+travelNotesId);
-            $.ajax({
-                url: "travelNotesController/preview_travelNotes",
-                type: "post",
-                dataType: "json",
-                data: {travelNotesId: travelNotesId},
-                success: function (data)
+        }
+    );
+    function show_travelNotes(user)
+    {
+        var travelNotesId=GetQueryString("travelNotesId");
+        $("#travelNotesId").val(travelNotesId);
+        $(".btn_big").prop("href","travelNotesController/find_travelNotes_travelNotesId?travelNotesId="+travelNotesId);
+        $.ajax({
+            url: "travelNotesController/preview_travelNotes",
+            type: "post",
+            dataType: "json",
+            data: {travelNotesId: travelNotesId},
+            success: function (data)
+            {
+                console.log(user.userId);
+                console.log(data.userId);
+                if(null!=data)
                 {
-                    if(null!=data)
+                    if(user.userId==data.userId)
                     {
                         if(null!=data.travelNotesheadPhoto&&data.travelNotesheadPhoto.length>0)
                         {
@@ -267,9 +277,7 @@
                         $(".per_pic").children("img").prop("src",data.user.photo);
                         var per_name=data.user.userName;
                         if(null!=data.user.address&&data.user.address.length>0)
-                        {
-                            per_name="("+data.user.address+")";
-                        }
+                            per_name+="("+data.user.city.cityName+")";
                         $(".per_name").text(per_name);
                         $(".headtext").text(data.travelNotesheadline);
                         if(null!=data.backgroundMusic&&data.backgroundMusic.length>0)
@@ -302,10 +310,14 @@
                         }
                         $("._j_master_content").html(insertHtml);
                     }
+                    else
+                        showNoCloseAlert("亲爱的蜂蜂,游记不属于您,无法进行预览");
                 }
-            });
-        }
-    );
+                else
+                    showNoCloseAlert("亲爱的蜂蜂,暂无数据或游记违规被删除");
+            }
+        });
+    }
     $(".music_botton").click(
         function()
         {
@@ -350,6 +362,55 @@
     //页面大小变更时游记头图大小更改
     $(window).resize(function() {
         $('#_j_cover_box').height($(window).width()/3);
+    });
+    <!--显示不可关闭弹出框-->
+    function showNoCloseAlert(msg)
+    {
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_5' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div id='popup_container5' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left:"+left+"px; top:"+top+"px;'><a class='close-btn _j_close'  data-id='_j_layer_5'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i5'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' data-id='_j_layer_5'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    //页面大小变更,更改模态框在页面显示的位置
+    window.onresize = function(){
+        var width=$(window).width();
+        var height=$(window).height();
+        width=width/2-210;
+        height=height/2-130;
+        var width1=$(window).width()/2-350;
+        var height1=$(window).height()/2-250;
+        if(width1<=0)
+            width1=0;
+        if(height1<=0)
+            height1=0;
+        $("#popup_container1").css({"left":width+"px","top":height+"px"});
+        $("#popup_container2").css({"left":width+"px","top":height+"px"});
+        $("#popup_container4").css({"left":width+"px","top":height+"px"});
+        $("#popup_container5").css({"left":width+"px","top":height+"px"});
+        $("#popup_container6").css({"left":width+"px","top":height+"px"});
+        $("#popup_container7").css({"left":width+"px","top":height+"px"});
+        if($("#popup_container3").length>0)
+            $("#popup_container3").css({"left":width1+"px","top":height1+"px"});
+        if($(".popup-body").length>0)
+            $(".popup-body").css({"left":width1+"px","top":height1+"px"});
+    }
+    //由于ajax请求时,拦截器拦截到未登录时无法登录,所以ajaxSetup方法就是在所有ajax请求结束后执行跳转页面
+    $.ajaxSetup({
+        //设置ajax请求结束后的执行动作
+        complete :
+            function(XMLHttpRequest, textStatus) {
+                // 通过XMLHttpRequest取得响应头，sessionstatus
+                var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                if (sessionstatus == "TIMEOUT") {
+                    var win = window;
+                    while (win != win.top){
+                        win = win.top;
+                    }
+                    var currentHref=win.location.href;
+                    win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH")+"?url="+currentHref;
+                }
+            }
     });
 </script>
 </body>

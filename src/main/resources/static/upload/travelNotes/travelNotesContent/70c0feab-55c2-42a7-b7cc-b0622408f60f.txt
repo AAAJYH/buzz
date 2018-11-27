@@ -1,0 +1,1 @@
+[,{"type":"img","value":"images/travelNotesphoto/cdefc5e5-0eb8-4e0b-b16f-8b6919d6b29b.jpg","width":"680","height":"453"},{"type":"textarea","value":""}]

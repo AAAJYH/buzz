@@ -261,6 +261,6 @@ public class strategyController {
     @RequestMapping("find_strategyBycityIdR5")
     public List<strategy> find_strategyBycityIdR5(String cityId)
     {
-        return strategyService.find_strategyBycityIdR5(cityId);
+        return strategyService.find_strategyBycityIdAndstateId(1,5,cityId,"0ee26211-3ae8-48b7-973f-8488bfe837d6");
     }
 }

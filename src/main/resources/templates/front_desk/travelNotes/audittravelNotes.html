@@ -52,11 +52,11 @@
     <div class="view_title clearfix">
         <div class="vt_center">
             <div class="person">
-                <a target="_blank" class="per_pic"><img src="" /></a>
+                <a target="_blank" class="per_pic"><img src="" width="120px" height="120px"/></a>
                 <strong><a target="_blank" class="per_name"></a></strong>
                 <div class="vc_time">
                     <span class="time"></span>
-                    <span><i class="ico_view"></i>2685/15</span>
+                    <span><i class="ico_view"></i></span>
                 </div>
                 <div class="person-edit hide">
                     <a title="编辑">编辑</a>|
@@ -890,9 +890,6 @@
                         }
                     }
                 });
-            }
-            if(null!=travelNotesId&&0<travelNotesId.length)
-            {
                 //加载游记
                 $.ajax({
                     url: "travelNotesController/show_travelNotes",
@@ -901,7 +898,7 @@
                     data: {travelNotesId: travelNotesId},
                     success: function (data)
                     {
-                        if(null!=data)
+                        if(null!=data&&null!=data.travelNotes)
                         {
                             var userId=$("#userId").val();
                             if(null!=userId&&userId==data.travelNotes.userId)//判断登录用户是否为游记所属用户,如果是则显示编辑和删除操作
@@ -935,9 +932,7 @@
                             $(".per_name").attr("href","front_desk/users/personalSpace.html?userId="+data.travelNotes.user.userId);
                             var per_name=data.travelNotes.user.userName;
                             if(null!=data.travelNotes.user.address&&data.travelNotes.user.address.length>0)
-                            {
-                                per_name+="("+data.travelNotes.user.address+")";
-                            }
+                                per_name+="("+data.travelNotes.user.city.cityName+")";
                             var vc_timeHtml="<span class='time'>"+format_time(data.travelNotes.releaseTime)+"</span><span><i class='ico_view'></i>"+data.travelNotes.browsingHistory+"</span>";
                             $(".vc_time").html(vc_timeHtml);
                             $(".per_name").text(per_name);
@@ -1008,9 +1003,13 @@
                             $($("._j_help_total").children("b")[0]).text(data.travelNotes.browsingHistory);
                             $("._j_master_content").html(insertHtml);
                         }
+                        else
+                            showNoCloseAlert("亲爱的蜂蜂,暂无数据或游记违规被删除");
                     }
                 });
             }
+            else
+                showNoCloseAlert("亲爱的蜂蜂,不要随便改地址栏中的参数哦")
         }
     );
     function paragraphClick(obj)
@@ -1397,7 +1396,7 @@
                                                 optionHtml="<a role='button' class='reply-report' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='report_travelNotesReply(this)'>举报</a><a role='button' class='_j_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' data-userName='"+data.travelNotesReply[i].user.userName+"' onclick='reply_travelNotesReply(this)'>回复</a>";
                                             var mcmt_user=data.travelNotesReply[i].user.userName;
                                             if(null!=data.travelNotesReply[i].user.address&&0<data.travelNotesReply[i].user.address.length)
-                                                mcmt_user+="("+data.travelNotesReply[i].user.address+")";
+                                                mcmt_user+="("+data.travelNotesReply[i].user.city.cityName+")";
                                             var floor=(currentIndex-1)*100;
                                             floor+=i+1;
                                             insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
@@ -1503,7 +1502,7 @@
                                 optionHtml="<a role='button' class='reply-report' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' onclick='report_travelNotesReply(this)'>举报</a><a role='button' class='_j_reply' data-travelNotesReplyId='"+data.travelNotesReply[i].travelNotesReplyId+"' data-userName='"+data.travelNotesReply[i].user.userName+"' onclick='reply_travelNotesReply(this)'>回复</a>";
                             var mcmt_user=data.travelNotesReply[i].user.userName;
                             if(null!=data.travelNotesReply[i].user.address&&0<data.travelNotesReply[i].user.address.length)
-                                mcmt_user+="("+data.travelNotesReply[i].user.address+")";
+                                mcmt_user+="("+data.travelNotesReply[i].user.city.cityName+")";
                             var floor=(currentIndex-1)*100;
                             floor+=i+1;
                             insertTravelNotesReplyHtml+="<div class='mfw-cmt _j_reply_item'><div class='mcmt-info'><div class='mcmt-photo'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' title='"+data.travelNotesReply[i].user.userName+"' target='_blank'><img src='"+data.travelNotesReply[i].user.photo+"' width='48' height='48'></a></div><div class='mcmt-user'><a href='front_desk/users/personalSpace.html?userId="+data.travelNotesReply[i].user.userId+"' target='_blank' class='name'>"+mcmt_user+"</a></div><div class='mcmt-other'><span class='floor'>"+floor+"F</span></div></div><div class='mcmt-con-wrap clearfix'><div class='mcmt-con'><div class='mcmt-quote'>"+mcmt_quoteHtml+"</div><div class='mcmt-word'><p class='_j_reply_content'>"+_j_reply_content+"</p></div></div><div class='mcmt-tag'></div></div><div class='mcmt-bot'><div class='time'>"+format_time(data.travelNotesReply[i].replyTime)+"</div><div class='option'>"+optionHtml+"</div></div></div>";
@@ -1545,8 +1544,14 @@
             height1=0;
         $("#popup_container1").css({"left":width+"px","top":height+"px"});
         $("#popup_container2").css({"left":width+"px","top":height+"px"});
+        $("#popup_container4").css({"left":width+"px","top":height+"px"});
+        $("#popup_container5").css({"left":width+"px","top":height+"px"});
+        $("#popup_container6").css({"left":width+"px","top":height+"px"});
+        $("#popup_container7").css({"left":width+"px","top":height+"px"});
         if($("#popup_container3").length>0)
             $("#popup_container3").css({"left":width1+"px","top":height1+"px"});
+        if($(".popup-body").length>0)
+            $(".popup-body").css({"left":width1+"px","top":height1+"px"});
     }
     //根据页数查询游记回复
     function find_travelNotesReplyByPageIndex(obj)
@@ -1611,6 +1616,29 @@
                 }
             });
         }
+    }
+    <!--显示不可关闭弹出框-->
+    function showNoCloseAlert(msg)
+    {
+        var width=$(window).width();
+        var height=$(window).height();
+        var left=width/2-210;
+        var top=height/2-130;
+        $("body").append("<div id='_j_layer_5' class='layer _j_layer' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 10001;'><div class='layer_mask _j_mask' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0.7; z-index: -1;'></div><div class='layer_content _j_content' style='position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; overflow: hidden;'><div id='popup_container5' class='popup-box new-popbox pop_no_margin' style='position: absolute; opacity: 1; background: rgb(255, 255, 255); z-index: 1; width: 420px; left:"+left+"px; top:"+top+"px;'><a class='close-btn _j_close'  data-id='_j_layer_5'><i></i></a><div class='pop-ico' id='_j_alertpopicon'><i class='i5'></i></div><div class='pop-ctn'><p class='hd _j_content'>"+msg+"</p><p class='bd _j_detail'></p></div><div class='pop-btns'><a role='button' tabindex='0' class='popbtn popbtn-submit _j_close' data-id='_j_layer_5'>&nbsp;确定&nbsp;</a></div></div></div></div>");
+    }
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
+            }
+        });
     }
 </script>
 </body>

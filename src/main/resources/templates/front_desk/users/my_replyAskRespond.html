@@ -217,7 +217,7 @@
                                     var MAvaInfoHtml="";
                                     $(".MAvaImg").children("img").attr("src",data.photo);
                                     if(null!=data.address&&0<data.address.length)
-                                        MAvaInfoHtml+="<span class='MAvaPlace flt1' title=''>现居:"+data.address+"</span>";
+                                        MAvaInfoHtml+="<span>现居:"+data.city.cityName+"</span><br/><br/>";
                                     var MAvaNameHtml="";
                                     MAvaNameHtml+=data.userName;
                                     if(data.sex=="男")
@@ -227,8 +227,8 @@
                                     $(".MAvaName").html(MAvaNameHtml);
                                     if(currentuserId==userId)//如果当前用户是本网页用户
                                     {
-                                        $(".MAvaUp").attr("href","个人信息设置");
-                                        MAvaInfoHtml+="<span class='MAvaSet'><a title='设置' href='个人信息设置'  target='_blank'></a></span>";
+                                        $(".MAvaUp").attr("href","front_desk/users/my_users.html");
+                                        MAvaInfoHtml+="<span class='MAvaSet'><a title='设置' href='front_desk/users/my_users.html'  target='_blank'></a></span>";
                                         $("#_j_profilearea").html("<a role='button' class='addBtn _j_showintrobox'>填写个人简介</a><div class='MAvaInput hide _j_inputarea'><textarea id='_j_introarea' placeholder='例：摄影师/旅居澳洲/潜水爱好者' maxlength='100'></textarea><a role='button' id='_j_introsaver' class='MAvaBtn' title='保存'>保存</a></div>");
                                     }
                                     else

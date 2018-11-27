@@ -175,8 +175,10 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
-    </dependencies>
+        <!--图片审核strat-->
 
+        <!--图片审核end-->
+    </dependencies>
     <build>
         <plugins>
             <plugin>

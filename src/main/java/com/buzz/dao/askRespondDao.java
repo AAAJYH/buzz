@@ -136,4 +136,13 @@ public interface askRespondDao
      */
     @Select({"<script>select * from askRespond where cityId=#{cityId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
     public List<askRespond> find_askRespondAndcityBycityIdTop2(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 通过城市编号和状态编号获取问答,和回复问答数量
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select ask.*,(select count(rak.replyAskRespondId) from replyAskRespond rak where rak.askRespondId=ask.askRespondId and rak.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach>) replyAskRespondNum from askRespond ask where ask.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test=\"null!=cityId and ''!=cityId\">and cityId=#{cityId}</if></script>"})
+    public List<askRespond> find_askRespondBycityIdAndstateIdAndtop5(@Param("cityId")String cityId,@Param("stateIds")String... stateIds);
 }

@@ -55,10 +55,8 @@ public class destinationController {
             list.add(p);
             List<city> cityList=cityService.byProvinceIdQueryHot(p.getProvinceId());
                 list.add(cityList);
-            System.out.println(cityList);
             destinationList.add(list);
         }
-        System.out.println(destinationList);
         model.addAttribute("destinationList",destinationList);
         return "front_desk/Destination";
     }

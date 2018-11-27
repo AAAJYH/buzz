@@ -100,13 +100,13 @@
                         </li>
 
                         <li class="navbar-local navbar-dropdown">
-                            <a class="navbar-btn " href="#" target="_blank" data-cs-p="游记">
+                            <a class="navbar-btn " th:href="@{'/front_desk/city_travelNotes.html?cityId='+${application.city.cityId}}" target="_blank" data-cs-p="游记">
                                 <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
 
                         <li class="navbar-community navbar-dropdown">
-                            <a class="navbar-btn ">
+                            <a class="navbar-btn " th:href="@{'/front_desk/askRespond/askRespond.html?cityId='+${application.city.cityId}}">
                                 <i class="navbar-icon"></i><span>问答</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -199,7 +199,7 @@
     <div class="row row-ask row-bg">
     <div class="wrapper">
         <div class="r-main"></div>
-        <div class="side-banner"><a href="/qa/expert.php" target="_blank"><img src="http://images.mafengwo.net/images/mdd/place/ask-guider-recruit.jpg"></a></div>
+        <div class="side-banner"><a target="_blank"><img src="http://images.mafengwo.net/images/mdd/place/ask-guider-recruit.jpg"></a></div>
     </div>
 </div>
     <div class="row row-gonglve" id="gonglve">

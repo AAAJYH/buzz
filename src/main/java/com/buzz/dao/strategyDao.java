@@ -27,13 +27,6 @@ public interface strategyDao {
     @Select("select * from strategy where cityId=#{cityId}")
     public List<strategy> find_strategyBycityId(@Param("cityId") String cityId);
 
-    /**
-     * 根据城市编号查询多个攻略,只返回五条数据
-     * @param cityId
-     * @return
-     */
-    @Select("select * from strategy where cityId=#{cityId} LIMIT 0,5")
-    public List<strategy> find_strategyBycityIdR5(@Param("cityId") String cityId);
     //攻略下载次数加1
     @Update("update strategy set downloadNumber=downloadNumber+1 where strategyId=#{strategyId}")
     public int updateCityStrategyDownloadNumber(String strategyId);
@@ -80,4 +73,12 @@ public interface strategyDao {
     @Select("select * from strategy where strategyId=#{strategyId}")
     public strategy find_strategyBystrategyId(@Param("strategyId") String strategyId);
 
+    /**
+     * 根据城市编号和状态编号查询
+     * @param cityId
+     * @param stateId
+     * @return
+     */
+    @Select({"<script>select * from strategy where 1=1 <if test=\"null!=cityId and ''!=cityId\">and cityId=#{cityId}</if><if test=\"null!=stateId and ''!=stateId\">and stateId=#{stateId}</if></script>"})
+    public List<strategy> find_strategyBycityIdAndstateId(@Param("cityId")String cityId,@Param("stateId") String stateId);
 }

@@ -145,4 +145,15 @@ public class cityService {
     {
         return  cityDao.find_city_askRespondNum(stateIds);
     }
+
+    /**
+     * 根据城市名和状态编号模糊搜索
+     * @param cityName
+     * @param stateId
+     * @return
+     */
+    public List<city> find_cityBycityNameAndstateId(String cityName,String stateId)
+    {
+        return cityDao.find_cityBycityNameAndstateId(cityName,stateId);
+    }
 }
