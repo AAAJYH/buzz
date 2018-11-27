@@ -57,20 +57,24 @@
     <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
         <div class="navbar-con">
             <ul class="navbar clearfix">
-                <li class="navbar-line">
-                    <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
-                        <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="navbar-overview city-guide" id="gaikuang">
+                    <a class="navbar-btn" data-cs-p="概况">
+                        <i class="navbar-icon"></i><span>概况</span>
                     </a>
                 </li>
-
+                <script th:inline="javascript">
+                    $("#gaikuang").click(function(){
+                        window.location.href="/scenicspotController/byCityIdQueryScenicspot?cityId="+[[${application.city.cityId}]];
+                    });
+                </script>
                 <li class="navbar-scenic" id="jingdian">
-                    <a class="navbar-btn" href="javascript:;"  data-cs-p="景点">
+                    <a class="navbar-btn" data-cs-p="景点">
                         <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
                 <script th:inline="javascript">
                     $("#jingdian").click(function(){
-                       window.location.href="/scenicspotController/byCityIdQueryScenicspot?cityId="+[[${application.city.cityId}]];
+                       window.location.href="/scenicspotController/byCityQuery?cityId="+[[${application.city.cityId}]];
                     });
                 </script>
 

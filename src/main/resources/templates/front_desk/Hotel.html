@@ -260,14 +260,13 @@
             <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
                 <div class="navbar-con">
                     <ul class="navbar clearfix">
-                        <li class="navbar-line">
-                            <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
-                                <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <li class="navbar-overview city-guide">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}" data-cs-p="概况">
+                                <i class="navbar-icon"></i><span>概况</span>
                             </a>
                         </li>
-
                         <li class="navbar-scenic">
-                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
+                            <a th:href="@{'/scenicspotController/byCityQuery?cityId='+${application.city.cityId}}" class="navbar-btn" data-cs-p="景点">
                                 <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
