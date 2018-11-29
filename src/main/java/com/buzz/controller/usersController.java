@@ -121,7 +121,7 @@ public class usersController {
         {
             int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
             String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-            //SmsVerification.getVerificationCode(bindPhone,smsContent);
+            SmsVerification.getVerificationCode(passport,smsContent);
             System.out.println(verificationCode);
             smsCode smscode = new smsCode(passport, verificationCode);
             String str = JSON.toJSONString(smscode);
@@ -156,7 +156,7 @@ public class usersController {
     public int SendRegisterVerificationCode(String bindPhone, HttpServletRequest request, HttpServletResponse response) {
         int verificationCode = (int) ((Math.random() * 9 + 1) * 100000); //验证码
         String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-        //SmsVerification.getVerificationCode(bindPhone,smsContent);
+        SmsVerification.getVerificationCode(bindPhone,smsContent);
         System.out.println(verificationCode);
         smsCode smscode = new smsCode(bindPhone, verificationCode);
         String str = JSON.toJSONString(smscode);
@@ -871,7 +871,7 @@ public class usersController {
             {
                 map.put("type","phone");
                 String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-                //SmsVerification.getVerificationCode(passport,smsContent);
+                SmsVerification.getVerificationCode(passport,smsContent);
             }
             map.put("verificationCode",verificationCode);
             map.put("updateId",ueap.getUpdateId());
@@ -925,7 +925,7 @@ public class usersController {
             {
                 map.put("type","phone");
                 String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-                //SmsVerification.getVerificationCode(passport,smsContent);
+                SmsVerification.getVerificationCode(passport,smsContent);
             }
             map.put("verificationCode",verificationCode);
             map.put("updateId",ueap.getUpdateId());
@@ -960,7 +960,7 @@ public class usersController {
             {
                 map.put("type","phone");
                 String smsContent = "【嗡嗡嗡旅游网】尊敬的用户，您的验证码为" + verificationCode;//短信签名+内容（用模板不能自定义必须和模板一致）
-                //SmsVerification.getVerificationCode(passport,smsContent);
+                SmsVerification.getVerificationCode(passport,smsContent);
             }
             map.put("result",true);
             map.put("verificationCode",verificationCode);

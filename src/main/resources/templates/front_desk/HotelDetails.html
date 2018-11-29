@@ -245,10 +245,10 @@
     <div class="top-info clearfix" id="_j_crumb">
 
         <!-- 旅游攻略 > 云南 > 丽江-->
-        <div class="crumb">
+        <div class="crumb" th:if="${application.city}!=null">
             <div class="item">酒店<em>&gt;</em></div>
-            <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
-            <div class="item cur" th:text="${application.city.cityName+'酒店详情'}">北京酒店详情</div>
+            <div class="item"><span th:text="${application.city.cityName}" >北京</span><em>&gt;</em></div>
+            <div class="item cur" th:text="${application.city.cityName+'酒店详情'}" >北京酒店详情</div>
         </div>
 
         <!-- 收藏 -->
@@ -269,8 +269,8 @@
                 //收藏酒店
                 $("#_j_fav_trigger").click(function(){
                     if([[${session.user}]]==null){
-                        alert("请先登录");
-                        window.location.href="#login";
+                        var url=window.location.href;
+                        window.location.href="usersController/show_login_html?url="+url;
                     }else{
                         $.ajax({
                             url:'/hotelCollectController/addHotelCollect',
@@ -323,10 +323,9 @@
                     <a class="hs-btn" id="_j_price_btn" href="javascript:queryPrice();">查看价格</a>
                     <script th:inline="javascript">
                         function queryPrice(){
-                            $("#content").html("");
                             $(".zhuan_quan_quan").css("display","block"); //显示加载图片
                             //日期数组
-                                var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
+                            var getDates = $('.t-datepicker').tDatePicker('getDates'); //获取时间
                             //开始时间
                             var beginTime=getDates[0].getFullYear()+"/"+(getDates[0].getMonth()+1)+"/"+getDates[0].getDate();
                             //结束时间
@@ -393,8 +392,8 @@
                                                var bedType=$(this).parent().prev().prev().prev().text();
                                                window.location.href="/hotelController/hotelOrderIndex?hid="+hid+"&beginTime="+beginTime+"&endTime="+endTime+"&productName="+productName+"&price="+price+"&roomName="+roomName+"&bedType="+bedType+"&hotelName="+hotelName+"&defaultPicture="+defaultPicture;
                                            }else{
-                                               alert("请先登录");
-                                               window.location.href="#login";
+                                               var url=window.location.href;
+                                               window.location.href="usersController/show_login_html?url="+url;
                                            }
                                        });
                                    }else{

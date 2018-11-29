@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 引入Easyui -->
+    <script src="/Easyui/jquery.min.js"  ></script>
+    <script src="/Easyui/jquery.easyui.min.js" ></script>
+    <script  src="/Easyui/locale/easyui-lang-zh_CN.js" ></script>
+    <link href="/Easyui/themes/default/easyui.css" rel="stylesheet">
+    <link href="/Easyui/themes/icon.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
+
+    <script th:inline="none">
+
+        var url="";
+
+        $(function(){
+
+            //初始化datagrid数据表格
+            $('#dg').datagrid({
+                url:'/interestLabelController/PagingQuery',
+                columns:[[
+                    {field:'interestLabelId',title:'编号',width:80},
+                    {field:'interestLabelName',title:'标签名',width:50},
+                    {field:'releaseTime',title:'创建时间',width:50},
+                    {field:'stateId',title:'状态',width:50,formatter:formatState}
+                ]],
+                pagination:true,
+                pageNumber:1,
+                pageSize:14,
+                pageList:[10,14,20,25],
+                rownumbers:true,
+                singleSelect:true,
+                fitColumns:true,
+                toolbar: [//工具栏
+                    { //添加按钮
+                        iconCls: 'icon-add',
+                        handler: function(){
+                            url='/interestLabelController/addLabel';
+                            $("#dd").dialog("open");
+                        }
+                    },'-',{ //修改按钮
+                        iconCls: 'icon-edit',
+                        handler: function(){
+                            var row=$("#dg").datagrid("getSelected");
+                            if(row==null){
+                                alert("请选择要修改的行");
+                            }else{
+                                url='/interestLabelController/updateLabel';
+                                $("#ff").form("load",row);
+                                $("#dd").dialog("open");
+                            }
+                        }
+                    },'--',{
+                        text:'<input id="ss"> \n' +
+                        '<div id="mm" style="width:120px"> \n' +
+                        '<div data-options="name:\'interestLabelName\'">标签名称</div> \n' +
+                        '</div> ',
+                        handler:function () {}
+                    }
+                ]
+            });
+
+            $('#ss').searchbox({
+                searcher:function(value,name){
+                    $("#dg").datagrid("options").url="/interestLabelController/PagingQuery?"+name+"="+value;
+                    $("#dg").datagrid("reload");
+                },
+                menu:'#mm',
+                prompt:'请输入值',
+                width:'300'
+            });
+
+            //格式化状态，用ajax根据状态Id查询状态对象
+            function formatState(value,row,index){
+                var rs="";
+                $.ajax({
+                    url:'/StateController/byStateIdQuery',
+                    type:'post',
+                    async:false, //是否异步
+                    data:{
+                        stateId:value
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if(data!=null){
+                            rs=data.stateName;
+                        }
+                    }
+                });
+                return rs;
+            }
+
+            //初始化dialog对话框
+            $('#dd').dialog({
+                width: 400,
+                height:"auto",
+                closed:true
+            });
+
+            //save点击事件，修改或添加
+            $("#save").click(function(){
+                if($("#ff").form("validate")){ //校验form组件是否验证成功
+                    $("#ff").form("submit",{
+                        url:url,
+                        success:function(data){
+                            if(data==1){
+                                handlerOk(); //show消息
+                            }else{
+                                alert("操作失败");
+                            }
+                            $("#dd").dialog("close");
+                            $("#dg").datagrid("reload");
+                        }
+                    });
+                }else{
+                    alert("请输入完整");
+                }
+            });
+
+            //关闭dialog对话框清空form组件
+            $("#dd").dialog({
+                onClose:function(){
+                    $("#ff").form("clear");
+                }
+            });
+
+            //点击取消关闭dialog
+            $("#cancel").click(function(){
+                $("#dd").dialog("close");
+            });
+
+        });
+
+        function handlerOk(){
+            $.messager.show({
+                title:'我的消息',
+                msg:'操作成功，消息将在2秒后关闭。',
+                timeout:2000,
+                showType:'slide'
+            });
+        }
+
+        //格式化state属性
+        function formatterState(value,row,index){
+            if(value=="0"){
+                return "<button style='width:50px;height:25px;background:#1AB394;'>正常</button>";
+            }else if(value=="1"){
+                return "<button style='width:50px;height:25px;background:#ED5565;'>禁用</button>";
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+<!--datagrid数据表格-->
+<table id="dg"></table>
+
+    <!-- dialog对话框 -->
+    <div id="dd">
+        <form id="ff" method="post" align="center">
+            <input type="hidden" name="interestLabelId">
+            <p><input name="interestLabelName" class="easyui-textbox easyui-validatebox" data-options="width:250,prompt:'请输入',buttonText:'标签名',buttonAlign:'left',required:true"></p>
+            <p>
+                <select name="stateId" id="StateCombobox" class="easyui-validatebox easyui-combobox" data-options="width:250,prompt:'请选择',buttonText:'状&nbsp;&nbsp;&nbsp;态',buttonAlign:'left',limitToList:true,panelHeight:70,required:true">
+                    <option value="0ee26211-3ae8-48b7-973f-8488bfe837d6">正常</option>
+                    <option value="ac618998-ffe3-4300-a391-cd581f74078c">删除</option>
+                </select>
+            </p>
+            <p>
+                <a id="save" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="cancel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+            </p>
+
+        </form>
+    </div>
+
+</body>
+</html>

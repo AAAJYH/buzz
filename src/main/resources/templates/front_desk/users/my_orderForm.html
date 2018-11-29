@@ -94,75 +94,6 @@
                 <p>暂无相关订单</p>
             </div>
         </div>
-        <!--暂无订单样式end-->
-        <!--有订单样式start-->
-        <!--<div class='order-table'>
-            <table class='order-hd'>
-                <tbody>
-                <tr>
-                    <th class='td-info'>订单信息</th>
-                    <th class='td-type'>类型</th>
-                    <th class='td-date'>行程日期</th>
-                    <th class='td-cost'>支付金额</th>
-                    <th class='td-status'>订单状态</th>
-                    <th class='td-operate'>操作</th>
-                </tr>
-                </tbody>
-            </table>
-            <div class='order-bd'>
-                <table data-id='16838530' data-type='hotel_youyu' class='order-item'>
-                    <caption>
-                <span class='num'>订单号：
-                                        <a href='/order_center/index/view_order?order_id=16838530&amp;busi_type=hotel_youyu' target='_blank'>
-                        51181116018018500
-                    </a>
-                                    </span>
-                        <span class='time'>下单时间：2018-11-16 16:27:32</span>
-                        <span class='telphone'>联系电话：4006-345-678</span>
-                    </caption>
-                    <tbody>
-                    <tr>
-                        <td class='td-info'>
-                            <a class='pro-img' href='http://www.mafengwo.cn/hotel/40046.html' target='_blank'>
-                                <img src='http://p3-q.mafengwo.net/s10/M00/A8/24/wKgBZ1mIQsKAA6foAAj3lUDf2wA45.jpeg?imageMogr2%2Fthumbnail%2F%21140x140r%2Fgravity%2FCenter%2Fcrop%2F%21140x140%2Fquality%2F100'>
-                            </a>
-                            <div class='pro-detail'>
-                                <p class='title' title='北京首都大酒店'><a href='http://www.mafengwo.cn/hotel/40046.html' target='_blank'>北京首都大酒店</a></p>
-                            </div>
-                        </td>
-                        <td class='td-type'>酒店</td>
-                        <td class='td-date'>
-                            <p>入住: 2018-12-25</p>
-                            <p>离店: 2018-12-26</p>
-                        </td>
-                        <td class='td-cost'>
-                            <strong>￥639.60</strong>                                    </td>
-                        <td class='td-status'>
-                            <p class='s4'>
-                                待支付
-                            </p>
-                        </td>
-                        <td class='td-operate'>
-                            <a href='http://www.mafengwo.cn/order_center/index/view_order?order_id=16838530&amp;busi_type=hotel_youyu&amp;_refer=list' target='_blank'>
-                                查看订单
-                            </a>
-
-                            <a class='btn' href='http://www.mafengwo.cn/hotel_zx/order/detail.php?sOrderId=51181116018018500&amp;sVCode=410664bd53e7ce48c73b20fbe2047953&amp;_refer=list' target='_blank'>
-                                去支付
-                            </a>
-
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id='_j_joinlist_pagination' class='pagelet-block' data-api=':pageletcommon:paginationApi' data-params='{&quot;total&quot;:&quot;1&quot;,&quot;size&quot;:&quot;10&quot;,&quot;currpage&quot;:&quot;1&quot;,&quot;index_num&quot;:10,&quot;tmpl&quot;:&quot;pagination.tpl&quot;,&quot;status&quot;:&quot;0&quot;,&quot;page_item_class&quot;:&quot;_j_pageitem&quot;}' data-controller='/js/pageletcommon/ControllerPagination' data-controller_data='{&quot;page_item_class&quot;:&quot;_j_pageitem&quot;}'></div>
-            <div class='notes simsun'>
-                <p>由于预订时忘记登录嗡嗡嗡而没能记录到的订单，您可以在嗡嗡嗡合作伙伴的网站查询，快速入口：</p>
-                <p><a href='http://www.booking.com/index.zh-cn.html?aid=391337' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/booking_w100h20_2x_2.png' width='100' height='20'></a><a href='http://www.agoda.com/zh-cn?cid=1610250' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/agoda_w100h20_2x_2.png' width='100' height='20'></a><a href='http://hotels.ctrip.com/?sid=449929' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/ctrip_w100h20_2x_2.png' width='100' height='20'></a><a href='http://www.elong.com/?banid=pcmafengwo&amp;fparam=21' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/elong_w100h20_2x.png' width='100' height='20'></a></p>
-            </div>
-        </div>-->
-        <!--有订单样式end-->
     </div>
 </div>
 <link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
@@ -346,7 +277,7 @@
                                 td_statusHtml="<td class='td-status'><p class='s4'>支付超时</p></td>";
                                 td_operateHtml="<td class='td-operate'><a href='hotelController/HotelOrderPaymentIndexByhotelOrderId?hotelOrderId="+data.hotelOrders[i].orderId+"' target='_blank'>查看订单</a></td>";
                             }
-                            order_tableHtml+="<div class='order-bd'><table class='order-item'><caption><span class='num'>订单号：<a href='hotelController/HotelOrderPaymentIndexByhotelOrderId?hotelOrderId="+data.hotelOrders[i].orderId+"' target='_blank'>"+data.hotelOrders[i].orderId+"</a></span><span class='time'>下单时间："+format_time(data.hotelOrders[i].subTime)+"</span><span class='telphone'>联系电话：4006-345-678</span></caption><tbody><tr><td class='td-info'><a class='pro-img' href='hotelController/hotelDetailsIndex?hotelId="+data.hotelOrders[i].hid+"' target='_blank'><img src='"+data.hotelOrders[i].defaultPicture+"'></a><div class='pro-detail'><p class='title' title='"+data.hotelOrders[i].hotelName+"'><a href='hotelController/hotelDetailsIndex?hotelId="+data.hotelOrders[i].hid+"' target='_blank'>"+data.hotelOrders[i].hotelName+"</a></p></div></td><td class='td-type'>酒店</td><td class='td-date'><p>入住: "+data.hotelOrders[i].inDate+"</p><p>离店: "+data.hotelOrders[i].outDate+"</p></td><td class='td-cost'><strong>￥"+data.hotelOrders[i].orderAmout+"</strong></td>"+td_statusHtml+""+td_operateHtml+"</tr></tbody></table></div>";
+                            order_tableHtml+="<div class='order-bd'><table class='order-item'><caption><span class='num'>订单号：<a href='hotelController/HotelOrderPaymentIndexByhotelOrderId?hotelOrderId="+data.hotelOrders[i].orderId+"' target='_blank'>"+data.hotelOrders[i].orderId+"</a></span><span class='time'>下单时间："+format_time(data.hotelOrders[i].subTime)+"</span><span class='telphone'>联系电话：4006-345-678</span></caption><tbody><tr><td class='td-info'><a class='pro-img' href='hotelController/hotelDetailsIndex?hotelId="+data.hotelOrders[i].hid+"' target='_blank'><img src='"+data.hotelOrders[i].defaultPicture+"'></a><div class='pro-detail'><p class='title' title='"+data.hotelOrders[i].hotelName+"'><a href='/hotelController/hotelDetailsIndex?hotelId="+data.hotelOrders[i].hid+"' target='_blank'>"+data.hotelOrders[i].hotelName+"</a></p></div></td><td class='td-type'>酒店</td><td class='td-date'><p>入住: "+data.hotelOrders[i].inDate+"</p><p>离店: "+data.hotelOrders[i].outDate+"</p></td><td class='td-cost'><strong>￥"+data.hotelOrders[i].orderAmout+"</strong></td>"+td_statusHtml+""+td_operateHtml+"</tr></tbody></table></div>";
                         }
                         $(".order-table").html(order_tableHtml);
                     }

@@ -41,13 +41,14 @@
         }
         #map{
             width: 59%;
+            left:50px;
         }
         .info span{
             font-family:"微软雅黑";
             font-size:120%;
             color:black;
             padding:5px;
-            border-radius:5px
+            border-radius:5px;
         }
         .info span:hover{
             cursor:pointer;
@@ -67,7 +68,7 @@
         .hotel .title,.service,.address,.marker,.minPrice,.star{
             position:relative;
             top:-195px;
-            left:320px;
+            left:350px;
             font-size:150%;
         }
         .hotel .star{
@@ -82,13 +83,13 @@
             font-size:105%;
         }
         .hotel .address{
-            left:345px;
+            left:380px;
             top:-198px;
             font-size:105%;
         }
         .hotel .marker{
             top:-175px;
-            left:315px;
+            left:350px;
         }
         .hotel .minPrice{
             width:120px;
@@ -247,7 +248,7 @@
         <div class="wrapper">
 
             <!-- 目的地 > 北京 > 北京景点 -->
-            <div class="crumb">
+            <div class="crumb" th:if="${application.city!=null}">
                 <div class="item">目的地<em>&gt;</em></div>
                 <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
                 <div class="item cur" th:text="${application.city.cityName+'酒店'}">北京酒店</div>
@@ -257,20 +258,19 @@
             <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
                 <div class="navbar-con">
                     <ul class="navbar clearfix">
-                        <li class="navbar-line">
-                            <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
-                                <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <li class="navbar-overview city-guide">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}" data-cs-p="概况">
+                                <i class="navbar-icon"></i><span>概况</span>
                             </a>
                         </li>
-
                         <li class="navbar-scenic">
-                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
+                            <a th:href="@{'/scenicspotController/byCityQuery?cityId='+${application.city.cityId}}" class="navbar-btn" data-cs-p="景点">
                                 <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
 
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityName='}" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityId='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>

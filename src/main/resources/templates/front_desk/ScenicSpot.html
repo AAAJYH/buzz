@@ -75,20 +75,18 @@
             <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
                 <div class="navbar-con">
                     <ul class="navbar clearfix">
-                        <li class="navbar-line">
-                            <a class="navbar-btn" href="#"  data-cs-p="玩法路线">
-                                <i class="navbar-icon"></i><span>玩法路线</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <li class="navbar-overview city-guide">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}" data-cs-p="概况">
+                                <i class="navbar-icon"></i><span>概况</span>
                             </a>
                         </li>
-
                         <li class="navbar-scenic">
-                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}"  data-cs-p="景点">
+                            <a th:href="@{'/scenicspotController/byCityQuery?cityId='+${application.city.cityId}}" class="navbar-btn" data-cs-p="景点">
                                 <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
-
                         <li class="navbar-sales navbar-dropdown">
-                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityName='}" data-cs-p="酒店">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityId='}" data-cs-p="酒店">
                                 <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </a>
                         </li>
@@ -199,7 +197,7 @@
     <div class="row row-ask row-bg">
     <div class="wrapper">
         <div class="r-main"></div>
-        <div class="side-banner"><a target="_blank"><img src="http://images.mafengwo.net/images/mdd/place/ask-guider-recruit.jpg"></a></div>
+        <div class="side-banner"><a target="_blank" href="front_desk/askRespond/question.html"><img src="http://images.mafengwo.net/images/mdd/place/ask-guider-recruit.jpg"></a></div>
     </div>
 </div>
     <div class="row row-gonglve" id="gonglve">

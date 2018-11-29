@@ -25,7 +25,7 @@ public class testController {
 
     @RequestMapping("/a")
     public String a() {
-        return "backstage_supporter/test";
+        return "front_desk/index";
     }
 
     @RequestMapping("/test500")

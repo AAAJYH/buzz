@@ -1,10 +1,9 @@
 package com.buzz.dao;
 
 import com.buzz.entity.hotelCollect;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * @Author: jyh
@@ -22,5 +21,13 @@ public interface hotelCollectDao {
     //用户收藏酒店
     @Insert("insert into hotelCollect(hotelCollectId,userId,hotelId) values(#{hcid},#{uid},#{hid})")
     public int addHotelCollect(@Param("hcid")String hotelCollectId,@Param("uid") String userid,@Param("hid") String hotelId);
+
+    //查询用户收藏酒店
+    @Select("SELECT * FROM `hotelcollect` where userId=#{userid}")
+    public List<hotelCollect> byUseridQuery(@Param("userid") String userid);
+
+    //删除酒店收藏记录
+    @Delete("delete from hotelcollect where hotelCollectId=#{hotelCollectId}")
+    public int byhotelCollectIdDelete(@Param("hotelCollectId") String hotelCollectId);
 
 }

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <base href="http://localhost/">
+    <title>城市景点 - 嗡嗡嗡</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
+    <script th:src="@{/js/jquery-1.11.0.min.js}" type="text/javascript"></script>
+    <link th:href="@{'/css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'/css/css+mdd+place-v2_css+mdd+map-mark.v2_css+mdd+scenic-list^ZlM^1522007090.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'/css/place-crumb.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'/css/mfw-footer.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'/css/mfw-toolbar.css'}" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/x-icon" href='/images/logoHead.ico'>
+    <link href="http://css.mafengwo.net/css/cv/css+mdd+place-crumb:css+mdd+place-navbar^Z1U^1519936459.css" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+        #header{
+            margin-bottom: 0;
+        }
+        .crumb {
+            width: 1000px;
+            font:12px Arial,"Microsoft Yahei","\5FAE\8F6F\96C5\9ED1",Tahoma,Helvetica,STHeiti,"Hiragino Sans GB";
+            height: 20px;
+            padding: 15px 0;
+            color: #666;
+            line-height: 20px;
+            margin: 0 auto;
+        }
+        .crumb .item a{
+            color:#666;
+            font-size:12px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- 顶部导航菜单栏 -->
+<div id="header" xmlns="http://www.w3.org/1999/html">
+    <div class="mfw-header">
+        <div class="header-wrap clearfix">
+            <div class="head-logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
+            <ul class="head-nav" id="_j_head_nav">
+                <li class="head-nav-index"><a href="front_desk/homePage.html">首页</a></li>
+                <li class="head-nav-place"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></li>
+                <li class="head-nav-gonglve"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></li>
+                <li class="head-nav-hotel"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></li>
+                <li class="head-nav-hotel"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></li>
+            </ul>
+            <div id="login_box" class="pagelet-block">
+                <div class='login-out'>
+                    <a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html' rel='nofollow'>登录</a>
+                    <span class='split'>|</span>
+                    <a href='usersController/show_login_html' title='注册帐号' rel='nofollow'>注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<div id="container" data-cs-t="景点列表页">
+    <div class="row row-placeTop" data-cs-p="面包屑">
+        <div class="wrapper">
+
+            <!-- 目的地 > 中国 > 北京 > 北京景点 -->
+            <div class="crumb">
+                <div class="item">目的地<em>&gt;</em></div>
+                <div class="item"><span th:text="${application.city.cityName}">北京</span><em>&gt;</em></div>
+                <div class="item cur" th:text="${application.city.cityName+'景点'}">北京景点</div>
+            </div>
+
+            <!-- 玩法路线 景点 酒店 攻略 游记 问答 地图 -->
+            <div class="place-navbar" style="border-top: 0;" data-cs-t="目的地导航">
+                <div class="navbar-con">
+                    <ul class="navbar clearfix">
+                        <li class="navbar-overview city-guide">
+                            <a class="navbar-btn" th:href="@{'/scenicspotController/byCityIdQueryScenicspot?cityId='+${application.city.cityId}}" data-cs-p="概况">
+                                <i class="navbar-icon"></i><span>概况</span>
+                            </a>
+                        </li>
+                        <li class="navbar-scenic">
+                            <a th:href="@{'/scenicspotController/byCityQuery?cityId='+${application.city.cityId}}" class="navbar-btn" data-cs-p="景点">
+                                <i class="navbar-icon"></i><span>景点</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+                        <li class="navbar-sales navbar-dropdown">
+                            <a class="navbar-btn " th:href="@{'/hotelController/hotelIndex?scenicspotId=&cityId='}" data-cs-p="酒店">
+                                <i class="navbar-icon"></i><span>酒店</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-overview">
+                            <a class="navbar-btn" th:href="@{'/strategyController/queryCityStrategy?strategyId='+''}"  data-cs-p="攻略">
+                                <i class="navbar-icon"></i><span>攻略</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-local navbar-dropdown">
+                            <a class="navbar-btn " href="#" target="_blank" data-cs-p="游记">
+                                <i class="navbar-icon"></i><span>游记</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-community navbar-dropdown">
+                            <a class="navbar-btn ">
+                                <i class="navbar-icon"></i><span>问答</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </li>
+
+                        <li class="navbar-maps navbar-last">
+                            <a class="navbar-btn" href="/mapController/mapIndex" target="_blank" data-cs-p="地图">
+                                <i class="navbar-icon"></i><span>地图</span><i class="i-hot">new</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 景点概括 -->
+<div class="row row-summary row-bg">
+    <div class="wrapper">
+        <h2 class="title">景点概况</h2>
+        <div>
+            <span th:if="${application.city.citySituation!=''}">
+                <p style="display: none;" th:text="${application.city.citySituation.substring(0,100)+'...'}">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门...</p>
+                <span id="mdd_poi_desc" th:text="${application.city.citySituation}">北京是一座迷人的城市，既有古典风韵，又具时尚气息。小胡同、老茶馆、新潮酒吧街、繁华商业区，无限的摩登元素与老北京地道的京味儿相互交融，构筑了北京城博大精深的文化底蕴和正统而不失清雅的生活方式。来北京必去的景点非天安门、故宫、长城莫属，除此以外，可根据各人的兴趣爱好进行多样化的选择。不论是情侣出行还是亲子旅游，向往皇家古迹还是时尚街区，都能在北京找到最适合的去处。</span>
+            </span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            function getRownum(obj) {
+                try {
+                    var lines = obj.getClientRects(), i = lines.length, map ={}, num = 0;
+                    while (i--) {
+                        if (!map[lines[i].top]) {
+                            num++;
+                            map[lines[i].top] = 1;
+                        }
+                    }
+                    return num;
+                } catch (e) {
+                    return 1;
+                }
+            }
+            var $con = $("#mdd_poi_desc"), rownum = getRownum($con[0]);
+            if (rownum > 2) {
+                $('<a style="color:#ff9d00;">展开全部</a>').appendTo($con.hide().prev().show()).click(function (e) {
+                    e.preventDefault();
+                    $(this).parent().hide().next().show();
+                });
+            }
+        }());
+    </script>
+</div>
+
+<!-- 全部景点 -->
+    <div class="row row-top5"  data-cs-p="全部景点">
+        <div class="wrapper">
+            <h2 class="title">全部景点</h2>
+            <span th:if="${scenicspotList}!=null">
+                <div th:each="obj,status:${scenicspotList}" class="item clearfix">
+                    <div class="info">
+                        <div class="middle">
+                            <h3>
+                                <span class="num" th:text="${status.count}">1</span>
+                                <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" th:title="${obj.chineseName}" th:text="${obj.chineseName}">故宫</a>
+                            </h3>
+                            <p style="width:370px;height:100px;" th:text="${obj.synopsis+'...'}">中国乃至世界上保存最完整，规模最大的木质结构古建筑群，也是藏品超过百万件的世界级博物馆</p>
+                        </div>
+                    </div>
+                    <div class="pic">
+                        <a th:href="@{'/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId='+${obj.scenicSpotId}}" target="_blank" th:title="${obj.chineseName}">
+                            <div class="large">
+                                <img th:src="@{'/'+${obj.photo.split(',')[0]}+''}" width="380" height="270"/>
+                            </div>
+                            <div>
+                                <img th:src="@{'/'+${obj.photo.split(',')[1]}+''}" width="185" height="130"/>
+                            </div>
+                            <div>
+                                <img th:src="@{'/'+${obj.photo.split(',')[2]}+''}" width="185" height="130"/>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+<link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dt>全球旅游消费指南 </dt>
+                <dd>覆盖全球200多个国家和地区</dd>
+                <dd><strong>100,000,000</strong> 位旅行者</dd>
+                <dd><strong>920,000</strong> 家国际酒店</dd>
+                <dd><strong>21,000,000</strong> 条真实点评</dd>
+                <dd><strong>382,000,000</strong> 次攻略下载</dd>
+                <dd><a class="highlight" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a rel="nofollow">关于嗡嗡嗡</a><a class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a rel="nofollow">隐私政策</a><a rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a rel="nofollow">服务协议</a><a rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" rel="nofollow">加入嗡嗡嗡</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank">旅游攻略</a></li>
+                        <li><a target="_blank">酒店预订</a></li>
+                        <li><a target="_blank">旅游特价</a></li>
+                        <li><a target="_blank">国际租车</a></li>
+                        <li><a target="_blank">旅游问答</a></li>
+                        <li><a target="_blank">旅游保险</a></li>
+                        <li><a target="_blank">旅游指南</a></li>
+                        <li><a target="_blank">订火车票</a></li>
+                        <li><a target="_blank">旅游资讯</a></li>
+                        <li><a target="_blank">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>嗡嗡嗡良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>嗡嗡嗡旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>嗡嗡嗡APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>向崇尚自由的加勒比海盗致敬！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow" ><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="ft-links">
+            <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+            <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
+        </div>
+
+        <div class="ft-copyright">
+            <a href="front_desk/homePage.html"><i style="background:url('images/logoBottom.png') no-repeat 0 0px;float:left;width: 136px;height: 39px;overflow: hidden;margin: 8px 20px 0 0;"></i></a>
+            <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+        </div>
+    </div>
+</div>
+<script>
+    $().ready(
+        function()
+        {
+            //获取当前登录用户
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        var login_boxHtml="";
+                        if(data.loginState)
+                        {
+                            login_boxHtml="<div class='login-info'><div class='head-user' id='_j_head_user'><a class='drop-trigger' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' title='"+data.currentUser.userName+"的窝' rel='nofollow'><div class='user-image'><img src='"+data.currentUser.photo+"' height='32' width='32'></div><i class='icon-caret-down'></i></a></div><div class='head-msg' id='_j_head_msg'><a class='drop-trigger' href='javascript:' rel='nofollow'><i class='icon-msg'></i>消息<i class='icon-caret-down'></i><span class='head-msg-new hide' style='display: none;'></span></a></div></div><div class='dropdown-group'><div class='dropdown-menu dropdown-msg hide' id='_j_msg_panel' style='z-index: 10; display: none;'><ul><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></div><div class='dropdown-menu dropdown-msg hide' id='_j_msg_float_panel' style='display: none;'><ul></ul><a href='javascript:' class='close-newmsg'>×</a></div><div class='dropdown-menu dropdown-user hide' id='_j_user_panel' data-cs-t='user_nav' style='display: none;'><div class='user-info'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><ul><li><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' ><i class='icon-wo'></i>我的嗡嗡嗡</a></li><li><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'><i class='icon-writenotes'></i>写游记</a></li><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow' data-cs-p='collect'><i class='icon-collect'></i>我的收藏</a></li><li><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow' data-cs-p='wenda'><i class='icon-wenda'></i>我的问答</a></li><li><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow' data-cs-p='appointnotes'><i class='icon-ordernotes'></i>我的游记</a></li><li><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'><i class='icon-path'></i>游记收藏</a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow' data-cs-p='order'><i class='icon-order'></i>我的订单</a></li><li><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow' data-cs-p='settings'><i class='icon-settings'></i>设置</a></li><li><a onclick='logout()' title='退出登录' rel='nofollow'><i class='icon-logout' data-cs-p='logout'></i>退出</a></li></ul></div></div>";
+                        }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='login-out'><a id='_j_showlogin' title='登录嗡嗡嗡' href='usersController/show_login_html?url="+url+"' rel='nofollow'>登录</a><span class='split'>|</span><a href='usersController/show_login_html?url="+url+"' title='注册帐号' rel='nofollow'>注册</a></div>";
+                        }
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#_j_user_panel").length||0<$(e.target).closest("#_j_head_user").length)
+                                    $("#_j_user_panel").css("display","block");
+                                else
+                                    $("#_j_user_panel").css("display","none");
+                                if(0<$(e.target).closest("#_j_head_msg").length||0<$(e.target).closest("#_j_msg_panel").length)
+                                    $("#_j_msg_panel").css("display","block");
+                                else
+                                    $("#_j_msg_panel").css("display","none");
+                            }
+                        );
+                    }
+                }
+            });
+        }
+    );
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
+            }
+        });
+    }
+</script>
+</body>
+</html>

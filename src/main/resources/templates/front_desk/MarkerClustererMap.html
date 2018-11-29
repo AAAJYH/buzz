@@ -6,15 +6,21 @@
     <script type="text/javascript"src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
     <link rel="icon" type="image/x-icon" href='/images/logoHead.ico'>
 </head>
 <body style="padding:0;margin:0;">
-    <div style="width:1533px;height:720px;" id="map"></div>
+    <div id="map"></div>
     <script th:inline="javascript">
+            var kuan=$(document).width();//屏幕宽
+            var gao=$(document).height(); //屏幕高
+            //设置地图的宽高
+            $("#map").css("width",kuan+"px");
+            $("#map").css("height",gao+"px");
 
         //初始化地图
         var map=new BMap.Map("map");
-        map.centerAndZoom(new BMap.Point(107.907017,36.003761),5);
+        map.centerAndZoom(new BMap.Point(107.907017,36.003761),6);
         map.enableScrollWheelZoom(); //启动滚轮缩放
         map.enableKeyboard(); //启动键盘移动地图
         map.setMinZoom(5); //最小缩放级别
@@ -86,12 +92,12 @@
         function addClick(marker){
             //自定义infoWindow信息
             var infoWindow=new BMap.InfoWindow("<div style=\"width:200px;height:100px;\">\n" +
-                "                    <img src=\"/images/"+scenicspotList[i].photo.split(',')[0]+"\" style=\"margin-top:5px;margin-left:5px;width:100px;height:91px;border-radius:3px;\"/>\n" +
-                "                    <div style=\"width:112px;height:31px;font-weight:bold;color:#222222;font-size:130%;position:relative;top:-98px;left:120px;\">"+scenicspotList[i].chineseName+"</div>\n" +
-                "                    <div style=\"width:112px;height:31px;position:relative;top:-93px;left:120px;color:#999999;font-size:110%;\">\n" +
-                "                        <span style=\"color:#FF9E03;font-weight:bold;\">1230</span>条评价\n" +
+                "                    <img src=\"/"+scenicspotList[i].photo.split(',')[0]+"\" style=\"margin-top:5px;margin-left:5px;width:100px;height:91px;border-radius:3px;\"/>\n" +
+                "                    <div style=\"width:112px;height:31px;color:#222222;font-size:90%;position:relative;top:-90px;left:110px;\">"+scenicspotList[i].chineseName+"</div>\n" +
+                "                    <div style=\"width:112px;height:31px;position:relative;top:-93px;left:110px;color:#999999;font-size:110%;\">\n" +
+                "                        <span style=\"color:#FF9E03;\">1230</span>条评价\n" +
                 "                    </div>\n" +
-                "                    <div style=\"width:112px;height:27px;position:relative;top:-93px;left:120px;color:#999999;font-size:110%;\">\n" +
+                "                    <div style=\"width:112px;height:27px;position:relative;top:-93px;left:110px;color:#999999;font-size:110%;\">\n" +
                 "                        <a href=\"/scenicspotController/byScenicSpotIdQueryScenicSpot?scenicSpotId="+scenicspotList[i].scenicSpotId+"\" target=\"_blank\" style=\"text-decoration: underline;\">查看详情</a>\n" +
                 "                    </div>\n" +
                 "                </div>",{width:200, height:110});

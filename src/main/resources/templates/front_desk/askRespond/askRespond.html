@@ -188,8 +188,13 @@
                     {
                         for(var i=0;i<data.length;i++)
                         {
-                            _j_open_mdd_listHtml+="<li ><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
+                            if(i<20)
+                                _j_open_mdd_listHtml+="<li ><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
+                            else
+                                _j_open_mdd_listHtml+="<li style='display: none'><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
                         }
+                        if(20<data.length)
+                            _j_open_mdd_listHtml+="<li class='_j_mdd_see_more'><a style='display: block;width: 46px;text-align: center;' data-nums='"+data.length+"' onclick='show_city(this)'>更多</a></li>";
                     }
                     $("._j_open_mdd_list").html(_j_open_mdd_listHtml);
                 }
@@ -305,6 +310,25 @@
             $("._j_pager").css("display","none");
         }
         $("._j_pager_box").html(_j_pager_boxHtml);
+    }
+    //显示或隐藏更多城市
+    function show_city(obj)
+    {
+        var text=$(obj).text();
+        if(text=="更多")
+        {
+            $("._j_open_mdd_list li").css("display","inline-block");
+            $(obj).text("收起");
+        }
+        else
+        {
+            var nums=parseInt($(obj).attr("data-nums"));
+            for(var i=20;i<nums;i++)
+            {
+                $($("._j_open_mdd_list li")[i]).css("display","none");
+            }
+            $(obj).text("更多");
+        }
     }
     //查询用户金牌排位
     function find_user_optimumAnswerNum(obj)

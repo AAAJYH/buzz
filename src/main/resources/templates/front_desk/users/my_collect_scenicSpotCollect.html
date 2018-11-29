@@ -87,7 +87,7 @@
                 <li class='s_curr'>
                     <a href='front_desk/users/my_collect_scenicSpotCollect.html'>景点收藏</a>
                 </li>
-                <li><a href='/hotel/fav/index'>酒店收藏</a></li>
+                <li><a href='front_desk/users/my_collect_hotel.html'>酒店收藏</a></li>
             </ul>
         </div>
     </div>
@@ -172,7 +172,7 @@
                     titleBarHtml+="<li><a class='tags_link' href='front_desk/askRespond/askRespond.html' title='问达人'>问达人</a></li>";
                     titleBarHtml+="<li class='more '><span class='tags_link' role='button' title='更多' style='cursor:default'>更多<i class='MDownMore'></i></span><div class='tags_more_list'><ul><li><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏'><i class='ico_collect'></i><span>我的收藏</span></a></li><li><a href='front_desk/users/my_orderForm.html' title='我的订单'><i class='ico_order'></i><span>我的订单</span></a></li></ul></div></li>";
                     $("#titleBar").html(titleBarHtml);
-                    var p_countrysHtml="<div class='s-menu'><ul class='clearfix'><li class='on'><a>我的收藏<i></i></a></li><li><a href='front_desk/users/my_orderForm.html'>我的订单<i></i></a></li></ul></div><div class='s_title'><ul><li class='s_curr'><a href='front_desk/users/my_collect_scenicSpotCollect.html'>景点收藏</a></li><li><a href='/hotel/fav/index'>酒店收藏</a></li></ul></div>";
+                    var p_countrysHtml="<div class='s-menu'><ul class='clearfix'><li class='on'><a>我的收藏<i></i></a></li><li><a href='front_desk/users/my_orderForm.html'>我的订单<i></i></a></li></ul></div><div class='s_title'><ul><li  class='s_curr'><a href='front_desk/users/my_collect_scenicSpotCollect.html'>景点收藏</a></li><li><a href='front_desk/users/my_collect_hotel.html'>酒店收藏</a></li></ul></div>";
                     if(null!=data.scenicSpots&&0<data.scenicSpots.length)
                     {
                         for(var i=0;i<data.scenicSpots.length;i++)

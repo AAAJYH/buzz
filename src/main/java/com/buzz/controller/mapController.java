@@ -2,10 +2,8 @@ package com.buzz.controller;
 
 import com.buzz.entity.city;
 import com.buzz.entity.scenicspot;
-import com.buzz.service.cityService;
 import com.buzz.service.scenicSpotCommentService;
 import com.buzz.service.scenicspotService;
-import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

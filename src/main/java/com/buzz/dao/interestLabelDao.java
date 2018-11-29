@@ -1,9 +1,7 @@
 package com.buzz.dao;
 
 import com.buzz.entity.interestLabel;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -34,4 +32,17 @@ public interface interestLabelDao
      */
     @Select("select * from interestLabel where stateId=#{stateId} and interestLabelName like concat('%',#{keyvalue},'%')")
     public List<interestLabel> find_interestLabelBykeyvalueAndstateId(@Param("keyvalue")String keyvalue,@Param("stateId") String stateId);
+
+    //查询全部
+    @Select("<script>select * from interestLabel <if test=\"i.interestLabelName!=null\">where interestLabelName like concat('%',#{i.interestLabelName},'%')</if> order by releaseTime desc</script>")
+    public List<interestLabel> queryAll(@Param("i") interestLabel interestLabe);
+
+    //添加标签
+    @Insert("insert into interestLabel(interestLabelId,interestLabelName,releaseTime,stateId) values(#{i.interestLabelId},#{i.interestLabelName},#{i.releaseTime},#{i.stateId})")
+    public int addLabel(@Param("i") interestLabel interestLabel);
+
+    //修改标签
+    @Update("update interestLabel set interestLabelName=#{i.interestLabelName},releaseTime=#{i.releaseTime},stateId=#{i.stateId} where interestLabelId=#{i.interestLabelId}")
+    public int updateLabel(@Param("i") interestLabel interestLabel);
+
 }

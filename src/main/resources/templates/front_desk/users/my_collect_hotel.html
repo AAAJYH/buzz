@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>地点收藏-我的收藏 - 嗡嗡嗡</title>
+    <base href="http://localhost/">
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/logoHead.ico">
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/css+base_css+plan+favorite_css+plugins_css+home_new2015+home_tags_css+home_new2015+avatar_css+home_new2015+ico_css+home_new2015+home_extra_css+home_new2015+home_fav_place^YlJT^1527308432.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="topBar">
+    <div class="topBarC">
+        <div class="logo"><a title="嗡嗡嗡自由行" href="/">嗡嗡嗡自由行</a></div>
+        <div class="t_nav">
+            <ul id="pnl_nav" data-cs-t="headnav_wo">
+                <li data-cs-p="index">
+                    <strong class="t"><a href="/">首页</a></strong>
+                </li>
+                <li data-cs-t="wenda" data-cs-p="wenda">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                </li>
+                <li data-cs-t="things" data-cs-p="things">
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">嗡嗡嗡周边</a></strong>
+                </li>
+                <li data-cs-p="together">
+                    <strong class="t"><a href="/together/">结伴</a></strong>
+                </li>
+                <li data-cs-p="group">
+                    <strong class="t"><a href="/group/">小组</a></strong>
+                </li>
+                <li data-cs-p="mall">
+                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
+                </li>
+                <li class="drop" data-cs-p="other">
+                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
+                    <div class="c">
+
+                        <a href="/focus/" target="_blank">真人兽</a>
+
+                        <a href="/school/" target="_blank">嗡嗡嗡高校</a>
+                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
+                        <a href="/auction/" target="_blank">嗡嗡嗡拍卖行</a>
+                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
+                        <a href="/radio/" target="_blank">旅行电台</a>
+                        <a href="/club/" target="_blank">蜂首聚乐部</a>
+                        <a href="/home/vip_show.php" target="_blank">VIP</a>
+                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="t_search">
+            <form method="GET" action="/search/s.php" name="search">
+                <input type="text" class="key" value="" name="q" id="word">
+                <input type="submit" value="" class="btn">
+            </form>
+        </div>
+
+        <div class="t_info">
+            <div data-pagelet id="pagelet-block-c2e0915d759572d10e84ccff3b745a96" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="banner">
+
+        <style>
+            .invisible {opacity:0.01; filter: alpha(opacity=1);}
+            .invisible .maps-container {opacity:0.01; filter: alpha(opacity=1);}
+        </style>
+
+        <div class="banner_img banner_extra" id="_j_banner">
+        </div>
+        <div class="tags_bar second_tags_bar">
+            <div class="center clearfix">
+                <div class="MAvatar clearfix">
+                    <div class="MAvaImg flt1">
+                        <img width="120" height="120" src="images/wKgED1uqIpCARLIhAAAZUeRPlFM676.png">
+                    </div>
+                    <div class="MAvaEasyWord flt1">
+                        <span class="MAvaName"></span>
+                    </div>
+                </div>
+                <ul class="flt2" id="titleBar">
+                    <li><a class="tags_link" title="我的窝">我的窝</a></li>
+                    <li><a class="tags_link">我的游记</a></li>
+                    <li><a class="tags_link" title="游记收藏">游记收藏</a></li>
+                    <li><a class="tags_link" title="我的问答">我的问答</a></li>
+                    <li><a class="tags_link" title="写游记">写游记</a></li>
+                    <li><a class="tags_link" title="问达人">问达人</a></li>
+                    <li class="more "><span class="tags_link" role="button" title="更多" style="cursor:default">更多<i class="MDownMore"></i></span><div class="tags_more_list"><ul><li><a title="我的收藏"><i class="ico_collect"></i><span>我的收藏</span></a></li><li><a title="我的订单"><i class="ico_order"></i><span>我的订单</span></a></li></ul></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="home-extra">
+
+        <!--菜单栏-->
+        <div class='s-menu'>
+            <ul class='clearfix'>
+                <li class='on'><a>我的收藏<i></i></a></li>
+                <li><a href='front_desk/users/my_orderForm.html'>我的订单<i></i></a></li>
+            </ul>
+        </div>
+        <div class='s_title'>
+            <ul>
+                <li>
+                    <a href='front_desk/users/my_collect_scenicSpotCollect.html'>景点收藏</a>
+                </li>
+                <li class='s_curr'><a href='front_desk/users/my_collect_hotel.html'>酒店收藏</a></li>
+            </ul>
+        </div>
+        <!--菜单栏-->
+
+        <!--收藏酒店信息-->
+        <style type="text/css">
+            .hotel-collect{
+                width:94%;
+                padding:5px;
+                margin-left:4%;
+            }
+            .hotel-collect .b-hotel{
+                width:100%;
+                overflow: auto;
+            }
+            .hotel-collect .b-hotel li{
+                width:275px;
+                height:170px;
+                float:left;
+                margin-right:20px;
+                padding-bottom:0px;
+            }
+            ._j_hotel_item .info{
+                width:fit-content;
+                width:-moz-fit-content;
+                position:relative;
+                height:auto;
+                top:-40px;
+                left:10px;
+                color:white;
+            }
+            .info h2{
+                font-size:130%;
+                font-weight:300;
+            }
+            ._j_hotel_item .cityName{
+                width:fit-content;
+                width:-moz-fit-content;
+                height:18px;
+                padding:5px;
+                color:white;
+                text-align: center;
+                background:#4EADF2;
+                position:relative;
+                top:-205px;
+            }
+            .cancel{
+                width:30px;
+                height:30px;
+                position:relative;
+                top:-230px;
+                left:250px;
+                display:none;
+            }
+            .cancel:hover{
+                cursor:pointer;
+            }
+        </style>
+        <div class="hotel-collect">
+                <ul class="b-hotel" id="_j_hotel_list" >
+                    <!--收藏酒店信息-->
+                </ul>
+        </div>
+        <!--收藏酒店信息-->
+
+    </div>
+
+</div>
+
+<!--页脚-->
+<div class="home_footer">
+    <div class="copyright">&copy; 2018 mafengwo.cn, all rights reserved</div>
+    <div class="hf_nav">
+        <a href="/s/sitemap.html">网站地图</a>&nbsp;·&nbsp;
+        <a href="mailto:mafengwo.cn@gmail.com">招商与合作</a>&nbsp;·&nbsp;
+        <a href="/s/feedback.html">我们倾听您的意见</a>&nbsp;·&nbsp;
+        <a href="/s/about.html">关于嗡嗡嗡</a>&nbsp;·
+        <a href="/s/link.html">友情链接</a>&nbsp;·&nbsp;
+        <a href="/s/private.html">隐私原则</a>
+    </div>
+</div>
+<link href="css/mfw-toolbar.css" rel="stylesheet" type="text/css"/>
+<div class="mfw-toolbar" id="_j_mfwtoolbar">
+    <div class="toolbar-item-top">
+        <a role="button" class="btn _j_gotop">
+            <i class="icon_top"></i>
+            <em>返回顶部</em>
+        </a>
+    </div>
+    <div class="toolbar-item-feedback">
+        <a role="button" data-japp="feedback" class="btn">
+            <i class="icon_feedback"></i>
+            <em>意见反馈</em>
+        </a>
+    </div>
+    <div class="toolbar-item-code">
+        <a role="button" class="btn">
+            <i class="icon_code"></i>
+        </a>
+        <a role="button" class="mfw-code _j_code">
+            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
+        </a>
+        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
+    </div>
+    <div class="toolbar-item-down">
+        <a role="button" class="btn _j_gobottom">
+            <i class="icon_down"></i>
+            <em>页面底部</em>
+        </a>
+    </div>
+</div>
+<script>
+
+    function load(){
+
+        //ajax加载收藏酒店
+        $.ajax({
+            url:'/hotelCollectController/byUseridQuery',
+            type:'post',
+            async:false,
+            dataType:'json',
+            success:function(data){
+                if(data!=null){
+                    $("#_j_hotel_list").empty();
+                    for(var i=0;i<data.length;i++){
+                        var hotelCollectId=data[i].hotelCollectId;
+                        //调用365商旅接口，根据酒店Id查询酒店详情
+                        $.ajax({
+                            url: 'http://apitest.99263.com/Hotel/HotelDetail',
+                            type: 'post',
+                            async: false,
+                            data: {
+                                "Data": {
+                                    "HId": data[i].hotelId
+                                },
+                                "ApiKey": "b421b9a21075a359c09a36db79325d5b",
+                                "Sign": "11111111111111111111",
+                                "Timestamp": "2017/10/01 00:00:00"
+                            },
+                            dataType: 'JSON',
+                            success: function (data) {
+                                var HoteDetails = data.Data.HotelDetails; //详情
+                                $("#_j_hotel_list").append("<li class=\"_j_hotel_item\">\n" +
+                                    "                        <img src="+HoteDetails.DefaultPicture+" width=\"275\" height=\"170\">\n" +
+                                    "                        <div class=\"info\">\n" +
+                                    "                            <h2>"+HoteDetails.Liansuo+"</h2>\n" +
+                                    "                            <p>"+HoteDetails.HotelName+"</p>\n" +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"cityName\">北京</div>\n" +
+                                    "                        <div class=\"cancel\"><img src=\"/images/one/true.jpg\" width=\"20\" height=\"20\"/><input type=\"hidden\" value='"+hotelCollectId+"'></div>\n" +
+                                    "                    </li>");
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        //酒店div触碰事件
+        $(".hotel-collect .b-hotel li").hover(function(){
+            $(this).children(".cancel").css("display","block");
+            this.style.cursor='pointer';
+        },function(){
+            $(this).children(".cancel").css("display","none");
+        });
+
+        //叉号点击事件删除酒店收藏
+        $(".cancel").click(function(){
+           $.ajax({
+              url:'/hotelCollectController/byUesridAndHotelidDelete',
+              type:'post',
+              async:false,
+              data:{
+                  hotelCollectId:$(this).children("input").val()
+              },
+              dataType:'text',
+              success:function(data){
+                  if(data==1){
+                      load();
+                  }else{
+                      alert("删除失败");
+                  }
+              }
+           });
+        });
+
+    }
+
+    $(function(){
+
+        load();
+
+    });
+</script>
+</body>
+</html>

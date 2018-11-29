@@ -64,6 +64,22 @@ public class scenicspotController {
         return "front_desk/ScenicSpot";
     }
 
+    @RequestMapping("/byCityQuery")
+    public String byCityQuery(String cityId, Model model, HttpServletRequest request) {
+        //当前城市查询次数加一
+        cityService.SearchNumberAddOne(cityId);
+        //景点集合
+        List<scenicspot> scenicspotsList = scenicspotService.byCityIdQueryScenicspot(cityId);
+        for (scenicspot s : scenicspotsList) {
+            s.setSynopsis(s.getSynopsis().substring(0, 60));
+        }
+        model.addAttribute("scenicspotList", scenicspotsList);
+        //保存session级别的城市景点信息
+        city city = cityService.byCityIdQuery(cityId);
+        request.getServletContext().setAttribute("city", city);
+        return "front_desk/ScenicSpot2";
+    }
+
     /**
      * 查询景点详情
      *

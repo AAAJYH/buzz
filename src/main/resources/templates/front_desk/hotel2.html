@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -82,7 +83,7 @@
         background:white;
         border-radius:5px;
         border: 1px solid #FFA800;
-        display:none;
+        display:block;
     }
 
     #content .one{
@@ -91,6 +92,7 @@
         padding:5px 20px 10px 20px;
         height:auto;
         color:red;
+        border:1px solid #EAEAEA;
     }
 a:hover{
     text-decoration:none;
@@ -131,7 +133,7 @@ a:hover{
                             var rs=data;
                             if(rs.length>0){
                                 for(var i=0;i<rs.length;i++){
-                                    $("#content").append("<a target='_blank' href='/hotelController/hotelIndex?scenicspotId=&cityName="+rs[i].cityName+"'><div class=\"one\"><img src=\"/images/one/searchMarker.png\"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rs[i].cityName+"</div>");
+                                    $("#content").append("<a target='_blank' href='/hotelController/hotelIndex?scenicspotId=&cityId="+rs[i].cityId+"'><div class=\"one\"><img src=\"/images/one/searchMarker.png\"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rs[i].cityName+"</div>");
                                 }
                                 $("#content").css("display","block");
                             }
@@ -175,264 +177,25 @@ a:hover{
         </ul>
     </div>
 
-
     <div class="h-theme" id="_j_features">
         <div class="h-title" style="margin-top: 50px;">主题酒店</div>
         <div class="tab-theme">
             <div class="themeList clearfix _j_tab_trigger">
-                <a href="javascript:;" data-id="0" style="margin-right:240px;">直辖市</a>
-                <a href="javascript:;" data-id="1" style="margin-right:240px;">云南</a>
-                <a href="javascript:;" data-id="2">河北</a>
+                <a href="javascript:;" th:each="obj,statr:${provinceList}"  th:data-id="${statr.index}" th:if="${provinceList}!=null" th:text="${obj.provinceName}">爱彼迎冬日推荐</a>
             </div>
             <div class="_j_tab_content">
-
-                <ul class="clearfix" style="display:none;" data-id="0">
-                    <li>
-                        <!--data-src="http://p1-q.mafengwo.net/s9/M00/36/99/wKgBs1dL9YaAAYFtAAKJWRdj1Jc42.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318"-->
+                <ul class="clearfix" style="display:none;" th:data-id="${statr.index}" th:if="${cityList}!=null" th:each="obj,statr:${cityList}">
+                    <li th:each="a,statr:${obj}">
                         <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=北京" target="_blank" data-type="area" data-name="暹粒吴哥窟">
+                            <a th:href="@{'/hotelController/hotelIndex?scenicspotId&cityId='+${a.cityId}}" target="_blank" data-type="feature" >
                                 <div class="pic">
-                                    <img data-src="http://p2-q.mafengwo.net/s10/M00/5E/83/wKgBZ1mC9HeAG_qrAAJCv6dFP3M18.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>北京</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=天津"
-                               target="_blank" data-type="mdd" data-name="耶路撒冷">
-                                <div class="pic">
-                                    <img data-src="http://b3-q.mafengwo.net/s9/M00/36/97/wKgBs1dL9YWAOyWHAAnSy3jE73o54.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
+                                    <img th:data-src="@{'/'+${a.cityPhoto}}" width="318" height="240" style="width:318px;height:240px;">
                                 </div>
                                 <div class="bag-opa"></div>
                                 <span class="shadow"></span>
                                 <div class="info">
-                                    <h2>天津</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=上海" target="_blank" data-type="mdd" data-name="阿格拉">
-                                <div class="pic">
-                                    <img data-src="http://p3-q.mafengwo.net/s9/M00/36/98/wKgBs1dL9YaAUTPvAAIBjYQZJSo48.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>上海</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=重庆" target="_blank" data-type="mdd" data-name="开罗">
-                                <div class="pic">
-                                    <img data-src="http://n3-q.mafengwo.net/s9/M00/36/98/wKgBs1dL9YaAO1apADncAXUNkdQ03.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>重庆</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul class="clearfix" style="display:none;" data-id="1">
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=昆明市" target="_blank" data-type="feature" data-name="首尔韩屋">
-                                <div class="pic">
-                                    <img data-src="http://p3-q.mafengwo.net/s6/M00/38/5A/wKgB4lLkvGuAanhIAALE78Ppo6A45.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>昆明市</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=红河州" target="_blank" data-type="feature" data-name="京都町屋">
-                                <div class="pic">
-                                    <img data-src="http://p1-q.mafengwo.net/s9/M00/36/7F/wKgBs1dL9VqAf0FgAAWazIZMd2w67.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>红河州</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=大理州" target="_blank" data-type="feature" data-name="大理民居">
-                                <div class="pic">
-                                    <img data-src="http://b4-q.mafengwo.net/s8/M00/4D/0A/wKgBpVXyUvGADOMeAIKPONIE7lI97.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>大理州</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=文山州"
-                               target="_blank" data-type="feature" data-name="北京四合院">
-                                <div class="pic">
-                                    <img data-src="http://b4-q.mafengwo.net/s9/M00/36/7F/wKgBs1dL9VqAIPq3AAclqSuwPBU55.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>文山州</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=德宏州"
-                               target="_blank" data-type="feature" data-name="北海道温泉">
-                                <div class="pic">
-                                    <img data-src="http://n2-q.mafengwo.net/s9/M00/B1/46/wKgBs1dNVAyAba_KAFF6JhopH1k77.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>德宏州</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=怒江州"
-                               target="_blank" data-type="feature" data-name="洞穴酒店">
-                                <div class="pic">
-                                    <img data-src="http://n4-q.mafengwo.net/s6/M00/29/56/wKgB4lMXaJiAXRbTAAHjgVTxD7k70.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>怒江州</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-                <ul class="clearfix" style="display:none;" data-id="2">
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=保定市" target="_blank" data-type="mdd" data-name="富士山">
-                                <div class="pic">
-                                    <img data-src="http://p4-q.mafengwo.net/s10/M00/51/B4/wKgBZ1jLu5WAR-ezABxIarXxVhg42.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>保定市</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="唐山市" target="_blank" data-type="mdd" data-name="奈良">
-                                <div class="pic">
-                                    <img data-src="http://n2-q.mafengwo.net/s10/M00/52/05/wKgBZ1jLvEGACICOABuulIYZhuQ06.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>唐山市</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=衡水市" target="_blank" data-type="mdd" data-name="阿姆斯特丹">
-                                <div class="pic">
-                                    <img data-src="http://b2-q.mafengwo.net/s7/M00/55/A4/wKgB6lQC95mAQFNMAFO-6RdKryY46.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>衡水市</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=邢台市" target="_blank" data-type="mdd" data-name="布鲁塞尔">
-                                <div class="pic">
-                                    <img data-src="http://n4-q.mafengwo.net/s10/M00/52/05/wKgBZ1jLvEGALatTABFdXHEc3vE85.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>邢台市</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=承德市" target="_blank" data-type="mdd" data-name="林芝">
-                                <div class="pic">
-                                    <img data-src="http://b2-q.mafengwo.net/s10/M00/52/05/wKgBZ1jLvEGAH2IlABhOTwykidA02.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>承德市</h2>
-                                    <p class="caption">中国</p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fc-item">
-                            <a href="/hotelController/hotelIndex?scenicspotId=&cityName=张家口市" target="_blank" data-type="mdd" data-name="罗平">
-                                <div class="pic">
-                                    <img data-src="http://n4-q.mafengwo.net/s10/M00/52/04/wKgBZ1jLvECARBBhAB4nWrWz_nU23.jpeg?imageMogr2%2Fthumbnail%2F%21636x480r%2Fgravity%2FCenter%2Fcrop%2F%21636x480%2Fquality%2F90" width="318" height="240" style="width:318px;height:240px;">
-                                </div>
-                                <div class="bag-opa"></div>
-                                <span class="shadow"></span>
-                                <div class="info">
-                                    <h2>张家口市</h2>
-                                    <p class="caption">中国</p>
+                                    <h2 th:text="${a.cityName}">巴厘岛</h2>
+                                    <!--<p class="caption" th:text="">印度尼西亚</p>-->
                                 </div>
                             </a>
                         </div>
@@ -441,6 +204,7 @@ a:hover{
             </div>
         </div>
     </div>
+
 </div>
 <link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
 <div id="footer">

@@ -83,7 +83,7 @@
     <style type="text/css">
         #top{
             font-size:75%;
-            height:55px;
+            height:60px;
             padding:7px 10px;
             padding:5px 10px;
             background:white;
@@ -131,6 +131,7 @@
         <div id="right">⏰系统时间：<span id = "sy_time"></span></div> <!-- 当前时间 -->
     </div>
     <script>
+
         function getTime(){
             var p = $("#sy_time");
             var time = new Date();
@@ -161,58 +162,68 @@
             p.text(str);
             setTimeout(getTime,1000);
         }
-        $(function(){
-            //时间
+
+        //注销方法
+        function zhuxiao(){
+                    $.ajax({
+                        url: '/zhuxiao',
+                        type: 'post',
+                        async: false,
+                        dataType: 'text',
+                        success: function (data) {
+                            window.location.href = "/loginIndex";
+                        }
+                    });
+        }
+
+        $(function() {
+
+            //动态获取当前时间
             getTime();
 
             //注销
-            $("#logout").click(function(){
-                $.messager.confirm('确认对话框', '您想要退出该系统吗？', function(r){
-                    if (r){
-                        $.ajax({
-                            url:'/logout',
-                            type:'post',
-                            async:false,
-                            dataType:'text',
-                            success:function(data){
-                                alert(data);
-/*
-                               window.location.href="/loginIndex";
-*/
-                            }
-                        });
+            $("#logout").click(function () {
+                $.messager.confirm('确认对话框', '您想要退出该系统吗？', function(r) {
+                    if (r) {
+                        zhuxiao();
                     }
-            });
-        });
-
-        $('#dd').dialog({
-           title: '修改密码',
-           width: 400,
-           height: "auto",
-           closed: true
-        });
-
-            $("#updatePwd").click(function(){
-               $("#dd").dialog("open");
+                });
             });
 
-            $("#save").click(function(){
-                if($("#frm").form("validate")){
-                    $.messager.confirm('确认对话框', '您确认要修改吗？', function(r){
-                        if (r){
-                            $("#frm").form("submit",{
-                               url:'/updatePwd',
-                               success:function(data){
-                                   alert(data);
-                                   if(data=="密码修改成功，请重新登录"){
-                                       $("#frm").form("clear");
-                                       $("#dd").dialog("close");
-                                   }
-                               }
+            //初始化dialog
+            $('#dd').dialog({
+                title: '修改密码',
+                width: 400,
+                height: "auto",
+                closed: true
+            });
+
+            //修改密码点击事件打开弹出框
+            $("#updatePwd").click(function () {
+                $("#dd").dialog("open");
+            });
+
+            //保存（确认修改事件）
+            $("#save").click(function () {
+                if ($("#frm").form("validate")) {
+                    $.messager.confirm('确认对话框', '您确认要修改吗？', function (r) {
+                        if (r) {
+                            $("#frm").form("submit", {
+                                url: '/updatePwd',
+                                success: function (data) {
+                                    $("#frm").form("clear");
+                                    if (data == "密码修改成功，请重新登录") {
+                                        $("#dd").dialog("close");
+                                        alert("修改成功，请重新登录");
+                                        zhuxiao(); //注销
+                                    } else {
+                                        alert("原密码输入错误");
+                                    }
+                                }
                             });
                         }
                     });
-                }else{
+                } else {
                     alert("请输入完整");
                 }
             });

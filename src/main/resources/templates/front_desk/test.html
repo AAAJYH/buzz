@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <base href="http://localhost/">
+    <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+</head>
+<body>
+<script>
+    $().ready(
+        function()
+        {
+            $.ajax({
+                url:"http://green.cn-shanghai.aliyuncs.com/green/image/asyncscan",
+                dataType:"json",
+                type:"post",
+                data:
+                    {
+                        scenes:["porn"],
+                        tasks: [
+                            {
+                                dataId: "test4lNSMdggA0c56MMvfYoh4e-1mwxpx",
+                                url: "https://img.alicdn.com/tfs/TB1urBOQFXXXXbMXFXXXXXXXXXX-1442-257.png"
+                            }]
+                    },
+                success:function (data)
+                {
+                    console.log(data.code);
+                },
+                error:function(XMLHttpRequest)
+                {
+                    alert(XMLHttpRequest.status);
+                }
+            });
+        }
+    );
+</script>
+</body>
+</html>

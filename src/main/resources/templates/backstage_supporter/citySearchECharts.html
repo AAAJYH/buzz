@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
@@ -7,9 +7,9 @@
     <script src="/js/echarts.js"></script>
     <script src="/js/jquery-1.11.0.min.js"></script>
 </head>
-<body>
+<body style="height: 100%; margin: 0">
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 1200px;height:550px;margin-top:-30px;"></div>
+<div id="main" style="height: 100%"></div>
 <script type="text/javascript">
 
     var rs;
@@ -55,7 +55,24 @@
                     }
                 }
             }
-        ]
+        ],
+        toolbox:{ //保存图片属性配置
+            feature:{
+                saveAsImage:{
+                    type:'png',
+                    name:'城市搜索次数',
+                    backgroundColor:'auto',
+                    show:true,
+                    title:'保存为图片',
+                    backgroundColor:'white',
+                    iconStyle:{ //下载图标样式
+                        textPosition:'left',
+                    }
+                }
+            },
+            right:25,
+            top:10
+        }
     };
 
     // 使用刚指定的配置项和数据显示图表。

@@ -3,9 +3,9 @@
 <head>
     <title>景点详情 - 嗡嗡嗡</title>
     <base href="http://localhost/">
-    <link th:href="@{'css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+mfw-header.2015^YlVS^1527308432.css'}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{'css/css+mdd+scenic-v2_css+mdd+mfw-reviews^YFI^1519936459.css'}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{'css/mfw-reviews.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1527308432.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'http://css.mafengwo.net/css/cv/css+mdd+scenic-v2:css+mdd+mfw-reviews^YFI^1519936459.css'}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{'http://css.mafengwo.net/css/mdd/mfw-reviews.css?1519936459'}" rel="stylesheet" type="text/css"/>
     <script language="javascript" src="/js/js+jquery-1.8.1.min_js+global+json2_js+M+Module_js+M+M_js+M+Log_js+m.statistics_js+advert+inspector^alw^1536006240.js" type="text/javascript" crossorigin="anonymous"></script>
     <script language="javascript" src="/js/jquery.upnum.js" type="text/javascript" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=db8lBBNiGd42lnbVCygGsLSrxXobnA6I"></script>
@@ -13,7 +13,7 @@
     <script type="text/javascript" th:src="@{'/js/jquery-1.11.0.min.js'}"></script>
     <link rel="icon" type="image/x-icon" href='/images/logoHead.ico'>
     <!--星星css-->
-    <link href="css/css+hotel+detail_css+hotel+datepicker-range_css+hotel+number_guests_picker_css+hotel_pop_css+mdd+hotel_fav_css+mdd+map-mark.v2_css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
+    <link href="http://css.mafengwo.net/css/cv/css+hotel+detail:css+hotel+datepicker-range:css+hotel+number_guests_picker:css+hotel_pop:css+mdd+hotel_fav:css+mdd+map-mark.v2:css+jquery-ui-1.9.1.custom.min^YlBU^1525846268.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <!-- 顶部导航菜单栏 -->
@@ -58,8 +58,8 @@
                 <script th:inline="javascript">
                     $("#collect").click(function(){
                         if([[${session.user}]]==null){
-                            alert("请先登录");
-                            window.location.href="#login"; //锚点
+                            var url=window.location.href;
+                            window.location.href="usersController/show_login_html?url="+url;
                         }else{
                             $.ajax({
                                 url:'/scenicspotCollectController/addScenicspotCollect',
@@ -115,8 +115,8 @@
                                     $("#comment_20181004083747").css("display","block");
                                     $(".nav-right").attr("data-scroll","comment");
                                 }else{
-                                    alert("请登录");
-                                    window.location.href="#login"; //锚点
+                                    var url=window.location.href;
+                                    window.location.href="usersController/show_login_html?url="+url;
                                 }
                             }
                         </script>
@@ -377,8 +377,10 @@
         .comment{
             font-size:140%;
             margin-top:50px;
-            margin-bottom:50px;
-            color:#5E5E5E;
+            margin-bottom:30px;
+            color:#FF9D00;
+            border:none;
+            font-weight:bold;
         }
         .one{
             width:950px;
@@ -424,7 +426,7 @@
             height:auto;
             margin-top:5px;
             border-bottom:1px dashed #CCCCCC;
-            font-size:90%;
+            font-size:80%;
             line-height:20px;
             padding:5px 0;
         }
@@ -627,24 +629,24 @@
                             <em>*</em>为必填选项
                         </h2>
 
-                            <!--星星-->
-                            <div class="review-item item-star">
-                                <div class="label" style="color:black;"><em>*</em>总体评价</div>
-                                <div class="review-star _j_rankblock" data-star="" name="rank">
-                                    <input type="hidden" name="rank" id="rank" value="" essential="1" data-inputname="总体评价" />
-                                    <span class="star _j_starcount"></span>
-                                    <div class="click-star _j_starlist">
-                                        <a role="button" title="千万别去" rel="nofollow"></a>
-                                        <a role="button" title="不推荐" rel="nofollow"></a>
-                                        <a role="button" title="一般般" rel="nofollow"></a>
-                                        <a role="button" title="值得一去" rel="nofollow"></a>
-                                        <a role="button" title="必须推荐" rel="nofollow"></a>
-                                    </div>
-
+                        <!--星星-->
+                        <div class="review-item item-star">
+                            <div class="label" style="color:black;"><em>*</em>总体评价</div>
+                            <div class="review-star _j_rankblock" data-star="" name="rank">
+                                <input type="hidden" name="rank" id="rank" value="" essential="1" data-inputname="总体评价" />
+                                <span class="star _j_starcount"></span>
+                                <div class="click-star _j_starlist">
+                                    <a role="button" title="千万别去" rel="nofollow"></a>
+                                    <a role="button" title="不推荐" rel="nofollow"></a>
+                                    <a role="button" title="一般般" rel="nofollow"></a>
+                                    <a role="button" title="值得一去" rel="nofollow"></a>
+                                    <a role="button" title="必须推荐" rel="nofollow"></a>
                                 </div>
-                                <span class="txt-tips _j_startip">点击星星打分</span>
+
                             </div>
-                            <!--星星-->
+                            <span class="txt-tips _j_startip">点击星星打分</span>
+                        </div>
+                        <!--星星-->
 
                             <!--评论内容-->
                             <div class="review-item item-comment">
@@ -707,7 +709,7 @@
                                         success:function(data){
                                             $("#imgs").val($("#imgs").val()+","+data);
                                             $("#pics").append("<img src='"+data+"' width=\"100px\" height=\"100px\" />&nbsp;");
-                                                $(".huixian").css("display","none");
+                                            $(".huixian").css("display","none");
                                         }
                                     })
                                 });

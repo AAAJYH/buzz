@@ -103,7 +103,7 @@ public class AdminController {
     }
 
     //注销当前登录
-    @RequestMapping("/logout")
+    @RequestMapping("/zhuxiao")
     @ResponseBody
     public String logout(){
         SecurityUtils.getSubject().logout(); //调用shiro注销方法

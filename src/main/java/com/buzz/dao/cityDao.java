@@ -17,7 +17,7 @@ import java.util.Map;
 public interface cityDao {
 
     //查询省的热门城市
-    @Select("select * from city,state where provinceId=#{pid} and city.stateId=state.stateId and stateName='正常' order by searchNumber desc LIMIT 0,5")
+    @Select("select * from city,state where provinceId=#{pid} and city.stateId=state.stateId and stateName='正常' order by searchNumber desc LIMIT 0,6")
     public List<city> byProvinceIdQueryHot(@Param("pid") String provinceId);
 
     //根据搜索次数查询热门城市

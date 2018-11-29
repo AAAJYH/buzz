@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author: jyh
@@ -31,5 +32,15 @@ public class hotelCollectService {
         return hotelCollectDao.addHotelCollect(hotelCollectId,userid,hotelId);
     }
 
+    //查询用户收藏酒店
+    public List<hotelCollect> byUseridQuery(String userid){
+        return hotelCollectDao.byUseridQuery(userid);
+    }
+
+    //删除酒店收藏记录
+    @Transactional
+    public int byhotelCollectIdDelete(String hotelCollectId){
+        return hotelCollectDao.byhotelCollectIdDelete(hotelCollectId);
+    }
 
 }
