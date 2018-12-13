@@ -16,9 +16,9 @@ WebConfig implements WebMvcConfigurer
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:/E:\\IntelliJ IDEA\\FilePath\\buzz\\src\\main\\resources\\static\\images/");
-        registry.addResourceHandler("/music/**").addResourceLocations("file:/E:/IntelliJ IDEA FilePath/buzz/src/main/resources/static/music/");
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:/E:/IntelliJ IDEA FilePath/buzz/src/main/resources/static/upload/");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/images/");
+        registry.addResourceHandler("/music/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/music/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:/E:/IDEA Working Path/buzz/src/main/resources/static/upload/");
     }
 
     @Override
@@ -31,6 +31,14 @@ WebConfig implements WebMvcConfigurer
                 .addPathPatterns("/travelNotesController/preview_travelNotes")
                 .addPathPatterns("/travelCollectionController/insert_travelCollectionBytravelNotesId")
                 .addPathPatterns("/travelNotesController/insert_travelNotes")
+                .addPathPatterns("/replyAskRespondCommentController/insert_replyAskRespondComment")
+                .addPathPatterns("/replyAskRespondTopController/insert_replyAskRespondTop")
+                .addPathPatterns("/scenicspotCollectController/find_scenicSpotCollectByuserIds")
+                .addPathPatterns("/hotelController/find_hotelOrdersByuserIdAndstateId")
+                .addPathPatterns("/replyAskRespondController/find_replyAskRespond_Message_askRespondByuserIdAndstateId")
+                .addPathPatterns("/replyAskRespondController/find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId")
+                .addPathPatterns("/travelNotesController/find_travelNotes_travelNotesReplyByuserIdAndStateId")
+                .addPathPatterns("/travelNotesController/load_delete_travelNotes_travelNotesReplyByuserId")
                 .addPathPatterns("/travelNotesReplyController/insert_travelNotesReply");
     }
 }

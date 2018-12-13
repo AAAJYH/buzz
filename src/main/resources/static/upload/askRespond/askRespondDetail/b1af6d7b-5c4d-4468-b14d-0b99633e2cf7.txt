@@ -1,0 +1,1 @@
+<p><img src="images\askRespond\photo/04f110aa-6643-4698-84dd-0d1a13308489.jpeg" class="fr-fic fr-dib fr-draggable" width="700px" onclick="showImagealert(this.src)" style="width: 628px;"></p><p><strong>哈哈哈</strong></p>

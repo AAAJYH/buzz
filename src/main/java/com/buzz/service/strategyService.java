@@ -2,6 +2,7 @@ package com.buzz.service;
 
 import com.buzz.dao.strategyDao;
 import com.buzz.entity.strategy;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,15 +61,6 @@ public class strategyService {
         return strategyDao.find_strategyBystrategyId(strategyId);
     }
 
-    /**
-     * 根据城市编号查询多个攻略,只返回五条数据
-     * @param cityId
-     * @return
-     */
-    public List<strategy> find_strategyBycityIdR5(String cityId)
-    {
-        return strategyDao.find_strategyBycityId(cityId);
-    }
     //查询其他景点攻略
     public List<strategy> queryOhterStrategy(String strategyId,String cityId){
         return strategyDao.queryOhterStrategy(strategyId,cityId);
@@ -107,4 +99,15 @@ public class strategyService {
         return strategyDao.byStrategyIdUpdatePhoto(strategyId,strategyPhoto);
     }
 
+    /**
+     * 根据城市编号和状态编号查询
+     * @param cityId
+     * @param stateId
+     * @return
+     */
+    public List<strategy> find_strategyBycityIdAndstateId(Integer pageIndex,Integer pageSize,String cityId,String stateId)
+    {
+        PageHelper.startPage(pageIndex,pageSize);
+        return strategyDao.find_strategyBycityIdAndstateId(cityId,stateId);
+    }
 }

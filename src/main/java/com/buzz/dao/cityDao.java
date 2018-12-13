@@ -32,6 +32,24 @@ public interface cityDao {
     @Select("select * from city where cityName like concat('%',#{cityName},'%')")
     public List<city> byCityNameQuery(@Param("cityName") String cityName);
 
+    /**
+     * 根据城市名和状态编号搜索
+     * @param cityName
+     * @param stateId
+     * @return
+     */
+    @Select("select * from city where cityName=#{cityName} and stateId=#{stateId}")
+    public List<city> find_cityBycityNameNolike(@Param("cityName")String cityName,@Param("stateId")String stateId);
+
+    /**
+     * 根据城市名和状态编号模糊搜索
+     * @param cityName
+     * @param stateId
+     * @return
+     */
+    @Select("select * from city where cityName like concat('%',#{cityName},'%') and stateId=#{stateId}")
+    public List<city> find_cityBycityNameAndstateId(@Param("cityName") String cityName,@Param("stateId") String stateId);
+
     //城市查询次数加一
     @Update("update city set searchNumber=searchNumber+1 where cityId=#{cityId}")
     public int SearchNumberAddOne(@Param("cityId") String cityId);

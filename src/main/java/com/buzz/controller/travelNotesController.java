@@ -55,12 +55,22 @@ public class travelNotesController {
     //根据游记编号显示游记信息
     @RequestMapping("find_travelNotes_travelNotesId")
     public String find_travelNotes_travelNotesId(String travelNotesId, Model model) throws IOException {
-        travelNotes travelnotes = travelnotesservice.find_travelNotes_travelNotesId(travelNotesId);
-        String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
-        path = path.replace("%20", " ");
-        travelnotes = travelnotesservice.format_travelNotesContents(travelnotes, path);
-        model.addAttribute("travelNotes", travelnotes);
-        return "front_desk/travelNotes/createtravelNotes";
+        if(null!=travelNotesId&&!"".equals(travelNotesId))
+        {
+            travelNotes travelnotes = travelnotesservice.find_travelNotes_travelNotesId(travelNotesId);
+            String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+            path = path.replace("%20", " ");
+            travelnotes = travelnotesservice.format_travelNotesContents(travelnotes, path);
+            if(null==travelnotes)
+                return "redirect:/404.html";
+            else
+            {
+                model.addAttribute("travelNotes", travelnotes);
+                return "front_desk/travelNotes/createtravelNotes";
+            }
+        }
+        else
+            return "redirect:/404.html";
     }
 
     /**
@@ -403,11 +413,12 @@ public class travelNotesController {
     @ResponseBody
     @RequestMapping("preview_travelNotes")
     public travelNotes preview_travelNotes(String travelNotesId) throws IOException {
-        travelNotes travelnotes = travelnotesservice.find_travelNotes_travelNotesId(travelNotesId);
+        travelNotes travelnotes = travelnotesservice.find_travelNotesBytravelNotesIdAndstateId(travelNotesId,"aa093f4b-1c4c-4f4f-8626-87d51c50d58b","30d3e6ed-f7b4-43cd-95e5-5ac428f15245","b45b8bd7-4ce2-407a-9622-3040573f6710");
         String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
         path = path.replace("%20", " ");
         travelnotes = travelnotesservice.format_travelNotesContents(travelnotes, path);
-        travelnotes.setUser(usersservice.find_userByuseruserId(travelnotes.getUserId()));
+        if(null!=travelnotes)
+            travelnotes.setUser(usersservice.find_userByuseruserId(travelnotes.getUserId()));
         return travelnotes;
     }
 
@@ -552,14 +563,17 @@ public class travelNotesController {
     public Map<String,Object> show_travelNotes(String travelNotesId) throws IOException
     {
         Map<String,Object> map=new HashMap<String,Object>();
-        travelNotes travelnotes = travelnotesservice.find_travelNotes_travelNotesId(travelNotesId);
+        travelNotes travelnotes = travelnotesservice.find_travelNotesBytravelNotesIdAndstateId(travelNotesId,"30d3e6ed-f7b4-43cd-95e5-5ac428f15245","b45b8bd7-4ce2-407a-9622-3040573f6710","ac618998-ffe3-4300-a391-cd581f74078c");
         String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
         path = path.replace("%20", " ");
         travelnotes = travelnotesservice.format_travelNotesContents(travelnotes, path);
-        travelnotes.setUser(usersservice.find_userByuseruserId(travelnotes.getUserId()));
-        if(null!=travelnotes&&null!=travelnotes.getCityId()&&!"".equals(travelnotes.getCityId()))
-            travelnotes.setCity(cityservice.byCityIdQuery(travelnotes.getCityId()));
-        map.put("travelNotes",travelnotes);
+        if(null!=travelnotes)
+        {
+            travelnotes.setUser(usersservice.find_userByuseruserId(travelnotes.getUserId()));
+            if(null!=travelnotes&&null!=travelnotes.getCityId()&&!"".equals(travelnotes.getCityId()))
+                travelnotes.setCity(cityservice.byCityIdQuery(travelnotes.getCityId()));
+            map.put("travelNotes",travelnotes);
+        }
         return map;
     }
 
@@ -665,7 +679,41 @@ public class travelNotesController {
         }
         return map;
     }
-
+    /**
+     * 查过用户编号查询删除游记,赞游记用户,游记评论
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("load_delete_travelNotes_travelNotesReplyByuserId")
+    public Map<String,Object> load_delete_travelNotes_travelNotesReplyByuserId(HttpSession session)
+    {
+        users user= (users) session.getAttribute("user");
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("user",user);
+        List<travelNotes> travelNotes=travelnotesservice.find_travelNotes_ByuserId(user.getUserId(),"ac618998-ffe3-4300-a391-cd581f74078c");
+        if(null!=travelNotes&&0<travelNotes.size())
+        {
+            List<travelNotesReply>travelNotesReplys=new ArrayList<travelNotesReply>();
+            for(travelNotes t:travelNotes)
+            {
+                if(null!=t&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                List travelNotesReplylist=travelnotesreplyservice.find_travelNotesReplyBytravelNotesIdAndstateIdNoPage(t.getTravelNotesId(),"0ee26211-3ae8-48b7-973f-8488bfe837d6");
+                if(null!=travelNotesReplylist&&0<travelNotesReplylist.size())
+                    travelNotesReplys.addAll(travelNotesReplylist);
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+            map.put("travelNotes",travelNotes);
+            if(null!=travelNotesReplys&&0<travelNotesReplys.size())
+            {
+                for(travelNotesReply tnr:travelNotesReplys)
+                    tnr.setUser(usersservice.find_userByuseruserId(tnr.getUserId()));
+            }
+            map.put("travelNotesReplys",travelNotesReplys);
+        }
+        map.put("travelCollectionUsers",usersservice.find_user_travelCollectionuserByuserId(user.getUserId()));
+        return map;
+    }
     /**
      * 根据用户编号获取该用户收藏的游记
      * @param userId
@@ -734,7 +782,6 @@ public class travelNotesController {
         map.put("travelNotes",list);
         return map;
     }
-
     /**
      * 根据发布时间倒序获取游记
      * @param pageIndex
@@ -821,5 +868,126 @@ public class travelNotesController {
         }
         map.put("travelNotes",travelNotes);
         return map;
+    }
+
+    /**
+     * 根据城市编号和页数查询游记
+     * @param cityId
+     * @param pageIndex
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotesBycityIdAndpageIndex")
+    public Map<String,Object> find_travelNotesBycityIdAndpageIndex(String cityId,Integer pageIndex) throws IOException
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        city city=new city();
+        if(null!=cityId&&!"".equals(cityId))
+            city=cityservice.byCityIdQuery(cityId);
+        else
+            city.setCityName("全部");
+        map.put("city",city);
+        map.put("currentPageIndex",pageIndex);
+        Integer totalCount=travelnotesservice.find_travelNotesCountBycityIdAndstaticId(cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        map.put("totalCount",totalCount);
+        if(totalCount%10>0)
+            map.put("totalPageCount",totalCount/10+1);
+        else
+            map.put("totalPageCount",totalCount/10);
+        List <travelNotes>list=travelnotesservice.find_travelNotesBycityIdAndstaticId(pageIndex,cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        if(null!=list&&0<list.size())
+        {
+            for(travelNotes t:list)
+            {
+                if(null!=t.getTravelNotesContent()&&!"".equals(t.getTravelNotesContent()))
+                {
+                    String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+                    path = path.replace("%20", " ");
+                    travelnotesservice.format_travelNotesContents(t,path);
+                }
+                if(null!=t.getCityId()&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                if(null!=t.getUserId()&&!"".equals(t.getUserId()))
+                    t.setUser(usersservice.find_userByuseruserId(t.getUserId()));
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+        }
+        map.put("travelNotes",list);
+        return map;
+    }
+
+    /**
+     * 根据城市编号和页数查询最新的游记
+     * @param cityId
+     * @param pageIndex
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotesBycityIdAndpageIndexAndreleaseTimedesc")
+    public Map<String,Object> find_travelNotesBycityIdAndpageIndexAndreleaseTimedesc(String cityId,Integer pageIndex) throws IOException
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        city city=new city();
+        if(null!=cityId&&!"".equals(cityId))
+            cityservice.byCityIdQuery(cityId);
+        else
+            city.setCityName("全部");
+        map.put("city",city);
+        map.put("currentPageIndex",pageIndex);
+        Integer totalCount=travelnotesservice.find_travelNotesCountBycityIdAndstaticId(cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        map.put("totalCount",totalCount);
+        if(totalCount%10>0)
+            map.put("totalPageCount",totalCount/10+1);
+        else
+            map.put("totalPageCount",totalCount/10);
+        List <travelNotes>list=travelnotesservice.find_travelNotesBycityIdAndstaticIdAndreleaseTimedesc(pageIndex,cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        if(null!=list&&0<list.size())
+        {
+            for(travelNotes t:list)
+            {
+                if(null!=t.getTravelNotesContent()&&!"".equals(t.getTravelNotesContent()))
+                {
+                    String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+                    path = path.replace("%20", " ");
+                    travelnotesservice.format_travelNotesContents(t,path);
+                }
+                if(null!=t.getCityId()&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                if(null!=t.getUserId()&&!"".equals(t.getUserId()))
+                    t.setUser(usersservice.find_userByuseruserId(t.getUserId()));
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+        }
+        map.put("travelNotes",list);
+        return map;
+    }
+    /**
+     * 根据用户编号和城市编号查询游记
+     * @param cityId
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_travelNotesByuserIdAndcityId")
+    public List<travelNotes> find_travelNotesByuserIdAndcityId(String cityId,String userId) throws IOException {
+        List<travelNotes> list=travelnotesservice.find_travelNotesByuserIdAndcityIdAndstateId(userId,cityId,"b45b8bd7-4ce2-407a-9622-3040573f6710");
+        if(null!=list&&0<list.size())
+        {
+            for(travelNotes t:list)
+            {
+                if(null!=t.getTravelNotesContent()&&!"".equals(t.getTravelNotesContent()))
+                {
+                    String path = ResourceUtils.getURL("src/main/resources/static/").getPath();
+                    path = path.replace("%20", " ");
+                    travelnotesservice.format_travelNotesContents(t,path);
+                }
+                if(null!=t.getCityId()&&!"".equals(t.getCityId()))
+                    t.setCity(cityservice.byCityIdQuery(t.getCityId()));
+                if(null!=t.getUserId()&&!"".equals(t.getUserId()))
+                    t.setUser(usersservice.find_userByuseruserId(t.getUserId()));
+                t.setCollectionNumber(travelcollectionservice.find_travelCollectionCountBytravelNotesId(t.getTravelNotesId()));
+            }
+        }
+        return list;
     }
 }

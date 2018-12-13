@@ -43,6 +43,14 @@ public interface travelNotesDao
     public travelNotes find_travelNotes_travelNotesId(@Param("travelNotesId")String travelNotesId);
 
     /**
+     * 根据游记编号和状态查询游记
+     * @param travelNotesId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from travelNotes where travelNotesId=#{travelNotesId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public travelNotes find_travelNotesBytravelNotesIdAndstateId(@Param("travelNotesId")String travelNotesId,@Param("stateIds")String... stateIds);
+    /**
      * 根据游记编号修改游记头图
      * @param travelNotesId 游记编号
      * @param travelNotesheadPhoto 游记头图
@@ -138,7 +146,7 @@ public interface travelNotesDao
      * @param stateIds
      * @return
      */
-    @Select({"<script>select * from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test='null != cityId'> and cityId=#{cityId}</if></script>"})
+    @Select({"<script>select * from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test=\"null != cityId and ''!=cityId\"> and cityId=#{cityId}</if></script>"})
     public List<travelNotes> find_travelNotesBycityId(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
 
     /**
@@ -147,7 +155,7 @@ public interface travelNotesDao
      * @param stateIds
      * @return
      */
-    @Select({"<script>select * from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test='null != cityId'> and cityId=#{cityId}</if> order by releaseTime desc</script>"})
+    @Select({"<script>select * from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test=\"null != cityId and ''!=cityId\"> and cityId=#{cityId}</if> order by releaseTime desc</script>"})
     public List<travelNotes> find_travelNotesBycityIdAndreleaseTimedesc(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
 
     /**
@@ -156,7 +164,7 @@ public interface travelNotesDao
      * @param stateIds
      * @return
      */
-    @Select({"<script>select count(travelNotesId) from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test='null != cityId'> and cityId=#{cityId}</if></script>"})
+    @Select({"<script>select count(travelNotesId) from travelNotes where stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> <if test=\"null != cityId and ''!=cityId\"> and cityId=#{cityId}</if></script>"})
     public Integer find_travelNotesCountBycityIdAndstaticId(@Param("cityId") String cityId,@Param("stateIds")String...stateIds);
 
     /**
@@ -174,4 +182,14 @@ public interface travelNotesDao
      */
     @Select({"<script>select tn.travelNotesId,tn.travelNotesheadline,tnr.userId,tnr.replyContent as travelNotesContent,tnr.replyTime as releaseTime from travelNotes tn inner join travelNotesReply tnr on tn.travelNotesId=tnr.travelNotesId where tn.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and tn.userId=#{userId} and tnr.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> order by tnr.replyTime desc</script>"})
     public List<travelNotes> find_travelNotes_travelNotesReplyByuserIdAndStateId(@Param("userId")String userId,@Param("stateIds")String... stateIds);
+
+    /**
+     * 根据用户编号和城市编号和状态编号获取游记
+     * @param userId
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from travelNotes where userId=#{userId} <if test=\"null!=cityId and ''!=cityId\">and cityId=#{cityId}</if> and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<travelNotes> find_travelNotesByuserIdAndcityIdAndstateId(@Param("userId")String userId,@Param("cityId")String cityId,@Param("stateIds")String... stateIds);
 }

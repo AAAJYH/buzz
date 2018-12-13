@@ -50,7 +50,6 @@ public class scenicspotController {
      */
     @RequestMapping("/byCityIdQueryScenicspot")
     public String byCityIdQueryScenicspot(String cityId, Model model, HttpServletRequest request) {
-        System.out.println(1);
         //当前城市查询次数加一
         cityService.SearchNumberAddOne(cityId);
         //景点集合

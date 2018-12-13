@@ -174,6 +174,26 @@ public class cityController
     }
 
     /**
+     * 根据城市编号查询城市
+     * @param cityId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("find_cityBycityId")
+    public Map<String,Object> find_cityBycityId(String cityId)
+    {
+        Map<String,Object> map=new HashMap<String,Object>();
+        city city=cityservice.byCityIdQuery(cityId);
+        if(null!=city)
+        {
+            map.put("result",true);
+            map.put("city",city);
+        }
+        else
+            map.put("result",false);
+        return map;
+    }
+    /**
      * 查询全部城市
      * @return
      */
@@ -192,6 +212,18 @@ public class cityController
     @ResponseBody
     public List<city> byCityNameQuery(String cityName){
         return cityservice.byCityNameQuery(cityName);
+    }
+
+    /**
+     * 通过城市名字搜索城市
+     * @param cityName
+     * @return
+     */
+    @RequestMapping("find_cityBycityNameNolike")
+    @ResponseBody
+    public List<city> find_cityBycityNameNolike(String cityName)
+    {
+        return  cityservice.find_cityBycityNameNolike(cityName,"0ee26211-3ae8-48b7-973f-8488bfe837d6");
     }
 
     /**

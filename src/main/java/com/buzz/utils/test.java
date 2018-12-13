@@ -184,18 +184,9 @@ public class test<T> {
         }
 
     public static void main(String[] args) {
-        // 官网获取的 API Key 更新为你注册的
-        String clientId = "cymIZx98alUpK82RqX9sNql3";
-        // 官网获取的 Secret Key 更新为你注册的
-        String clientSecret = "41GDdcLSvoKKUL023L8GzWoo6Wss9sEX";
-        test<Log> t=new test();
-        System.out.println(t.getAuth(clientId, clientSecret));
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
+        System.out.println(Encryption.getUUID());
     }
-        @Test
-    public void aaa(){
-            Md5Hash m=new Md5Hash("admin1");
-            System.out.println(m);
-}
-
-
 }

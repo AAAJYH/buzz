@@ -2,10 +2,12 @@ package com.buzz.service;
 
 import com.buzz.dao.usersDao;
 import com.buzz.entity.Paging;
+import com.buzz.entity.userbindEmailAndbindPhone;
 import com.buzz.entity.users;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,7 +16,10 @@ import java.util.List;
 public class usersService {
     @Resource
     private usersDao userdao;
-
+    @Resource
+    private cityService cityservice;
+    @Resource
+    private userbindEmailAndbindPhoneService userbindemailandbindphoneservice;
     public int register_user(users user) {
         return userdao.register_user(user);
     }
@@ -31,18 +36,35 @@ public class usersService {
             if (null != user && user.getBindPhone().equals(bindPhone))
                 return 2;
             else
-                return 1;
+            {
+                userbindEmailAndbindPhone ueap=userbindemailandbindphoneservice.find_userbindEmailAndbindPhoneByupdatebindPhone(bindPhone);
+                if(null!=ueap&&bindPhone.equals(ueap.getUpdatebindPhone()))
+                    return 2;
+                else
+                    return 1;
+            }
         } else
             return 3;
     }
-
+    /**
+     * 校验邮箱
+     *
+     * @param bindEmail
+     * @return 1代表成功, 3代表格式不正确, 2代表已存在
+     */
     public Integer checkbindEmail(String bindEmail) {
         users user = userdao.checkbindEmail(bindEmail);
         if (null != bindEmail && !bindEmail.equals("")) {
             if (null != user && user.getBindEmail().equals(bindEmail))
                 return 2;
             else
-                return 1;
+            {
+                userbindEmailAndbindPhone ueap=userbindemailandbindphoneservice.find_userbindEmailAndbindPhoneByupdatebindEmail(bindEmail);
+                if(null!=ueap&&bindEmail.equals(ueap.getUpdatebindEmail()))
+                    return 2;
+                else
+                    return 1;
+            }
         } else
             return 3;
     }
@@ -63,7 +85,10 @@ public class usersService {
      * @return
      */
     public users login_user(String bindPhone, String userPassword) {
-        return userdao.login_user(bindPhone, userPassword);
+        users user=userdao.login_user(bindPhone, userPassword);
+        if(null!=user&&null!=user.getAddress()&&!"".equals(user.getAddress()))
+            user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+        return user;
     }
 
     /**
@@ -73,8 +98,12 @@ public class usersService {
      * @param userPassword 密码
      * @return
      */
-    public users find_userByuserPasswordAndbindEmail(String bindEmail, String userPassword) {
-        return userdao.find_userByuserPasswordAndbindEmail(bindEmail, userPassword);
+    public users find_userByuserPasswordAndbindEmail(String bindEmail, String userPassword)
+    {
+        users user=userdao.find_userByuserPasswordAndbindEmail(bindEmail, userPassword);
+        if(null!=user&&null!=user.getAddress()&&!"".equals(user.getAddress()))
+            user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+        return user;
     }
 
     /**
@@ -83,8 +112,12 @@ public class usersService {
      * @param userId 用户编号
      * @return 用户实体
      */
-    public users find_userByuseruserId(String userId) {
-        return userdao.find_userByuseruserId(userId);
+    public users find_userByuseruserId(String userId)
+    {
+        users user=userdao.find_userByuseruserId(userId);
+        if(null!=user&&null!=user.getAddress()&&!"".equals(user.getAddress()))
+            user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+        return user;
     }
 
     //查询全部用户
@@ -92,6 +125,14 @@ public class usersService {
         Integer total=userdao.queryAllUsers().size();
         PageHelper.startPage(page,rows);
         List<users> usersList=userdao.queryAllUsers();
+        if(null!=usersList&&0<usersList.size())
+        {
+            for(users user:usersList)
+            {
+                if(null!=user.getAddress()&&!"".equals(user.getAddress()))
+                    user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+            }
+        }
         return new Paging<users>(usersList,total);
     }
 
@@ -105,7 +146,16 @@ public class usersService {
      */
     public List<users> find_user_optimumAnswerNum(Integer pageIndex, String optimumAnswer) {
         PageHelper.startPage(pageIndex, 10);
-        return userdao.find_user_optimumAnswerNum(optimumAnswer);
+        List<users>usersList=userdao.find_user_optimumAnswerNum(optimumAnswer);
+        if(null!=usersList&&0<usersList.size())
+        {
+            for(users user:usersList)
+            {
+                if(null!=user.getAddress()&&!"".equals(user.getAddress()))
+                    user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+            }
+        }
+        return usersList;
     }
 
     /**
@@ -117,7 +167,16 @@ public class usersService {
     public List<users> find_user_replyAskRespondNum(Integer pageIndex,String stateId)
     {
         PageHelper.startPage(pageIndex, 10);
-        return userdao.find_user_replyAskRespondNum(stateId);
+        List<users>usersList=userdao.find_user_replyAskRespondNum(stateId);
+        if(null!=usersList&&0<usersList.size())
+        {
+            for(users user:usersList)
+            {
+                if(null!=user.getAddress()&&!"".equals(user.getAddress()))
+                    user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+            }
+        }
+        return usersList;
     }
 
     /**
@@ -128,7 +187,16 @@ public class usersService {
     public List<users> find_user_replyAskRespondTopNum(Integer pageIndex)
     {
         PageHelper.startPage(pageIndex, 10);
-        return userdao.find_user_replyAskRespondTopNum();
+        List<users>usersList=userdao.find_user_replyAskRespondTopNum();
+        if(null!=usersList&&0<usersList.size())
+        {
+            for(users user:usersList)
+            {
+                if(null!=user.getAddress()&&!"".equals(user.getAddress()))
+                    user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+            }
+        }
+        return usersList;
     }
 
     /**
@@ -138,6 +206,36 @@ public class usersService {
      */
     public List<users> find_user_travelCollectionuserByuserId(String userId)
     {
-        return userdao.find_user_travelCollectionuserByuserId(userId);
+        List<users>usersList=userdao.find_user_travelCollectionuserByuserId(userId);
+        if(null!=usersList&&0<usersList.size())
+        {
+            for(users user:usersList)
+            {
+                if(null!=user.getAddress()&&!"".equals(user.getAddress()))
+                    user.setCity(cityservice.byCityIdQuery(user.getAddress()));
+            }
+        }
+        return usersList;
+    }
+
+    /**
+     * 根据用户编号修改个人简介
+     * @param userId
+     * @param individualResume
+     * @return
+     */
+    public Integer update_users_individualResumeByuserId(String userId,String individualResume)
+    {
+        return userdao.update_users_individualResumeByuserId(userId,individualResume);
+    }
+
+    /**
+     * 根据用户编号修改用户信息
+     * @param user
+     * @return
+     */
+    public Integer update_usersByuserId(users user)
+    {
+        return userdao.update_usersByuserId(user);
     }
 }

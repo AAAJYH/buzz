@@ -62,6 +62,16 @@ public class travelNotesService {
     }
 
     /**
+     * 根据游记编号和状态查询游记
+     * @param travelNotesId
+     * @param stateIds
+     * @return
+     */
+    public travelNotes find_travelNotesBytravelNotesIdAndstateId(String travelNotesId,String... stateIds)
+    {
+        return travelnotesdao.find_travelNotesBytravelNotesIdAndstateId(travelNotesId,stateIds);
+    }
+    /**
      * 根据游记编号修改游记头图
      *
      * @param travelNotesId        游记编号
@@ -255,5 +265,17 @@ public class travelNotesService {
     public List<travelNotes> find_travelNotes_travelNotesReplyByuserIdAndStateId(String userId,String... stateIds)
     {
         return travelnotesdao.find_travelNotes_travelNotesReplyByuserIdAndStateId(userId,stateIds);
+    }
+
+    /**
+     * 根据用户编号和城市编号和状态编号获取游记
+     * @param userId
+     * @param cityId
+     * @param stateIds
+     * @return
+     */
+    public List<travelNotes> find_travelNotesByuserIdAndcityIdAndstateId(String userId,String cityId,String... stateIds)
+    {
+        return travelnotesdao.find_travelNotesByuserIdAndcityIdAndstateId(userId,cityId,stateIds);
     }
 }

@@ -46,7 +46,7 @@
                         <div class="alert alert-warning" th:if="${null != warning_message}" th:text="${warning_message}"></div>
                         <form action="usersController/login_user" method="post" id="_j_login_form">
                             <div class="form-field">
-                                <input name="passport" type="text" placeholder="您的手机号码" autocomplete="off"
+                                <input name="passport" type="text" placeholder="您的手机号码/邮箱" autocomplete="off"
                                        data-verification-name="帐号" class="verification[required,maxSize[50]]" value="" />
                                 <div class="err-tip"></div>
                             </div>

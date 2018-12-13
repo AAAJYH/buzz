@@ -19,6 +19,7 @@ public class users
     private String userName;
     private String sex;
     private String address;
+    private city city;
     private Timestamp birthDate;
     private String individualResume;
     private String stateId;

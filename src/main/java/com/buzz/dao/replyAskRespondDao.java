@@ -41,9 +41,17 @@ public interface replyAskRespondDao
      * @param stateIds
      * @return
      */
-    @Select({"<script>select rsk.*,(select count(rrc.replyAskRespondCommentId) from replyAskRespondComment rrc where rrc.replyAskRespondId=rsk.replyAskRespondId) replyAskRespondCommentNum,(select count(rat.replyAskRespondTopId) from replyAskRespondTop rat where rat.replyAskRespondId=rsk.replyAskRespondId) replyAskRespondTopNum from replyAskRespond rsk where rsk.userId=#{userId} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
-    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateId(@Param("userId") String userId,@Param("stateIds") String...stateIds);
+    @Select({"<script>select rsk.*,(select count(rrc.replyAskRespondCommentId) from replyAskRespondComment rrc where rrc.replyAskRespondId=rsk.replyAskRespondId) replyAskRespondCommentNum,(select count(rat.replyAskRespondTopId) from replyAskRespondTop rat where rat.replyAskRespondId=rsk.replyAskRespondId) replyAskRespondTopNum from replyAskRespond rsk inner join askRespond ask on ask.askRespondId=rsk.askRespondId where rsk.userId=#{userId} and rsk.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and ask.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> </script>"})
+    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateIdAndPage(@Param("userId") String userId,@Param("stateIds") String...stateIds);
 
+    /**
+     * 通过用户编号和状态编号查询回复问答
+     * @param userId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select * from replyAskRespond rar inner join askRespond ask on rar.askRespondId=ask.askRespondId where rar.userId=#{userId} and rar.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and ask.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public List<replyAskRespond> find_replyAskRespondByuserIdAndstateId(@Param("userId") String userId,@Param("stateIds") String...stateIds);
     /**
      * 通过用户编号和状态编号和金牌回答编号查询回复问答,回复问答评论数量,点赞数量
      * @param userId
@@ -165,4 +173,20 @@ public interface replyAskRespondDao
      */
     @Select({"<script>select rar.askRespondId,rrc.userId,rrc.releaseTime from replyAskRespond rar inner join replyAskRespondComment rrc on rar.replyAskRespondId=rrc.replyAskRespondId inner join askRespond ask on ask.askRespondId=rar.askRespondId where rar.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and rar.userId=#{userId} and ask.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> and rrc.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
     public List<replyAskRespond> find_replyAskRespond_Message_replyAskRespondCommentByuserIdAndstateId(@Param("userId")String userId,@Param("stateIds")String...stateIds);
+
+    /**
+     * 通过问答编号,状态,最佳问答状态,查询最佳回复问答
+     * @return
+     */
+    @Select({"<script>select * from replyAskRespond where askRespondId=#{askRespondId} and optimumAnswer=#{optimumAnswer} and stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach></script>"})
+    public replyAskRespond find_replyAskRespondByaskRespondIdAndoptimumAnswerAndstateId(@Param("askRespondId")String askRespondId,@Param("optimumAnswer")String optimumAnswer,@Param("stateIds")String...stateIds);
+
+    /**
+     * 通过问答编号,状态查询最佳回复问答
+     * @param askRespondId
+     * @param stateIds
+     * @return
+     */
+    @Select({"<script>select rar.*,(select count(replyAskRespondTopId) from replyAskRespondTop rart where rart.replyAskRespondId=rar.replyAskRespondId) as replyAskRespondTopNum from replyAskRespond rar where rar.askRespondId=#{askRespondId} and rar.stateId in <foreach collection='stateIds' item='stateId' open='(' separator=',' close=')'>#{stateId}</foreach> order by replyAskRespondTopNum desc</script>"})
+    public replyAskRespond find_replyAskRespondByaskRespondIdAndstateId(@Param("askRespondId")String askRespondId,@Param("stateIds")String...stateIds);
 }

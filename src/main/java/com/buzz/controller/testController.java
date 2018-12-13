@@ -28,4 +28,11 @@ public class testController {
         return "front_desk/index";
     }
 
+    @RequestMapping("/test500")
+    public String test500()
+    {
+        int i=1/0;
+        return "s";
+    }
+
 }

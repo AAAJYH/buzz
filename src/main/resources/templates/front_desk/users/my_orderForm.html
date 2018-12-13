@@ -10,57 +10,34 @@
     <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-
 <div class="topBar">
     <div class="topBarC">
-        <div class="logo"><a title="嗡嗡嗡自由行" href="/">嗡嗡嗡自由行</a></div>
+        <div class="logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;width:40px;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
         <div class="t_nav">
             <ul id="pnl_nav" data-cs-t="headnav_wo">
                 <li data-cs-p="index">
-                    <strong class="t"><a href="/">首页</a></strong>
+                    <strong class="t"><a href="front_desk/homePage.html">首页</a></strong>
                 </li>
                 <li data-cs-t="wenda" data-cs-p="wenda">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                    <strong class="t"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></strong>
                 </li>
                 <li data-cs-t="things" data-cs-p="things">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">嗡嗡嗡周边</a></strong>
+                    <strong class="t"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></strong>
                 </li>
                 <li data-cs-p="together">
-                    <strong class="t"><a href="/together/">结伴</a></strong>
+                    <strong class="t"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></strong>
                 </li>
                 <li data-cs-p="group">
-                    <strong class="t"><a href="/group/">小组</a></strong>
-                </li>
-                <li data-cs-p="mall">
-                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
-                </li>
-                <li class="drop" data-cs-p="other">
-                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
-                    <div class="c">
-
-                        <a href="/focus/" target="_blank">真人兽</a>
-
-                        <a href="/school/" target="_blank">嗡嗡嗡高校</a>
-                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
-                        <a href="/auction/" target="_blank">嗡嗡嗡拍卖行</a>
-                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
-                        <a href="/radio/" target="_blank">旅行电台</a>
-                        <a href="/club/" target="_blank">蜂首聚乐部</a>
-                        <a href="/home/vip_show.php" target="_blank">VIP</a>
-                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
-                    </div>
+                    <strong class="t"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></strong>
                 </li>
             </ul>
         </div>
-        <div class="t_search">
-            <form method="GET" action="/search/s.php" name="search">
-                <input type="text" class="key" value="" name="q" id="word">
-                <input type="submit" value="" class="btn">
-            </form>
-        </div>
-
         <div class="t_info">
-            <div data-pagelet id="pagelet-block-8f07f2f1c8d15822b26d0b681d4ed752" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+            <div class="pagelet-block" id="login_box">
+                <div class="no_login">
+                    <span><a href="usersController/show_login_html">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="usersController/show_login_html">注册</a></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -117,75 +94,6 @@
                 <p>暂无相关订单</p>
             </div>
         </div>
-        <!--暂无订单样式end-->
-        <!--有订单样式start-->
-        <!--<div class='order-table'>
-            <table class='order-hd'>
-                <tbody>
-                <tr>
-                    <th class='td-info'>订单信息</th>
-                    <th class='td-type'>类型</th>
-                    <th class='td-date'>行程日期</th>
-                    <th class='td-cost'>支付金额</th>
-                    <th class='td-status'>订单状态</th>
-                    <th class='td-operate'>操作</th>
-                </tr>
-                </tbody>
-            </table>
-            <div class='order-bd'>
-                <table data-id='16838530' data-type='hotel_youyu' class='order-item'>
-                    <caption>
-                <span class='num'>订单号：
-                                        <a href='/order_center/index/view_order?order_id=16838530&amp;busi_type=hotel_youyu' target='_blank'>
-                        51181116018018500
-                    </a>
-                                    </span>
-                        <span class='time'>下单时间：2018-11-16 16:27:32</span>
-                        <span class='telphone'>联系电话：4006-345-678</span>
-                    </caption>
-                    <tbody>
-                    <tr>
-                        <td class='td-info'>
-                            <a class='pro-img' href='http://www.mafengwo.cn/hotel/40046.html' target='_blank'>
-                                <img src='http://p3-q.mafengwo.net/s10/M00/A8/24/wKgBZ1mIQsKAA6foAAj3lUDf2wA45.jpeg?imageMogr2%2Fthumbnail%2F%21140x140r%2Fgravity%2FCenter%2Fcrop%2F%21140x140%2Fquality%2F100'>
-                            </a>
-                            <div class='pro-detail'>
-                                <p class='title' title='北京首都大酒店'><a href='http://www.mafengwo.cn/hotel/40046.html' target='_blank'>北京首都大酒店</a></p>
-                            </div>
-                        </td>
-                        <td class='td-type'>酒店</td>
-                        <td class='td-date'>
-                            <p>入住: 2018-12-25</p>
-                            <p>离店: 2018-12-26</p>
-                        </td>
-                        <td class='td-cost'>
-                            <strong>￥639.60</strong>                                    </td>
-                        <td class='td-status'>
-                            <p class='s4'>
-                                待支付
-                            </p>
-                        </td>
-                        <td class='td-operate'>
-                            <a href='http://www.mafengwo.cn/order_center/index/view_order?order_id=16838530&amp;busi_type=hotel_youyu&amp;_refer=list' target='_blank'>
-                                查看订单
-                            </a>
-
-                            <a class='btn' href='http://www.mafengwo.cn/hotel_zx/order/detail.php?sOrderId=51181116018018500&amp;sVCode=410664bd53e7ce48c73b20fbe2047953&amp;_refer=list' target='_blank'>
-                                去支付
-                            </a>
-
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id='_j_joinlist_pagination' class='pagelet-block' data-api=':pageletcommon:paginationApi' data-params='{&quot;total&quot;:&quot;1&quot;,&quot;size&quot;:&quot;10&quot;,&quot;currpage&quot;:&quot;1&quot;,&quot;index_num&quot;:10,&quot;tmpl&quot;:&quot;pagination.tpl&quot;,&quot;status&quot;:&quot;0&quot;,&quot;page_item_class&quot;:&quot;_j_pageitem&quot;}' data-controller='/js/pageletcommon/ControllerPagination' data-controller_data='{&quot;page_item_class&quot;:&quot;_j_pageitem&quot;}'></div>
-            <div class='notes simsun'>
-                <p>由于预订时忘记登录马蜂窝而没能记录到的订单，您可以在马蜂窝合作伙伴的网站查询，快速入口：</p>
-                <p><a href='http://www.booking.com/index.zh-cn.html?aid=391337' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/booking_w100h20_2x_2.png' width='100' height='20'></a><a href='http://www.agoda.com/zh-cn?cid=1610250' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/agoda_w100h20_2x_2.png' width='100' height='20'></a><a href='http://hotels.ctrip.com/?sid=449929' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/ctrip_w100h20_2x_2.png' width='100' height='20'></a><a href='http://www.elong.com/?banid=pcmafengwo&amp;fparam=21' target='_blank'><img src='http://images.mafengwo.net/images/hotel/ota/elong_w100h20_2x.png' width='100' height='20'></a></p>
-            </div>
-        </div>-->
-        <!--有订单样式end-->
     </div>
 </div>
 <link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
@@ -199,32 +107,32 @@
                 <dd><strong>920,000</strong> 家国际酒店</dd>
                 <dd><strong>21,000,000</strong> 条真实点评</dd>
                 <dd><strong>382,000,000</strong> 次攻略下载</dd>
-                <dd><a class="highlight" href="http://www.mafengwo.cn/activity/sales_report2017/index" target="_blank">中国旅游行业第一部“玩法”</a></dd>
+                <dd><a class="highlight" target="_blank">中国旅游行业第一部“玩法”</a></dd>
             </dl>
             <dl class="ft-info-col ft-info-about">
                 <dt>关于我们</dt>
-                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于嗡嗡嗡</a><a href="http://www.mafengwo.cn/s/contact.html" class="m_l_10" rel="nofollow">联系我们</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html" rel="nofollow" class="m_l_10">商标声明</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html" rel="nofollow" class="m_l_10">游记协议</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
-                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" href="http://www.mafengwo.cn/s/hr.html" rel="nofollow">加入嗡嗡嗡</a></dd>
+                <dd><a rel="nofollow">关于嗡嗡嗡</a><a class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a rel="nofollow">隐私政策</a><a rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a rel="nofollow">服务协议</a><a rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd><a target="_blank">网站地图</a><a class="joinus highlight m_l_10" title="嗡嗡嗡团队招聘" target="_blank" rel="nofollow">加入嗡嗡嗡</a></dd>
             </dl>
             <dl class="ft-info-col ft-info-service">
                 <dt>旅行服务</dt>
                 <dd>
                     <ul class="clearfix">
-                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
-                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
-                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
-                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
-                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
-                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                        <li><a target="_blank">旅游攻略</a></li>
+                        <li><a target="_blank">酒店预订</a></li>
+                        <li><a target="_blank">旅游特价</a></li>
+                        <li><a target="_blank">国际租车</a></li>
+                        <li><a target="_blank">旅游问答</a></li>
+                        <li><a target="_blank">旅游保险</a></li>
+                        <li><a target="_blank">旅游指南</a></li>
+                        <li><a target="_blank">订火车票</a></li>
+                        <li><a target="_blank">旅游资讯</a></li>
+                        <li><a target="_blank">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" class="highlight">旅行商城全球商家入驻</a></li>
                     </ul>
                 </dd>
             </dl>
@@ -252,8 +160,13 @@
             </dl>
         </div>
 
+        <div class="ft-links">
+            <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+            <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
+        </div>
+
         <div class="ft-copyright">
-            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <a href="front_desk/homePage.html"><i style="background:url('images/logoBottom.png') no-repeat 0 0px;float:left;width: 136px;height: 39px;overflow: hidden;margin: 8px 20px 0 0;"></i></a>
             <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
             <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
         </div>
@@ -268,6 +181,42 @@
     $().ready(
         function()
         {
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        var login_boxHtml="";
+                        if(data.loginState)
+                        {
+                            login_boxHtml="<ul class='user_info'><li id='pnl_user_msg' data-hoverclass='on' class='msg _j_hoverclass'><span id='oldmsg' class='oldmsg'><a href='javascript:' class='infoItem'>消息<b></b></a></span><ul id='head-msg-box' class='drop-bd'><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></li><li class='account _j_hoverclass' data-hoverclass='on' id='pnl_user_set'><span class='t'><a class='infoItem' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"'><img src='"+data.currentUser.photo+"' width='32' height='32' align='absmiddle'><b></b></a></span><div class='uSet c'><div class='asset'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' >我的嗡嗡嗡</a><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'>写游记</a><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow'>我的收藏</a><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow'>我的问答</a><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow'>我的游记</a><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'>游记收藏</a><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow'>我的订单</a><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow'>设置</a><a onclick='logout()' title='退出登录' rel='nofollow'>退出</a></div></li></ul>";
+                        }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='no_login'><span><a href='usersController/show_login_html?url="+url+"'>登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='usersController/show_login_html?url="+url+"'>注册</a></span></div>";
+                        }
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#pnl_user_msg").length||0<$(e.target).closest("#head-msg-box").length)
+                                    $("#pnl_user_msg").addClass("on");
+                                else
+                                    $("#pnl_user_msg").removeClass("on");
+                                if(0<$(e.target).closest("#pnl_user_set").length||0<$(e.target).closest(".uSet").length)
+                                    $("#pnl_user_set").addClass("on");
+                                else
+                                    $("#pnl_user_set").removeClass("on");
+                            }
+                        );
+                    }
+                }
+            });
             var stateIds=GetQueryString("stateIds");
             var filterHtml="";
             if(null==stateIds||""==stateIds)
@@ -353,6 +302,20 @@
                 }
             }
     });
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
+            }
+        });
+    }
     //获取地址栏中的参数
     function GetQueryString(name)
     {

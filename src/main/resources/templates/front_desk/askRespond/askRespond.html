@@ -3,90 +3,50 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <base href="http://localhost/">
-
-    <title>旅游问答,解决旅行问题,基于旅游的问答分享平台 - 马蜂窝</title>
-    <meta name="description" content="马蜂窝旅游问答是基于旅游的问答分享平台,这里聚集了各路旅行达人,只要你有旅行中的问题,在马蜂窝问答问出来,总有旅行经验丰富或者居住在当地的旅行家会为你热心解答" />
-    <meta name="keywords" content="马蜂窝旅游问答" />
-    <meta name="renderer" content="webkit" />
-    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
-    <link href="http://css.mafengwo.net/css/mfw-ask/mfw-ask.css?1492702270" rel="stylesheet" type="text/css"/>
+    <title>旅游问答,解决旅行问题,基于旅游的问答分享平台 - 嗡嗡嗡</title>
+    <link href="css/css+base_css+jquery.suggest_css+plugins_css+plugins+jquery.jgrowl_css+other+popup_css+app+topbar_v2^alw^1527308432.css" rel="stylesheet" type="text/css"/>
+    <link href="css/mfw-ask.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/x-icon" href='images/logoHead.ico'>
     <script src="js/jquery-1.11.0.min.js"></script>
 </head>
 <body>
-
 <div class="topBar">
     <div class="topBarC">
-        <div class="logo"><a title="马蜂窝自由行" href="/">马蜂窝自由行</a></div>
+        <div class="logo"><a style="background: url('images/logoTop.png') no-repeat 0 0;display: block;width:40px;height: 39px;position: relative;" title="嗡嗡嗡" href="front_desk/homePage.html"></a></div>
         <div class="t_nav">
             <ul id="pnl_nav" data-cs-t="headnav_wo">
                 <li data-cs-p="index">
-                    <strong class="t"><a href="/">首页</a></strong>
+                    <strong class="t"><a href="front_desk/homePage.html">首页</a></strong>
                 </li>
                 <li data-cs-t="wenda" data-cs-p="wenda">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
+                    <strong class="t"><a href="destinationController/queryAllDestination" title="目的地">目的地</a></strong>
                 </li>
                 <li data-cs-t="things" data-cs-p="things">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="/mall/things.php">马蜂窝周边</a></strong>
+                    <strong class="t"><a href="front_desk/askRespond/askRespond.html" title="旅游问答">旅游问答</a></strong>
                 </li>
                 <li data-cs-p="together">
-                    <strong class="t"><a href="/together/">结伴</a></strong>
+                    <strong class="t"><a href="/hotelController/hotel2Index" title="酒店">酒店</a></strong>
                 </li>
                 <li data-cs-p="group">
-                    <strong class="t"><a href="/group/">小组</a></strong>
-                </li>
-                <li data-cs-p="mall">
-                    <strong class="t"><a href="/club/">蜂首俱乐部</a></strong>
-                </li>
-                <li class="drop" data-cs-p="other">
-                    <strong class="t"><a href="/app/hun.php">更多<b></b></a></strong>
-                    <div class="c">
-
-                        <a href="/focus/" target="_blank">真人兽</a>
-
-                        <a href="/school/" target="_blank">马蜂窝高校</a>
-                        <a href="/photo_pk/prev.php" target="_blank">照片PK</a>
-                        <a href="/auction/" target="_blank">马蜂窝拍卖行</a>
-                        <a href="/mall/virtual_goods.php" target="_blank">道具商店</a>
-                        <a href="/radio/" target="_blank">旅行电台</a>
-                        <a href="/club/" target="_blank">蜂首聚乐部</a>
-                        <a href="/home/vip_show.php" target="_blank">VIP</a>
-                        <a href="/game/wager.php" target="_blank">分歧终端机</a>
-                    </div>
+                    <strong class="t"><a href="/mapController/MarkerClustererMapIndex" title="地图">地图</a></strong>
                 </li>
             </ul>
         </div>
-        <div class="t_search">
-            <form method="GET" action="/search/s.php" name="search">
-                <input type="text" class="key" value="" name="q" id="word">
-                <input type="submit" value="" class="btn">
-            </form>
-        </div>
-
         <div class="t_info">
-            <div data-pagelet id="pagelet-block-cb22778ca597afcd9902878e27032b5d" class="" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:2}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWDark"></div>
+            <div class="pagelet-block" id="login_box">
+                <div class="no_login">
+                  <span><a href="usersController/show_login_html">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="usersController/show_login_html">注册</a></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 <input type="hidden" id="_j_param" data-type="1" data-sort="8" data-key="" data-mddid="" data-tid="" data-more="1" data-time=""/>
 <div class="wrapper wrapper-new" data-cs-t="wenda">
     <div class="col-main">
-
         <div class="i-main">
             <div class="mt-nav clearfix i_link" style="margin-bottom: 16px;">
                 <a href="front_desk/askRespond/askRespond.html">问答首页</a>
-                <em></em>
-                <div class="drop-mine _j_crumb_my">
-                    <a class="drop-hd" href="/wenda/u/58191946/answer.html" target="_blank"><i></i>我的问答</a>
-                    <ul class="drop-bd" style="display: none;">
-                        <li><a href="/wenda/u/58191946/question.html" target="_blank">我的提问</a></li>
-                        <li><a href="/wenda/u/58191946/answer.html" target="_blank">我的回答</a></li>
-                        <li><a href="/wenda/u/58191946/solution.html" target="_blank">为我推荐的提问</a></li>
-                    </ul>
-                </div>
             </div>
             <div class="search-box">
                 <div class="search-panel" data-cs-t="wenda">
@@ -145,150 +105,24 @@
                 <li class="_j_rank_change_flag" onclick='find_user_replyAskRespondNum(this)'>回答数</li>
                 <li class="_j_rank_change_flag"  onclick="find_user_replyAskRespondTopNum(this)">被顶次数</li>
             </ul>
-            <ul class="rank-list _j_rank_list">
-                <li class="r-top r-top1 clearfix">
-                    <em class="num">1</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/68389998/answer.html" target="_blank" rel="nofollow"><img src="https://p3-q.mafengwo.net/s10/M00/6F/7C/wKgBZ1oS-LmAWy70ACEh4inSDQs42.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/68389998/answer.html" target="_blank" rel="nofollow">Cassie</a></span>
-                        <span class="level"><a href="/wenda/u/68389998/answer.html" target="_blank" rel="nofollow">LV.39</a></span>
-                    </div>
-                    <span class="num">15</span>
-                </li>
-                <li class="r-top r-top2 clearfix">
-                    <em class="num">2</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/93722422/answer.html" target="_blank" rel="nofollow"><img src="https://b4-q.mafengwo.net/s12/M00/73/F9/wKgED1vFTBOAKOjBABL3iM_sLbw58.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/93722422/answer.html" target="_blank" rel="nofollow">雨飞</a></span>
-                        <span class="level"><a href="/wenda/u/93722422/answer.html" target="_blank" rel="nofollow">LV.30</a></span>
-                    </div>
-                    <span class="num">11</span>
-                </li>
-                <li class="r-top r-top3 clearfix">
-                    <em class="num">3</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/94301410/answer.html" target="_blank" rel="nofollow"><img src="https://p2-q.mafengwo.net/s10/M00/9B/DE/wKgBZ1m_DE-ANP9oAANY0fgzAGQ88.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/94301410/answer.html" target="_blank" rel="nofollow">蔡薄四</a></span>
-                        <span class="level"><a href="/wenda/u/94301410/answer.html" target="_blank" rel="nofollow">LV.36</a></span>
-                    </div>
-                    <span class="num">11</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">4</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/71997727/answer.html" target="_blank" rel="nofollow"><img src="https://p1-q.mafengwo.net/s10/M00/A2/D6/wKgBZ1j0d_mAekHJAAA1VR33vwg05.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/71997727/answer.html" target="_blank" rel="nofollow">杨小气鬼</a></span>
-                        <span class="level"><a href="/wenda/u/71997727/answer.html" target="_blank" rel="nofollow">LV.31</a></span>
-                    </div>
-                    <span class="num">10</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">5</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/664589/answer.html" target="_blank" rel="nofollow"><img src="https://b4-q.mafengwo.net/s11/M00/BA/57/wKgBEFsEwYKAWwZYAAEHycOYXjM46.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/664589/answer.html" target="_blank" rel="nofollow">sarah一直在路上</a></span>
-                        <span class="level"><a href="/wenda/u/664589/answer.html" target="_blank" rel="nofollow">LV.37</a></span>
-                    </div>
-                    <span class="num">9</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">6</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/78247586/answer.html" target="_blank" rel="nofollow"><img src="https://p3-q.mafengwo.net/s9/M00/A5/14/wKgBs1aYSHaAAujFAASWmnKvT1k17.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/78247586/answer.html" target="_blank" rel="nofollow">米兰小王子</a></span>
-                        <span class="level"><a href="/wenda/u/78247586/answer.html" target="_blank" rel="nofollow">LV.34</a></span>
-                    </div>
-                    <span class="num">9</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">7</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/80448920/answer.html" target="_blank" rel="nofollow"><img src="https://p1-q.mafengwo.net/s11/M00/F7/99/wKgBEFpylFiAMsXSAACOxFQF-3k65.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/80448920/answer.html" target="_blank" rel="nofollow">击浪飞歌</a></span>
-                        <span class="level"><a href="/wenda/u/80448920/answer.html" target="_blank" rel="nofollow">LV.33</a></span>
-                    </div>
-                    <span class="num">9</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">8</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/65327706/answer.html" target="_blank" rel="nofollow"><img src="https://n2-q.mafengwo.net/s11/M00/79/D3/wKgBEFsrVM6ACjOgAABz7qvz8iM68.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/65327706/answer.html" target="_blank" rel="nofollow">小三没儿话</a></span>
-                        <span class="level"><a href="/wenda/u/65327706/answer.html" target="_blank" rel="nofollow">LV.22</a></span>
-                    </div>
-                    <span class="num">9</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">9</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/10304491/answer.html" target="_blank" rel="nofollow"><img src="https://n1-q.mafengwo.net/s5/M00/CC/6B/wKgB21BZ18H_zz7GAAHzAbBJsr035.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/10304491/answer.html" target="_blank" rel="nofollow">Kyle_Shi</a></span>
-                        <span class="level"><a href="/wenda/u/10304491/answer.html" target="_blank" rel="nofollow">LV.42</a></span>
-                    </div>
-                    <span class="num">9</span>
-                </li>
-                <li class="clearfix">
-                    <em class="num">10</em>
-                    <div class="user no_qid">
-                        <a class="avatar" href="/wenda/u/54985201/answer.html" target="_blank" rel="nofollow"><img src="https://b2-q.mafengwo.net/s12/M00/DB/B3/wKgED1u9lwGAJs2PAAdSiWeh3xc08.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                        <span class="name"><a href="/wenda/u/54985201/answer.html" target="_blank" rel="nofollow">璞石::天祺</a></span>
-                        <span class="level"><a href="/wenda/u/54985201/answer.html" target="_blank" rel="nofollow">LV.32</a></span>
-                    </div>
-                    <span class="num">9</span>
-                </li>
-            </ul>
+            <ul class="rank-list _j_rank_list"></ul>
         </div>
     </div>
 </div>
 </div>
-<link href="http://css.mafengwo.net/css/mfw-footer.css?1533714581" rel="stylesheet" type="text/css"/>
-
+<link href="css/mfw-footer.css" rel="stylesheet" type="text/css"/>
 <div id="footer">
     <div class="ft-content" style="width: 1105px">
         <div class="ft-copyright">
-            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <a href="front_desk/homePage.html"><i style="background:url('images/logoBottom.png') no-repeat 0 0px;float:left;width: 136px;height: 39px;overflow: hidden;margin: 8px 20px 0 0;"></i></a>
             <p>© 2018 Mafengwo.cn <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="http://images.mafengwo.net/images/footer/police_record.png" width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a> <a href="http://images.mafengwo.net/images/about/icp2.jpg" target="_blank" rel="nofollow">京ICP证110318号</a><span class="m_l_10">违法和不良信息举报电话: 010-59222790 举报邮箱 mfwyouji@mafengwo.com</span></p>
-            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
+            <p>网络出版服务许可证：(总)网出证(京)字第161号<span class="m_l_10">增值电信业务经营许可证：京B2-20180228</span> <a href="http://images.mafengwo.net/images/about/licence_3.jpg" target="_blank" rel="nofollow" class="m_l_10">营业执照</a><a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a><span class="m_l_10">嗡嗡嗡客服：国内</span><span class="highlight">4006-345-678</span><span class="m_l_10">海外</span> <span class="highlight">+86-10-5922-2799</span></p>
         </div>
         <div class="ft-safety">
             <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
             <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&ct=df&a=1&pa=787189" target="_blank" rel="nofollow"></a>
             <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
         </div>
-
-    </div>
-</div>
-
-
-<link href="http://css.mafengwo.net/css/mfw-toolbar.css?1493174418" rel="stylesheet" type="text/css"/>
-
-<div class="mfw-toolbar" id="_j_mfwtoolbar">
-    <div class="toolbar-item-top">
-        <a role="button" class="btn _j_gotop">
-            <i class="icon_top"></i>
-            <em>返回顶部</em>
-        </a>
-    </div>
-    <div class="toolbar-item-feedback">
-        <a role="button" data-japp="feedback" class="btn">
-            <i class="icon_feedback"></i>
-            <em>意见反馈</em>
-        </a>
-    </div>
-    <div class="toolbar-item-code">
-        <a role="button" class="btn">
-            <i class="icon_code"></i>
-        </a>
-        <a role="button" class="mfw-code _j_code">
-            <img src="https://p1-q.mafengwo.net/s1/M00/6C/51/wKgIC1t_6TuASybrAADGUPUHjr021.jpeg?imageMogr2%2Fthumbnail%2F%21450x192r%2Fgravity%2FCenter%2Fcrop%2F%21450x192%2Fquality%2F90" width="450" height="192" >
-        </a>
-        <!--<div class="wx-official-pop"><img src="http://images.mafengwo.net/images/qrcode-weixin.gif"><i class="_j_closeqrcode"></i></div>-->
-    </div>
-    <div class="toolbar-item-down">
-        <a role="button" class="btn _j_gobottom">
-            <i class="icon_down"></i>
-            <em>页面底部</em>
-        </a>
     </div>
 </div>
 <input type="hidden" id="keyvalue">
@@ -298,6 +132,50 @@
     $().ready(
         function()
         {
+            $.ajax({
+                url:"usersController/getCurrentLoginUser",
+                dataType:"json",
+                type:"post",
+                success:function(data)
+                {
+                    if(null!=data)
+                    {
+                        var login_boxHtml="";
+                        var i_linkHtml="";
+                        if(data.loginState)
+                        {
+                            login_boxHtml="<ul class='user_info'><li id='pnl_user_msg' data-hoverclass='on' class='msg _j_hoverclass'><span id='oldmsg' class='oldmsg'><a href='javascript:' class='infoItem'>消息<b></b></a></span><ul id='head-msg-box' class='drop-bd'><li><a href='front_desk/message/my_replyAskRespondCommentMessage.html' target='_blank' rel='nofollow'>回答评论</a></li><li><a href='front_desk/message/my_replyAskRespondMessage.html' target='_blank' rel='nofollow'>问答消息</a></li><li><a href='front_desk/message/my_travelNotesReplyMessage.html' target='_blank' rel='nofollow'>游记评论</a></li></ul></li><li class='account _j_hoverclass' data-hoverclass='on' id='pnl_user_set'><span class='t'><a class='infoItem' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"'><img src='"+data.currentUser.photo+"' width='32' height='32' align='absmiddle'><b></b></a></span><div class='uSet c'><div class='asset'><a class='coin' href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank'>"+data.currentUser.userName+"</a></div><a href='front_desk/users/personalSpace.html?userId="+data.currentUser.userId+"' target='_blank' title='我的嗡嗡嗡' >我的嗡嗡嗡</a><a href='front_desk/travelNotes/createNoteIndex.html' target='_blank' class='drop-write' title='写游记'>写游记</a><a href='front_desk/users/my_collect_scenicSpotCollect.html' title='我的收藏' target='_blank' rel='nofollow'>我的收藏</a><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank' title='我的问答' rel='nofollow'>我的问答</a><a href='front_desk/users/travelNotes.html?userId="+data.currentUser.userId+"' target='_blank' class='drop-write' title='我的游记' rel='nofollow'>我的游记</a><a href='front_desk/users/my_travelCollection.html?userId="+data.currentUser.userId+"' target='_blank' title='游记收藏' rel='nofollow'>游记收藏</a><a href='front_desk/users/my_orderForm.html' title='我的订单' target='_blank' rel='nofollow'>我的订单</a><a href='front_desk/users/my_users.html' title='我的设置' target='_blank' rel='nofollow'>设置</a><a onclick='logout()' title='退出登录' rel='nofollow'>退出</a></div></li></ul>";
+                            i_linkHtml="<a href='front_desk/askRespond/askRespond.html'>问答首页</a><em></em><div class='drop-mine _j_crumb_my'><a class='drop-hd' id='drop_hd' href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank'><i></i>我的问答</a><ul class='drop-bd' id='drop_bd' style='display: none;'><li><a href='front_desk/users/my_askRespond.html?userId="+data.currentUser.userId+"' target='_blank'>我的提问</a></li><li><a href='front_desk/users/my_replyAskRespond.html?userId="+data.currentUser.userId+"' target='_blank'>我的回答</a></li><li><a href='front_desk/users/all_askRespond.html?userId="+data.currentUser.userId+"' target='_blank'>我来解答</a></li></ul></div>";
+                        }
+                        else
+                        {
+                            var url=window.location.href;
+                            login_boxHtml="<div class='no_login'><span><a href='usersController/show_login_html?url="+url+"'>登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='usersController/show_login_html?url="+url+"'>注册</a></span></div>";
+                            i_linkHtml="<a href='front_desk/askRespond/askRespond.html'>问答首页</a>";
+                        }
+                        $(".i_link").html(i_linkHtml);
+                        $("#login_box").html(login_boxHtml);
+                        //判断悬浮不是用户头像或者不是用户下拉列表隐藏
+                        $(document).mouseover(
+                            function(e)
+                            {
+                                if(0<$(e.target).closest("#pnl_user_msg").length||0<$(e.target).closest("#head-msg-box").length)
+                                    $("#pnl_user_msg").addClass("on");
+                                else
+                                    $("#pnl_user_msg").removeClass("on");
+                                if(0<$(e.target).closest("#pnl_user_set").length||0<$(e.target).closest(".uSet").length)
+                                    $("#pnl_user_set").addClass("on");
+                                else
+                                    $("#pnl_user_set").removeClass("on");
+                                if(0<$(e.target).closest("#drop_hd").length||0<$(e.target).closest("#drop_bd").length)
+                                    $("#drop_bd").css("display","block");
+                                else
+                                    $("#drop_bd").css("display","none");
+                            }
+                        );
+                    }
+                }
+            });
             find_user_optimumAnswerNum();
             $.ajax({
                 url:"cityController/find_city_askRespondNum",
@@ -310,8 +188,13 @@
                     {
                         for(var i=0;i<data.length;i++)
                         {
-                            _j_open_mdd_listHtml+="<li ><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
+                            if(i<20)
+                                _j_open_mdd_listHtml+="<li ><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
+                            else
+                                _j_open_mdd_listHtml+="<li style='display: none'><a class='_j_change_mdd' href='front_desk/askRespond/askRespond.html?cityId="+data[i].cityId+"' data-cs-p='index_china_mdd' title='哈尔滨' >"+data[i].cityName+"<em>"+data[i].askRespondNum+"</em></a></li>";
                         }
+                        if(20<data.length)
+                            _j_open_mdd_listHtml+="<li class='_j_mdd_see_more'><a style='display: block;width: 46px;text-align: center;' data-nums='"+data.length+"' onclick='show_city(this)'>更多</a></li>";
                     }
                     $("._j_open_mdd_list").html(_j_open_mdd_listHtml);
                 }
@@ -394,10 +277,13 @@
                 for(var i=0;i<data.askResponds.length;i++)
                 {
                     var aHtml="";
-                    if(null!=data.askResponds[i].replyaskrespond.replyHeadPhoto&&""!=data.askResponds[i].replyaskrespond.replyHeadPhoto)
-                        aHtml="<img src='"+data.askResponds[i].replyaskrespond.replyHeadPhoto+"' width='150' height='100'>";
-                    if(null!=data.askResponds[i].replyaskrespond.replyBrief&&""!=data.askResponds[i].replyaskrespond.replyBrief)
-                        aHtml+="<p>"+data.askResponds[i].replyaskrespond.replyBrief+"</p>";
+                    if(null!=data.askResponds[i].replyaskrespond)
+                    {
+                        if(null!=data.askResponds[i].replyaskrespond.replyHeadPhoto&&""!=data.askResponds[i].replyaskrespond.replyHeadPhoto)
+                            aHtml="<img src='"+data.askResponds[i].replyaskrespond.replyHeadPhoto+"' width='150' height='100'>";
+                        if(null!=data.askResponds[i].replyaskrespond.replyBrief&&""!=data.askResponds[i].replyaskrespond.replyBrief)
+                            aHtml+="<p>"+data.askResponds[i].replyaskrespond.replyBrief+"</p>";
+                    }
                     var desc_clearfixHtml="";
                     if(null!=aHtml&&""!=aHtml)
                         desc_clearfixHtml="<div class='desc clearfix'><a href='front_desk/askRespond/replyRespond.html?askRespondId="+data.askResponds[i].askRespondId+"' target='_blank' style='color: #666;'>"+aHtml+"</a></div>";
@@ -424,6 +310,25 @@
             $("._j_pager").css("display","none");
         }
         $("._j_pager_box").html(_j_pager_boxHtml);
+    }
+    //显示或隐藏更多城市
+    function show_city(obj)
+    {
+        var text=$(obj).text();
+        if(text=="更多")
+        {
+            $("._j_open_mdd_list li").css("display","inline-block");
+            $(obj).text("收起");
+        }
+        else
+        {
+            var nums=parseInt($(obj).attr("data-nums"));
+            for(var i=20;i<nums;i++)
+            {
+                $($("._j_open_mdd_list li")[i]).css("display","none");
+            }
+            $(obj).text("更多");
+        }
     }
     //查询用户金牌排位
     function find_user_optimumAnswerNum(obj)
@@ -647,6 +552,20 @@
                 }
             }
     });
+    //退出登录
+    function logout()
+    {
+        $.ajax({
+            url:"usersController/loginOut",
+            dataType:"json",
+            type:"post",
+            success:function (data)
+            {
+                if(data)
+                    window.location.href=window.location.href;
+            }
+        });
+    }
     //获取地址栏中的参数
     function GetQueryString(name)
     {

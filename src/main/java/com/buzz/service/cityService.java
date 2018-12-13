@@ -40,6 +40,17 @@ public class cityService {
         return cityDao.byCityNameQuery(cityName);
     }
 
+    /**
+     * 根据城市名和状态编号搜索
+     * @param cityName
+     * @param stateId
+     * @return
+     */
+    public List<city> find_cityBycityNameNolike(String cityName,String stateId)
+    {
+        return cityDao.find_cityBycityNameNolike(cityName,stateId);
+    }
+
     //城市查询次数加一
     @Transactional
     public int SearchNumberAddOne(String cityId){
@@ -133,5 +144,16 @@ public class cityService {
     public List<city> find_city_askRespondNum(String... stateIds)
     {
         return  cityDao.find_city_askRespondNum(stateIds);
+    }
+
+    /**
+     * 根据城市名和状态编号模糊搜索
+     * @param cityName
+     * @param stateId
+     * @return
+     */
+    public List<city> find_cityBycityNameAndstateId(String cityName,String stateId)
+    {
+        return cityDao.find_cityBycityNameAndstateId(cityName,stateId);
     }
 }
