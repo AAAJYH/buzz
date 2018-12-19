@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="Maven: commons-io:commons-io:1.4">
     <CLASSES>
-<<<<<<< Updated upstream:.idea/libraries/Maven__commons_io_commons_io_1_4.xml
       <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -9,15 +8,6 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4-sources.jar!/" />
-=======
-      <root url="jar://$USER_HOME$/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar!/" />
-    </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4-javadoc.jar!/" />
-    </JAVADOC>
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4-sources.jar!/" />
->>>>>>> Stashed changes:.idea/libraries/Maven__commons_io_commons_io_2_4.xml
     </SOURCES>
   </library>
 </component>

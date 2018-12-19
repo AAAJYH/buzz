@@ -53,12 +53,6 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!-- SpringBoot log4j支持 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-
         <!-- MyBatis依赖 -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
